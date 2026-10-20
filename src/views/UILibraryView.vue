@@ -1,0 +1,1070 @@
+<script setup lang="ts">
+import { computed, onActivated, onBeforeUnmount, onDeactivated, onMounted, ref } from 'vue'
+import Icon from '../components/Icon.vue'
+import ModuleDemo from '../components/ModuleDemo.vue'
+import { lang, t } from '../i18n'
+import { toast } from '../lib/toast'
+import { UI_EN } from './uiLibraryEn'
+
+interface FileRef {
+  label: string
+  path: string
+}
+
+interface ModuleDoc {
+  id: string
+  name: string
+  group: string
+  summary: string
+  files: FileRef[]
+  points: string[]
+}
+
+interface Project {
+  id: string
+  name: string
+  tagline: string
+  description: string
+  repo: string
+  release: string
+  design: string
+  demo?: { label: string; url: string; note: string }
+  stack: string[]
+  theme: string
+  screenshots: { src: string; caption: string }[]
+  modules: ModuleDoc[]
+}
+
+const PROJECTS: Project[] = [
+  {
+    id: 'rhine-music',
+    name: 'Rhine Music · Windows',
+    tagline: 'Rhine Music 的 Windows 桌面移植版：同步歌词、歌单与播放队列。',
+    description:
+      '由 Bong712 维护的 Windows 移植版，界面基础来自 RonaldDeng / LBEILC 的 RhineLabUI。它在三维专辑架与本机播放之上加入同步 LRC 歌词、歌单和可编辑播放队列，并优化了封面图集与实例化绘制。这里展示的是纯视觉演示模式。',
+    repo: 'https://github.com/Bong712/Rhine-Music-Windows',
+    release: 'https://github.com/Bong712/Rhine-Music-Windows/releases',
+    design: 'https://github.com/Bong712/Rhine-Music-Windows/blob/main/README.md',
+    demo: {
+      label: '本地视觉 Demo',
+      url: 'http://127.0.0.1:5175/?demo=1',
+      note: '只用内置三张封面，不读取音乐库、不涉及音频；需要 WebGL 2。',
+    },
+    stack: ['TypeScript', 'WebGL 2', 'WebView2', 'Three.js', 'LRC 歌词'],
+    theme: 'Windows 0.6.0 · 晨雾 / 月影',
+    screenshots: [
+      {
+        src: 'https://raw.githubusercontent.com/RonaldDeng/Rhine-Music-Demo/main/docs/media/v0.5.0/album-preview-night.jpg',
+        caption: '月影主题：三维专辑架（界面基础来自上游 V0.5.0，Windows 版沿用）',
+      },
+      {
+        src: 'https://raw.githubusercontent.com/RonaldDeng/Rhine-Music-Demo/main/docs/media/v0.5.0/album-preview-morning.jpg',
+        caption: '晨雾主题：玻璃专辑盒与浏览位置（上游界面基础）',
+      },
+    ],
+    modules: [
+      {
+        id: 'shelf',
+        name: '三维专辑架',
+        group: '场景',
+        summary:
+          '把专辑按列铺进三维空间，相机在列之间移动；支持按流派、歌手、专辑名排列，以及真实专辑列模式。',
+        files: [
+          { label: 'music-model.ts', path: 'src/music-model.ts' },
+          { label: 'music-array-layout.ts', path: 'src/music-array-layout.ts' },
+          { label: 'music-camera.ts', path: 'src/music-camera.ts' },
+          { label: 'scene.ts', path: 'src/scene.ts' },
+        ],
+        points: [
+          '列中心距 4.746，盒体之间保留 0.75 净空；真实专辑列模式下每张专辑只出现一次。',
+          '浏览只移动当前列，离开某列后会平滑归中；列内首尾会禁用箭头。',
+          '相机与布局拆开，便于替换成其他排列方式或接入不同的专辑数据源。',
+        ],
+      },
+      {
+        id: 'cd-case',
+        name: '玻璃专辑盒',
+        group: '场景',
+        summary:
+          '玻璃质感的 CD 盒，包含侧条、封面贴图、内页反光与揭幕动画；封面区与昼夜几何共用。',
+        files: [
+          { label: 'music-cd-asset.ts', path: 'src/music-cd-asset.ts' },
+          { label: 'cover-atlas.ts', path: 'src/cover-atlas.ts' },
+          { label: 'glass-reveal.ts', path: 'src/glass-reveal.ts' },
+          { label: 'internal-optics.ts', path: 'src/internal-optics.ts' },
+        ],
+        points: [
+          '盒体总宽 3.996、高 3.35，侧条约 0.269；玻璃主体比正方形宽约 11.25%。',
+          '封面为 2.98 × 2.98，昼夜共用同一几何；材质与灯光随主题切换。',
+          '揭幕与内页光学效果独立成模块，可以单独替换动画节奏。',
+        ],
+      },
+      {
+        id: 'overview',
+        name: '缩略图总览与歌手网格',
+        group: '浏览',
+        summary:
+          '按 V 拉远镜头进入总览；横屏使用投影名牌，竖屏显示完整歌手网格，点击歌手返回近景。',
+        files: [
+          { label: 'music-overview.ts', path: 'src/music-overview.ts' },
+          { label: 'music-overview-ui.ts', path: 'src/music-overview-ui.ts' },
+          {
+            label: 'music-overview-artist-grid.ts',
+            path: 'src/music-overview-artist-grid.ts',
+          },
+        ],
+        points: [
+          '总览里选择不会自动播放；Esc 或 V 返回近景。',
+          '宽高比 < 1.05 时自动启用完整歌手网格；也可在设置中让所有比例使用网格。',
+          '投影名牌先定位列，再点箭头返回，适合大屏横屏。',
+        ],
+      },
+      {
+        id: 'settings',
+        name: '双页设置面板',
+        group: '面板',
+        summary:
+          '音乐库设置与画面声音两个页签，常用项外露、高级项折叠；页签固定在顶部，内容独立滚动。',
+        files: [
+          { label: 'music-panel-layout.css', path: 'src/music-panel-layout.css' },
+          {
+            label: 'music-settings-theme.css',
+            path: 'src/music-settings-theme.css',
+          },
+          { label: 'quality-settings.ts', path: 'src/quality-settings.ts' },
+          { label: 'audio-settings.ts', path: 'src/audio-settings.ts' },
+        ],
+        points: [
+          '切换页签会保留已输入内容、导入预览和各页滚动位置。',
+          '常用项直接展示，AI 工作流、在线资料与高级调试默认收起。',
+          '浅色晨雾主题下使用不透底暖色基底，滑块、提示与滚动条统一取主题色。',
+        ],
+      },
+      {
+        id: 'player',
+        name: '本地播放与切歌',
+        group: '播放',
+        summary:
+          '读取本地音频标签与封面，通过浏览器音频或 macOS CoreAudio 输出；切歌与传输标题有独立动画。',
+        files: [
+          { label: 'music-player.ts', path: 'src/music-player.ts' },
+          { label: 'audio.ts', path: 'src/audio.ts' },
+          { label: 'music-browser-gapless.ts', path: 'src/music-browser-gapless.ts' },
+          {
+            label: 'music-transport-title.ts',
+            path: 'src/music-transport-title.ts',
+          },
+        ],
+        points: [
+          '浏览器输出与 CoreAudio 原生输出可切换；原生输出可选择设备。',
+          '浏览器端支持无缝衔接；播放状态与界面标题分离。',
+          '点击右上播放歌名可定位当前曲目，但不会改变播放状态。',
+        ],
+      },
+      {
+        id: 'navigation',
+        name: '滑尺与滚轮导航',
+        group: '浏览',
+        summary:
+          '底部滑尺、滚轮、方向键与触摸共同驱动浏览；滑尺刻度与导航动画独立成模块。',
+        files: [
+          { label: 'music-ruler.ts', path: 'src/music-ruler.ts' },
+          {
+            label: 'music-wheel-navigation.ts',
+            path: 'src/music-wheel-navigation.ts',
+          },
+          {
+            label: 'music-navigation-motion.ts',
+            path: 'src/music-navigation-motion.ts',
+          },
+        ],
+        points: [
+          '方向键、底部滑尺与滚轮共享同一套目标定位。',
+          '列内移动与跨列移动使用不同的缓动节奏。',
+          '滑尺刻度由独立 CSS 与逻辑生成，便于换主题。',
+          '视觉 Demo 支持点击刻度、按住拖动、滚轮与 ← → / Home / End，指针、专辑名和计数同步更新。',
+        ],
+      },
+      {
+        id: 'theme',
+        name: '主题与开场',
+        group: '动效',
+        summary:
+          '晨雾浅色与月影深色两套主题，配合开场标语、品牌字轮与减少动态效果设置。',
+        files: [
+          { label: 'music-theme.css', path: 'src/music-theme.css' },
+          { label: 'appearance.ts', path: 'src/appearance.ts' },
+          { label: 'music-opening.ts', path: 'src/music-opening.ts' },
+          { label: 'boot.ts', path: 'src/boot.ts' },
+        ],
+        points: [
+          '开场由「ONE ALBUM AT A TIME」淡入淡出后接三维专辑阵列，可跳过、重播。',
+          '手动切换主题会播放过渡动画；系统“减少动态效果”会关闭或缩短动效。',
+          '主题偏好保存在浏览器，与专辑浏览位置互不影响。',
+        ],
+      },
+      {
+        id: 'lyrics',
+        name: '同步歌词',
+        group: '播放',
+        summary:
+          '读取音频文件同名的 LRC 歌词，随播放进度高亮当前行，支持偏移解析与点击歌词定位。',
+        files: [
+          { label: 'lyrics.ts', path: 'src/lyrics.ts' },
+          { label: 'music-player.ts', path: 'src/music-player.ts' },
+          { label: 'music-app.ts', path: 'src/music-app.ts' },
+        ],
+        points: [
+          '歌词文件与音频同名放置即可被识别，不复制、不上传音频。',
+          '当前行随播放进度同步高亮，点击歌词可定位播放位置。',
+          '支持解析偏移标签，处理不同来源 LRC 的时间偏差。',
+        ],
+      },
+      {
+        id: 'queue',
+        name: '歌单与播放队列',
+        group: '播放',
+        summary:
+          'Windows 版新增的本机歌单管理和可编辑播放队列，支持上一首／下一首。',
+        files: [
+          { label: 'music-app.ts', path: 'src/music-app.ts' },
+          { label: 'music-playlists.css', path: 'src/music-playlists.css' },
+          { label: 'music-player.ts', path: 'src/music-player.ts' },
+        ],
+        points: [
+          '歌单与队列保存在本机，播放仍读取原音频路径。',
+          '队列可手动调整顺序，支持上一首／下一首。',
+          '演示封面模式下隐藏队列编辑入口，避免误操作。',
+        ],
+      },
+      {
+        id: 'performance',
+        name: '封面图集与实例化',
+        group: '性能',
+        summary:
+          'Windows 版把封面打包为普通 2D 图集，以独立 UV 区域和实例化绘制降低三维专辑架的传输与绘制开销。',
+        files: [
+          { label: 'cover-atlas.ts', path: 'src/cover-atlas.ts' },
+          { label: 'music-model.ts', path: 'src/music-model.ts' },
+          { label: 'music-array-layout.ts', path: 'src/music-array-layout.ts' },
+        ],
+        points: [
+          '封面更新只上传变化的图块，而不是整套图集。',
+          '专辑架使用实例化绘制，减少 draw call。',
+          '冷切换时选中封面与离场封面改用 CanvasTexture 路径，避免 GPU 纹理读回复制。',
+        ],
+      },
+      {
+        id: 'navhud',
+        name: '底部导航与状态层',
+        group: '浏览',
+        summary:
+          '专辑计数、上下切专辑、左右切流派、键盘提示、收藏状态与 rAF 诊断信息，是专辑架最底部的常驻界面层。',
+        files: [
+          { label: 'music-app.ts', path: 'src/music-app.ts' },
+          { label: 'music.css', path: 'src/music.css' },
+          { label: 'music-text-motion.ts', path: 'src/music-text-motion.ts' },
+          { label: 'music-navigation-motion.ts', path: 'src/music-navigation-motion.ts' },
+          { label: 'music-boot.ts', path: 'src/music-boot.ts' },
+        ],
+        points: [
+          'ALBUM / SELECT 的序号会随切专辑滚动切换，总数来自当前分类。',
+          '中间是专辑上下步进与刻度；右侧是流派左右切换，GENRE 计数与名称同步淡入。',
+          '底部左侧显示 LOCAL COLLECTION 与演示状态，右侧是 rAF 帧率、缓冲分辨率、主题与 WebGL 2 加速状态。',
+          '键盘提示常驻：← → 切流派、↑ ↓ 切专辑、ENTER 打开；开场时整组元素按序淡入。',
+          '切专辑时背景专辑列整体横移、序号上滚；切流派时名称淡入、背景轻微偏色。',
+          'ENTER 或点击「打开专辑」时封面放大进入详情，ESC / 返回按钮退出。',
+        ],
+      },
+      {
+        id: 'search',
+        name: '音乐库与搜索',
+        group: '浏览',
+        summary:
+          '按专辑、歌曲、流派浏览与搜索；选中结果后移动到目标位置并打开详情，不改变播放。',
+        files: [
+          { label: 'music-search.ts', path: 'src/music-search.ts' },
+          { label: 'music-browser-gapless.ts', path: 'src/music-browser-gapless.ts' },
+          { label: 'music-order.ts', path: 'src/music-order.ts' },
+          { label: 'music-real-columns.ts', path: 'src/music-real-columns.ts' },
+        ],
+        points: [
+          '搜索覆盖专辑与歌曲，可按流派过滤。',
+          '定位采用缓起缓停的移动，不触发播放。',
+          '每列浏览位置默认保留，切换开关不会移动当前画面。',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'endfield-ui',
+    name: 'Endfield UI',
+    tagline: '《明日方舟：终末地》设计风格文档，以及按文档实现的 React 组件库。',
+    description:
+      '工业编辑风：纸白或烟黑的底、墨黑的字、一处信号黄，再叠一层克制的印刷与测绘痕迹。仓库包含设计规范、Tailwind v4 主题令牌、React 组件库、Storybook 预览站与文档站；主入口不包含官方素材。',
+    repo: 'https://github.com/icaruszezen/endfield-ui',
+    release: 'https://www.npmjs.com/package/@endfield-ui/react',
+    design: 'https://icaruszezen.github.io/endfield-ui/design/',
+    demo: {
+      label: '在线 Storybook',
+      url: 'https://icaruszezen.github.io/endfield-ui/',
+      note: '在线组件预览：控件、母题与示例页，可切换亮暗主题；不需要本地安装。',
+    },
+    stack: ['React', 'TypeScript', 'Tailwind CSS v4', 'Storybook', 'Base UI'],
+    theme: '亮 / 暗 / 反转块',
+    screenshots: [
+      {
+        src: 'https://raw.githubusercontent.com/icaruszezen/endfield-ui/main/docs/screenshots/depot-dark.png',
+        caption: '示例页「仓库」暗色：镂空巨字、楔形页签、物品格与刻度圆环。',
+      },
+      {
+        src: 'https://raw.githubusercontent.com/icaruszezen/endfield-ui/main/docs/screenshots/settings-light.png',
+        caption: '示例页「设置」亮色：表单、步骤条与校验反馈。',
+      },
+    ],
+    modules: [
+      {
+        id: 'ef-foundations',
+        name: '设计基础与主题',
+        group: '基础',
+        summary:
+          '纸白 / 烟黑、墨黑与信号黄；亮暗主题、反转块和可替换的强调色，全部落在 Tailwind v4 的 @theme 里。',
+        files: [
+          { label: 'theme.css', path: 'packages/ui/src/styles/theme.css' },
+          { label: 'utilities.css', path: 'packages/ui/src/styles/utilities.css' },
+          { label: 'useTheme.ts', path: 'packages/ui/src/hooks/useTheme.ts' },
+        ],
+        points: [
+          '默认亮色；在 <html> 或任意容器写 data-theme="dark" 即可切暗色，标题带用 inverse 反转。',
+          '信号黄可整体换成自己的强调色，组件与焦点环同步。',
+          '纸、墨、黄的比例被写进规范：颜色只做信号，不铺满界面。',
+        ],
+      },
+      {
+        id: 'ef-controls',
+        name: '基础控件',
+        group: '控件',
+        summary:
+          'Button、ButtonGroup、Tag、Panel、Toolbar、Kbd、SectionTitle、BracketTitle、Tabs 等基础控件。',
+        files: [
+          { label: 'Button.tsx', path: 'packages/ui/src/components/button/Button.tsx' },
+          { label: 'Tag.tsx', path: 'packages/ui/src/components/tag/Tag.tsx' },
+          { label: 'Panel.tsx', path: 'packages/ui/src/components/panel/Panel.tsx' },
+        ],
+        points: [
+          '切角、楔形、角括号是形状语言，不是装饰贴纸；同一含义在不同控件里复用。',
+          '按钮有实心、描边与文字层级，焦点环在亮暗主题下都保持可读。',
+          'Tag 用英文承担结构、中文承担阅读，大小写与字距有固定规范。',
+        ],
+      },
+      {
+        id: 'ef-forms',
+        name: '表单控件',
+        group: '表单',
+        summary:
+          'Input、Select、Combobox、OtpInput、Checkbox、SegmentedControl、Slider、FileUpload 等，含校验与错误状态。',
+        files: [
+          { label: 'Input.tsx', path: 'packages/ui/src/components/input/Input.tsx' },
+          {
+            label: 'SegmentedControl.tsx',
+            path: 'packages/ui/src/components/segmented-control/SegmentedControl.tsx',
+          },
+          { label: 'Checkbox.tsx', path: 'packages/ui/src/components/checkbox/Checkbox.tsx' },
+        ],
+        points: [
+          '输入框的聚焦线从左往右擦出，错误状态用颜色之外的记号再说明一次。',
+          '组合框、滑块、验证码等复杂行为交给 Base UI，键盘与读屏可用。',
+          '表单控件同时适配亮色、暗色与反转块三种局部主题。',
+        ],
+      },
+      {
+        id: 'ef-feedback',
+        name: '反馈与浮层',
+        group: '反馈',
+        summary:
+          'Alert、Toast、Progress、Spinner、Skeleton、Dialog、Drawer、Tooltip、Popover 等状态与浮层。',
+        files: [
+          { label: 'Alert.tsx', path: 'packages/ui/src/components/alert/Alert.tsx' },
+          { label: 'Dialog.tsx', path: 'packages/ui/src/components/dialog/Dialog.tsx' },
+          { label: 'Progress.tsx', path: 'packages/ui/src/components/progress/Progress.tsx' },
+        ],
+        points: [
+          '浮层从触发它的那一侧来，进入与退出都在 0.2–0.3 秒内完成，没有回弹。',
+          '状态不只靠颜色：图标、文案与形状一起说明成功、警告、错误。',
+          '系统开启“减少动态效果”时，过渡直接停在终态。',
+        ],
+      },
+      {
+        id: 'ef-display',
+        name: '展示与导航',
+        group: '展示',
+        summary:
+          'ItemSlot / ItemGrid、Table、Stat、SideRail、PageHeader、Breadcrumb、Steps、Timeline 等展示与导航组件。',
+        files: [
+          { label: 'ItemSlot.tsx', path: 'packages/ui/src/components/item-slot/ItemSlot.tsx' },
+          { label: 'SideRail.tsx', path: 'packages/ui/src/components/side-rail/SideRail.tsx' },
+          { label: 'Stat.tsx', path: 'packages/ui/src/components/stat/Stat.tsx' },
+        ],
+        points: [
+          '物品格用稀有度、库存与角标表达状态，暗色下仍能分辨层级。',
+          '表格支持展开行、排序、勾选与行内操作；窄屏侧轨会换成顶栏菜单。',
+          '导航控件可以用 render 接路由库的链接组件。',
+        ],
+      },
+      {
+        id: 'ef-motifs',
+        name: '母题与动效',
+        group: '母题',
+        summary:
+          'CornerBrackets、Viewfinder、GhostText、Hatch、TickRing、HazardStripe 等母题，以及短促、无回弹的动效规范。',
+        files: [
+          { label: 'decor.ts', path: 'packages/ui/src/lib/decor.ts' },
+          { label: 'TickRing.tsx', path: 'packages/ui/src/components/tick-ring/TickRing.tsx' },
+          { label: 'GhostText.tsx', path: 'packages/ui/src/components/ghost-text/GhostText.tsx' },
+          { label: 'CornerBrackets.tsx', path: 'packages/ui/src/components/corner-brackets/CornerBrackets.tsx' },
+        ],
+        points: [
+          '切角、斜楔、角括号、镂空字、斜纹同时是组件与 Tailwind 工具类。',
+          '纹理有预算：底纹、测绘刻度只出现在需要强调的区域。',
+          '动得短、动得硬：状态变化 0.2–0.3 秒完成，不回弹；减少动态效果时直接到终态。',
+          '视觉 Demo 进入时会播放一次：镂空字从左擦除、四角括号依次展开、刻度环旋转点亮、斜纹扫过；点「重播动效」可再看一次。',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'nasa-punk',
+    name: 'NASA-Punk UI Skill',
+    tagline: 'NASA 黄金时代复古未来主义设计系统，给 AI 编码智能体的 UI 技能包。',
+    description:
+      '一套可被 AI 编码智能体直接调用的设计系统技能：米白纸面打底，遇到终端、日志或仪表盘自动切换暗色仪表面；提供印刷文档、控制台与时代色调三套表面语言。参考实现是一个零依赖单文件 HTML，设计语言溯源 1976 年 NASA 图形标准手册与 NTRS 技术报告插图。',
+    repo: 'https://github.com/duanth/NASA-Punk-UI-SKILL',
+    release: 'https://github.com/duanth/NASA-Punk-UI-SKILL',
+    design: 'https://github.com/duanth/NASA-Punk-UI-SKILL/blob/main/SKILL.md',
+    demo: {
+      label: 'Reference implementation',
+      url: '/nasa-punk-reference.html',
+      note: '仓库自带的零依赖单文件参考实现，已本地托管；含印刷文档、控制台与图表三种版面。',
+    },
+    stack: ['HTML / CSS', 'Design tokens', 'SKILL.md', 'Zero deps', 'AI agent skill'],
+    theme: 'PRINT / CONSOLE / era grades',
+    screenshots: [
+      {
+        src: 'https://raw.githubusercontent.com/duanth/NASA-Punk-UI-SKILL/main/docs/preview-hero.png',
+        caption: '印刷文档封面：米白纸面、信号红、机构报头与文档道具。',
+      },
+      {
+        src: 'https://raw.githubusercontent.com/duanth/NASA-Punk-UI-SKILL/main/docs/preview-console.png',
+        caption: '控制台仪表：深空底、扫描单目镜、星图面板与状态芯片。',
+      },
+    ],
+    modules: [
+      {
+        id: 'nasa-foundations',
+        name: '基础表皮与字体',
+        group: '基础',
+        summary:
+          '信号红 #E4002B、海军蓝 #0B3D91 与磨损烤漆白；Helvetica 标题配等宽模板标签，左对齐、右不齐，禁粉彩与霓虹。',
+        files: [
+          { label: 'SKILL.md', path: 'SKILL.md' },
+          { label: 'snippets.css', path: 'references/snippets.css' },
+          { label: 'reference.html', path: 'assets/reference.html' },
+        ],
+        points: [
+          '颜色只做信号：纸面、墨线与磨损白占主体，红与蓝用于强调和机构识别。',
+          '标题用 Helvetica，规格标签用等宽字体；文案左对齐，右缘保持自然不齐。',
+          '每个决定同时通过两层判断：像 1979 年政府技术展，也像今天能发布的产品。',
+        ],
+      },
+      {
+        id: 'nasa-print',
+        name: '印刷文档层',
+        group: 'PRINT',
+        summary:
+          '默认表面：米白纸面与墨线图表，自动织入至少两件 Band-15 文档道具——报头、备忘录元数据、展带、导视或条码。',
+        files: [
+          { label: 'SKILL.md', path: 'SKILL.md' },
+          { label: 'component-matrix.md', path: 'references/component-matrix.md' },
+          { label: 'reference.html', path: 'assets/reference.html' },
+        ],
+        points: [
+          '页面级底色默认保持浅色，阅读区不铺暗色仪表。',
+          '文档道具按内容体裁自动部署：杂志封面、机构公文、阅读页、博物馆展带、GPO 版权页。',
+          '报告图表遵循技术插图语法，坐标轴默认关闭，先保证图形可读。',
+        ],
+      },
+      {
+        id: 'nasa-console',
+        name: '控制台仪表',
+        group: 'CONSOLE',
+        summary:
+          '暗色仪表面 #0A1420，用于终端、日志墙、仪表盘与状态密集簇；含扫描单目镜、星图面板、状态芯片、拉丝金属与传承衬线层。',
+        files: [
+          { label: 'SKILL.md', path: 'SKILL.md' },
+          { label: 'reference.html', path: 'assets/reference.html' },
+          { label: 'snippets.css', path: 'references/snippets.css' },
+        ],
+        points: [
+          '暗色只附着在仪器型内容上，不用于正文阅读面；整页控制台需显式请求。',
+          '状态芯片成三联出现，稀有度使用三色；扫描单目镜与星图面板是标志性组件。',
+          '拉丝金属斜面、角螺钉与冷暖分光负责硬件质感，避免霓虹赛博朋克。',
+        ],
+      },
+      {
+        id: 'nasa-charts',
+        name: '图表与仪表语法',
+        group: '图表',
+        summary:
+          '技术报告插图四阶梯填充、基线柱、带量程弧的模拟表盘、灰／黑白条纹／红三态旗语与磁翻片。',
+        files: [
+          { label: 'SKILL.md', path: 'SKILL.md' },
+          { label: 'component-matrix.md', path: 'references/component-matrix.md' },
+          { label: 'reference.html', path: 'assets/reference.html' },
+        ],
+        points: [
+          '填充阶梯：描边 → 实心 → 45° 影线 → 交叉影线，用同一套语法表达数据层级。',
+          '柱图默认贴着基线生长，不画坐标轴；刻度与量程放在图注或表盘弧上。',
+          '状态不依赖颜色：灰、黑白条纹、红三种旗语在灰度打印下仍可区分。',
+        ],
+      },
+      {
+        id: 'nasa-motion',
+        name: '运动节奏与质量门',
+        group: '动效',
+        summary:
+          '注意力状态必须呼吸（2.5s，透明度 .55↔1）；入场 150–250ms ease-out；全页只允许一处 CRT／闪烁特例。',
+        files: [
+          { label: 'SKILL.md', path: 'SKILL.md' },
+          { label: 'collision-check.js', path: 'scripts/collision-check.js' },
+          { label: 'icon-geometry-check.js', path: 'assets/icon-geometry-check.js' },
+        ],
+        points: [
+          '闪烁是硬失败：需要持续注意的状态用呼吸，不用高频闪烁。',
+          '入场短促、ease-out；标题行高与图文碰撞由审计器检查。',
+          '零意外遮挡法则 + 碰撞审计 + 强制视觉验证，构成交付前的质量门。',
+        ],
+      },
+      {
+        id: 'nasa-emblem',
+        name: '时代色调与纹章',
+        group: '母题',
+        summary:
+          '.era-mercury / .era-gemini / .era-apollo 三档时代色调，以及四区纹章公式、Constellation 四色条纹与虚构机构识别。',
+        files: [
+          { label: 'SKILL.md', path: 'SKILL.md' },
+          { label: 'reference.html', path: 'assets/reference.html' },
+          { label: 'snippets.css', path: 'references/snippets.css' },
+        ],
+        points: [
+          '时代色调只做令牌级微调：水星冷灰蓝、双子中性钢、阿波罗暖棕褐。',
+          '纹章按四区公式组合，机构名与任务章可以使用虚构品牌，但不能使用 NASA 官方徽记。',
+          'NASA 徽记与标志是美国政府商标；本仓库只包含虚构的、受启发的品牌。',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'aureole',
+    name: 'AUREOLE · Sixth UI',
+    tagline: '从《明日方舟》六周年 PV 前 60 秒提取的交互模板：未来、机械、圣徒。',
+    description:
+      '把宣传影像里的黑场、银白结构、钴蓝图纸与浅色解构转成可交互的网页模板。主体被拆成透明图像平面，在 CSS 三维空间中持续漂浮；编号引线跟随部件，支持实体观测、结构透视与解构重组三种模式，以及搜索、档案、配置导出和减少动态。',
+    repo: 'https://github.com/AlphaZero78/ArknightsSixthUI',
+    release: 'https://github.com/AlphaZero78/ArknightsSixthUI',
+    design: 'https://github.com/AlphaZero78/ArknightsSixthUI/blob/main/docs/SOURCE-STUDY.md',
+    demo: {
+      label: '本地交互 Demo',
+      url: 'http://127.0.0.1:5176/',
+      note: '完整模板运行在本地 5176：可切换三种观测模式、搜索标本、点击编号阅读部件并导出配置。',
+    },
+    stack: ['React 19', 'Vite', 'CSS 3D', 'Canvas', 'JavaScript'],
+    theme: '实体观测 / 结构透视 / 解构重组',
+    screenshots: [
+      {
+        src: 'https://raw.githubusercontent.com/AlphaZero78/ArknightsSixthUI/main/docs/images/observation.png',
+        caption: '实体观测：黑场中的银白图像平面、编号引线与部件档案。',
+      },
+      {
+        src: 'https://raw.githubusercontent.com/AlphaZero78/ArknightsSixthUI/main/docs/images/blueprint.png',
+        caption: '结构透视：钴蓝点阵、轮廓、轴线与校准圆。',
+      },
+    ],
+    modules: [
+      {
+        id: 'aureole-observation',
+        name: '实体观测',
+        group: '模式',
+        summary:
+          '黑场中的银白图像平面分别漂浮，编号引线跟随对应结构；点击编号或短句阅读部件档案。',
+        files: [
+          { label: 'App.jsx', path: 'src/opening/App.jsx' },
+          { label: 'Components.jsx', path: 'src/opening/Components.jsx' },
+          { label: 'opening.css', path: 'src/opening/opening.css' },
+        ],
+        points: [
+          '标本主体拆成透明平面，按不同深度与相位漂浮；编号与引线独立成网页图层。',
+          '靠近指针或键盘聚焦时，编号与短句的位置会稳定下来，方便点击与阅读。',
+          '点击编号定位部件，点击主体旁短句打开完整档案；Escape 收起。',
+        ],
+      },
+      {
+        id: 'aureole-blueprint',
+        name: '结构透视',
+        group: '模式',
+        summary:
+          '为每个透明图层派生轮廓，叠加钴蓝点阵、轴线、校准圆与选中截面，观察同一主体的结构关系。',
+        files: [
+          { label: 'LayeredSubject.jsx', path: 'src/opening/LayeredSubject.jsx' },
+          { label: 'layerGeometry.js', path: 'src/opening/layerGeometry.js' },
+          { label: 'opening.css', path: 'src/opening/opening.css' },
+        ],
+        points: [
+          '轮廓由前景连通域派生，结构点按所属图层定位，再投影到屏幕。',
+          '钴蓝点阵、轴线与校准圆是独立图层，不改变主体材质。',
+          '选中截面用于强调当前部件，切换模式时保持同一标本。',
+        ],
+      },
+      {
+        id: 'aureole-deconstruct',
+        name: '解构重组',
+        group: '模式',
+        summary:
+          '浅色反相层、持续错位的斜切片、独立漂浮的衬线碎字与放射引线，构成第三种观察方式。',
+        files: [
+          { label: 'App.jsx', path: 'src/opening/App.jsx' },
+          { label: 'Components.jsx', path: 'src/opening/Components.jsx' },
+          { label: 'opening.css', path: 'src/opening/opening.css' },
+        ],
+        points: [
+          '浅色反相层与斜切片让同一主体呈现“被拆开阅读”的状态。',
+          '衬线碎字与放射引线各自漂浮，仍与主体共享同一时基。',
+          '三种模式共享标本、编号与档案数据，只改变呈现层。',
+        ],
+      },
+      {
+        id: 'aureole-float',
+        name: '漂浮场景与投影',
+        group: '动效',
+        summary:
+          '18 秒基础周期的位姿、CSS 三维变换、指针视差与屏幕投影；减少动态时所有图层直接静止。',
+        files: [
+          { label: 'useFloatingScene.js', path: 'src/opening/useFloatingScene.js' },
+          { label: 'floatingMath.js', path: 'src/opening/floatingMath.js' },
+          { label: 'layerGeometry.js', path: 'src/opening/layerGeometry.js' },
+        ],
+        points: [
+          '图层、短句和碎字使用不同深度与相位，但共用一个连续时基。',
+          '指针提供少量额外视角变化；主体投影变化时引线持续更新。',
+          '系统减少动态或手动开启后，各层保持静止，搜索与阅读继续可用。',
+        ],
+      },
+      {
+        id: 'aureole-annotate',
+        name: '标注、搜索与档案',
+        group: '交互',
+        summary:
+          '搜索标本名称、编号与英文标识，调节标注密度，打开部件档案；支持数字键、方向键、/ 与 Escape。',
+        files: [
+          { label: 'App.jsx', path: 'src/opening/App.jsx' },
+          { label: 'data.js', path: 'src/opening/data.js' },
+          { label: 'Components.jsx', path: 'src/opening/Components.jsx' },
+        ],
+        points: [
+          '1 / 2 / 3 切换观测模式，左右方向键切换标本，/ 聚焦搜索，Escape 关闭浮层。',
+          '标注密度可调，关闭标注后仍可阅读主体与档案。',
+          '标本名称、编号与英文标识都可搜索。',
+        ],
+      },
+      {
+        id: 'aureole-settings',
+        name: '配置与无障碍',
+        group: '系统',
+        summary:
+          '导出当前界面配置或标本 JSON，开关标注、微量视差与减少动态；桌面与手机保持主体和控制区可见。',
+        files: [
+          { label: 'App.jsx', path: 'src/opening/App.jsx' },
+          { label: 'data.js', path: 'src/opening/data.js' },
+          { label: 'docs/ASSETS.md', path: 'docs/ASSETS.md' },
+        ],
+        points: [
+          '导出包含标本 ID、模式和界面设置；标本记录仍是模板中的虚构数据。',
+          '读取并监听系统减少动态偏好，也可在界面参数中手动切换。',
+          '手机保持主体与控制区可见；桌面使用完整观测场。',
+        ],
+      },
+    ],
+  },
+]
+
+const activeProject = ref(PROJECTS[0])
+const activeModule = ref<ModuleDoc | null>(PROJECTS[0].modules[0])
+const shotIndex = ref(0)
+const demoOpen = ref(false)
+const demoUrl = computed(() => project.value.demo?.url ?? project.value.repo)
+
+const project = computed<Project>(() => {
+  const p = activeProject.value
+  if (lang.value === 'zh') return p
+  const e = UI_EN[p.id]
+  if (!e) return p
+  return {
+    ...p,
+    tagline: e.tagline,
+    description: e.description,
+    theme: e.theme,
+    demo: p.demo
+      ? { ...p.demo, label: e.demoLabel ?? p.demo.label, note: e.demoNote ?? p.demo.note }
+      : p.demo,
+    screenshots: p.screenshots.map((shot, i) => ({ ...shot, caption: e.shots[i] ?? shot.caption })),
+    modules: p.modules.map((m) => ({ ...m, ...(e.modules[m.id] ?? {}) })),
+  }
+})
+const currentModule = computed(
+  () => project.value.modules.find((m) => m.id === activeModule.value?.id) ?? null,
+)
+const currentShot = computed(
+  () => project.value.screenshots[shotIndex.value] ?? project.value.screenshots[0],
+)
+
+function selectProject(p: Project) {
+  activeProject.value = p
+  activeModule.value = p.modules[0] ?? null
+  shotIndex.value = 0
+  demoOpen.value = false
+  syncRoute()
+}
+
+function selectModule(m: ModuleDoc) {
+  activeModule.value = m
+  syncRoute()
+}
+
+function parseRoute() {
+  if (!window.location.hash.startsWith('#/ui')) return
+  const parts = window.location.hash.replace(/^#\/?/, '').split('/')
+  const p = PROJECTS.find((item) => item.id === parts[1]) ?? PROJECTS[0]
+  activeProject.value = p
+  activeModule.value = p.modules.find((item) => item.id === parts[2]) ?? p.modules[0] ?? null
+}
+
+function syncRoute() {
+  const target = `#/ui/${activeProject.value.id}/${activeModule.value?.id ?? ''}`
+  if (window.location.hash !== target) window.location.hash = target
+}
+
+onMounted(() => {
+  parseRoute()
+})
+
+onActivated(() => {
+  window.addEventListener('hashchange', parseRoute)
+  parseRoute()
+  if (!window.location.hash.startsWith('#/ui/')) syncRoute()
+})
+
+onDeactivated(() => {
+  window.removeEventListener('hashchange', parseRoute)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('hashchange', parseRoute)
+})
+
+function fileUrl(path: string) {
+  return `${project.value.repo}/blob/main/${path}`
+}
+
+const aiContext = computed(() => {
+  const p = project.value
+  const m = currentModule.value
+  if (!m) return ''
+  const route = `${location.origin}${location.pathname}#/ui/${p.id}/${m.id}`
+  const lines = [
+    `route: ${route}`,
+    `project: ${p.name} (${p.id})`,
+    `module: ${m.name} (${m.id})`,
+    `group: ${m.group}`,
+    `source: ${p.repo}`,
+    `demo: ${p.demo?.url?.startsWith('/') ? `${location.origin}${p.demo.url}` : (p.demo?.url ?? p.repo)}`,
+    'license: MIT (non-code assets excluded)',
+    'catalog: /ui-catalog.json',
+  ]
+  if (p.id === 'endfield-ui') {
+    lines.push('package: @endfield-ui/react', 'install: pnpm add @endfield-ui/react')
+  } else if (p.id === 'nasa-punk') {
+    lines.push(
+      'runtime: single-file static HTML hosted by this site',
+      'license-note: NASA insignia and logotypes are U.S. Government marks; use fictional branding only',
+    )
+  } else if (p.id === 'aureole') {
+    lines.push('runtime: React 19 + Vite preview at http://127.0.0.1:5176/')
+  } else {
+    lines.push('runtime: local Vite + Node music server, visual demo ?demo=1')
+  }
+  lines.push('files:')
+  m.files.forEach((f) => lines.push(`- ${f.path} — ${fileUrl(f.path)}`))
+  lines.push('summary:', m.summary, 'usage:')
+  m.points.forEach((point) => lines.push(`- ${point}`))
+  return lines.join('\n')
+})
+
+async function copyAiContext() {
+  try {
+    await navigator.clipboard.writeText(aiContext.value)
+    toast(t('已复制组件上下文', 'Component context copied'))
+  } catch {
+    toast(aiContext.value)
+  }
+}
+</script>
+
+<template>
+  <div class="view ui-lib">
+    <header class="view-toolbar">
+      <div class="view-title">
+        <span class="view-kicker">TOOL 07</span>
+        <strong>{{ t('UI 组件库', 'UI Library') }}</strong>
+      </div>
+      <span class="view-sub">{{ t('收录 demo 页面与 UI 模块拆分说明', 'Project demos and UI module breakdowns') }}</span>
+      <div class="toolbar-actions">
+        <a class="soft-btn" :href="project.repo" target="_blank" rel="noreferrer">
+          {{ t('打开仓库', 'Repository') }}
+        </a>
+      </div>
+    </header>
+
+    <div class="view-body">
+      <aside class="panel sm">
+        <div class="panel-header">
+          <h3>{{ t('收录项目', 'Projects') }}</h3>
+          <span class="count">{{ PROJECTS.length }}</span>
+        </div>
+        <div class="panel-scroll">
+          <button
+            v-for="p in PROJECTS"
+            :key="p.id"
+            class="lib-project"
+            :class="{ active: p.id === project.id }"
+            @click="selectProject(p)"
+          >
+            <span class="lib-project-name">{{ p.name }}</span>
+            <span class="lib-project-meta">{{ p.stack.slice(0, 2).join(' · ') }}</span>
+          </button>
+          <div class="lib-future">{{ t('更多项目待收录', 'More projects coming') }}</div>
+
+          <div class="panel-header lib-module-head">
+            <h3>{{ t('模块索引', 'Modules') }}</h3>
+            <span class="count">{{ project.modules.length }}</span>
+          </div>
+          <button
+            v-for="m in project.modules"
+            :key="m.id"
+            class="lib-module"
+            :class="{ active: currentModule?.id === m.id }"
+            @click="selectModule(m)"
+          >
+            <span class="lib-module-dot" />
+            <span class="lib-module-name">{{ m.name }}</span>
+            <span class="lib-module-group">{{ m.group }}</span>
+          </button>
+        </div>
+      </aside>
+
+      <main class="lib-content">
+        <section class="lib-hero">
+          <div class="lib-hero-copy">
+            <span class="lib-eyebrow">PROJECT / {{ project.id }}</span>
+            <h1>{{ project.name }}</h1>
+            <p class="lib-tagline">{{ project.tagline }}</p>
+            <p class="lib-desc">{{ project.description }}</p>
+            <div class="lib-tags">
+              <span v-for="s in project.stack" :key="s" class="chip">{{ s }}</span>
+              <span class="chip">{{ project.theme }}</span>
+            </div>
+            <div class="lib-links">
+              <a class="soft-btn" :href="project.repo" target="_blank" rel="noreferrer">{{ t('GitHub 仓库', 'GitHub repository') }}</a>
+              <a class="soft-btn" :href="project.release" target="_blank" rel="noreferrer">{{ project.id === 'rhine-music' ? 'V0.5.0 Release' : project.id === 'endfield-ui' ? 'npm' : t('仓库', 'Repository') }}</a>
+              <a class="soft-btn" :href="project.design" target="_blank" rel="noreferrer">{{ t('设计说明', 'Design docs') }}</a>
+            </div>
+          </div>
+
+          <figure class="lib-shot">
+            <img
+              :src="currentShot.src"
+              :alt="currentShot.caption"
+              loading="lazy"
+              referrerpolicy="no-referrer"
+            />
+            <figcaption>
+              <span>{{ currentShot.caption }}</span>
+            </figcaption>
+            <div v-if="project.screenshots.length > 1" class="lib-shot-dots">
+              <button
+                v-for="(s, i) in project.screenshots"
+                :key="s.src"
+                :class="{ active: i === shotIndex }"
+                @click="shotIndex = i"
+              />
+            </div>
+          </figure>
+        </section>
+
+        <section class="lib-live">
+          <div class="lib-live-head">
+            <div>
+              <span class="lib-eyebrow">DEMO</span>
+              <h2>{{ project.name }} · {{ project.demo?.label }}</h2>
+              <p>{{ project.demo?.note }}</p>
+            </div>
+            <div class="lib-live-actions">
+              <a class="soft-btn" :href="demoUrl" target="_blank" rel="noreferrer">{{ t('新窗口打开', 'Open in new tab') }}</a>
+              <button class="soft-btn" @click="demoOpen = !demoOpen">
+                {{ demoOpen ? t('收起 Demo', 'Collapse demo') : t('在页面内打开', 'Open in page') }}
+              </button>
+            </div>
+          </div>
+          <template v-if="demoOpen">
+            <iframe
+              :src="demoUrl"
+              class="lib-live-frame"
+              :title="project.name + ' demo'"
+              allow="autoplay; fullscreen"
+            />
+            <p class="lib-note">
+              <template v-if="project.id === 'rhine-music'">
+                {{ t('视觉 Demo 需要 WebGL 2；如果画面空白，先确认本地服务已启动：', 'The visual demo needs WebGL 2. If it is blank, start the local service:') }}
+                <code>cd demos/rhine-music &amp;&amp; npm run music -- --port 5175</code>
+              </template>
+              <template v-else>
+                {{ t('在线 Storybook 首次加载可能较慢；如果内嵌空白，请用「新窗口打开」。', 'The online Storybook may take a while on first load; if the frame is blank, open it in a new tab.') }}
+              </template>
+            </p>
+          </template>
+          <button v-else class="lib-live-poster" @click="demoOpen = true">
+            <img :src="project.screenshots[0].src" alt="" loading="lazy" />
+            <span class="lib-live-cta">
+              <span class="lib-live-play">▶</span>
+              <strong>{{ t('在页面内打开 Demo', 'Open demo in page') }}</strong>
+              <small>{{ project.demo?.label }}</small>
+            </span>
+          </button>
+        </section>
+
+        <section v-if="project.id === 'rhine-music'" class="lib-run">
+          <div>
+            <h2>{{ t('本地 Demo', 'Local demo') }}</h2>
+            <p>
+              {{ t('这里只展示视觉部分：用 ?demo=1 启动内置封面演示，不读取音乐库、不需要音频解码。运行仍需要 Node.js 与支持 WebGL 2 的浏览器；仓库没有提供在线 Demo 地址。', 'Visual only: ?demo=1 opens the bundled covers, with no library or audio decoding. It still needs Node.js and a WebGL 2 browser; the repo has no online demo.') }}
+            </p>
+            <ol>
+              <li>{{ t('源码已在 demos/rhine-music：执行 npm install 与 npm run build。', 'Source is in demos/rhine-music: run npm install and npm run build.') }}</li>
+              <li><code>npm run music -- --port 5175</code></li>
+              <li>{{ t('打开 http://127.0.0.1:5175/?demo=1，进入只含三张封面的视觉演示。', 'Open http://127.0.0.1:5175/?demo=1 for the three-cover visual demo.') }}</li>
+            </ol>
+            <p class="lib-note">
+              {{ t('视觉演示不需要 FFmpeg；只有真实曲库播放与完整格式解码才需要它。', 'The visual demo does not need FFmpeg; only real library playback and full format decoding do.') }}
+            </p>
+          </div>
+          <div class="lib-run-side">
+            <span class="lib-eyebrow">DEMO NOTES</span>
+            <strong>{{ t('纯视觉演示，不含音频', 'Visual demo, no audio') }}</strong>
+            <p>{{ t('默认进入三张内置封面的演示架；不会扫描你的音乐目录。', 'Opens the three-cover demo shelf by default and never scans your music folder.') }}</p>
+          </div>
+        </section>
+
+        <section v-if="project.id === 'endfield-ui'" class="lib-run">
+          <div>
+            <h2>{{ t('在线预览与本地开发', 'Online preview & local development') }}</h2>
+            <p>
+              {{ t('预览站由 Storybook 构建，直接在线浏览控件、母题和示例页；本地开发需要 pnpm 与 Node 22+。', 'The preview is a Storybook build: browse controls, motifs and example pages online; local development needs pnpm and Node 22+.') }}
+            </p>
+            <ol>
+              <li><code>pnpm install</code></li>
+              <li><code>pnpm dev</code> — {{ t('打开 Storybook 组件预览', 'open the Storybook preview') }}</li>
+              <li><code>pnpm dev:site</code> — {{ t('打开设计文档站', 'open the design docs site') }}</li>
+              <li>{{ t('组件库用法见 packages/ui/README.md，包名 @endfield-ui/react。', 'Usage lives in packages/ui/README.md; package @endfield-ui/react.') }}</li>
+            </ol>
+            <p class="lib-note">
+              {{ t('代码采用 MIT；「Game 实机风格」独立入口包含约 30 张官方图片，不随 MIT 授权，使用前请阅读仓库的 NOTICE 与风险说明。', 'Code is MIT. The separate Game style entry bundles ~30 official images not covered by MIT; read its NOTICE and risk notes before use.') }}
+            </p>
+          </div>
+          <div class="lib-run-side">
+            <span class="lib-eyebrow">PACKAGE NOTES</span>
+            <strong>React + Tailwind CSS v4</strong>
+            <p>{{ t('组件主入口不含官方素材；主题色可整体替换，亮暗与反转块通过 data-theme 控制。', 'The main entry ships no official assets; the accent is replaceable, and light/dark/inverse use data-theme.') }}</p>
+          </div>
+        </section>
+
+        <section class="lib-section">
+          <div class="lib-section-head">
+            <h2>{{ t('UI 模块拆分', 'UI modules') }}</h2>
+            <p>{{ t('按功能域拆开的模块与文件，点击左侧索引或卡片查看职责与使用要点。', 'Modules and files grouped by area; pick an index or card to see its role and usage notes.') }}</p>
+          </div>
+          <div class="lib-grid">
+            <button
+              v-for="m in project.modules"
+              :key="m.id"
+              class="lib-card"
+              :class="{ active: currentModule?.id === m.id }"
+              @click="selectModule(m)"
+            >
+              <span class="lib-card-group">{{ m.group }}</span>
+              <strong>{{ m.name }}</strong>
+              <p>{{ m.summary }}</p>
+              <span class="lib-card-files">{{ m.files.length }} {{ t('个模块文件', 'module files') }}</span>
+            </button>
+          </div>
+        </section>
+
+        <section v-if="currentModule" class="lib-detail" :data-project="project.id" :data-module="currentModule.id">
+          <div class="lib-detail-head">
+            <div>
+              <span class="lib-eyebrow">{{ currentModule.group }} / MODULE</span>
+              <h2>{{ currentModule.name }}</h2>
+            </div>
+            <span class="chip">{{ currentModule.files.length }} {{ t('个文件', 'files') }}</span>
+          </div>
+          <p class="lib-detail-summary">{{ currentModule.summary }}</p>
+
+          <div class="lib-ai">
+            <div class="lib-ai-head">
+              <div>
+                <span class="lib-eyebrow">AI CONTEXT</span>
+                <strong>{{ t('给 AI 的组件上下文', 'Component context for AI') }}</strong>
+              </div>
+              <button class="soft-btn" @click="copyAiContext">{{ t('复制上下文', 'Copy context') }}</button>
+            </div>
+            <pre>{{ aiContext }}</pre>
+          </div>
+
+          <ModuleDemo :id="currentModule.id" :label="currentModule.name" />
+
+          <div class="lib-detail-grid">
+            <div class="lib-detail-block">
+              <h3>{{ t('使用要点', 'Usage notes') }}</h3>
+              <ul>
+                <li v-for="(p, i) in currentModule.points" :key="i">{{ p }}</li>
+              </ul>
+            </div>
+            <div class="lib-detail-block">
+              <h3>{{ t('相关文件', 'Source files') }}</h3>
+              <ul class="lib-files">
+                <li v-for="f in currentModule.files" :key="f.path">
+                  <a :href="fileUrl(f.path)" target="_blank" rel="noreferrer">
+                    <Icon name="text" :size="13" />
+                    {{ f.label }}
+                  </a>
+                  <code>{{ f.path }}</code>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <p class="lib-disclaimer">
+            {{ t('说明依据仓库 README、设计文档与文件职责整理；具体 API 以项目源码为准。这里只做组件索引与使用摘记，不复制项目代码。', 'Notes are compiled from each repository’s README, design docs and file roles. The source is authoritative; this is an index and usage summary, not a copy of project code.') }}
+          </p>
+        </section>
+      </main>
+    </div>
+  </div>
+</template>

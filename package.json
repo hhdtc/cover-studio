@@ -1,0 +1,21 @@
+{
+  "name": "cover-studio",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "demo:rhine": "npm --prefix demos/rhine-music-windows run music -- --port 5175",
+    "demo:aureole": "npm --prefix demos/arknights-sixth-ui run preview -- --port 5176 --strictPort",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.7"
+  }
+}

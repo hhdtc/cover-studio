@@ -1,0 +1,171 @@
+{
+  "name": "Cover Studio UI Library",
+  "version": 1,
+  "routes": {
+    "library": "/#/ui",
+    "project": "/#/ui/{project}",
+    "module": "/#/ui/{project}/{module}"
+  },
+  "projects": [
+    {
+      "id": "rhine-music",
+      "name": "Rhine Music · Windows",
+      "repo": "https://github.com/Bong712/Rhine-Music-Windows",
+      "demo": "http://127.0.0.1:5175/?demo=1",
+      "license": "MIT",
+      "modules": [
+        {
+          "id": "shelf",
+          "name": "3D album shelf"
+        },
+        {
+          "id": "cd-case",
+          "name": "Glass album case"
+        },
+        {
+          "id": "overview",
+          "name": "Thumbnail overview & artist grid"
+        },
+        {
+          "id": "settings",
+          "name": "Two-page settings"
+        },
+        {
+          "id": "player",
+          "name": "Local playback & transitions"
+        },
+        {
+          "id": "navigation",
+          "name": "Ruler & wheel navigation"
+        },
+        {
+          "id": "theme",
+          "name": "Themes & opening"
+        },
+        {
+          "id": "search",
+          "name": "Library & search"
+        },
+        {
+          "id": "lyrics",
+          "name": "Synced lyrics"
+        },
+        {
+          "id": "queue",
+          "name": "Playlists & queue"
+        },
+        {
+          "id": "performance",
+          "name": "Cover atlas & instancing"
+        },
+        {
+          "id": "navhud",
+          "name": "Bottom navigation & status"
+        }
+      ]
+    },
+    {
+      "id": "endfield-ui",
+      "name": "Endfield UI",
+      "repo": "https://github.com/icaruszezen/endfield-ui",
+      "demo": "https://icaruszezen.github.io/endfield-ui/",
+      "docs": "https://icaruszezen.github.io/endfield-ui/design/",
+      "package": "@endfield-ui/react",
+      "license": "MIT (official game assets excluded)",
+      "modules": [
+        {
+          "id": "ef-foundations",
+          "name": "Foundations & theming"
+        },
+        {
+          "id": "ef-controls",
+          "name": "Core controls"
+        },
+        {
+          "id": "ef-forms",
+          "name": "Form controls"
+        },
+        {
+          "id": "ef-feedback",
+          "name": "Feedback & overlays"
+        },
+        {
+          "id": "ef-display",
+          "name": "Display & navigation"
+        },
+        {
+          "id": "ef-motifs",
+          "name": "Motifs & motion"
+        }
+      ]
+    },
+    {
+      "id": "nasa-punk",
+      "name": "NASA-Punk UI Skill",
+      "repo": "https://github.com/duanth/NASA-Punk-UI-SKILL",
+      "demo": "/nasa-punk-reference.html",
+      "docs": "https://github.com/duanth/NASA-Punk-UI-SKILL/blob/main/SKILL.md",
+      "license": "MIT (NASA insignia are U.S. Government marks; fictional branding only)",
+      "modules": [
+        {
+          "id": "nasa-foundations",
+          "name": "Base skin & type"
+        },
+        {
+          "id": "nasa-print",
+          "name": "Print document layer"
+        },
+        {
+          "id": "nasa-console",
+          "name": "Console instruments"
+        },
+        {
+          "id": "nasa-charts",
+          "name": "Chart & instrument grammar"
+        },
+        {
+          "id": "nasa-motion",
+          "name": "Motion rhythm & quality gates"
+        },
+        {
+          "id": "nasa-emblem",
+          "name": "Era grades & insignia"
+        }
+      ]
+    },
+    {
+      "id": "aureole",
+      "name": "AUREOLE · Sixth UI",
+      "repo": "https://github.com/AlphaZero78/ArknightsSixthUI",
+      "demo": "http://127.0.0.1:5176/",
+      "docs": "https://github.com/AlphaZero78/ArknightsSixthUI/blob/main/docs/SOURCE-STUDY.md",
+      "license": "MIT",
+      "modules": [
+        {
+          "id": "aureole-observation",
+          "name": "Physical observation"
+        },
+        {
+          "id": "aureole-blueprint",
+          "name": "Structural blueprint"
+        },
+        {
+          "id": "aureole-deconstruct",
+          "name": "Deconstruction"
+        },
+        {
+          "id": "aureole-float",
+          "name": "Floating scene & projection"
+        },
+        {
+          "id": "aureole-annotate",
+          "name": "Labels, search & archive"
+        },
+        {
+          "id": "aureole-settings",
+          "name": "Config & accessibility"
+        }
+      ]
+    }
+  ]
+}

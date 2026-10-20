@@ -1,0 +1,28 @@
+node_modules/
+dist/
+.npm-cache/
+.chrome-*/
+.chrome-profile/
+downloads/
+shot*.png
+check-*.png
+exported-check.png
+.DS_Store
+*.local
+
+# local demo (Rhine Music Demo)
+demos/rhine-music/node_modules/
+demos/rhine-music/dist/
+demos/music-data-v3/
+demos/rhine-music/.npm-cache/
+
+# Rhine Music Windows port
+demos/rhine-music-windows/node_modules/
+demos/rhine-music-windows/dist/
+
+# AUREOLE template
+demos/arknights-sixth-ui/node_modules/
+demos/arknights-sixth-ui/dist/
+
+# local third-party checkouts used for demos (not part of this repo)
+demos/
