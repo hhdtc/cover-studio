@@ -5,11 +5,11 @@ import { t } from '../i18n'
 const props = defineProps<{ id: string; label: string; demoUrl?: string }>()
 
 const albums = [
-  { title: '日光留声', artist: 'RHINE', bg: 'linear-gradient(135deg,#f6c47b,#b74b32)' },
-  { title: '夜航', artist: 'LANE 04', bg: 'linear-gradient(135deg,#20304f,#0a101d)' },
-  { title: '雾中回声', artist: 'MIST', bg: 'linear-gradient(135deg,#b9c7cf,#5d7482)' },
-  { title: '红色房间', artist: 'ROOM 9', bg: 'linear-gradient(135deg,#c1443c,#33100e)' },
-  { title: '慢速星球', artist: 'ORBIT', bg: 'linear-gradient(135deg,#7f9f89,#20352c)' },
+  { title: '日光留声', artist: 'RHINE', year: 2026, genre: 'AMBIENT', tracks: 12, cover: '/mock/cover-daylight.svg', bg: 'linear-gradient(135deg,#f6c47b,#b74b32)' },
+  { title: '夜航', artist: 'LANE 04', year: 2025, genre: 'ELECTRONIC', tracks: 9, cover: '/mock/cover-night.svg', bg: 'linear-gradient(135deg,#20304f,#0a101d)' },
+  { title: '雾中回声', artist: 'MIST', year: 2026, genre: 'INSTRUMENTAL', tracks: 11, cover: '/mock/cover-mist.svg', bg: 'linear-gradient(135deg,#b9c7cf,#5d7482)' },
+  { title: '红色房间', artist: 'ROOM 9', year: 2024, genre: 'JAZZ', tracks: 8, cover: '/mock/cover-red.svg', bg: 'linear-gradient(135deg,#c1443c,#33100e)' },
+  { title: '慢速星球', artist: 'ORBIT', year: 2026, genre: 'SPACE', tracks: 10, cover: '/mock/cover-orbit.svg', bg: 'linear-gradient(135deg,#7f9f89,#20352c)' },
 ]
 
 const shelfIndex = ref(0)
@@ -252,9 +252,8 @@ function moveQueue(index: number, dir: -1 | 1) {
               @click="shelfIndex = i"
             >
               <span class="shelf-case">
-                <span class="shelf-cover" :style="{ background: a.bg }">
-                  <b>{{ a.title.slice(0, 2) }}</b>
-                  <i>RHINE</i>
+                <span class="shelf-cover">
+                  <img :src="a.cover" :alt="a.title" loading="lazy" />
                 </span>
                 <span class="shelf-spine">{{ a.artist }}</span>
               </span>
@@ -263,7 +262,7 @@ function moveQueue(index: number, dir: -1 | 1) {
           </div>
         </div>
         <div class="mdemo-foot">
-          <span>{{ t('← → 浏览 · 点击专辑', '← → browse · click an album') }}</span>
+          <span>{{ albums[shelfIndex].artist }} · {{ albums[shelfIndex].year }} · {{ albums[shelfIndex].tracks }} TRACKS</span>
           <strong>{{ String(shelfIndex + 1).padStart(2, '0') }} / {{ String(albums.length).padStart(2, '0') }}</strong>
         </div>
       </template>
@@ -274,8 +273,9 @@ function moveQueue(index: number, dir: -1 | 1) {
           <span class="cd-case" :class="{ open: cdOpen }">
             <span class="cd-spine">RHINE LAB</span>
             <span class="cd-cover" :style="{ background: albums[shelfIndex].bg }">
+              <img :src="albums[shelfIndex].cover" :alt="albums[shelfIndex].title" loading="lazy" />
               <em>{{ albums[shelfIndex].title }}</em>
-              <small>{{ albums[shelfIndex].artist }}</small>
+              <small>{{ albums[shelfIndex].artist }} · {{ albums[shelfIndex].tracks }} TRACKS</small>
             </span>
             <span class="cd-shine" />
           </span>
@@ -336,10 +336,10 @@ function moveQueue(index: number, dir: -1 | 1) {
       <template v-else-if="id === 'player'">
         <div class="mock-player">
           <div class="mock-now">
-            <span class="mock-cover" :style="{ background: albums[0].bg }" />
+            <span class="mock-cover" :style="{ background: albums[0].bg }"><img :src="albums[0].cover" :alt="albums[0].title" loading="lazy" /></span>
             <div>
               <strong>{{ albums[0].title }}</strong>
-              <small>{{ albums[0].artist }} · 02 潮汐</small>
+              <small>{{ albums[0].artist }} · {{ albums[0].tracks }} TRACKS</small>
             </div>
           </div>
           <div class="mock-progress">

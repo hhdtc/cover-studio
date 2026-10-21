@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="420" viewBox="0 0 300 420">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f6c47b"/><stop offset="1" stop-color="#9e3f2a"/></linearGradient></defs>
+<rect width="300" height="420" fill="url(#g)"/>
+<circle cx="210" cy="120" r="82" fill="#ffe4b8" opacity="0.9"/>
+<g stroke="#34180f" stroke-width="2" opacity="0.55"><path d="M0 250h300M0 275h300M0 300h300M0 325h300M0 350h300"/></g>
+<g fill="#34180f" opacity="0.7"><rect x="28" y="46" width="54" height="4"/><rect x="28" y="58" width="28" height="2"/></g>
+<text x="28" y="356" font-family="Arial Black, sans-serif" font-size="34" fill="#2b130d" letter-spacing="-1">DAYLIGHT</text>
+<text x="30" y="380" font-family="Courier New, monospace" font-size="11" fill="#2b130d" letter-spacing="3">RHINE / 2026</text>
+</svg>

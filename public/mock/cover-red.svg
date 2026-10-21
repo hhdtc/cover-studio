@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="420" viewBox="0 0 300 420">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c1443c"/><stop offset="1" stop-color="#2a0b09"/></linearGradient></defs>
+<rect width="300" height="420" fill="url(#g)"/>
+<path d="M0 0h300v150L0 260Z" fill="#170605" opacity="0.55"/>
+<g fill="none" stroke="#f0c9b8" stroke-width="1" opacity="0.5"><rect x="38" y="58" width="70" height="70"/><rect x="58" y="78" width="70" height="70"/></g>
+<circle cx="225" cy="310" r="36" fill="#e60012" opacity="0.7"/>
+<text x="28" y="356" font-family="Arial Black, sans-serif" font-size="32" fill="#f4e7e0" letter-spacing="-1">RED ROOM</text>
+<text x="30" y="380" font-family="Courier New, monospace" font-size="11" fill="#e6b7a8" letter-spacing="3">ROOM 9 / 2026</text>
+</svg>
