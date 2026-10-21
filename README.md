@@ -220,6 +220,25 @@ export GITHUB_TOKEN=github_pat_xxx
 PORT=8080 docker compose up -d
 ```
 
+### Token 放在哪里
+
+可以放在项目根目录的 `.env`，Compose 会自动读取并传给 `builder`；该文件已加入 `.gitignore`。
+
+```sh
+cp .env.example .env
+chmod 600 .env
+# 编辑 .env，填入 GITHUB_TOKEN
+```
+
+不要把 token 直接写进 `docker-compose.yml`、README、源码或提交历史。**私有仓库不等于安全边界**：协作者、CI、备份、fork 和 Git 历史都可能暴露它。
+
+建议：
+
+- 使用 fine-grained PAT，只授权 `hhdtc/cover-studio`，权限仅 `Contents: read`，并设置过期时间
+- token 只保存在本机 `.env`，权限设为 `600`
+- 一旦误提交，立即到 GitHub 撤销并轮换 token；只删除提交不能清除历史
+- 当前方案把 token 作为 builder 容器环境变量，容器存在期间本机 root 可通过 `docker inspect` 看到；多用户主机建议改用 Docker secret / BuildKit 或只读 deploy key
+
 常用命令：
 
 ```sh
