@@ -199,6 +199,48 @@ UI 组件库首个收录项目：[Bong712/Rhine-Music-Windows](https://github.co
 - 内部分为「全局样式与图标 / 按钮标题文字 / 滑块开关 / 消息通知返回顶部 / 分隔上传表格 / 人群动画」六组
 - 视觉 Demo 与封面为本站原创 CSS/SVG 重绘，不使用项目素材；如权利人提出异议会立即下架
 
+## Docker 部署
+
+仓库根目录提供 `docker-compose.yml`：`builder` 容器从 GitHub 克隆私有仓库并构建，`web` 容器用 nginx 托管；builder 成功退出后 web 才启动。
+
+前置：Docker + Docker Compose，以及一个有 `Contents: read` 权限的 GitHub token（仓库是私有的）。
+
+```sh
+cp .env.example .env
+# 编辑 .env，填入 GITHUB_TOKEN
+
+docker compose up -d
+# 打开 http://localhost:8080
+```
+
+也可以不建 `.env`，直接：
+
+```sh
+export GITHUB_TOKEN=github_pat_xxx
+PORT=8080 docker compose up -d
+```
+
+常用命令：
+
+```sh
+docker compose logs -f builder      # 查看克隆与构建日志
+docker compose ps                   # 查看状态
+docker compose up -d --force-recreate   # 重新拉取 main 并重建
+docker compose down                 # 停止；加 -v 同时删除构建卷
+```
+
+可选变量（见 `.env.example`）：
+
+- `REPO_URL`：默认 `https://github.com/hhdtc/cover-studio.git`
+- `REPO_REF`：默认 `main`，可填分支或 tag
+- `PORT`：宿主机端口，默认 `8080`
+
+说明：
+
+- token 只注入 `builder` 容器，不写入最终 nginx 镜像；`.env` 已加入 `.gitignore`。
+- 更新流程是重新运行 builder：`docker compose up -d --force-recreate`，或 `docker compose run --rm builder && docker compose restart web`。
+- UI 组件库里的 5175 / 5176 / 5177 是独立本地 Demo，不在这个容器里；需要时在宿主机单独启动。NASA-Punk 参考页随主站一起打包，可直接使用。
+
 ## 顶部导航
 
 主导航为 **UI 组件库** 与 **素材生成**；封面、一图流、通行证、幻灯片、动态立绘收在 **「其他」** 二级菜单中。直接打开对应路由仍会正确切换到该工具。

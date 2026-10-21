@@ -29,3 +29,6 @@ demos/
 
 # p5-ui local evaluation checkout
 demos/p5-ui/
+
+# local Docker secrets
+.env
