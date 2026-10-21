@@ -102,7 +102,7 @@
 
 ### 2.4 Demo 运行
 
-- 站内演示：默认真实前端（可选），并可切换到 `/rhine-mock.html`（本项目原创静态 mock，5 张本地封面，无 WebGL、无后端）
+- 站内演示：默认 `/rhine-mock.html`（本项目按原布局逆向实现：3D 玻璃专辑架、HUD、详情、亮暗主题、开场；5 张本地封面，无 WebGL、无后端）；可切换到真实前端
 - 真实前端（可选）：http://127.0.0.1:5175/?demo=1
 - 启动真实前端：`cd demos/rhine-music-windows && npm install && npm run build && npm run music -- --port 5175`
 - 需要 Node.js ≥ 22.12 与支持 WebGL 2 的浏览器。
