@@ -2396,6 +2396,31 @@ input[type='color'] {
   background: radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.05), transparent 65%), #0a0c10;
 }
 
+.mdemo-livebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 14px;
+  border-top: 1px solid var(--border-soft);
+  background: #0b0d11;
+  font-size: 9.5px;
+  color: var(--muted-2);
+}
+
+.mdemo-livebar a {
+  flex: none;
+  color: #ffd7c5;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.4px;
+}
+
+.mdemo-livebar a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .mdemo-foot {
   display: flex;
   align-items: center;
@@ -2499,76 +2524,167 @@ input[type='color'] {
 
 /* shelf */
 
-.shelf-row {
+.shelf-scene {
+  position: relative;
+  width: 100%;
+  height: 196px;
   display: flex;
+  align-items: center;
   justify-content: center;
+  perspective: 1000px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 35%),
+    radial-gradient(ellipse at 50% 58%, rgba(120, 150, 180, 0.14), transparent 62%),
+    #080a0e;
+}
+
+.shelf-scene::before {
+  content: '';
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 22px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+}
+
+.shelf-scene::after {
+  content: '';
+  position: absolute;
+  left: 20%;
+  right: 20%;
+  bottom: 0;
+  height: 42px;
+  background: radial-gradient(ellipse at 50% 0, rgba(255, 255, 255, 0.08), transparent 70%);
+  filter: blur(6px);
+}
+
+.shelf-row {
+  position: relative;
+  z-index: 1;
+  display: flex;
   align-items: flex-end;
-  gap: 2px;
-  perspective: 900px;
-  padding: 12px 0 4px;
+  gap: 10px;
+  padding: 12px 0 26px;
+  transform-style: preserve-3d;
 }
 
 .shelf-album {
-  width: 88px;
-  height: 152px;
+  width: 82px;
+  height: 140px;
   flex: none;
   position: relative;
-  border-radius: 5px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: none;
+  border: 0;
   padding: 0;
-  overflow: hidden;
-  transform: rotateY(calc((var(--i) - 2) * 7deg));
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
   cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.shelf-album::after {
+.shelf-case {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 22px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background:
+    linear-gradient(118deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.03) 34%, rgba(0, 0, 0, 0.28) 72%, rgba(255, 255, 255, 0.08));
+  box-shadow:
+    0 14px 26px rgba(0, 0, 0, 0.55),
+    inset 0 0 24px rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.shelf-case::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(120deg, rgba(255, 255, 255, 0.22), transparent 34%, transparent 62%, rgba(0, 0, 0, 0.35));
+  z-index: 3;
+  background: linear-gradient(125deg, rgba(255, 255, 255, 0.32), transparent 26%, transparent 62%, rgba(255, 255, 255, 0.1) 80%, transparent 92%);
   pointer-events: none;
-}
-
-.shelf-album:hover {
-  transform: translateY(-4px) rotateY(calc((var(--i) - 2) * 7deg));
-}
-
-.shelf-album.active {
-  transform: translateY(-8px) scale(1.06) rotateY(0deg);
-  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.55);
-  z-index: 2;
 }
 
 .shelf-cover {
   position: absolute;
-  inset: 9px 8px 30px;
-  display: grid;
-  place-items: center;
-  border-radius: 3px;
-  background: rgba(0, 0, 0, 0.16);
-  color: rgba(255, 255, 255, 0.82);
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: 1px;
+  inset: 6px 5px 17px;
+  border-radius: 2px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: rgba(255, 255, 255, 0.92);
+  overflow: hidden;
 }
 
-.shelf-name {
+.shelf-cover b {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.shelf-cover i {
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: 6px;
+  letter-spacing: 1.6px;
+  opacity: 0.65;
+}
+
+.shelf-spine {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 5px 7px;
-  font-size: 8.5px;
-  text-align: left;
-  color: rgba(255, 255, 255, 0.78);
-  background: rgba(0, 0, 0, 0.34);
+  height: 17px;
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+  background: rgba(0, 0, 0, 0.42);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  font-family: var(--mono);
+  font-size: 5.5px;
+  letter-spacing: 0.8px;
+  color: rgba(255, 255, 255, 0.62);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* cd case */
+.shelf-name {
+  position: absolute;
+  left: -4px;
+  right: -4px;
+  bottom: 0;
+  text-align: center;
+  font-size: 8px;
+  color: rgba(255, 255, 255, 0.55);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.shelf-album:hover .shelf-case {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.shelf-album.active .shelf-case {
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow:
+    0 24px 44px rgba(0, 0, 0, 0.65),
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    inset 0 0 30px rgba(255, 255, 255, 0.12);
+}
+
+.shelf-album.active .shelf-name {
+  color: #ffd7c5;
+}
+
+/* cd case *//* cd case */
 
 .cd-stage {
   display: flex;

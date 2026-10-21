@@ -2,7 +2,7 @@
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { t } from '../i18n'
 
-const props = defineProps<{ id: string; label: string }>()
+const props = defineProps<{ id: string; label: string; demoUrl?: string }>()
 
 const albums = [
   { title: '日光留声', artist: 'RHINE', bg: 'linear-gradient(135deg,#f6c47b,#b74b32)' },
@@ -211,6 +211,13 @@ function onRulerKey(e: KeyboardEvent) {
   }
 }
 
+function shelfTransform(i: number) {
+  if (i === shelfIndex.value) {
+    return 'translateY(-8px) translateZ(42px) rotateY(0deg) scale(1.05)'
+  }
+  return `rotateY(${(i - 2) * 9}deg) translateZ(${-Math.abs(i - 2) * 13}px)`
+}
+
 function moveQueue(index: number, dir: -1 | 1) {
   const next = index + dir
   if (next < 0 || next >= queue.value.length) return
@@ -224,7 +231,7 @@ function moveQueue(index: number, dir: -1 | 1) {
 <template>
   <div ref="demoRoot" class="mdemo" :class="`mdemo--${theme}`" @mouseenter="hudHover = true" @mouseleave="hudHover = false">
     <div class="mdemo-head">
-      <span class="mdemo-kicker">VISUAL DEMO / INTERACTIVE</span>
+      <span class="mdemo-kicker">{{ t('视觉示意 / 可交互', 'VISUAL SCHEMATIC / INTERACTIVE') }}</span>
       <div class="mdemo-head-right">
         <span class="mdemo-label">{{ label }}</span>
         <button class="mdemo-replay" @click="demoKey++">↻ {{ t('重播', 'Replay') }}</button>
@@ -234,18 +241,26 @@ function moveQueue(index: number, dir: -1 | 1) {
     <div :key="demoKey" class="mdemo-stage">
       <!-- 3D shelf -->
       <template v-if="id === 'shelf'">
-        <div class="shelf-row">
-          <button
-            v-for="(a, i) in albums"
-            :key="a.title"
-            class="shelf-album"
-            :class="{ active: i === shelfIndex }"
-            :style="{ '--i': i, background: a.bg }"
-            @click="shelfIndex = i"
-          >
-            <span class="shelf-cover">{{ a.title.slice(0, 2) }}</span>
-            <span class="shelf-name">{{ a.title }}</span>
-          </button>
+        <div class="shelf-scene">
+          <div class="shelf-row">
+            <button
+              v-for="(a, i) in albums"
+              :key="a.title"
+              class="shelf-album"
+              :class="{ active: i === shelfIndex }"
+              :style="{ '--i': i, transform: shelfTransform(i) }"
+              @click="shelfIndex = i"
+            >
+              <span class="shelf-case">
+                <span class="shelf-cover" :style="{ background: a.bg }">
+                  <b>{{ a.title.slice(0, 2) }}</b>
+                  <i>RHINE</i>
+                </span>
+                <span class="shelf-spine">{{ a.artist }}</span>
+              </span>
+              <span class="shelf-name">{{ a.title }}</span>
+            </button>
+          </div>
         </div>
         <div class="mdemo-foot">
           <span>{{ t('← → 浏览 · 点击专辑', '← → browse · click an album') }}</span>
@@ -1035,6 +1050,11 @@ function moveQueue(index: number, dir: -1 | 1) {
       </template>
 
       <div v-else class="mdemo-empty">{{ t('该模块暂无独立视觉演示', 'No visual demo for this module yet') }}</div>
+    </div>
+
+    <div v-if="demoUrl" class="mdemo-livebar">
+      <span>{{ t('以上为原创交互示意，不是项目截图。', 'An interactive schematic, not a project screenshot.') }}</span>
+      <a :href="demoUrl" target="_blank" rel="noreferrer">{{ t('打开真实 Demo ↗', 'Open live demo ↗') }}</a>
     </div>
   </div>
 </template>

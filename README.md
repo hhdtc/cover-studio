@@ -158,6 +158,7 @@ UI 组件库首个收录项目：[Bong712/Rhine-Music-Windows](https://github.co
 - 当前覆盖全站导航、UI 组件库的项目 / 模块说明、Demo 文案、运行说明与 AI 上下文；其他工具页暂时保留中文。
 - 每个模块的视觉 Demo 右上角都有「重播 / Replay」；滚动进入视口时也会自动重播一次，方便直接看到动效。
 - 支持 `prefers-reduced-motion`：系统开启减少动态效果时，Demo 停在终态。
+- 模块里的视觉 Demo 是原创交互示意，不是项目截图；每个 Demo 下方有「打开真实 Demo」链接，避免把示意图误认为原项目界面。
 
 ## 给 AI / Agent 的组件索引
 

@@ -1171,7 +1171,7 @@ async function copyAiContext() {
             <pre>{{ aiContext }}</pre>
           </div>
 
-          <ModuleDemo :id="currentModule.id" :label="currentModule.name" />
+          <ModuleDemo :id="currentModule.id" :label="currentModule.name" :demo-url="project.demo?.url" />
 
           <div class="lib-detail-grid">
             <div class="lib-detail-block">
