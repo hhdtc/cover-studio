@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RHINE LAB · Mock Archive</title>
+<style>
+  :root {
+    --paper: #e9e5db;
+    --ink: #17191d;
+    --muted: #6e706f;
+    --line: rgba(23, 25, 29, 0.18);
+    --accent: #d9a441;
+    --panel: rgba(255, 255, 255, 0.58);
+    --shadow: 0 30px 80px rgba(40, 35, 25, 0.25);
+  }
+  html[data-theme="night"] {
+    --paper: #070a0f;
+    --ink: #e8edf3;
+    --muted: #8793a2;
+    --line: rgba(232, 237, 243, 0.16);
+    --accent: #d9a441;
+    --panel: rgba(16, 21, 29, 0.72);
+    --shadow: 0 30px 90px rgba(0, 0, 0, 0.62);
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+    overflow: hidden;
+    transition: background .35s ease, color .35s ease;
+  }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  .app { height: 100%; display: flex; flex-direction: column; }
+  .top {
+    height: 76px; flex: none; display: flex; align-items: center; gap: 26px;
+    padding: 0 32px; border-bottom: 1px solid var(--line);
+    position: relative; z-index: 5;
+  }
+  .brand strong { display: block; font-size: 24px; letter-spacing: .12em; line-height: 1; }
+  .brand small { display: block; margin-top: 6px; font: 9px/1.2 ui-monospace, monospace; letter-spacing: .22em; color: var(--muted); }
+  .nav { margin-left: auto; display: flex; align-items: center; gap: 4px; }
+  .nav button { padding: 9px 12px; font-size: 12px; color: var(--muted); border-radius: 7px; }
+  .nav button:hover { background: rgba(127, 127, 127, .1); color: var(--ink); }
+  .theme { display: flex; gap: 2px; padding: 3px; border: 1px solid var(--line); border-radius: 99px; }
+  .theme button { padding: 4px 12px; border-radius: 99px; font-size: 11px; color: var(--muted); }
+  .theme button.on { background: var(--ink); color: var(--paper); }
+  .mockbadge { font: 9px/1 ui-monospace, monospace; letter-spacing: .14em; color: var(--accent); border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent); padding: 5px 7px; border-radius: 4px; }
+  .stage { flex: 1; min-height: 0; display: flex; position: relative; overflow: hidden; }
+  .stage::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 28% 42%, rgba(220, 170, 90, .16), transparent 46%),
+      radial-gradient(ellipse at 75% 80%, rgba(90, 120, 160, .12), transparent 50%);
+    pointer-events: none;
+  }
+  .shelfwrap { flex: 1; min-width: 0; position: relative; display: flex; align-items: center; justify-content: center; padding: 40px 20px 150px; perspective: 1400px; }
+  .shelfwrap::after {
+    content: ''; position: absolute; left: 8%; right: 8%; bottom: 118px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--line), transparent);
+  }
+  .shelf { display: flex; align-items: flex-end; justify-content: center; gap: 18px; transform-style: preserve-3d; }
+  .case {
+    position: relative; width: 138px; height: 200px; flex: none; border-radius: 4px;
+    border: 1px solid color-mix(in srgb, var(--ink) 32%, transparent);
+    background: linear-gradient(118deg, rgba(255,255,255,.32), rgba(255,255,255,.03) 34%, rgba(0,0,0,.18) 72%, rgba(255,255,255,.12));
+    box-shadow: 0 24px 44px rgba(0,0,0,.32), inset 0 0 34px rgba(255,255,255,.16);
+    transform: rotateY(-13deg) translateZ(-30px);
+    transition: transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s;
+    overflow: hidden; cursor: pointer; text-align: left;
+  }
+  .case::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(120deg, rgba(255,255,255,.4), transparent 26%, transparent 60%, rgba(255,255,255,.14) 80%, transparent 92%);
+  }
+  .case img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .case .spine {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 22px; padding: 0 8px;
+    display: flex; align-items: center; gap: 5px; background: rgba(7, 9, 12, .62);
+    color: rgba(255,255,255,.7); font: 7px/1 ui-monospace, monospace; letter-spacing: .16em;
+    white-space: nowrap; overflow: hidden;
+  }
+  .case.active { transform: rotateY(0) translateZ(84px) scale(1.06); box-shadow: 0 40px 70px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.18); z-index: 3; }
+  .case:hover { transform: rotateY(-5deg) translateZ(24px); }
+  .case.active:hover { transform: rotateY(0) translateZ(84px) scale(1.06); }
+  .detail {
+    width: 440px; flex: none; align-self: center; padding: 36px 38px 120px 10px;
+    position: relative; z-index: 2;
+  }
+  .eyebrow { font: 8px/1.4 ui-monospace, monospace; letter-spacing: .22em; color: var(--muted); }
+  .detail h1 { margin: 16px 0 6px; font-size: clamp(34px, 4vw, 56px); line-height: 1.06; letter-spacing: .02em; }
+  .artist { font-size: 14px; color: var(--muted); }
+  .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 26px; margin: 28px 0 24px; padding: 20px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .meta small { display: block; font: 8px/1.4 ui-monospace, monospace; letter-spacing: .16em; color: var(--muted); margin-bottom: 5px; }
+  .meta b { font-weight: 500; font-size: 13px; }
+  .openbtn { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border: 1px solid var(--accent); color: var(--ink); font-size: 13px; letter-spacing: .08em; transition: background .2s, color .2s; }
+  .openbtn:hover { background: var(--accent); color: #111; }
+  .openbtn span { font-size: 18px; line-height: 1; }
+  .hud {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 112px; z-index: 4;
+    display: flex; align-items: center; gap: 24px; padding: 0 30px;
+    background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--paper) 72%, transparent) 40%, var(--paper));
+    border-top: 1px solid var(--line);
+  }
+  .counter small { display: block; font: 8px/1.2 ui-monospace, monospace; letter-spacing: .2em; color: var(--muted); }
+  .counter b { font-size: 34px; font-weight: 300; letter-spacing: .04em; }
+  .counter b i { font-style: normal; font-size: 14px; color: var(--muted); margin-left: 4px; }
+  .stepper { display: flex; align-items: center; gap: 10px; }
+  .stepper button { width: 30px; height: 30px; border: 1px solid var(--line); border-radius: 50%; display: grid; place-items: center; transition: background .2s; }
+  .stepper button:hover { background: var(--ink); color: var(--paper); }
+  .ticks { display: flex; gap: 5px; align-items: center; }
+  .ticks i { width: 1px; height: 16px; background: var(--line); transition: background .2s, height .2s; }
+  .ticks i.on { height: 30px; background: var(--accent); }
+  .genre { margin-left: auto; display: flex; align-items: center; gap: 14px; text-align: center; }
+  .genre small { display: block; font: 8px/1.2 ui-monospace, monospace; letter-spacing: .18em; color: var(--muted); }
+  .genre b { display: block; margin-top: 4px; font-size: 13px; letter-spacing: .12em; font-weight: 500; }
+  .genre button { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; }
+  .genre button:hover { background: rgba(127,127,127,.12); }
+  .hint { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); font: 8px/1 ui-monospace, monospace; letter-spacing: .14em; color: var(--muted); }
+  .status { position: absolute; left: 30px; bottom: 18px; font: 8px/1 ui-monospace, monospace; letter-spacing: .14em; color: var(--muted); }
+  .runtime { position: absolute; right: 30px; bottom: 18px; font: 8px/1 ui-monospace, monospace; letter-spacing: .1em; color: var(--muted); }
+  .modal { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; padding: 30px; background: rgba(3,5,8,.72); backdrop-filter: blur(12px); opacity: 0; pointer-events: none; transition: opacity .25s; }
+  .modal.on { opacity: 1; pointer-events: auto; }
+  .sheet { width: min(760px, 100%); max-height: 86vh; overflow: auto; background: var(--paper); color: var(--ink); border: 1px solid var(--line); box-shadow: var(--shadow); padding: 28px; transform: translateY(12px) scale(.98); transition: transform .3s cubic-bezier(.2,.8,.2,1); }
+  .modal.on .sheet { transform: none; }
+  .sheethead { display: flex; gap: 22px; align-items: flex-end; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+  .sheethead img { width: 150px; height: 150px; object-fit: cover; box-shadow: 0 18px 40px rgba(0,0,0,.3); }
+  .sheethead h2 { margin: 0 0 8px; font-size: 34px; }
+  .tracks { list-style: none; margin: 18px 0 0; padding: 0; }
+  .tracks li { display: flex; align-items: center; gap: 14px; padding: 10px 4px; border-bottom: 1px solid var(--line); font-size: 12px; }
+  .tracks span { font: 9px/1 ui-monospace, monospace; color: var(--muted); }
+  .tracks b { font-weight: 400; flex: 1; }
+  .tracks em { font: 9px/1 ui-monospace, monospace; font-style: normal; color: var(--muted); }
+  .close { position: absolute; top: 22px; right: 24px; width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 50%; display: grid; place-items: center; }
+  .mocknote { margin-top: 18px; font-size: 10px; color: var(--muted); line-height: 1.7; }
+  @media (max-width: 1000px) {
+    .detail { width: 360px; padding-right: 24px; }
+    .case { width: 112px; height: 164px; }
+    .nav button:not(.keep) { display: none; }
+  }
+  @media (max-width: 760px) {
+    .top { padding: 0 18px; gap: 12px; }
+    .brand strong { font-size: 19px; }
+    .stage { flex-direction: column; overflow: auto; }
+    .shelfwrap { padding: 30px 10px 40px; min-height: 300px; }
+    .case { width: 86px; height: 126px; }
+    .detail { width: 100%; padding: 20px 22px 150px; }
+    .hud { position: fixed; height: 104px; gap: 12px; padding: 0 18px; }
+    .counter b { font-size: 26px; }
+    .hint { display: none; }
+    .runtime { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand"><strong>RHINE LAB</strong><small>MUSIC ARCHIVE ／ 私人音乐终端</small></div>
+    <nav class="nav" aria-label="mock navigation">
+      <button type="button">音乐库</button>
+      <button type="button">搜索</button>
+      <button type="button">歌单</button>
+      <button type="button">队列</button>
+    </nav>
+    <div class="theme" role="group" aria-label="主题">
+      <button type="button" data-theme-btn="day">晨雾</button>
+      <button type="button" data-theme-btn="night" class="on">月影</button>
+    </div>
+    <span class="mockbadge">MOCK / NO WEBGL</span>
+  </header>
+
+  <main class="stage">
+    <div class="shelfwrap">
+      <div class="shelf" id="shelf"></div>
+    </div>
+    <section class="detail" aria-live="polite">
+      <div class="eyebrow">MUSIC ARCHIVE <span id="genreLabel"></span></div>
+      <h1 id="title"></h1>
+      <div class="artist" id="artist"></div>
+      <div class="meta">
+        <div><small>RELEASE / 发行年份</small><b id="year"></b></div>
+        <div><small>GENRE / 流派</small><b id="genre"></b></div>
+        <div><small>TRACKS / 曲目</small><b id="tracks"></b></div>
+        <div><small>FORMAT / 格式</small><b>MOCK / LOCAL</b></div>
+      </div>
+      <button class="openbtn" type="button" id="openBtn">打开专辑 <span>↗</span></button>
+    </section>
+
+    <div class="hud">
+      <div class="counter"><small>ALBUM / SELECT</small><b><span id="albumNo">01</span><i>/ <span id="albumTotal">03</span></i></b></div>
+      <div class="stepper">
+        <button type="button" id="prev" aria-label="上一张专辑">↑</button>
+        <div class="ticks" id="ticks"></div>
+        <button type="button" id="next" aria-label="下一张专辑">↓</button>
+      </div>
+      <div class="genre">
+        <button type="button" id="genrePrev" aria-label="上一个流派">←</button>
+        <div><small>GENRE <span id="genreNo">01</span> / <span id="genreTotal">02</span></small><b id="genreName">氛围音乐</b></div>
+        <button type="button" id="genreNext" aria-label="下一个流派">→</button>
+      </div>
+      <div class="hint">← → 流派 ／ ↑ ↓ 专辑 ／ ENTER 打开专辑</div>
+      <div class="status">LOCAL COLLECTION · MOCK DEMO</div>
+      <div class="runtime">MOCK DATA / CSS 3D / <span id="fps">60</span> FPS</div>
+    </div>
+  </main>
+</div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="专辑详情">
+  <div class="sheet">
+    <button class="close" type="button" id="closeBtn" aria-label="关闭">×</button>
+    <div class="sheethead">
+      <img id="sheetCover" alt="" />
+      <div><div class="eyebrow">ALBUM DETAIL / MOCK</div><h2 id="sheetTitle"></h2><div class="artist" id="sheetArtist"></div></div>
+    </div>
+    <ul class="tracks" id="trackList"></ul>
+    <p class="mocknote">这是静态 mock 演示：专辑、曲目、封面均为示例数据；不使用 WebGL、不读取本地音乐，也不包含第三方项目素材。</p>
+  </div>
+</div>
+
+<script>
+  const albums = [
+    { id: 'daylight', title: '日光留声', en: 'DAYLIGHT', artist: 'RHINE', year: 2026, genre: '氛围音乐', cover: 'mock/cover-daylight.svg', tracks: ['晨光', '留声', '沙丘', '慢速日落'] },
+    { id: 'night', title: '夜间航线', en: 'NIGHT', artist: 'LANE 04', year: 2025, genre: '器乐', cover: 'mock/cover-night.svg', tracks: ['起飞', '云层', '夜间航线'] },
+    { id: 'mist', title: '雾中回声', en: 'MIST', artist: 'MIST', year: 2026, genre: '氛围音乐', cover: 'mock/cover-mist.svg', tracks: ['雾', '回声', '远岸'] },
+    { id: 'red', title: '红色房间', en: 'RED ROOM', artist: 'ROOM 9', year: 2024, genre: '器乐', cover: 'mock/cover-red.svg', tracks: ['红', '房间', '门'] },
+    { id: 'orbit', title: '慢速星球', en: 'SLOW ORBIT', artist: 'ORBIT', year: 2026, genre: '氛围音乐', cover: 'mock/cover-orbit.svg', tracks: ['轨道', '慢速星球', '远地点', '回归'] },
+  ];
+  const genres = ['氛围音乐', '器乐'];
+  const state = { genre: 0, album: 0, day: false, open: false };
+  const $ = (id) => document.getElementById(id);
+  const visible = () => albums.filter((a) => a.genre === genres[state.genre]);
+  const current = () => visible()[state.album] || visible()[0];
+  const pad = (n) => String(n).padStart(2, '0');
+
+  function renderShelf() {
+    const list = visible();
+    state.album = Math.min(state.album, list.length - 1);
+    $('shelf').innerHTML = list.map((a, i) => `
+      <button class="case ${i === state.album ? 'active' : ''}" data-i="${i}" type="button" aria-label="选择 ${a.title}">
+        <img src="${a.cover}" alt="${a.title}" />
+        <span class="spine">${pad(i + 1)} · ${a.en} · ${a.year}</span>
+      </button>`).join('');
+    $('shelf').querySelectorAll('.case').forEach((el) => {
+      el.addEventListener('click', () => { state.album = Number(el.dataset.i); render(); });
+    });
+  }
+
+  function render() {
+    const list = visible();
+    const a = current();
+    $('title').textContent = a.title;
+    $('artist').textContent = `${a.artist} · ${a.en}`;
+    $('year').textContent = a.year;
+    $('genre').textContent = a.genre;
+    $('tracks').textContent = `${a.tracks.length} TRACKS`;
+    $('genreLabel').textContent = `／ ${a.genre}`;
+    $('albumNo').textContent = pad(state.album + 1);
+    $('albumTotal').textContent = pad(list.length);
+    $('genreNo').textContent = pad(state.genre + 1);
+    $('genreTotal').textContent = pad(genres.length);
+    $('genreName').textContent = genres[state.genre];
+    $('ticks').innerHTML = list.map((_, i) => `<i class="${i === state.album ? 'on' : ''}"></i>`).join('');
+    renderShelf();
+    $('sheetCover').src = a.cover;
+    $('sheetTitle').textContent = a.title;
+    $('sheetArtist').textContent = `${a.artist} · ${a.year}`;
+    $('trackList').innerHTML = a.tracks.map((t, i) => `<li><span>${pad(i + 1)}</span><b>${t}</b><em>MOCK</em></li>`).join('');
+  }
+
+  function moveAlbum(delta) {
+    const list = visible();
+    state.album = (state.album + delta + list.length) % list.length;
+    render();
+  }
+  function moveGenre(delta) {
+    state.genre = (state.genre + delta + genres.length) % genres.length;
+    state.album = 0;
+    render();
+  }
+  function setTheme(day) {
+    state.day = day;
+    document.documentElement.dataset.theme = day ? 'day' : 'night';
+    document.querySelectorAll('[data-theme-btn]').forEach((b) => b.classList.toggle('on', (b.dataset.themeBtn === 'day') === day));
+  }
+  function openModal() { state.open = true; $('modal').classList.add('on'); $('closeBtn').focus(); }
+  function closeModal() { state.open = false; $('modal').classList.remove('on'); }
+
+  $('prev').addEventListener('click', () => moveAlbum(-1));
+  $('next').addEventListener('click', () => moveAlbum(1));
+  $('genrePrev').addEventListener('click', () => moveGenre(-1));
+  $('genreNext').addEventListener('click', () => moveGenre(1));
+  $('openBtn').addEventListener('click', openModal);
+  $('closeBtn').addEventListener('click', closeModal);
+  $('modal').addEventListener('click', (e) => { if (e.target === $('modal')) closeModal(); });
+  document.querySelectorAll('[data-theme-btn]').forEach((b) => {
+    b.addEventListener('click', () => setTheme(b.dataset.themeBtn === 'day'));
+  });
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { closeModal(); return; }
+    if (state.open) return;
+    if (e.key === 'ArrowUp') { moveAlbum(-1); e.preventDefault(); }
+    if (e.key === 'ArrowDown') { moveAlbum(1); e.preventDefault(); }
+    if (e.key === 'ArrowLeft') { moveGenre(-1); e.preventDefault(); }
+    if (e.key === 'ArrowRight') { moveGenre(1); e.preventDefault(); }
+    if (e.key === 'Enter') { openModal(); e.preventDefault(); }
+  });
+  let fps = 58;
+  setInterval(() => { fps = 57 + Math.floor(Math.random() * 4); $('fps').textContent = fps; }, 900);
+  setTheme(false);
+  render();
+</script>
+</body>
+</html>

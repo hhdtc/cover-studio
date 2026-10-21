@@ -46,9 +46,9 @@ const PROJECTS: Project[] = [
     release: 'https://github.com/Bong712/Rhine-Music-Windows/releases',
     design: 'https://github.com/Bong712/Rhine-Music-Windows/blob/main/README.md',
     demo: {
-      label: '本地视觉 Demo',
-      url: 'http://127.0.0.1:5175/?demo=1',
-      note: '只用内置三张封面，不读取音乐库、不涉及音频；需要 WebGL 2。',
+      label: '静态 Mock Demo',
+      url: '/rhine-mock.html',
+      note: '不依赖 WebGL 与第三方后端：使用 5 张本地 mock 专辑与封面，支持切专辑、切流派、亮暗主题与详情。',
     },
     stack: ['TypeScript', 'WebGL 2', 'WebView2', 'Three.js', 'LRC 歌词'],
     theme: 'Windows 0.6.0 · 晨雾 / 月影',
@@ -1066,11 +1066,11 @@ async function copyAiContext() {
             />
             <p class="lib-note">
               <template v-if="project.id === 'rhine-music'">
-                {{ t('视觉 Demo 需要 WebGL 2；如果画面空白，先确认本地服务已启动：', 'The visual demo needs WebGL 2. If it is blank, start the local service:') }}
-                <code>cd demos/rhine-music &amp;&amp; npm run music -- --port 5175</code>
+                {{ t('静态 Mock，无需 WebGL；可直接切专辑、流派和亮暗主题。真实前端可选：', 'Static mock, no WebGL; switch albums, genres and themes directly. Optional real app:') }}
+                <code>npm run demo:rhine</code>
               </template>
               <template v-else>
-                {{ t('在线 Storybook 首次加载可能较慢；如果内嵌空白，请用「新窗口打开」。', 'The online Storybook may take a while on first load; if the frame is blank, open it in a new tab.') }}
+                {{ t('如果内嵌页面空白，请用「新窗口打开」；在线项目首次加载可能较慢。', 'If the embedded page is blank, open it in a new tab; online projects may take a while on first load.') }}
               </template>
             </p>
           </template>
