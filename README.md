@@ -126,7 +126,7 @@ UI 组件库首个收录项目：[Bong712/Rhine-Music-Windows](https://github.co
 - 相比上游增加：同步 LRC 歌词、歌单、可编辑播放队列、封面图集与实例化绘制
 - 组件库内嵌演示：默认「真实前端（WebGL）」，可在同一位置切换到「静态 Mock」
 - 静态 Mock：`/rhine-mock.html`（本项目原创，5 张本地封面，无 WebGL、无后端）
-- 真实 Windows 前端仍可本地运行（可选）：`cd demos/rhine-music-windows && npm install && npm run build && npm run music -- --port 5175`，然后打开 http://127.0.0.1:5175/?demo=1
+- 真实 Windows 前端仍可本地运行（可选）：`cd demos/rhine-music-windows && npm install && npm run build && npm run music -- --port 5175`，然后打开 http://127.0.0.1:5178/?demo=1
 - 自研实现不需要 Node/WebGL；真实前端需要 Node.js ≥ 22.12、WebGL 2，`?demo=1` 会跳过音频与曲库扫描
 - 静态 mock 的专辑、曲目、封面均为示例数据，不复用项目素材
 - 真实前端的 3D 封面纹理在部分 GPU/驱动上会显示为空白；默认的自研实现不依赖贴图，可稳定看到封面

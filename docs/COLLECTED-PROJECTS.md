@@ -103,8 +103,8 @@
 ### 2.4 Demo 运行
 
 - 站内演示：默认 `/rhine-mock.html`（本项目按原布局逆向实现：3D 玻璃专辑架、HUD、详情、亮暗主题、开场；5 张本地封面，无 WebGL、无后端）；可切换到真实前端
-- 真实前端（可选）：http://127.0.0.1:5175/?demo=1
-- 启动真实前端：`cd demos/rhine-music-windows && npm install && npm run build && npm run music -- --port 5175`
+- 真实前端（可选）：http://127.0.0.1:5178/?demo=1
+- 启动真实前端：`cd demos/rhine-music-windows && npm install && npm run build && npm run music -- --port 5178`
 - 需要 Node.js ≥ 22.12 与支持 WebGL 2 的浏览器。
 - 静态 mock 使用 5 张本地示例专辑，不读取音乐库、不需要 FFmpeg、不上传任何文件。
 - 真实前端的 3D 封面纹理在部分 GPU/驱动上显示为空白；站内可切换到静态 mock，避免依赖 WebGL 贴图。

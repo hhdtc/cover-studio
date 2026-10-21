@@ -57,7 +57,7 @@ const PROJECTS: Project[] = [
       url: '/rhine-mock.html',
       note: '按原产品的布局与交互逆向重写：3D 玻璃专辑架、HUD、详情、亮暗主题、开场；使用 5 张本地 mock 封面，不依赖 WebGL。',
       altLabel: '真实前端（WebGL）',
-      altUrl: 'http://127.0.0.1:5175/?demo=1',
+      altUrl: 'http://127.0.0.1:5178/?demo=1',
       altNote: '原项目 Windows 前端；在部分 GPU/驱动上 3D 封面纹理可能显示为空白。',
     },
     stack: ['TypeScript', 'WebGL 2', 'WebView2', 'Three.js', 'LRC 歌词'],

@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "demo:rhine": "npm --prefix demos/rhine-music-windows run music -- --port 5175",
+    "demo:rhine:fresh": "npm --prefix demos/rhine-music-windows run music -- --port 5178",
     "demo:aureole": "npm --prefix demos/arknights-sixth-ui run preview -- --port 5176 --strictPort",
     "demo:p5": "python3 -m http.server 5177 --bind 127.0.0.1 --directory demos/p5-ui/examples/document-web/build",
     "build": "vite build",
