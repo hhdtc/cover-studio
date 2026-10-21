@@ -24,23 +24,44 @@ const TOOLS = [
 
 function routeFromHash(): string {
   const raw = window.location.hash.replace(/^#\/?/, '').split('?')[0].split('/')[0]
-  return TOOLS.some((t) => t.id === raw) ? raw : 'cover'
+  return TOOLS.some((t) => t.id === raw) ? raw : 'ui'
 }
 
 const tool = ref<string>(routeFromHash())
 const currentView = computed(
   () => TOOLS.find((t) => t.id === tool.value)?.component ?? CoverView,
 )
-const routePath = ref(window.location.hash || '#/cover')
+const routePath = ref(window.location.hash || '#/ui')
 const currentRoute = computed(() => routePath.value)
 
 function syncFromHash() {
-  routePath.value = window.location.hash || '#/cover'
+  routePath.value = window.location.hash || '#/ui'
   const id = routeFromHash()
   if (id !== tool.value) tool.value = id
+  othersOpen.value = false
   const item = TOOLS.find((t) => t.id === id)
-  const label = lang.value === 'zh' ? (item?.label ?? '封面') : (item?.labelEn ?? 'Cover')
+  const label = lang.value === 'zh' ? (item?.label ?? 'UI 组件库') : (item?.labelEn ?? 'UI Library')
   document.title = `${label} · Cover Studio`
+}
+
+const PRIMARY_IDS = ['ui', 'assets']
+const primaryTools = PRIMARY_IDS.map((id) => TOOLS.find((t) => t.id === id)!)
+const secondaryTools = TOOLS.filter((t) => !PRIMARY_IDS.includes(t.id))
+const othersOpen = ref(false)
+const othersRef = ref<HTMLElement | null>(null)
+const secondaryActive = computed(() => secondaryTools.some((t) => t.id === tool.value))
+
+function chooseSecondary(id: string) {
+  othersOpen.value = false
+  go(id)
+}
+
+function onDocPointer(e: PointerEvent) {
+  if (othersOpen.value && !othersRef.value?.contains(e.target as Node)) othersOpen.value = false
+}
+
+function onDocKey(e: KeyboardEvent) {
+  if (e.key === 'Escape') othersOpen.value = false
 }
 
 function go(id: string) {
@@ -61,14 +82,18 @@ async function copyLink() {
 
 onMounted(() => {
   window.addEventListener('hashchange', syncFromHash)
+  document.addEventListener('pointerdown', onDocPointer)
+  document.addEventListener('keydown', onDocKey)
   if (!window.location.hash) {
-    window.history.replaceState(null, '', '#/cover')
+    window.history.replaceState(null, '', '#/ui')
   }
   syncFromHash()
 })
 
 onBeforeUnmount(() => {
   window.removeEventListener('hashchange', syncFromHash)
+  document.removeEventListener('pointerdown', onDocPointer)
+  document.removeEventListener('keydown', onDocKey)
 })
 
 watch(lang, () => syncFromHash())
@@ -87,7 +112,7 @@ watch(lang, () => syncFromHash())
 
       <nav class="tool-nav">
         <button
-          v-for="t in TOOLS"
+          v-for="t in primaryTools"
           :key="t.id"
           :class="{ active: tool === t.id }"
           :title="t.desc"
@@ -96,6 +121,34 @@ watch(lang, () => syncFromHash())
           <Icon :name="t.icon" :size="16" />
           <span>{{ lang === 'zh' ? t.label : t.labelEn }}</span>
         </button>
+
+        <div ref="othersRef" class="nav-more">
+          <button
+            class="nav-more-trigger"
+            :class="{ active: secondaryActive }"
+            :aria-expanded="othersOpen"
+            aria-haspopup="menu"
+            :title="lang === 'zh' ? '其他工具' : 'More tools'"
+            @click="othersOpen = !othersOpen"
+          >
+            <Icon name="more" :size="16" />
+            <span>{{ lang === 'zh' ? '其他' : 'More' }}</span>
+            <Icon name="chevron-down" :size="12" class="nav-more-chev" />
+          </button>
+          <div v-if="othersOpen" class="nav-more-menu" role="menu">
+            <button
+              v-for="t in secondaryTools"
+              :key="t.id"
+              role="menuitem"
+              :class="{ active: tool === t.id }"
+              @click="chooseSecondary(t.id)"
+            >
+              <Icon :name="t.icon" :size="15" />
+              <span>{{ lang === 'zh' ? t.label : t.labelEn }}</span>
+              <small v-if="tool === t.id">●</small>
+            </button>
+          </div>
+        </div>
       </nav>
 
       <button class="lang-chip" :title="lang === 'zh' ? 'Switch to English' : '切换到中文'" @click="setLang(lang === 'zh' ? 'en' : 'zh')">

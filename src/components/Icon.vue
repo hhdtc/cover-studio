@@ -40,6 +40,7 @@ const PATHS: Record<string, string[]> = {
   shuffle: ['M4 7h3l10 10h3', 'M17 4l3 3-3 3', 'M4 17h3l10-10h3', 'M17 14l3 3-3 3'],
   'arrow-left': ['M15 5l-7 7 7 7'],
   'arrow-right': ['M9 5l7 7-7 7'],
+  more: ['M5 12h.01', 'M12 12h.01', 'M19 12h.01'],
   'chevron-up': ['M6 15l6-6 6 6'],
   'chevron-down': ['M6 9l6 6 6-6'],
   library: ['M4 5h4v15H4z', 'M10 5h4v15h-4z', 'M16.5 6.2l3.5-1 4 13.6-3.5 1z'],
