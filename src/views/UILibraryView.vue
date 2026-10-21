@@ -694,6 +694,132 @@ const PROJECTS: Project[] = [
       },
     ],
   },
+  {
+    id: 'p5-ui',
+    name: 'p5-ui · Persona 5 UI',
+    tagline: 'Vue 3 的 Persona 5 风格玩具组件库。',
+    description:
+      '一套红黑白、斜切与剪纸拼贴的 Vue 3 组件库，包含按钮、标题、文字、滑块、开关、消息、通知、返回顶部、分隔符、上传、表格和人群动画。仓库未提供许可证，因此本站只做链接索引与本地评估，不复制其代码、图片或构建产物；组件视觉 Demo 为原创 CSS 重绘。',
+    repo: 'https://github.com/q-mona/p5-ui',
+    release: 'https://www.npmjs.com/package/p5-ui',
+    design: 'https://github.com/q-mona/p5-ui#readme',
+    demo: {
+      label: '本地文档站（仅评估）',
+      url: 'http://127.0.0.1:5177/',
+      note: '仓库自带的预构建文档站，仅在本机运行用于评估；未取得再分发许可，不随本站发布。',
+    },
+    stack: ['Vue 3', 'Vite', 'Sass', 'Canvas', 'npm p5-ui'],
+    theme: '红 / 黑 / 白 · 斜切拼贴',
+    screenshots: [
+      {
+        src: '/p5-poster.svg',
+        caption: '本站原创封面示意：红黑白斜切与 P5 风格排版，未使用项目素材。',
+      },
+    ],
+    modules: [
+      {
+        id: 'p5-foundations',
+        name: '全局样式与图标',
+        group: '基础',
+        summary:
+          '红黑白基调、斜切与剪纸拼贴、全局字体与 P5 图标；组件共享同一套 Sass 变量与描边。',
+        files: [
+          { label: 'global.scss', path: 'src/assets/styles/global.scss' },
+          { label: 'index.scss', path: 'src/assets/styles/index.scss' },
+          { label: 'icon.vue', path: 'src/components/icon/icon.vue' },
+        ],
+        points: [
+          '红 #e60012、黑与纸白构成主色；斜切、锯齿与描边是主要形状语言。',
+          '图标以 SVG 路径提供，按钮与标题共用同一套倾斜与阴影规则。',
+          '全局样式独立打包，适合按需引入组件时统一换肤。',
+        ],
+      },
+      {
+        id: 'p5-actions',
+        name: '按钮、标题与文字',
+        group: '组件',
+        summary:
+          'P5Button、P5Title、P5Text：倾斜按钮、带红色切片的标题与描边文字。',
+        files: [
+          { label: 'button.vue', path: 'src/components/button/button.vue' },
+          { label: 'title.vue', path: 'src/components/title/title.vue' },
+          { label: 'text.vue', path: 'src/components/text/text.vue' },
+        ],
+        points: [
+          '按钮有实心红、黑白描边与悬停位移，按下有短促反馈。',
+          '标题用红色斜块与错位排版制造印刷拼贴感。',
+          '文字组件提供描边、阴影与倾斜等展示变体。',
+        ],
+      },
+      {
+        id: 'p5-controls',
+        name: '滑块与开关',
+        group: '表单',
+        summary:
+          'P5Slider 与 P5Switch：粗描边轨道、红色填充与带位移的滑块/开关。',
+        files: [
+          { label: 'slider.vue', path: 'src/components/slider/slider.vue' },
+          { label: 'switch.vue', path: 'src/components/switch/switch.vue' },
+        ],
+        points: [
+          '滑块轨道使用粗描边与红色进度段，拖拽时数值实时更新。',
+          '开关以黑白底与红色滑块表示状态，切换有短促过渡。',
+          '两者都暴露 v-model，可直接在表单中使用。',
+        ],
+      },
+      {
+        id: 'p5-feedback',
+        name: '消息、通知与返回顶部',
+        group: '反馈',
+        summary:
+          'P5Message、P5Notification、P5BackTop：斜切提示条、带角色剪影的通知与返回顶部按钮。',
+        files: [
+          { label: 'message.vue', path: 'src/components/message/message.vue' },
+          { label: 'notification.vue', path: 'src/components/notification/notification.vue' },
+          { label: 'backTop.vue', path: 'src/components/backTop/backTop.vue' },
+        ],
+        points: [
+          '消息以斜切条从边缘进入，自动消失；通知可带角色剪影与标题。',
+          '返回顶部在滚动后出现，点击回到页面顶部。',
+          '三者都以红黑白与硬边阴影保持统一的 P5 语气。',
+        ],
+      },
+      {
+        id: 'p5-layout',
+        name: '分隔符、上传与表格',
+        group: '布局',
+        summary:
+          'P5Divider、P5Upload、P5Table：锯齿分隔线、拖拽上传区与斜切表头。',
+        files: [
+          { label: 'divider.vue', path: 'src/components/divider/divider.vue' },
+          { label: 'upload.vue', path: 'src/components/upload/upload.vue' },
+          { label: 'table.vue', path: 'src/components/table/table.vue' },
+        ],
+        points: [
+          '分隔符用锯齿/斜切代替普通直线，强化拼贴感。',
+          '上传区支持点击与拖拽，选中后展示文件与预览。',
+          '表格以斜切表头与描边行组织数据，适合做档案式列表。',
+        ],
+      },
+      {
+        id: 'p5-motion',
+        name: '人群动画与缩放',
+        group: '动效',
+        summary:
+          'Canvas 人群剪影持续移动，配合缩放与斜切过渡，构成页面级的 P5 动势。',
+        files: [
+          { label: 'crowd.vue', path: 'src/components/canvas/crowd/crowd.vue' },
+          { label: 'createCrowd.js', path: 'src/components/canvas/crowd/createCrowd.js' },
+          { label: 'zoom.vue', path: 'src/components/upload/zoom.vue' },
+        ],
+        points: [
+          '人群剪影在 Canvas 中持续移动，密度与速度可配置。',
+          '缩放/斜切过渡用于图片预览与页面转场，节奏短促。',
+          '动效以红黑白剪影为主，不依赖外部图片素材。',
+        ],
+      },
+    ],
+  },
 ]
 
 const activeProject = ref(PROJECTS[0])
@@ -779,6 +905,12 @@ const aiContext = computed(() => {
   const m = currentModule.value
   if (!m) return ''
   const route = `${location.origin}${location.pathname}#/ui/${p.id}/${m.id}`
+  const licenseLine =
+    p.id === 'p5-ui'
+      ? 'license: NO LICENSE — all rights reserved; link-only, no code/assets copied'
+      : p.id === 'nasa-punk'
+        ? 'license: MIT; NASA insignia are U.S. Government marks'
+        : 'license: MIT (non-code assets excluded)'
   const lines = [
     `route: ${route}`,
     `project: ${p.name} (${p.id})`,
@@ -786,7 +918,7 @@ const aiContext = computed(() => {
     `group: ${m.group}`,
     `source: ${p.repo}`,
     `demo: ${p.demo?.url?.startsWith('/') ? `${location.origin}${p.demo.url}` : (p.demo?.url ?? p.repo)}`,
-    'license: MIT (non-code assets excluded)',
+    licenseLine,
     'catalog: /ui-catalog.json',
   ]
   if (p.id === 'endfield-ui') {
@@ -798,6 +930,8 @@ const aiContext = computed(() => {
     )
   } else if (p.id === 'aureole') {
     lines.push('runtime: React 19 + Vite preview at http://127.0.0.1:5176/')
+  } else if (p.id === 'p5-ui') {
+    lines.push('runtime: local static docs at http://127.0.0.1:5177/ (evaluation only)')
   } else {
     lines.push('runtime: local Vite + Node music server, visual demo ?demo=1')
   }

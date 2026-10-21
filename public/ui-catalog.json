@@ -166,6 +166,40 @@
           "name": "Config & accessibility"
         }
       ]
+    },
+    {
+      "id": "p5-ui",
+      "name": "p5-ui · Persona 5 UI",
+      "repo": "https://github.com/q-mona/p5-ui",
+      "demo": "http://127.0.0.1:5177/",
+      "docs": "https://github.com/q-mona/p5-ui#readme",
+      "license": "NO LICENSE — all rights reserved; link-only, no code/assets copied",
+      "modules": [
+        {
+          "id": "p5-foundations",
+          "name": "Global styles & icons"
+        },
+        {
+          "id": "p5-actions",
+          "name": "Buttons, titles & text"
+        },
+        {
+          "id": "p5-controls",
+          "name": "Slider & switch"
+        },
+        {
+          "id": "p5-feedback",
+          "name": "Message, notification & back to top"
+        },
+        {
+          "id": "p5-layout",
+          "name": "Divider, upload & table"
+        },
+        {
+          "id": "p5-motion",
+          "name": "Crowd motion & zoom"
+        }
+      ]
     }
   ]
 }

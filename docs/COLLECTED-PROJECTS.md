@@ -240,7 +240,57 @@ npm run preview -- --port 5176
 - 不把演示主体图片说成官方素材；
 - 不在未保留 MIT 与字体 OFL 许可的情况下再分发模板或其构建产物。
 
-## 6. 新增项目检查清单
+## 6. p5-ui · Persona 5 UI
+
+### 6.1 基本信息
+
+| 项目 | 内容 |
+| --- | --- |
+| 仓库 | https://github.com/q-mona/p5-ui |
+| 作者 | AYi / q-mona |
+| 许可证 | **未提供 LICENSE，默认保留所有权利** |
+| 形态 | Vue 3 组件库，npm 包名 `p5-ui` |
+| 本地目录 | `demos/p5-ui`（仅本地评估，已 gitignore） |
+| 本地文档站 | http://127.0.0.1:5177/ |
+
+### 6.2 许可状态与处理方式
+
+- 仓库没有 LICENSE 文件，GitHub API 也未识别到许可证；按默认版权规则，未经许可不得复制、修改或再分发代码与素材。
+- 因此本站**不复制**其源代码、Sass、字体、图片、SVG、构建产物或文档截图。
+- 只保留仓库链接、npm 包名与模块说明；模块说明为依据公开 README 与文件结构整理的原创摘要。
+- 为评估交互，仓库被克隆到本地 `demos/p5-ui`，并用 Python 静态服务器运行其预构建文档站；该目录已加入 `.gitignore`，不提交、不随主站发布。
+- UI 组件库中的六个视觉 Demo 与封面图 `public/p5-poster.svg` 均为本站原创的 CSS/SVG 重绘，不使用项目素材。
+
+### 6.3 来源与素材
+
+- 项目是 Persona 5 风格的爱好者作品，与 Atlus / SEGA 无关；本站不主张任何官方关系。
+- 项目内含的字体、角色剪影、图标与图片权利归各自权利人；本站不复制、不缓存、不再分发。
+- 页面只展示原创封面示意，并明确标注「未使用项目素材」。
+
+### 6.4 Demo 运行
+
+```sh
+cd demos/p5-ui
+python3 -m http.server 5177 --bind 127.0.0.1 \
+  --directory examples/document-web/build
+```
+
+- 主站提供 `npm run demo:p5`。
+- 仅绑定 `127.0.0.1`，用于本机评估；不对外提供镜像或下载。
+- 预构建文档站依赖仓库自带资源，若仓库更新需重新拉取。
+
+### 6.5 禁止事项
+
+- 不在未取得授权的情况下复制、修改、再分发 p5-ui 的代码或素材；
+- 不把本站的原创重绘说成 p5-ui 官方组件；
+- 不使用 Persona 5 官方 Logo、角色图或字体作为本站品牌；
+- 不将本地克隆、构建产物或文档站上传到公开仓库、静态托管或发布页。
+
+### 6.6 下架条件
+
+权利人提出异议，或仓库后续补充了限制性许可时，立即移除本地 Demo 入口、模块说明中的代码链接与封面，仅保留项目名称与仓库链接（或全部移除）。
+
+## 7. 新增项目检查清单
 
 收录前逐项确认：
 
@@ -263,7 +313,7 @@ npm run preview -- --port 5176
 
 ---
 
-## 7. 维护记录
+## 8. 维护记录
 
 | 日期 | 事项 |
 | --- | --- |
@@ -272,15 +322,16 @@ npm run preview -- --port 5176
 | 2026-10-20 | 增加中英双语、组件 AI CONTEXT、`/ui-catalog.json` 与动效重播 |
 | 2026-10-20 | 收录 NASA-Punk UI Skill；托管单文件参考实现并加入六个视觉 Demo |
 | 2026-10-20 | 收录 AUREOLE · Sixth UI；本地构建并在 5176 运行，加入六个视觉 Demo |
+| 2026-10-21 | 收录 p5-ui；无 LICENSE，仅链接索引与本地评估，不复制代码/素材 |
 
 ---
 
-## 8. 相关文件
+## 9. 相关文件
 
 - 页面与数据：`src/views/UILibraryView.vue`
 - 英文文案：`src/views/uiLibraryEn.ts`
 - 组件视觉 Demo：`src/components/ModuleDemo.vue`
 - 机器可读目录：`public/ui-catalog.json`
-- 本地 Demo：`demos/rhine-music-windows/`、`demos/nasa-punk-ui/`、`demos/arknights-sixth-ui/`
+- 本地 Demo：`demos/rhine-music-windows/`、`demos/nasa-punk-ui/`、`demos/arknights-sixth-ui/`、`demos/p5-ui/`（仅评估）
 - NASA 参考实现：`public/nasa-punk-reference.html`
 - 主 README：`README.md`

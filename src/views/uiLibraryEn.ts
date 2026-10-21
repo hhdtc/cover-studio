@@ -414,4 +414,82 @@ export const UI_EN: Record<string, EnProject> = {
       },
     },
   },
+  'p5-ui': {
+    tagline: 'A toy Persona 5-style component library for Vue 3.',
+    description:
+      'A Vue 3 component library built on red, black and white, diagonal cuts and paper-cut collage: buttons, titles, text, slider, switch, message, notification, back-to-top, divider, upload, table and a crowd animation. The repository has no license, so this catalog links to it and runs it locally for evaluation only; no code, images or build output are copied here. The visual demos are original CSS recreations.',
+    theme: 'Red / black / white · diagonal collage',
+    demoLabel: 'Local docs (evaluation only)',
+    demoNote:
+      'The repository’s prebuilt docs site runs locally for evaluation only; no redistribution license is granted, so it is not published with this site.',
+    shots: ['Original cover artwork: red/black diagonal P5-style typography, no project assets used.'],
+    modules: {
+      'p5-foundations': {
+        name: 'Global styles & icons',
+        group: 'Foundation',
+        summary:
+          'Red, black and paper white, diagonal cuts and paper-cut collage, shared fonts and P5 icons; all components share one Sass token set and outline language.',
+        points: [
+          'Red #e60012, black and paper white form the palette; diagonal cuts, jagged edges and outlines carry the shape language.',
+          'Icons are SVG paths; buttons and titles share the same skew and shadow rules.',
+          'Global styles ship separately, so on-demand component imports can still share one skin.',
+        ],
+      },
+      'p5-actions': {
+        name: 'Buttons, titles & text',
+        group: 'Components',
+        summary:
+          'P5Button, P5Title and P5Text: skewed buttons, titles with red slices, and outlined display text.',
+        points: [
+          'Buttons come in solid red and black/white outline variants, with hover offset and short press feedback.',
+          'Titles use red diagonal blocks and offset typesetting for a print-collage feel.',
+          'Text exposes outline, shadow and skew variants for display copy.',
+        ],
+      },
+      'p5-controls': {
+        name: 'Slider & switch',
+        group: 'Forms',
+        summary:
+          'P5Slider and P5Switch: heavy outlined tracks, red fill and offset thumbs.',
+        points: [
+          'The slider uses a thick outline and red progress segment; dragging updates the value live.',
+          'The switch shows state with a black/white track and a red thumb, with a short transition.',
+          'Both expose v-model for direct use in forms.',
+        ],
+      },
+      'p5-feedback': {
+        name: 'Message, notification & back-to-top',
+        group: 'Feedback',
+        summary:
+          'P5Message, P5Notification and P5BackTop: diagonal message bars, character-silhouette notifications and a back-to-top button.',
+        points: [
+          'Messages enter from the edge as diagonal bars and dismiss automatically; notifications can carry a silhouette and title.',
+          'Back-to-top appears after scrolling and returns to the top.',
+          'All three keep the same hard shadows and red/black/white tone.',
+        ],
+      },
+      'p5-layout': {
+        name: 'Divider, upload & table',
+        group: 'Layout',
+        summary:
+          'P5Divider, P5Upload and P5Table: jagged dividers, drag-and-drop upload and a diagonal table header.',
+        points: [
+          'Dividers use jagged/diagonal cuts instead of plain lines to reinforce the collage feel.',
+          'The upload area supports click and drag, then shows the selected file and preview.',
+          'Tables use a diagonal header and outlined rows for archive-style lists.',
+        ],
+      },
+      'p5-motion': {
+        name: 'Crowd motion & zoom',
+        group: 'Motion',
+        summary:
+          'Canvas crowd silhouettes move continuously, paired with zoom and diagonal transitions for page-level momentum.',
+        points: [
+          'Crowd silhouettes move continuously in Canvas; density and speed are configurable.',
+          'Zoom/diagonal transitions handle image previews and page changes with a short rhythm.',
+          'The motion relies on red/black silhouettes rather than external image assets.',
+        ],
+      },
+    },
+  },
 }

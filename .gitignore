@@ -26,3 +26,6 @@ demos/arknights-sixth-ui/dist/
 
 # local third-party checkouts used for demos (not part of this repo)
 demos/
+
+# p5-ui local evaluation checkout
+demos/p5-ui/

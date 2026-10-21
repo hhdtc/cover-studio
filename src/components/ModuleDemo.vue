@@ -48,6 +48,11 @@ const aureoleParallax = ref(true)
 const aureoleReduced = ref(false)
 const aureoleLabels = ref(true)
 const aureoleExport = ref('')
+const p5Value = ref(62)
+const p5On = ref(true)
+const p5Msg = ref(false)
+const p5File = ref('')
+const p5Paused = ref(false)
 const aureoleParts = [
   { code: '01', name: 'SAINT / 圣徒', desc: 'Silver mantle, arc halo and a silent observation axis.' },
   { code: '02', name: 'AUREOLE / 光晕', desc: 'Concentric calibration rings around the head.' },
@@ -927,6 +932,106 @@ function moveQueue(index: number, dir: -1 | 1) {
           <span>{{ t('配置导出 / 无障碍', 'Config export / accessibility') }}</span>
           <strong>{{ aureoleReduced ? 'REDUCED' : 'MOTION' }}</strong>
         </div>
+      </template>
+
+      <!-- p5-ui foundations -->
+      <template v-else-if="id === 'p5-foundations'">
+        <div class="p5-stage p5-foundation">
+          <span class="p5-shard s1" /><span class="p5-shard s2" /><span class="p5-shard s3" />
+          <div class="p5-swatches"><span class="red" /><span class="black" /><span class="white" /></div>
+          <div class="p5-type">
+            <small>P5 UI / GLOBAL STYLE</small>
+            <strong>TAKE<br />YOUR<br />HEART</strong>
+            <em>#E60012 / #0B0B0B / #F4F1EA</em>
+          </div>
+          <div class="p5-icons"><i>★</i><i>◆</i><i>✹</i></div>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('红黑白 / 斜切 / 拼贴', 'Red-black-white / cuts / collage') }}</span><strong>P5</strong></div>
+      </template>
+
+      <!-- p5-ui actions -->
+      <template v-else-if="id === 'p5-actions'">
+        <div class="p5-stage p5-actions-stage">
+          <span class="p5-slash" />
+          <h3>P5 <em>BUTTON</em></h3>
+          <p class="p5-copy">TAKE YOUR TIME. MAKE YOUR CHOICE.</p>
+          <div class="p5-buttons">
+            <button class="p5-btn solid">{{ t('确认', 'CONFIRM') }}</button>
+            <button class="p5-btn ghost">{{ t('取消', 'CANCEL') }}</button>
+            <button class="p5-btn icon">★</button>
+          </div>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('按钮 / 标题 / 文字', 'Button / title / text') }}</span><strong>P5BUTTON</strong></div>
+      </template>
+
+      <!-- p5-ui controls -->
+      <template v-else-if="id === 'p5-controls'">
+        <div class="p5-stage p5-controls">
+          <div class="p5-control-row">
+            <label>VOLUME <b>{{ p5Value }}</b></label>
+            <input v-model.number="p5Value" type="range" min="0" max="100" />
+          </div>
+          <div class="p5-control-row">
+            <label>ALL-OUT ATTACK <b>{{ p5On ? 'ON' : 'OFF' }}</b></label>
+            <button class="p5-switch" :class="{ on: p5On }" @click="p5On = !p5On"><span /></button>
+          </div>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('滑块 / 开关', 'Slider / switch') }}</span><strong>{{ p5Value }}%</strong></div>
+      </template>
+
+      <!-- p5-ui feedback -->
+      <template v-else-if="id === 'p5-feedback'">
+        <div class="p5-stage p5-feedback">
+          <Transition name="p5-msg">
+            <div v-if="p5Msg" class="p5-message">★ {{ t('操作成功', 'ACTION COMPLETE') }}</div>
+          </Transition>
+          <div class="p5-notification">
+            <span class="p5-avatar">P5</span>
+            <div><strong>NOTIFICATION</strong><p>{{ t('新的任务已送达。', 'A new request has arrived.') }}</p></div>
+          </div>
+          <div class="p5-feedback-actions">
+            <button class="p5-btn solid" @click="p5Msg = true">{{ t('显示消息', 'SHOW MESSAGE') }}</button>
+            <button class="p5-backtop">↑</button>
+          </div>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('消息 / 通知 / 返回顶部', 'Message / notification / back to top') }}</span><strong>FEEDBACK</strong></div>
+      </template>
+
+      <!-- p5-ui layout -->
+      <template v-else-if="id === 'p5-layout'">
+        <div class="p5-stage p5-layout">
+          <div class="p5-divider"><span>P5 / DIVIDER</span></div>
+          <button class="p5-upload" @click="p5File = p5File ? '' : 'CALLING_CARD.PNG'">
+            <strong>{{ p5File || t('点击或拖拽上传', 'CLICK OR DROP TO UPLOAD') }}</strong>
+            <small>PNG / JPG / MAX 5MB</small>
+          </button>
+          <div class="p5-table">
+            <span>NO.</span><span>NAME</span><span>STATUS</span>
+            <b>01</b><b>ARSENE</b><b>READY</b>
+            <b>02</b><b>CAPTAIN KIDD</b><b>READY</b>
+          </div>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('分隔 / 上传 / 表格', 'Divider / upload / table') }}</span><strong>LAYOUT</strong></div>
+      </template>
+
+      <!-- p5-ui motion -->
+      <template v-else-if="id === 'p5-motion'">
+        <div class="p5-stage p5-crowd" :class="{ paused: p5Paused }">
+          <span
+            v-for="i in 14"
+            :key="i"
+            class="p5-figure"
+            :style="{
+              left: (i * 11) % 92 + '%',
+              animationDelay: `${-i * 0.55}s`,
+              animationDuration: `${2.4 + (i % 4) * 0.45}s`,
+              transform: `scale(${0.7 + (i % 5) * 0.12})`,
+            }"
+          />
+          <strong>TAKE YOUR HEART</strong>
+          <button class="p5-btn solid" @click="p5Paused = !p5Paused">{{ p5Paused ? t('继续', 'PLAY') : t('暂停', 'PAUSE') }}</button>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('人群剪影 / 持续移动', 'Crowd silhouettes / continuous motion') }}</span><strong>{{ p5Paused ? 'PAUSED' : 'RUNNING' }}</strong></div>
       </template>
 
       <div v-else class="mdemo-empty">{{ t('该模块暂无独立视觉演示', 'No visual demo for this module yet') }}</div>
