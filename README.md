@@ -124,11 +124,12 @@ UI 组件库首个收录项目：[Bong712/Rhine-Music-Windows](https://github.co
 
 - 源码目录：`demos/rhine-music-windows`（MIT License，维护者 Bong712；保留原 LICENSE、NOTICE 与 THIRD-PARTY-NOTICES）
 - 相比上游增加：同步 LRC 歌词、歌单、可编辑播放队列、封面图集与实例化绘制
-- 组件库内嵌演示：`/rhine-mock.html`（本项目原创静态 mock，5 张本地封面，无 WebGL、无后端）
+- 组件库内嵌演示：默认「真实前端（WebGL）」，可在同一位置切换到「静态 Mock」
+- 静态 Mock：`/rhine-mock.html`（本项目原创，5 张本地封面，无 WebGL、无后端）
 - 真实 Windows 前端仍可本地运行（可选）：`cd demos/rhine-music-windows && npm install && npm run build && npm run music -- --port 5175`，然后打开 http://127.0.0.1:5175/?demo=1
-- 静态 mock 不需要 Node/WebGL；真实前端需要 Node.js ≥ 22.12、WebGL 2，`?demo=1` 会跳过音频与曲库扫描
+- 静态 Mock 不需要 Node/WebGL；真实前端需要 Node.js ≥ 22.12、WebGL 2，`?demo=1` 会跳过音频与曲库扫描
 - 静态 mock 的专辑、曲目、封面均为示例数据，不复用项目素材
-- 真实前端的 3D 封面纹理在部分 GPU/驱动上会显示为空白；因此站内演示改用静态 mock，避免依赖 WebGL 贴图
+- 真实前端的 3D 封面纹理在部分 GPU/驱动上会显示为空白；遇到空白时切换到「静态 Mock」即可看到完整封面
 - 界面模块拆分与使用说明见「UI 组件库」；非代码素材（模型、字体、截图等）的版权与许可见项目内 `NOTICE.md`，不属于 MIT 授权范围
 
 本项目只在本地克隆并运行该 Demo 用于组件库展示，没有把它打包进主站构建。
@@ -259,7 +260,7 @@ docker compose down                 # 停止；加 -v 同时删除构建卷
 
 - token 只注入 `builder` 容器，不写入最终 nginx 镜像；`.env` 已加入 `.gitignore`。
 - 更新流程是重新运行 builder：`docker compose up -d --force-recreate`，或 `docker compose run --rm builder && docker compose restart web`。
-- UI 组件库里的 5176 / 5177 是独立本地 Demo，不在这个容器里；需要时在宿主机单独启动。Rhine 的静态 mock 与 NASA-Punk 参考页随主站一起打包，可直接使用。
+- UI 组件库里的 5175 / 5176 / 5177 是独立本地 Demo，不在这个容器里；Docker 部署中请把 Rhine 切到「静态 Mock」。Rhine 静态 Mock 与 NASA-Punk 参考页随主站一起打包，可直接使用。
 
 ## 顶部导航
 

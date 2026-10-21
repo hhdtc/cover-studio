@@ -28,7 +28,14 @@ interface Project {
   repo: string
   release: string
   design: string
-  demo?: { label: string; url: string; note: string }
+  demo?: {
+    label: string
+    url: string
+    note: string
+    altLabel?: string
+    altUrl?: string
+    altNote?: string
+  }
   stack: string[]
   theme: string
   screenshots: { src: string; caption: string }[]
@@ -46,9 +53,12 @@ const PROJECTS: Project[] = [
     release: 'https://github.com/Bong712/Rhine-Music-Windows/releases',
     design: 'https://github.com/Bong712/Rhine-Music-Windows/blob/main/README.md',
     demo: {
-      label: '静态 Mock Demo',
-      url: '/rhine-mock.html',
-      note: '不依赖 WebGL 与第三方后端：使用 5 张本地 mock 专辑与封面，支持切专辑、切流派、亮暗主题与详情。',
+      label: '真实前端（WebGL）',
+      url: 'http://127.0.0.1:5175/?demo=1',
+      note: '原项目的 Windows 前端；在部分 GPU/驱动上 3D 封面纹理可能显示为空白。',
+      altLabel: '静态 Mock（无 WebGL）',
+      altUrl: '/rhine-mock.html',
+      altNote: '原创静态 mock：5 张示例专辑、本地封面、流派、亮暗主题与详情，不依赖 WebGL。',
     },
     stack: ['TypeScript', 'WebGL 2', 'WebView2', 'Three.js', 'LRC 歌词'],
     theme: 'Windows 0.6.0 · 晨雾 / 月影',
@@ -826,7 +836,16 @@ const activeProject = ref(PROJECTS[0])
 const activeModule = ref<ModuleDoc | null>(PROJECTS[0].modules[0])
 const shotIndex = ref(0)
 const demoOpen = ref(false)
-const demoUrl = computed(() => project.value.demo?.url ?? project.value.repo)
+const demoVariant = ref<'main' | 'alt'>('main')
+const activeDemo = computed(() => {
+  const d = project.value.demo
+  if (!d) return undefined
+  if (demoVariant.value === 'alt' && d.altUrl) {
+    return { label: d.altLabel ?? d.label, url: d.altUrl, note: d.altNote ?? d.note }
+  }
+  return d
+})
+const demoUrl = computed(() => activeDemo.value?.url ?? project.value.repo)
 
 const project = computed<Project>(() => {
   const p = activeProject.value
@@ -857,6 +876,7 @@ function selectProject(p: Project) {
   activeModule.value = p.modules[0] ?? null
   shotIndex.value = 0
   demoOpen.value = false
+  demoVariant.value = 'main'
   syncRoute()
 }
 
@@ -1047,10 +1067,14 @@ async function copyAiContext() {
           <div class="lib-live-head">
             <div>
               <span class="lib-eyebrow">DEMO</span>
-              <h2>{{ project.name }} · {{ project.demo?.label }}</h2>
-              <p>{{ project.demo?.note }}</p>
+              <h2>{{ project.name }} · {{ activeDemo?.label }}</h2>
+              <p>{{ activeDemo?.note }}</p>
             </div>
             <div class="lib-live-actions">
+              <div v-if="project.demo?.altUrl" class="lib-demo-switch">
+                <button :class="{ active: demoVariant === 'main' }" @click="demoVariant = 'main'">{{ t('真实前端', 'Real app') }}</button>
+                <button :class="{ active: demoVariant === 'alt' }" @click="demoVariant = 'alt'">{{ t('静态 Mock', 'Static mock') }}</button>
+              </div>
               <a class="soft-btn" :href="demoUrl" target="_blank" rel="noreferrer">{{ t('新窗口打开', 'Open in new tab') }}</a>
               <button class="soft-btn" @click="demoOpen = !demoOpen">
                 {{ demoOpen ? t('收起 Demo', 'Collapse demo') : t('在页面内打开', 'Open in page') }}
@@ -1066,7 +1090,9 @@ async function copyAiContext() {
             />
             <p class="lib-note">
               <template v-if="project.id === 'rhine-music'">
-                {{ t('静态 Mock，无需 WebGL；可直接切专辑、流派和亮暗主题。真实前端可选：', 'Static mock, no WebGL; switch albums, genres and themes directly. Optional real app:') }}
+                {{ demoVariant === 'alt'
+                  ? t('静态 Mock，无需 WebGL；可直接切专辑、流派和亮暗主题。', 'Static mock, no WebGL; switch albums, genres and themes directly.')
+                  : t('真实前端需要本地 5175 服务；如果封面空白，可切到「静态 Mock」。', 'The real app needs the local 5175 service; if covers are blank, switch to Static mock.') }}
                 <code>npm run demo:rhine</code>
               </template>
               <template v-else>
@@ -1079,7 +1105,7 @@ async function copyAiContext() {
             <span class="lib-live-cta">
               <span class="lib-live-play">▶</span>
               <strong>{{ t('在页面内打开 Demo', 'Open demo in page') }}</strong>
-              <small>{{ project.demo?.label }}</small>
+              <small>{{ activeDemo?.label }}</small>
             </span>
           </button>
         </section>
