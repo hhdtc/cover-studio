@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 import { t } from '../i18n'
 
 const props = defineProps<{ id: string; label: string; demoUrl?: string }>()
@@ -53,6 +53,15 @@ const p5On = ref(true)
 const p5Msg = ref(false)
 const p5File = ref('')
 const p5Paused = ref(false)
+const p3Chapter = ref(0)
+const p3Category = ref(0)
+const p3Photo = ref(0)
+const p3Transition = ref(false)
+const p3Cube = ref(0)
+const p3Cursor = reactive({ x: 50, y: 50 })
+const p3Categories = ['VFX / FILM', '3D / SPACE', 'AI / EXPERIMENTS', 'PHOTOGRAPHY']
+const p3Projects = ['INTERFACE STUDY', 'SAMPLE PROJECT', 'SPACE CONFIGURATOR']
+const p3Photos = ['INK 01', 'INK 02', 'INK 03', 'INK 04']
 const aureoleParts = [
   { code: '01', name: 'SAINT / 圣徒', desc: 'Silver mantle, arc halo and a silent observation axis.' },
   { code: '02', name: 'AUREOLE / 光晕', desc: 'Concentric calibration rings around the head.' },
@@ -1047,6 +1056,114 @@ function moveQueue(index: number, dir: -1 | 1) {
           <button class="p5-btn solid" @click="p5Paused = !p5Paused">{{ p5Paused ? t('继续', 'PLAY') : t('暂停', 'PAUSE') }}</button>
         </div>
         <div class="mdemo-foot"><span>{{ t('人群剪影 / 持续移动', 'Crowd silhouettes / continuous motion') }}</span><strong>{{ p5Paused ? 'PAUSED' : 'RUNNING' }}</strong></div>
+      </template>
+
+      <!-- persona3 home -->
+      <template v-else-if="id === 'p3-home'">
+        <div class="p3-stage p3-home">
+          <span class="p3-slash a" /><span class="p3-slash b" />
+          <div class="p3-chapters-mini">
+            <span v-for="(c, i) in ['00 / HOME', '01 / WORK', '02 / ABOUT']" :key="c" :class="{ on: i === p3Chapter }" @click="p3Chapter = i">{{ c }}</span>
+          </div>
+          <div class="p3-hero">
+            <small>CREATIVE TECHNOLOGIST / 2026</small>
+            <strong>MEMENTO<br />MORI</strong>
+            <em>DESIGN · CODE · MEMORY</em>
+          </div>
+          <div class="p3-clock"><span /><i>XII</i></div>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('斜切排版 / 章节预览', 'Diagonal type / chapter previews') }}</span><strong>P3 / HOME</strong></div>
+      </template>
+
+      <!-- persona3 motion -->
+      <template v-else-if="id === 'p3-motion'">
+        <div
+          class="p3-stage p3-motion"
+          @pointermove="(e) => { const r = (e.currentTarget as HTMLElement).getBoundingClientRect(); p3Cursor.x = ((e.clientX - r.left) / r.width) * 100; p3Cursor.y = ((e.clientY - r.top) / r.height) * 100 }"
+        >
+          <span class="p3-ink" :style="{ left: p3Cursor.x + '%', top: p3Cursor.y + '%' }" />
+          <div class="p3-motion-copy">
+            <small>INK CURSOR / GLASS CLOCK</small>
+            <strong>CLICK TO<br />TRANSITION</strong>
+            <button class="p3-btn" @click="p3Transition = true">PLAY TRANSITION</button>
+          </div>
+          <Transition name="p3-circle">
+            <div v-if="p3Transition" class="p3-transition" @click="p3Transition = false">
+              <div class="p3-clock big"><span /><i>XII</i></div>
+              <small>CLICK TO CLOSE</small>
+            </div>
+          </Transition>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('墨迹光标 / 圆形遮罩 / 玻璃时钟', 'Ink cursor / circle mask / glass clock') }}</span><strong>TRANSITION</strong></div>
+      </template>
+
+      <!-- persona3 chapters -->
+      <template v-else-if="id === 'p3-chapters'">
+        <div class="p3-stage p3-chapters">
+          <span class="p3-slash c" />
+          <div class="p3-chapter-list">
+            <button v-for="(c, i) in ['00 / HOME', '01 / CREATIVE', '02 / PROJECTS', '03 / ABOUT']" :key="c" :class="{ on: p3Chapter === i }" @click="p3Chapter = i">
+              <span>{{ c }}</span><i />
+            </button>
+          </div>
+          <div class="p3-chapter-ghost">0{{ p3Chapter + 1 }}</div>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('漂浮章节 / 磁性悬停', 'Floating chapters / magnetic hover') }}</span><strong>{{ ['HOME','CREATIVE','PROJECTS','ABOUT'][p3Chapter] }}</strong></div>
+      </template>
+
+      <!-- persona3 creative -->
+      <template v-else-if="id === 'p3-creative'">
+        <div class="p3-stage p3-creative">
+          <div class="p3-cats">
+            <button v-for="(c, i) in p3Categories" :key="c" :class="{ on: p3Category === i }" @click="p3Category = i; p3Photo = 0">{{ c }}</button>
+          </div>
+          <div class="p3-gallery">
+            <button v-for="i in 4" :key="i" class="p3-photo" :class="{ on: p3Photo === i - 1 }" @click="p3Photo = i - 1">
+              <span>{{ p3Photos[i - 1] }}</span>
+            </button>
+          </div>
+          <div class="p3-viewer">
+            <button @click="p3Photo = (p3Photo + 3) % 4">←</button>
+            <div><small>{{ p3Categories[p3Category] }}</small><strong>{{ p3Photos[p3Photo] }}</strong></div>
+            <button @click="p3Photo = (p3Photo + 1) % 4">→</button>
+          </div>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('分类 / 图库 / 查看器', 'Categories / gallery / viewer') }}</span><strong>0{{ p3Photo + 1 }} / 04</strong></div>
+      </template>
+
+      <!-- persona3 projects -->
+      <template v-else-if="id === 'p3-projects'">
+        <div class="p3-stage p3-projects">
+          <div class="p3-proj-list">
+            <button v-for="(p, i) in p3Projects" :key="p" :class="{ on: p3Cube === i }" @click="p3Cube = i">{{ p }}<span>↗</span></button>
+          </div>
+          <div class="p3-cube-wrap">
+            <div class="p3-cube" :style="{ transform: `rotateX(-18deg) rotateY(${p3Cube * 32 + 24}deg)` }">
+              <span class="f1" /><span class="f2" /><span class="f3" /><span class="f4" />
+            </div>
+            <small>THREE.JS / DEMO CONFIGURATOR</small>
+          </div>
+          <div class="p3-cube-controls">
+            <button @click="p3Cube = (p3Cube + 1) % 3">NEXT SPACE →</button>
+          </div>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('项目索引 / 3D 配置器', 'Project index / 3D configurator') }}</span><strong>{{ p3Projects[p3Cube] }}</strong></div>
+      </template>
+
+      <!-- persona3 profile -->
+      <template v-else-if="id === 'p3-profile'">
+        <div class="p3-stage p3-profile">
+          <div class="p3-profile-head">
+            <span class="p3-avatar">YN</span>
+            <div><small>PROFILE / ABOUT</small><strong>YOUR NAME</strong><em>CREATIVE TECHNOLOGIST · SHANGHAI</em></div>
+          </div>
+          <div class="p3-timeline">
+            <div><small>2024 — NOW</small><b>INDEPENDENT PRACTICE</b><span>Design systems, web experiences, 3D.</span></div>
+            <div><small>2021 — 2024</small><b>STUDIO WORK</b><span>Interface, motion and creative coding.</span></div>
+          </div>
+          <div class="p3-skills"><span>DESIGN</span><span>CODE</span><span>MOTION</span><span>3D</span></div>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('资料 / 经历 / 技能', 'Profile / experience / skills') }}</span><strong>ABOUT</strong></div>
       </template>
 
       <div v-else class="mdemo-empty">{{ t('该模块暂无独立视觉演示', 'No visual demo for this module yet') }}</div>

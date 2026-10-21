@@ -10,7 +10,7 @@
 
 | 工具 | 说明 |
 | --- | --- |
-| **UI 组件库** | 5 个项目的 demo、模块拆分、双语说明与 AI 上下文 |
+| **UI 组件库** | 6 个项目的 demo、模块拆分、双语说明与 AI 上下文 |
 | **素材生成** | 19 种程序化图样，PNG / SVG，9 套调色板 |
 | **封面** | 模板、文字排版、背景、图层、拖拽，导出 2× PNG |
 | **一图流** | 六类区块、自动高度、3 套主题，导出长图 |
@@ -70,6 +70,7 @@ UI 组件库支持项目/模块深链，例如：
 - `#/ui/nasa-punk/nasa-console`
 - `#/ui/aureole/aureole-blueprint`
 - `#/ui/p5-ui/p5-controls`
+- `#/ui/persona3/p3-home`
 
 ## UI 组件库
 
@@ -80,6 +81,7 @@ UI 组件库支持项目/模块深链，例如：
 | **NASA-Punk UI Skill** | `/nasa-punk-reference.html` | MIT；NASA 徽记除外 |
 | **AUREOLE · Sixth UI** | `npm run demo:aureole` → `5176` | MIT |
 | **p5-ui** | `npm run demo:p5` → `5177`，仅本地评估 | **无 LICENSE** |
+| **Persona3-like-web** | `npm run demo:persona3` → `5179` | MIT |
 
 - Rhine 默认使用自研实现，5 张本地 mock 封面，不依赖 WebGL；需要原版时用 `npm run demo:rhine:fresh` 打开 `5178`
 - 每个模块都有可交互视觉 Demo 和「打开真实 Demo」入口

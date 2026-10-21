@@ -292,7 +292,48 @@ python3 -m http.server 5177 --bind 127.0.0.1 \
 
 权利人提出异议，或仓库后续补充了限制性许可时，立即移除本地 Demo 入口、模块说明中的代码链接与封面，仅保留项目名称与仓库链接（或全部移除）。
 
-## 7. 新增项目检查清单
+## 7. Persona3-like-web
+
+### 7.1 基本信息
+
+| 项目 | 内容 |
+| --- | --- |
+| 仓库 | https://github.com/Masonli1203/Persona3-like-web |
+| 作者 | Masonli1203 |
+| 代码许可 | MIT |
+| 技术栈 | Next.js 16、React 19、TypeScript、Tailwind CSS v4、Framer Motion、Three.js |
+| 本地目录 | `demos/persona3-like-web` |
+| 本地 Demo | http://127.0.0.1:5179/ |
+
+### 7.2 素材与品牌边界
+
+- 仓库只包含原创的通用 SVG 占位图、虚构文案与示例项目，不包含 Persona 官方游戏画面、音乐、Logo 或字体。
+- 字体随包附带 OFL 许可（Anton、IBM Plex Mono 等），许可见 `src/assets/fonts/`。
+- 项目是非官方、独立的灵感作品，与 ATLUS / SEGA 无关。
+- 页面截图通过 `raw.githubusercontent.com` 远程加载，不复制进仓库。
+- 模板的隐私检查脚本会阻止真实联系方式、私人照片或播放 ID 进入示例。
+
+### 7.3 运行与构建
+
+```sh
+cd demos/persona3-like-web
+npm install
+npm run build
+npm run start -- -p 5179
+```
+
+- 主站提供 `npm run demo:persona3`。
+- 真实 Next.js 服务器只绑定本机；Docker 主站不包含它，需要单独运行。
+- 收录时未修改其源代码；依赖安装使用本地缓存与 npmjs registry。
+
+### 7.4 禁止事项
+
+- 不使用 Persona 官方游戏素材、音乐或 Logo 作为本站内容；
+- 不宣称与 ATLUS / SEGA 存在官方合作或授权；
+- 不把示例项目、人物与文案说成真实商业案例；
+- 不在未保留 MIT 与字体 OFL 许可的情况下再分发模板。
+
+## 8. 新增项目检查清单
 
 收录前逐项确认：
 
@@ -315,7 +356,7 @@ python3 -m http.server 5177 --bind 127.0.0.1 \
 
 ---
 
-## 8. 维护记录
+## 9. 维护记录
 
 | 日期 | 事项 |
 | --- | --- |
@@ -325,15 +366,16 @@ python3 -m http.server 5177 --bind 127.0.0.1 \
 | 2026-10-20 | 收录 NASA-Punk UI Skill；托管单文件参考实现并加入六个视觉 Demo |
 | 2026-10-20 | 收录 AUREOLE · Sixth UI；本地构建并在 5176 运行，加入六个视觉 Demo |
 | 2026-10-21 | 收录 p5-ui；无 LICENSE，仅链接索引与本地评估，不复制代码/素材 |
+| 2026-10-21 | 收录 Persona3-like-web；本地 Next.js 构建，加入六个视觉 Demo |
 
 ---
 
-## 9. 相关文件
+## 10. 相关文件
 
 - 页面与数据：`src/views/UILibraryView.vue`
 - 英文文案：`src/views/uiLibraryEn.ts`
 - 组件视觉 Demo：`src/components/ModuleDemo.vue`
 - 机器可读目录：`public/ui-catalog.json`
-- 本地 Demo：`demos/rhine-music-windows/`、`demos/nasa-punk-ui/`、`demos/arknights-sixth-ui/`、`demos/p5-ui/`（仅评估）
+- 本地 Demo：`demos/rhine-music-windows/`、`demos/nasa-punk-ui/`、`demos/arknights-sixth-ui/`、`demos/p5-ui/`（仅评估）、`demos/persona3-like-web/`
 - NASA 参考实现：`public/nasa-punk-reference.html`
 - 主 README：`README.md`

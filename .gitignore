@@ -32,3 +32,6 @@ demos/p5-ui/
 
 # local Docker secrets
 .env
+
+# Persona3-like-web local checkout
+demos/persona3-like-web/

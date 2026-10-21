@@ -492,4 +492,86 @@ export const UI_EN: Record<string, EnProject> = {
       },
     },
   },
+  persona3: {
+    tagline:
+      'A Persona 3-inspired portfolio template with diagonal type, a custom cursor, glass clock and circular transitions.',
+    description:
+      'A Next.js + TypeScript + Tailwind + Framer Motion portfolio template: bold diagonal typography, floating chapter navigation, ink cursor, glass-clock transitions and a photo viewer, plus an interactive Three.js space configurator. The repository includes only original placeholders and generic copy, no official game assets; demo content is fictional.',
+    theme: 'Deep blue / cyan / diagonal type',
+    demoLabel: 'Local Next.js demo',
+    demoNote:
+      'The full template runs locally on 5179: home, creative categories, project pages, 3D configurator and profile.',
+    shots: [
+      'Home: diagonal typography, chapter navigation and glass clock.',
+      'Creative categories: menu, media cards and photo viewer.',
+    ],
+    modules: {
+      'p3-home': {
+        name: 'Diagonal home & typography',
+        group: 'Home',
+        summary:
+          'Bold Anton headings, diagonal colour blocks and layered parallax; the home page connects hero, manifesto, chapter previews and work entries.',
+        points: [
+          'Anton for display, IBM Plex Mono for body and labels; tracking and leading serve the diagonal composition.',
+          'A light scroll parallax shifts titles and blocks without heavy 3D.',
+          'Chapter previews and home entries are data-driven; edit site.ts / sections.ts to replace content.',
+        ],
+      },
+      'p3-motion': {
+        name: 'Ink cursor & glass transition',
+        group: 'Motion',
+        summary:
+          'A custom ink cursor, press feedback, circular mask and glass-clock page transition that feels like a jump in time.',
+        points: [
+          'The ink cursor follows the pointer and expands over interactive elements; touch and reduced motion fall back gracefully.',
+          'Page changes use a circular mask plus glass clock and lock scrolling during the transition.',
+          'Press feedback is a short scale/offset response, with no sound or vibration dependency.',
+        ],
+      },
+      'p3-chapters': {
+        name: 'Chapter navigation',
+        group: 'Navigation',
+        summary:
+          'A floating edge chapter nav with magnetic hover and a current-chapter indicator, synced to routes and scroll position.',
+        points: [
+          'Chapter labels follow the page module, with the current item marked by a block and number.',
+          'Hover adds a magnetic offset; clicking opens that chapter or route.',
+          'Narrow screens collapse it into a simpler top/bottom navigation.',
+        ],
+      },
+      'p3-creative': {
+        name: 'Creative categories & photo viewer',
+        group: 'Content',
+        summary:
+          'Four creative routes, a category menu, media cards and a paged photo viewer; local video and optional Mux playback.',
+        points: [
+          'The category menu handles routing and filtering; the gallery renders media cards per category.',
+          'The photo viewer supports previous/next and restores the scroll position from before opening.',
+          'Video defaults to local placeholders or optional Mux; no playback IDs or private videos ship with the repo.',
+        ],
+      },
+      'p3-projects': {
+        name: 'Project index & 3D configurator',
+        group: 'Projects',
+        summary:
+          'Project index, case-study pages and a Three.js space configurator; 3D code loads on demand.',
+        points: [
+          'Project cards open case studies; the case content is a replaceable sample, not a real commercial project.',
+          'The 3D configurator switches spaces, materials and demo parameters with demonstration estimates.',
+          'Three.js and the Mux player load dynamically, keeping the first screen light.',
+        ],
+      },
+      'p3-profile': {
+        name: 'Profile page',
+        group: 'Profile',
+        summary:
+          'Placeholder education, experience, projects, skills and recognition; email and CV links stay hidden until configured.',
+        points: [
+          'Name, title, location and SEO metadata live in site.ts; biography and experience in profile.ts.',
+          'Email and CV are empty by default and are not rendered, avoiding template data leaks.',
+          'A privacy check blocks real contact details or private media from entering the template.',
+        ],
+      },
+    },
+  },
 }

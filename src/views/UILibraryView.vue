@@ -830,6 +830,140 @@ const PROJECTS: Project[] = [
       },
     ],
   },
+  {
+    id: 'persona3',
+    name: 'Persona3-like-web',
+    tagline: 'Persona 3 风格的斜切排版作品集模板：自定义光标、玻璃时钟与圆形转场。',
+    description:
+      'Next.js + TypeScript + Tailwind + Framer Motion 的作品集模板。用粗体斜切排版、漂浮章节导航、墨迹光标、玻璃时钟转场和照片查看器组织内容；附带可交互的 Three.js 空间配置器。仓库只包含原创占位图与通用文案，不包含官方游戏素材；演示数据为虚构内容。',
+    repo: 'https://github.com/Masonli1203/Persona3-like-web',
+    release: 'https://github.com/Masonli1203/Persona3-like-web',
+    design: 'https://github.com/Masonli1203/Persona3-like-web/blob/main/docs/ARCHITECTURE.md',
+    demo: {
+      label: '本地 Next.js Demo',
+      url: 'http://127.0.0.1:5179/',
+      note: '完整模板运行在本地 5179，包含首页、创作分类、项目页、3D 配置器与个人资料页。',
+    },
+    stack: ['Next.js 16', 'React 19', 'TypeScript', 'Tailwind CSS v4', 'Framer Motion', 'Three.js'],
+    theme: '深蓝 / 青色 / 斜切排版',
+    screenshots: [
+      {
+        src: 'https://raw.githubusercontent.com/Masonli1203/Persona3-like-web/main/docs/screenshots/home.png',
+        caption: '首页：斜切排版、章节导航与玻璃时钟。',
+      },
+      {
+        src: 'https://raw.githubusercontent.com/Masonli1203/Persona3-like-web/main/docs/screenshots/creative.png',
+        caption: '创作分类：分类菜单、媒体卡与照片查看器。',
+      },
+    ],
+    modules: [
+      {
+        id: 'p3-home',
+        name: '斜切首页与排版',
+        group: '首页',
+        summary:
+          '粗体 Anton 标题、斜切色块与分层视差；首页串联 hero、宣言、章节预览与作品入口。',
+        files: [
+          { label: 'home-page.tsx', path: 'src/features/home/home-page.tsx' },
+          { label: 'page.tsx', path: 'src/app/page.tsx' },
+          { label: 'sections.ts', path: 'src/data/sections.ts' },
+        ],
+        points: [
+          '大标题使用 Anton，正文与标签使用 IBM Plex Mono；字距与行高服务斜切构图。',
+          '首屏视差随滚动改变标题与色块位置，但不追求重 3D。',
+          '章节预览与首页入口由数据驱动，替换 site.ts / sections.ts 即可换内容。',
+        ],
+      },
+      {
+        id: 'p3-motion',
+        name: '墨迹光标与玻璃转场',
+        group: '动效',
+        summary:
+          '自定义墨迹光标、按压反馈、圆形遮罩与玻璃时钟转场，页面切换像一次时间跳转。',
+        files: [
+          { label: 'ink-cursor.tsx', path: 'src/features/navigation/ink-cursor.tsx' },
+          { label: 'transition-clock.tsx', path: 'src/features/navigation/transition-clock.tsx' },
+          { label: 'page-transition.tsx', path: 'src/features/navigation/page-transition.tsx' },
+          { label: 'transitions.css', path: 'src/features/navigation/transitions.css' },
+        ],
+        points: [
+          '墨迹光标跟随指针，悬停可交互元素时扩张；触屏与减少动态时自动降级。',
+          '页面切换使用圆形遮罩 + 玻璃时钟，转场期间锁定滚动。',
+          '按压反馈是短促的缩放/位移，不依赖声音或震动。',
+        ],
+      },
+      {
+        id: 'p3-chapters',
+        name: '章节导航',
+        group: '导航',
+        summary:
+          '固定在边缘的漂浮章节导航，带磁性吸附与当前章节指示；与路由和滚动位置同步。',
+        files: [
+          { label: 'chapter-navigation.tsx', path: 'src/features/navigation/chapter-navigation.tsx' },
+          { label: 'chapter-shell.tsx', path: 'src/components/layout/chapter-shell.tsx' },
+          { label: 'chapters.css', path: 'src/components/layout/chapters.css' },
+        ],
+        points: [
+          '章节标签随页面模块切换，当前项用色块与编号强调。',
+          '悬停有磁性位移，点击进入对应章节或路由。',
+          '窄屏收为顶部/底部简化导航，保持可操作。',
+        ],
+      },
+      {
+        id: 'p3-creative',
+        name: '创作分类与照片查看器',
+        group: '内容',
+        summary:
+          '四类创作路由、分类菜单、媒体卡与可翻页的照片查看器；支持本地视频与可选 Mux 播放。',
+        files: [
+          { label: 'category-gallery.tsx', path: 'src/features/creative/category-gallery.tsx' },
+          { label: 'photo-media.tsx', path: 'src/features/creative/photo-media.tsx' },
+          { label: 'viewing-session.tsx', path: 'src/features/creative/viewing-session.tsx' },
+          { label: 'creative.ts', path: 'src/data/creative.ts' },
+        ],
+        points: [
+          '分类菜单负责路由与筛选，图库按分类展示媒体卡。',
+          '照片查看器支持上一张/下一张，并恢复打开前的滚动位置。',
+          '视频默认使用本地占位或可选 Mux；仓库不附带播放 ID 或私人视频。',
+        ],
+      },
+      {
+        id: 'p3-projects',
+        name: '项目预览与 3D 配置器',
+        group: '项目',
+        summary:
+          '项目索引、案例研究页与 Three.js 空间配置器；3D 代码按需加载，避免拖慢首屏。',
+        files: [
+          { label: 'project-index.tsx', path: 'src/features/projects/project-index.tsx' },
+          { label: 'alcove-configurator.tsx', path: 'src/features/space-configurator/alcove-configurator.tsx' },
+          { label: 'alcove-scene.ts', path: 'src/features/space-configurator/alcove-scene.ts' },
+          { label: 'projects.ts', path: 'src/data/projects.ts' },
+        ],
+        points: [
+          '项目卡进入案例页；案例内容是可替换的示例，不是真实商业项目。',
+          '3D 配置器允许切换空间、材质与演示参数，并给出演示估算。',
+          'Three.js 与 Mux 播放器动态加载，首屏只保留轻量内容。',
+        ],
+      },
+      {
+        id: 'p3-profile',
+        name: '个人资料页',
+        group: '资料',
+        summary:
+          '教育、经历、项目、技能与荣誉的占位资料；邮箱与 CV 链接在配置前保持隐藏。',
+        files: [
+          { label: 'profile.ts', path: 'src/data/profile.ts' },
+          { label: 'site.ts', path: 'src/data/site.ts' },
+          { label: 'about/page.tsx', path: 'src/app/(modules)/about/page.tsx' },
+        ],
+        points: [
+          '姓名、头衔、地点与 SEO 元数据集中在 site.ts；简介与经历在 profile.ts。',
+          '邮箱与 CV 默认留空且不渲染，避免模板泄露个人信息。',
+          '隐私检查脚本会阻止示例中的真实联系方式或私人媒体进入模板。',
+        ],
+      },
+    ],
+  },
 ]
 
 const activeProject = ref(PROJECTS[0])
@@ -952,6 +1086,8 @@ const aiContext = computed(() => {
     lines.push('runtime: React 19 + Vite preview at http://127.0.0.1:5176/')
   } else if (p.id === 'p5-ui') {
     lines.push('runtime: local static docs at http://127.0.0.1:5177/ (evaluation only)')
+  } else if (p.id === 'persona3') {
+    lines.push('runtime: Next.js 16 local server at http://127.0.0.1:5179/')
   } else {
     lines.push('runtime: local Vite + Node music server, visual demo ?demo=1')
   }

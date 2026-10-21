@@ -200,6 +200,40 @@
           "name": "Crowd motion & zoom"
         }
       ]
+    },
+    {
+      "id": "persona3",
+      "name": "Persona3-like-web",
+      "repo": "https://github.com/Masonli1203/Persona3-like-web",
+      "demo": "http://127.0.0.1:5179/",
+      "docs": "https://github.com/Masonli1203/Persona3-like-web/blob/main/docs/ARCHITECTURE.md",
+      "license": "MIT (original placeholders only; no official game assets)",
+      "modules": [
+        {
+          "id": "p3-home",
+          "name": "Diagonal home & typography"
+        },
+        {
+          "id": "p3-motion",
+          "name": "Ink cursor & glass transition"
+        },
+        {
+          "id": "p3-chapters",
+          "name": "Chapter navigation"
+        },
+        {
+          "id": "p3-creative",
+          "name": "Creative categories & photo viewer"
+        },
+        {
+          "id": "p3-projects",
+          "name": "Project index & 3D configurator"
+        },
+        {
+          "id": "p3-profile",
+          "name": "Profile page"
+        }
+      ]
     }
   ]
 }
