@@ -48,5 +48,25 @@ services:
       retries: 3
       start_period: 5s
 
+  # Optional third-party demo. Start with:
+  #   docker compose --profile demos up -d persona3
+  persona3:
+    profiles: ["demos"]
+    build:
+      context: .
+      dockerfile: Dockerfile.persona3
+      args:
+        PERSONA3_REF: ${PERSONA3_REF:-main}
+    image: cover-studio-persona3:latest
+    ports:
+      - "${PERSONA3_PORT:-5179}:3000"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:3000/ >/dev/null 2>&1 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
 volumes:
   app:

@@ -1,0 +1,3 @@
+# The Persona3 image clones its source from GitHub; only the Dockerfile is needed.
+*
+!Dockerfile.persona3

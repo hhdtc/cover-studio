@@ -51,6 +51,15 @@ docker compose up -d
 - 停止：`docker compose down`；同时删除构建卷加 `-v`
 - 端口：`PORT=9000 docker compose up -d`
 
+默认只启动 websnake 主站。需要同时运行 Persona3-like-web 演示时：
+
+```bash
+docker compose --profile demos up -d persona3
+# http://localhost:5179
+```
+
+Persona3 使用独立 profile，不影响主站的 `docker compose up -d`。
+
 ## 页面路由
 
 | 工具 | 路由 |
