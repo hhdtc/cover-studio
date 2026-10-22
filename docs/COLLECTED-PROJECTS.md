@@ -323,13 +323,6 @@ npm run start -- -p 5179
 ```
 
 - 主站提供 `npm run demo:persona3`。
-- 也可以用 Docker 启动该 Demo：
-
-```sh
-docker compose --profile demos up -d persona3
-```
-
-然后打开 http://127.0.0.1:5179/ 。该服务使用独立 profile，不会随主站默认启动。
 - 真实 Next.js 服务器只绑定本机；Docker 主站不包含它，需要单独运行。
 - 收录时未修改其源代码；依赖安装使用本地缓存与 npmjs registry。
 
