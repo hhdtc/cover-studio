@@ -234,6 +234,40 @@
           "name": "Profile page"
         }
       ]
+    },
+    {
+      "id": "shadcn-ui",
+      "name": "shadcn/ui",
+      "repo": "https://github.com/shadcn-ui/ui",
+      "demo": "https://ui.shadcn.com/",
+      "docs": "https://ui.shadcn.com/docs/components",
+      "license": "MIT",
+      "modules": [
+        {
+          "id": "shadcn-foundations",
+          "name": "Foundations & theming"
+        },
+        {
+          "id": "shadcn-core",
+          "name": "Core components"
+        },
+        {
+          "id": "shadcn-overlays",
+          "name": "Overlays & menus"
+        },
+        {
+          "id": "shadcn-forms",
+          "name": "Form controls"
+        },
+        {
+          "id": "shadcn-data",
+          "name": "Data display"
+        },
+        {
+          "id": "shadcn-registry",
+          "name": "Registry & blocks"
+        }
+      ]
     }
   ]
 }

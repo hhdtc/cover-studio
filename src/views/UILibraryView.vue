@@ -964,6 +964,133 @@ const PROJECTS: Project[] = [
       },
     ],
   },
+  {
+    id: 'shadcn-ui',
+    name: 'shadcn/ui',
+    tagline: '可组合、可访问、可直接改的 React 组件集合。',
+    description:
+      '不是传统依赖包，而是一套通过 registry 复制进项目的组件源码：React + Tailwind CSS，默认使用 Radix / Base UI 行为层，配好颜色、圆角、间距与键盘交互。组件、示例、区块和主题都可按需添加并直接修改。',
+    repo: 'https://github.com/shadcn-ui/ui',
+    release: 'https://ui.shadcn.com/docs',
+    design: 'https://ui.shadcn.com/docs/components',
+    demo: {
+      label: '在线文档',
+      url: 'https://ui.shadcn.com/',
+      note: '官方在线文档：组件示例、主题、区块与安装命令，可直接在浏览器中查看。',
+    },
+    stack: ['React', 'TypeScript', 'Tailwind CSS', 'Radix UI', 'Base UI', 'Registry'],
+    theme: '中性色 / 圆角 / 亮暗主题',
+    screenshots: [
+      {
+        src: 'https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/public/opengraph-image.png',
+        caption: 'shadcn/ui：可组合组件与默认主题。',
+      },
+    ],
+    modules: [
+      {
+        id: 'shadcn-foundations',
+        name: '设计基础与主题',
+        group: '基础',
+        summary:
+          'CSS 变量、Tailwind token、圆角与亮暗主题；多种 style（Vega / Nova / Maia 等）共享同一套组件结构。',
+        files: [
+          { label: 'themes.ts', path: 'apps/v4/registry/themes.ts' },
+          { label: 'style-vega.css', path: 'apps/v4/registry/styles/style-vega.css' },
+          { label: 'style-nova.css', path: 'apps/v4/registry/styles/style-nova.css' },
+        ],
+        points: [
+          '颜色、圆角、间距都落在 CSS 变量里，组件只引用 token。',
+          '亮暗主题通过根级 class 切换，不需要改组件代码。',
+          '不同 style 共享组件结构，只替换 token 与少量样式。',
+        ],
+      },
+      {
+        id: 'shadcn-core',
+        name: '基础组件',
+        group: '组件',
+        summary:
+          'Button、Badge、Card、Input、Label、Separator、Skeleton、Avatar 等日常控件。',
+        files: [
+          { label: 'button.tsx', path: 'apps/v4/registry/bases/radix/ui/button.tsx' },
+          { label: 'card.tsx', path: 'apps/v4/registry/bases/radix/ui/card.tsx' },
+          { label: 'badge.tsx', path: 'apps/v4/registry/bases/radix/ui/badge.tsx' },
+        ],
+        points: [
+          '组件使用 cva 管理 variant / size，默认样式与业务样式分离。',
+          '所有可交互元素都有 focus-visible 与 disabled 状态。',
+          '组件源码直接复制进项目，可以按需改结构而不是覆盖样式。',
+        ],
+      },
+      {
+        id: 'shadcn-overlays',
+        name: '浮层与菜单',
+        group: '浮层',
+        summary:
+          'Dialog、Sheet、Drawer、Popover、Tooltip、DropdownMenu、Command 等浮层，焦点与键盘行为交给底层 primitive。',
+        files: [
+          { label: 'dialog.tsx', path: 'apps/v4/registry/bases/radix/ui/dialog.tsx' },
+          { label: 'popover.tsx', path: 'apps/v4/registry/bases/radix/ui/popover.tsx' },
+          { label: 'command.tsx', path: 'apps/v4/registry/bases/radix/ui/command.tsx' },
+        ],
+        points: [
+          '浮层默认带遮罩、焦点锁定、Esc 关闭与返回焦点。',
+          '动画短促，使用 data-state 驱动进入/退出。',
+          'Command 支持搜索、分组与键盘上下选择。',
+        ],
+      },
+      {
+        id: 'shadcn-forms',
+        name: '表单控件',
+        group: '表单',
+        summary:
+          'Field、Input、Textarea、Select、Combobox、Checkbox、RadioGroup、Switch、Slider、Calendar 与表单校验示例。',
+        files: [
+          { label: 'field.tsx', path: 'apps/v4/registry/bases/radix/ui/field.tsx' },
+          { label: 'select.tsx', path: 'apps/v4/registry/bases/radix/ui/select.tsx' },
+          { label: 'checkbox.tsx', path: 'apps/v4/registry/bases/radix/ui/checkbox.tsx' },
+        ],
+        points: [
+          'Field 统一 label、描述与错误信息，错误不只靠颜色表达。',
+          '复杂控件由底层 primitive 提供键盘与读屏支持。',
+          '示例覆盖 React Hook Form、TanStack Form 与 Server Actions。',
+        ],
+      },
+      {
+        id: 'shadcn-data',
+        name: '数据展示',
+        group: '展示',
+        summary:
+          'Table、Chart、Carousel、Sidebar、Tabs、Accordion、Pagination 与可展开/排序的数据表示例。',
+        files: [
+          { label: 'table.tsx', path: 'apps/v4/registry/bases/radix/ui/table.tsx' },
+          { label: 'chart.tsx', path: 'apps/v4/registry/bases/radix/ui/chart.tsx' },
+          { label: 'sidebar.tsx', path: 'apps/v4/registry/bases/radix/ui/sidebar.tsx' },
+        ],
+        points: [
+          'Table 只提供结构样式，排序、筛选与分页由 TanStack Table 示例组合。',
+          'Chart 封装 Recharts 的容器、tooltip 与图例 token。',
+          'Sidebar 支持可折叠、移动端抽屉与键盘操作。',
+        ],
+      },
+      {
+        id: 'shadcn-registry',
+        name: 'Registry 与区块',
+        group: '工程',
+        summary:
+          '通过 registry 按需添加组件、示例与区块；`npx shadcn add` 把源码写进项目，而不是安装黑盒依赖。',
+        files: [
+          { label: 'registry.ts', path: 'apps/v4/registry/bases/radix/registry.ts' },
+          { label: 'blocks', path: 'apps/v4/registry/bases/radix/blocks' },
+          { label: 'components.json', path: 'apps/v4/components.json' },
+        ],
+        points: [
+          'registry 描述每个组件的文件、依赖与目标路径。',
+          'CLI 支持组件、示例、区块与主题，可指定 base（Radix / Base UI / React Aria）。',
+          '源码进入项目后可自由修改，升级由项目自己控制。',
+        ],
+      },
+    ],
+  },
 ]
 
 const activeProject = ref(PROJECTS[0])
@@ -1088,6 +1215,8 @@ const aiContext = computed(() => {
     lines.push('runtime: local static docs at http://127.0.0.1:5177/ (evaluation only)')
   } else if (p.id === 'persona3') {
     lines.push('runtime: Next.js 16 local server at http://127.0.0.1:5179/')
+  } else if (p.id === 'shadcn-ui') {
+    lines.push('runtime: online documentation at https://ui.shadcn.com/')
   } else {
     lines.push('runtime: local Vite + Node music server, visual demo ?demo=1')
   }

@@ -62,6 +62,11 @@ const p3Cursor = reactive({ x: 50, y: 50 })
 const p3Categories = ['VFX / FILM', '3D / SPACE', 'AI / EXPERIMENTS', 'PHOTOGRAPHY']
 const p3Projects = ['INTERFACE STUDY', 'SAMPLE PROJECT', 'SPACE CONFIGURATOR']
 const p3Photos = ['INK 01', 'INK 02', 'INK 03', 'INK 04']
+const shadcnDark = ref(true)
+const shadcnDialog = ref(false)
+const shadcnChecked = ref(true)
+const shadcnSwitch = ref(true)
+const shadcnSlider = ref(64)
 const aureoleParts = [
   { code: '01', name: 'SAINT / 圣徒', desc: 'Silver mantle, arc halo and a silent observation axis.' },
   { code: '02', name: 'AUREOLE / 光晕', desc: 'Concentric calibration rings around the head.' },
@@ -1164,6 +1169,106 @@ function moveQueue(index: number, dir: -1 | 1) {
           <div class="p3-skills"><span>DESIGN</span><span>CODE</span><span>MOTION</span><span>3D</span></div>
         </div>
         <div class="mdemo-foot"><span>{{ t('资料 / 经历 / 技能', 'Profile / experience / skills') }}</span><strong>ABOUT</strong></div>
+      </template>
+
+      <!-- shadcn foundations -->
+      <template v-else-if="id === 'shadcn-foundations'">
+        <div class="sh-stage" :class="{ dark: shadcnDark }">
+          <div class="sh-swatches"><span class="bg" /><span class="fg" /><span class="muted" /><span class="accent" /></div>
+          <div class="sh-type">
+            <small>DESIGN TOKENS / RADIUS</small>
+            <strong>Build your own.</strong>
+            <p>Components you can own, edit and extend.</p>
+            <div class="sh-radius"><span>sm</span><span>md</span><span>lg</span></div>
+          </div>
+          <button class="sh-btn outline" @click="shadcnDark = !shadcnDark">Toggle theme</button>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('颜色 / 圆角 / 亮暗主题', 'Colour / radius / light-dark') }}</span><strong>{{ shadcnDark ? 'DARK' : 'LIGHT' }}</strong></div>
+      </template>
+
+      <!-- shadcn core -->
+      <template v-else-if="id === 'shadcn-core'">
+        <div class="sh-stage" :class="{ dark: shadcnDark }">
+          <div class="sh-card">
+            <div class="sh-card-head"><strong>Create project</strong><span class="sh-badge">New</span></div>
+            <p>Deploy your new project in one click.</p>
+            <label class="sh-label">Name<input class="sh-input" value="acme-ui" /></label>
+            <div class="sh-card-actions">
+              <button class="sh-btn outline">Cancel</button>
+              <button class="sh-btn">Deploy</button>
+            </div>
+          </div>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('按钮 / 卡片 / 徽章 / 输入', 'Button / card / badge / input') }}</span><strong>CORE</strong></div>
+      </template>
+
+      <!-- shadcn overlays -->
+      <template v-else-if="id === 'shadcn-overlays'">
+        <div class="sh-stage" :class="{ dark: shadcnDark }">
+          <div class="sh-overlay-demo">
+            <button class="sh-btn" @click="shadcnDialog = true">Open dialog</button>
+            <div class="sh-popover"><strong>Dimensions</strong><span>Set the dimensions for the layer.</span><div><label>Width<input value="100%" /></label><label>Height<input value="auto" /></label></div></div>
+          </div>
+          <Transition name="sh-fade">
+            <div v-if="shadcnDialog" class="sh-dialog-layer" @click.self="shadcnDialog = false">
+              <div class="sh-dialog">
+                <strong>Edit profile</strong>
+                <p>Make changes to your profile here. Click save when you're done.</p>
+                <div class="sh-dialog-actions"><button class="sh-btn outline" @click="shadcnDialog = false">Cancel</button><button class="sh-btn" @click="shadcnDialog = false">Save changes</button></div>
+              </div>
+            </div>
+          </Transition>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('对话框 / 浮层 / 遮罩', 'Dialog / popover / overlay') }}</span><strong>OVERLAYS</strong></div>
+      </template>
+
+      <!-- shadcn forms -->
+      <template v-else-if="id === 'shadcn-forms'">
+        <div class="sh-stage" :class="{ dark: shadcnDark }">
+          <div class="sh-form">
+            <label class="sh-label">Email<input class="sh-input" value="you@example.com" /></label>
+            <label class="sh-check"><button :class="{ on: shadcnChecked }" @click="shadcnChecked = !shadcnChecked">✓</button> Accept terms and conditions</label>
+            <div class="sh-row"><span>Notifications</span><button class="sh-switch" :class="{ on: shadcnSwitch }" @click="shadcnSwitch = !shadcnSwitch"><i /></button></div>
+            <div class="sh-range"><span>Volume {{ shadcnSlider }}</span><input v-model.number="shadcnSlider" type="range" min="0" max="100" /></div>
+          </div>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('输入 / 复选框 / 开关 / 滑块', 'Input / checkbox / switch / slider') }}</span><strong>FORMS</strong></div>
+      </template>
+
+      <!-- shadcn data -->
+      <template v-else-if="id === 'shadcn-data'">
+        <div class="sh-stage p3-data" :class="{ dark: shadcnDark }">
+          <div class="sh-mini-nav"><span class="on">▤</span><span>◫</span><span>⚙</span></div>
+          <div class="sh-data">
+            <div class="sh-table">
+              <div class="head"><span>Invoice</span><span>Status</span><span>Amount</span></div>
+              <div><span>INV-001</span><span class="ok">Paid</span><span>$250.00</span></div>
+              <div><span>INV-002</span><span class="wait">Pending</span><span>$150.00</span></div>
+              <div><span>INV-003</span><span class="ok">Paid</span><span>$350.00</span></div>
+            </div>
+            <div class="sh-bars"><i v-for="i in 8" :key="i" :style="{ height: 22 + ((i * 17) % 58) + '%' }" /></div>
+          </div>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('表格 / 图表 / 侧栏', 'Table / chart / sidebar') }}</span><strong>DATA</strong></div>
+      </template>
+
+      <!-- shadcn registry -->
+      <template v-else-if="id === 'shadcn-registry'">
+        <div class="sh-stage" :class="{ dark: shadcnDark }">
+          <div class="sh-registry">
+            <div class="sh-terminal">
+              <small>TERMINAL</small>
+              <code>$ npx shadcn@latest add button card dialog</code>
+              <span>✔ Checking registry.<br />✔ Installing dependencies.<br />✔ Created 3 files.</span>
+            </div>
+            <div class="sh-blocks">
+              <div><strong>dashboard-01</strong><span>Sidebar + charts + table</span></div>
+              <div><strong>login-03</strong><span>Form + validation</span></div>
+              <div><strong>sidebar-07</strong><span>Collapsible navigation</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('Registry / CLI / 区块', 'Registry / CLI / blocks') }}</span><strong>CLI</strong></div>
       </template>
 
       <div v-else class="mdemo-empty">{{ t('该模块暂无独立视觉演示', 'No visual demo for this module yet') }}</div>

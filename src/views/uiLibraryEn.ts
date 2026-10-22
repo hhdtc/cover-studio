@@ -574,4 +574,82 @@ export const UI_EN: Record<string, EnProject> = {
       },
     },
   },
+  'shadcn-ui': {
+    tagline: 'Composable, accessible React components you can own and edit.',
+    description:
+      'Not a classic dependency package, but component source distributed through a registry: React + Tailwind CSS, with Radix / Base UI behaviour by default, plus tokens for colour, radius, spacing and keyboard interaction. Components, examples, blocks and themes can be added on demand and edited directly.',
+    theme: 'Neutral / radius / light-dark',
+    demoLabel: 'Online documentation',
+    demoNote:
+      'Official docs: component examples, themes, blocks and install commands, viewable in the browser.',
+    shots: ['shadcn/ui: composable components and the default theme.'],
+    modules: {
+      'shadcn-foundations': {
+        name: 'Foundations & theming',
+        group: 'Foundations',
+        summary:
+          'CSS variables, Tailwind tokens, radius and light/dark themes; multiple styles (Vega / Nova / Maia and more) share one component structure.',
+        points: [
+          'Colour, radius and spacing live in CSS variables; components only reference tokens.',
+          'Light/dark switches at the root class without editing component code.',
+          'Different styles share component structure and only swap tokens and a few styles.',
+        ],
+      },
+      'shadcn-core': {
+        name: 'Core components',
+        group: 'Components',
+        summary:
+          'Button, Badge, Card, Input, Label, Separator, Skeleton and Avatar for everyday UI.',
+        points: [
+          'Components use cva for variants and sizes, keeping defaults separate from product styles.',
+          'Every interactive element has focus-visible and disabled states.',
+          'Source is copied into the project, so structure can be changed rather than overridden.',
+        ],
+      },
+      'shadcn-overlays': {
+        name: 'Overlays & menus',
+        group: 'Overlays',
+        summary:
+          'Dialog, Sheet, Drawer, Popover, Tooltip, DropdownMenu and Command; focus and keyboard behaviour come from the primitive layer.',
+        points: [
+          'Overlays include a backdrop, focus trap, Escape to close and focus return by default.',
+          'Motion is short and driven by data-state for enter and exit.',
+          'Command supports search, grouping and arrow-key selection.',
+        ],
+      },
+      'shadcn-forms': {
+        name: 'Form controls',
+        group: 'Forms',
+        summary:
+          'Field, Input, Textarea, Select, Combobox, Checkbox, RadioGroup, Switch, Slider, Calendar and form validation examples.',
+        points: [
+          'Field unifies label, description and error messaging, with errors not relying on colour alone.',
+          'Complex controls get keyboard and screen-reader support from the primitive layer.',
+          'Examples cover React Hook Form, TanStack Form and Server Actions.',
+        ],
+      },
+      'shadcn-data': {
+        name: 'Data display',
+        group: 'Display',
+        summary:
+          'Table, Chart, Carousel, Sidebar, Tabs, Accordion, Pagination and sortable/expandable data-table examples.',
+        points: [
+          'Table provides structure and styling; sorting, filtering and pagination are composed in the TanStack Table example.',
+          'Chart wraps Recharts containers, tooltips and legend tokens.',
+          'Sidebar supports collapse, a mobile drawer and keyboard operation.',
+        ],
+      },
+      'shadcn-registry': {
+        name: 'Registry & blocks',
+        group: 'Engineering',
+        summary:
+          'Add components, examples and blocks through the registry; `npx shadcn add` writes source into your project instead of installing a black-box dependency.',
+        points: [
+          'The registry describes each component’s files, dependencies and target paths.',
+          'The CLI supports components, examples, blocks and themes, with Radix / Base UI / React Aria bases.',
+          'Once source lands in the project, you own edits and upgrade timing.',
+        ],
+      },
+    },
+  },
 }
