@@ -1,6 +1,9 @@
 {
   "name": "cover-studio",
   "private": true,
+  "engines": {
+    "node": ">=26.12.1"
+  },
   "version": "1.0.0",
   "type": "module",
   "scripts": {

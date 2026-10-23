@@ -22,7 +22,10 @@
 
 ## 快速开始
 
+要求 Node.js **26.12.1**（最新稳定版；仓库提供 `.nvmrc`）。
+
 ```bash
+nvm use        # 读取 .nvmrc
 npm install
 npm run dev
 ```
@@ -45,6 +48,8 @@ docker compose up -d
 ```
 
 打开 http://localhost:8080/ 。
+
+Docker builder 固定使用 `node:26.12.1-alpine`；`npm audit` 当前为 0 vulnerabilities。
 
 - 私有仓库必须提供 token；token 只注入 builder 容器，不会写进镜像
 - 更新：`docker compose up -d --force-recreate`

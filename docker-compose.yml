@@ -4,7 +4,7 @@ services:
   # Clones the private repository from GitHub and builds the static site.
   # This uses a plain container, so it works without BuildKit/buildx secrets.
   builder:
-    image: node:22-alpine
+    image: node:26.12.1-alpine
     environment:
       GITHUB_TOKEN: "${GITHUB_TOKEN:-}"
       REPO_URL: ${REPO_URL:-https://github.com/hhdtc/cover-studio.git}
