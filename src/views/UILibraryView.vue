@@ -1828,7 +1828,7 @@ async function copyAiContext() {
         <span class="view-kicker">TOOL 07</span>
         <strong>{{ t('UI 组件库', 'UI Library') }}</strong>
       </div>
-      <span class="view-sub">{{ t('收录 demo 页面与 UI 模块拆分说明', 'Project demos and UI module breakdowns') }}</span>
+      <span class="view-sub">{{ t('项目总览、模块演示与设计要点', 'Project overview, module demos and design notes') }}</span>
       <div class="toolbar-actions">
         <a class="soft-btn" :href="project.repo" target="_blank" rel="noreferrer">
           {{ t('打开仓库', 'Repository') }}
@@ -2043,10 +2043,12 @@ async function copyAiContext() {
           </div>
         </section>
 
-        <section class="lib-section">
+        <!-- Only inside a module: the project overview already lists every
+             module, so showing both would repeat the same content. -->
+        <section v-if="currentModule" class="lib-section">
           <div class="lib-section-head">
-            <h2>{{ t('UI 模块拆分', 'UI modules') }}</h2>
-            <p>{{ t('按功能域拆开的模块与文件，点击左侧索引或卡片查看职责与使用要点。', 'Modules and files grouped by area; pick an index or card to see its role and usage notes.') }}</p>
+            <h2>{{ t('切换到其他模块', 'Switch module') }}</h2>
+            <p>{{ t('当前模块之外的其余模块，点击卡片直接跳转。', 'The rest of this project; pick a card to jump straight there.') }}</p>
           </div>
           <div class="lib-grid">
             <a
