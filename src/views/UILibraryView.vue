@@ -80,10 +80,10 @@ const PROJECTS: Project[] = [
         summary:
           '把专辑按列铺进三维空间，相机在列之间移动；支持按流派、歌手、专辑名排列，以及真实专辑列模式。',
         files: [
+          { label: 'viewport-layout.ts', path: 'src/viewport-layout.ts' },
           { label: 'music-model.ts', path: 'src/music-model.ts' },
-          { label: 'music-array-layout.ts', path: 'src/music-array-layout.ts' },
           { label: 'music-camera.ts', path: 'src/music-camera.ts' },
-          { label: 'scene.ts', path: 'src/scene.ts' },
+          { label: 'music.css', path: 'src/music.css' },
           { label: 'package.json', path: 'package.json' },
           { label: 'index.html', path: 'index.html' },
           { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
@@ -102,9 +102,8 @@ const PROJECTS: Project[] = [
           '玻璃质感的 CD 盒，包含侧条、封面贴图、内页反光与揭幕动画；封面区与昼夜几何共用。',
         files: [
           { label: 'music-cd-asset.ts', path: 'src/music-cd-asset.ts' },
-          { label: 'cover-atlas.ts', path: 'src/cover-atlas.ts' },
           { label: 'glass-reveal.ts', path: 'src/glass-reveal.ts' },
-          { label: 'internal-optics.ts', path: 'src/internal-optics.ts' },
+          { label: 'music-model.ts', path: 'src/music-model.ts' },
           { label: 'package.json', path: 'package.json' },
           { label: 'index.html', path: 'index.html' },
           { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
@@ -122,9 +121,10 @@ const PROJECTS: Project[] = [
         summary:
           '按 V 拉远镜头进入总览；横屏使用投影名牌，竖屏显示完整歌手网格，点击歌手返回近景。',
         files: [
-          { label: 'music-overview.ts', path: 'src/music-overview.ts' },
-          { label: 'music-overview-ui.ts', path: 'src/music-overview-ui.ts' },
-          { label: 'music-overview-artist-grid.ts', path: 'src/music-overview-artist-grid.ts' },
+          { label: 'music-app.ts', path: 'src/music-app.ts' },
+          { label: 'music-presentation.ts', path: 'src/music-presentation.ts' },
+          { label: 'music-title.ts', path: 'src/music-title.ts' },
+          { label: 'music-title-reels.ts', path: 'src/music-title-reels.ts' },
           { label: 'package.json', path: 'package.json' },
           { label: 'index.html', path: 'index.html' },
           { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
@@ -142,10 +142,10 @@ const PROJECTS: Project[] = [
         summary:
           '音乐库设置与画面声音两个页签，常用项外露、高级项折叠；页签固定在顶部，内容独立滚动。',
         files: [
-          { label: 'music-panel-layout.css', path: 'src/music-panel-layout.css' },
-          { label: 'music-settings-theme.css', path: 'src/music-settings-theme.css' },
-          { label: 'quality-settings.ts', path: 'src/quality-settings.ts' },
           { label: 'audio-settings.ts', path: 'src/audio-settings.ts' },
+          { label: 'quality-settings.ts', path: 'src/quality-settings.ts' },
+          { label: 'quality-settings.css', path: 'src/quality-settings.css' },
+          { label: 'music-theme-switch.css', path: 'src/music-theme-switch.css' },
           { label: 'package.json', path: 'package.json' },
           { label: 'index.html', path: 'index.html' },
           { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
@@ -165,8 +165,8 @@ const PROJECTS: Project[] = [
         files: [
           { label: 'music-player.ts', path: 'src/music-player.ts' },
           { label: 'audio.ts', path: 'src/audio.ts' },
-          { label: 'music-browser-gapless.ts', path: 'src/music-browser-gapless.ts' },
           { label: 'music-transport-title.ts', path: 'src/music-transport-title.ts' },
+          { label: 'music-track-focus.ts', path: 'src/music-track-focus.ts' },
           { label: 'package.json', path: 'package.json' },
           { label: 'index.html', path: 'index.html' },
           { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
@@ -185,8 +185,9 @@ const PROJECTS: Project[] = [
           '底部滑尺、滚轮、方向键与触摸共同驱动浏览；滑尺刻度与导航动画独立成模块。',
         files: [
           { label: 'music-ruler.ts', path: 'src/music-ruler.ts' },
-          { label: 'music-wheel-navigation.ts', path: 'src/music-wheel-navigation.ts' },
-          { label: 'music-navigation-motion.ts', path: 'src/music-navigation-motion.ts' },
+          { label: 'music-navigation-motion.css', path: 'src/music-navigation-motion.css' },
+          { label: 'music-navigation-ruler.css', path: 'src/music-navigation-ruler.css' },
+          { label: 'music-order.ts', path: 'src/music-order.ts' },
           { label: 'package.json', path: 'package.json' },
           { label: 'index.html', path: 'index.html' },
           { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
@@ -206,9 +207,9 @@ const PROJECTS: Project[] = [
           '晨雾浅色与月影深色两套主题，配合开场标语、品牌字轮与减少动态效果设置。',
         files: [
           { label: 'music-theme.css', path: 'src/music-theme.css' },
-          { label: 'appearance.ts', path: 'src/appearance.ts' },
-          { label: 'music-opening.ts', path: 'src/music-opening.ts' },
-          { label: 'boot.ts', path: 'src/boot.ts' },
+          { label: 'music-theme-switch.css', path: 'src/music-theme-switch.css' },
+          { label: 'viewer-theme.ts', path: 'src/viewer-theme.ts' },
+          { label: 'theme-transition.ts', path: 'src/theme-transition.ts' },
           { label: 'package.json', path: 'package.json' },
           { label: 'index.html', path: 'index.html' },
           { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
@@ -227,8 +228,8 @@ const PROJECTS: Project[] = [
           '读取音频文件同名的 LRC 歌词，随播放进度高亮当前行，支持偏移解析与点击歌词定位。',
         files: [
           { label: 'lyrics.ts', path: 'src/lyrics.ts' },
-          { label: 'music-player.ts', path: 'src/music-player.ts' },
-          { label: 'music-app.ts', path: 'src/music-app.ts' },
+          { label: 'music-text-motion.ts', path: 'src/music-text-motion.ts' },
+          { label: 'typing-rhythm.ts', path: 'src/typing-rhythm.ts' },
           { label: 'package.json', path: 'package.json' },
           { label: 'index.html', path: 'index.html' },
           { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
@@ -246,9 +247,9 @@ const PROJECTS: Project[] = [
         summary:
           'Windows 版新增的本机歌单管理和可编辑播放队列，支持上一首／下一首。',
         files: [
-          { label: 'music-app.ts', path: 'src/music-app.ts' },
+          { label: 'music-order.ts', path: 'src/music-order.ts' },
           { label: 'music-playlists.css', path: 'src/music-playlists.css' },
-          { label: 'music-player.ts', path: 'src/music-player.ts' },
+          { label: 'data.ts', path: 'src/data.ts' },
           { label: 'package.json', path: 'package.json' },
           { label: 'index.html', path: 'index.html' },
           { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
@@ -266,9 +267,10 @@ const PROJECTS: Project[] = [
         summary:
           'Windows 版把封面打包为普通 2D 图集，以独立 UV 区域和实例化绘制降低三维专辑架的传输与绘制开销。',
         files: [
-          { label: 'cover-atlas.ts', path: 'src/cover-atlas.ts' },
-          { label: 'music-model.ts', path: 'src/music-model.ts' },
-          { label: 'music-array-layout.ts', path: 'src/music-array-layout.ts' },
+          { label: 'frame-profiler.ts', path: 'src/frame-profiler.ts' },
+          { label: 'render-quality.ts', path: 'src/render-quality.ts' },
+          { label: 'quality-renderer.ts', path: 'src/quality-renderer.ts' },
+          { label: 'gpu-capability.ts', path: 'src/gpu-capability.ts' },
           { label: 'package.json', path: 'package.json' },
           { label: 'index.html', path: 'index.html' },
           { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
@@ -286,11 +288,10 @@ const PROJECTS: Project[] = [
         summary:
           '专辑计数、上下切专辑、左右切流派、键盘提示、收藏状态与 rAF 诊断信息，是专辑架最底部的常驻界面层。',
         files: [
-          { label: 'music-app.ts', path: 'src/music-app.ts' },
+          { label: 'music-ticks.ts', path: 'src/music-ticks.ts' },
+          { label: 'music-navigation-motion.css', path: 'src/music-navigation-motion.css' },
+          { label: 'music-title.ts', path: 'src/music-title.ts' },
           { label: 'music.css', path: 'src/music.css' },
-          { label: 'music-text-motion.ts', path: 'src/music-text-motion.ts' },
-          { label: 'music-navigation-motion.ts', path: 'src/music-navigation-motion.ts' },
-          { label: 'music-boot.ts', path: 'src/music-boot.ts' },
           { label: 'package.json', path: 'package.json' },
           { label: 'index.html', path: 'index.html' },
           { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
@@ -311,10 +312,9 @@ const PROJECTS: Project[] = [
         summary:
           '按专辑、歌曲、流派浏览与搜索；选中结果后移动到目标位置并打开详情，不改变播放。',
         files: [
-          { label: 'music-search.ts', path: 'src/music-search.ts' },
-          { label: 'music-browser-gapless.ts', path: 'src/music-browser-gapless.ts' },
-          { label: 'music-order.ts', path: 'src/music-order.ts' },
-          { label: 'music-real-columns.ts', path: 'src/music-real-columns.ts' },
+          { label: 'music-app.ts', path: 'src/music-app.ts' },
+          { label: 'data.ts', path: 'src/data.ts' },
+          { label: 'music-playlists.css', path: 'src/music-playlists.css' },
           { label: 'package.json', path: 'package.json' },
           { label: 'index.html', path: 'index.html' },
           { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
@@ -1562,7 +1562,7 @@ const PROJECTS: Project[] = [
           '通过 registry 按需添加组件、示例与区块；`npx shadcn add` 把源码写进项目，而不是安装黑盒依赖。',
         files: [
           { label: 'registry.ts', path: 'apps/v4/registry/bases/radix/registry.ts' },
-          { label: 'blocks', path: 'apps/v4/registry/bases/radix/blocks' },
+          { label: '__blocks__.json', path: 'apps/v4/registry/__blocks__.json' },
           { label: 'components.json', path: 'apps/v4/components.json' },
           { label: 'package.json', path: 'package.json' },
         ],
