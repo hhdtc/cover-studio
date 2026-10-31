@@ -1,0 +1,11 @@
+.git
+.github
+.analysis
+.chrome-*
+node_modules
+dist
+.npm-cache
+.env
+demos
+docs
+*.log

@@ -42,19 +42,22 @@ npm run preview
 ## Docker
 
 ```bash
-cp .env.example .env
-chmod 600 .env          # 填入有 Contents: read 权限的 GITHUB_TOKEN
-docker compose up -d
+docker compose up -d      # 用当前工作区构建并启动
 ```
 
-打开 http://localhost:8080/ 。
+打开 http://localhost:8080/ 。默认路径**不需要任何 token**：多阶段 `Dockerfile` 在 `node:26.12.1-alpine` 里跑 `npm ci && npm run build`，再把 `dist/` 交给 nginx。
 
-Docker builder 固定使用 `node:26.12.1-alpine`；`npm audit` 当前为 0 vulnerabilities。
-
-- 私有仓库必须提供 token；token 只注入 builder 容器，不会写进镜像
-- 更新：`docker compose up -d --force-recreate`
-- 停止：`docker compose down`；同时删除构建卷加 `-v`
+- 更新：`docker compose up -d --build`
+- 停止：`docker compose down`；连镜像一起删加 `--rmi local`
 - 端口：`PORT=9000 docker compose up -d`
+- 想构建「GitHub 上已推送的那次提交」而不是本地工作区，用另一条链路：
+
+```bash
+cp .env.example .env      # 填 GITHUB_TOKEN（Contents: read）
+docker compose -f docker-compose.remote.yml up -d
+```
+
+`npm audit` 当前为 0 vulnerabilities；Node 版本由 `.nvmrc` 与 `package.json` 的 engines 固定。
 
 ## 页面路由
 
