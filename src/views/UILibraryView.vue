@@ -850,6 +850,40 @@ const PROJECTS: Project[] = [
           '深色页的正文不用纯白（#f5f5f7 出现 402 次），次级文字用 #86868b。',
         ],
       },
+      {
+        id: 'ap-responsive',
+        name: '断点与塌陷',
+        group: '响应式',
+        summary:
+          '同一页面在 390 / 834 / 1600px 下实测：导航在 834 以下塌成汉堡（可见链接 14 → 3，条高 44 → 48px），纵向堆叠块 61 → 113，隐藏元素 309 → 337，而吸顶元素始终是 31 个。',
+        files: [
+          { label: 'kit.css', path: 'src/apple-kit/kit.css' },
+          { label: 'tokens.css', path: 'src/apple-kit/tokens.css' },
+          { label: 'ApLazyMedia.vue', path: 'src/apple-kit/ApLazyMedia.vue' },
+        ],
+        points: [
+          '塌陷发生在导航层，不在内容层：内容只是从两列变一列，导航直接换成汉堡。',
+          '吸顶数量不随宽度变化（31 个），说明吸顶是内容结构，不是桌面专属效果。',
+          '图片按同一组断点换素材：549 个 <source> 的 media 只有 max-width:734px、max-width:1068px 和 min-width:0 三种。',
+        ],
+      },
+      {
+        id: 'ap-loading',
+        name: '媒体加载策略',
+        group: '性能',
+        summary:
+          '17 段视频全部 preload="none" + playsinline、无 poster、无 autoplay 属性，只有 2 段在初始 HTML 里带 src；其余靠 data-inline-media 插件注入。156 张图的 loading="lazy" 数量是 0 —— 原生懒加载完全没用。',
+        files: [
+          { label: 'ApLazyMedia.vue', path: 'src/apple-kit/ApLazyMedia.vue' },
+          { label: 'ApMedia.vue', path: 'src/apple-kit/ApMedia.vue' },
+          { label: 'kit.css', path: 'src/apple-kit/kit.css' },
+        ],
+        points: [
+          '视频用 data-inline-media-* 一组属性声明播放时机、退出复位与超时，加载与播放都由脚本调度。',
+          '图片走 <picture> + 549 个 <source> 的 srcset 换分辨率，靠 JS 的 onload 控制揭示，而不是 loading="lazy"。',
+          '本库的 ApLazyMedia 用 IntersectionObserver 延迟请求，并在 saveData 时退化为手动加载。',
+        ],
+      },
     ],
   },
   {

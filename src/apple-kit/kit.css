@@ -697,3 +697,62 @@
   outline: none;
   box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--apl-accent);
 }
+
+/* ------------------------------------------------------------------ */
+/* Deferred media                                                      */
+/* ------------------------------------------------------------------ */
+
+.apl-lazy {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--apl-radius-media);
+  aspect-ratio: var(--apl-ratio, 16 / 10);
+  background: linear-gradient(150deg, #ececf1, #d7d7de);
+}
+
+.apl-lazy img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--apl-dur-slow) var(--apl-ease);
+}
+
+.apl-lazy[data-loaded='true'] img {
+  opacity: 1;
+}
+
+.apl-lazy__placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--apl-font);
+  font-size: var(--apl-t-12);
+  letter-spacing: var(--apl-tr-12);
+  color: var(--apl-ink-soft);
+  transition: opacity var(--apl-dur-base) var(--apl-ease);
+}
+
+.apl-lazy[data-loaded='true'] .apl-lazy__placeholder {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.apl-lazy__btn {
+  appearance: none;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: var(--apl-radius);
+  padding: 0.5rem 1rem;
+  font: inherit;
+  color: var(--apl-ink);
+  cursor: pointer;
+}
+
+.apl-lazy__btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--apl-accent);
+}

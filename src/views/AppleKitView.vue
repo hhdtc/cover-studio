@@ -15,6 +15,7 @@ import ApSnapGallery from '../apple-kit/ApSnapGallery.vue'
 import ApStickyStory from '../apple-kit/ApStickyStory.vue'
 import ApMedia from '../apple-kit/ApMedia.vue'
 import ApBuyBar from '../apple-kit/ApBuyBar.vue'
+import ApLazyMedia from '../apple-kit/ApLazyMedia.vue'
 
 const t = (zh: string, en: string) => (lang.value === 'zh' ? zh : en)
 
@@ -166,8 +167,30 @@ const aiContext = computed(() =>
       </div>
     </section>
 
+    <section class="aplview-section">
+      <ApHeadline :eyebrow="t('09 / 响应式', '09 / RESPONSIVE')" :title="t('塌陷发生在导航层', 'Collapse lives in the nav')" :lede="t('同一页面在 390 / 834 / 1600px 下：导航 834 以下换成汉堡，内容只是从两列变一列，吸顶元素数量不变。', 'The same page at 390 / 834 / 1600px: below 834 the nav becomes a hamburger, content only drops from two columns to one, and the sticky count never moves.')" />
+      <table class="aplview-table">
+        <thead>
+          <tr><th>{{ t('宽度', 'Width') }}</th><th>{{ t('导航链接', 'Nav links') }}</th><th>{{ t('条高', 'Bar height') }}</th><th>{{ t('堆叠块', 'Stacked blocks') }}</th><th>{{ t('吸顶', 'Sticky') }}</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>390px</td><td>3</td><td>48px</td><td>113</td><td>31</td></tr>
+          <tr><td>834px</td><td>14</td><td>44px</td><td>66</td><td>31</td></tr>
+          <tr><td>1600px</td><td>14</td><td>44px</td><td>61</td><td>31</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="aplview-section">
+      <ApHeadline :eyebrow="t('10 / 加载', '10 / LOADING')" :title="t('先声明，后请求', 'Declare first, request later')" :lede="t('17 段视频全部 preload=none，156 张图的 loading=lazy 是 0 —— 原生懒加载一条没用，全部交给脚本调度。', 'All 17 videos ship preload=none and none of the 156 images use loading=lazy: native lazy loading is unused, scheduling is entirely scripted.')" />
+      <div class="aplview-media">
+        <ApLazyMedia src="/mock/cover-mist.svg" :alt="t('占位媒体', 'Placeholder media')" ratio="4 / 3" :label="t('进入视口才请求', 'requested on approach')" />
+        <ApLazyMedia src="/mock/cover-orbit.svg" :alt="t('占位媒体', 'Placeholder media')" ratio="4 / 3" :label="t('同样延迟', 'also deferred')" />
+      </div>
+    </section>
+
     <section class="aplview-section aplview-notes">
-      <ApHeadline :eyebrow="t('08 / 边界', '08 / LIMITS')" :title="t('来源与替换', 'Provenance')" />
+      <ApHeadline :eyebrow="t('11 / 边界', '11 / LIMITS')" :title="t('来源与替换', 'Provenance')" />
       <ul>
         <li>{{ t('结构来自对三个公开页面的被动读取：DOM 形状、声明式 CSS 数值、计算样式普查。', 'Structure comes from a passive reading of three public pages: DOM shape, declared CSS values, computed styles.') }}</li>
         <li>{{ t('SF Pro 为苹果专有字体，不随仓库分发；这里的字体栈会回退到系统界面字体。', 'SF Pro is proprietary and is not shipped; the stack falls back to the system UI face.') }}</li>
@@ -312,6 +335,27 @@ const aiContext = computed(() =>
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1rem;
+}
+
+.aplview-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--apl-font);
+  font-size: var(--apl-t-12);
+}
+
+.aplview-table th,
+.aplview-table td {
+  text-align: left;
+  padding: 0.625rem 0.75rem;
+  border-bottom: 1px solid var(--apl-line);
+}
+
+.aplview-table th {
+  font-weight: 600;
+  color: var(--apl-ink-soft);
+  letter-spacing: var(--apl-tr-12);
+  text-transform: uppercase;
 }
 
 .aplview-buyrow {

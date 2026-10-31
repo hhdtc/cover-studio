@@ -280,6 +280,28 @@ export const UI_EN: Record<string, EnProject> = {
           'Dark pages never use pure white for body text (#f5f5f7 appears 402 times); secondary copy is #86868b.',
         ],
       },
+      'ap-responsive': {
+        name: 'Breakpoints & collapse',
+        group: 'Responsive',
+        summary:
+          'The same page measured at 390 / 834 / 1600px: below 834 the nav collapses to a hamburger (visible links 14 → 3, bar height 44 → 48px), stacking blocks go 61 → 113, hidden elements 309 → 337, while sticky elements stay at 31 throughout.',
+        points: [
+          'Collapse happens in the navigation layer, not the content layer: content merely goes from two columns to one.',
+          'Sticky count never changes with width (31), so pinning is structural rather than a desktop-only effect.',
+          'Artwork swaps at the same two breakpoints: all 549 <source> elements use only max-width:734px, max-width:1068px and min-width:0.',
+        ],
+      },
+      'ap-loading': {
+        name: 'Media loading',
+        group: 'Performance',
+        summary:
+          'All 17 videos ship preload="none" and playsinline, with no poster and no autoplay attribute; only 2 carry a src in the initial HTML and the rest are injected by a data-inline-media plugin. Of 156 images, zero use loading="lazy" — native lazy loading is unused.',
+        points: [
+          'Videos declare playback timing, exit reset and timeout through data-inline-media-* attributes; loading and play are script-scheduled.',
+          'Images rely on <picture> with 549 <source> srcset entries for resolution switching and a JS onload for reveal, not loading="lazy".',
+          'This kit’s ApLazyMedia requests through IntersectionObserver and falls back to a manual button when saveData is set.',
+        ],
+      },
     },
   },
   'endfield-kit': {

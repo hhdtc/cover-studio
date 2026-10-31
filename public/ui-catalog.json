@@ -207,6 +207,16 @@
           "id": "ap-media",
           "name": "Media & pieces",
           "route": "/#/ui/apple-kit/ap-media"
+        },
+        {
+          "id": "ap-responsive",
+          "name": "Breakpoints & collapse",
+          "route": "/#/ui/apple-kit/ap-responsive"
+        },
+        {
+          "id": "ap-loading",
+          "name": "Media loading",
+          "route": "/#/ui/apple-kit/ap-loading"
         }
       ],
       "route": "/#/ui/apple-kit"
