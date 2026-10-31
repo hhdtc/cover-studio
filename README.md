@@ -100,6 +100,16 @@ UI 组件库支持项目/模块深链，例如：
 
 第三方项目的许可、素材边界和新增项目检查清单见 **[docs/COLLECTED-PROJECTS.md](docs/COLLECTED-PROJECTS.md)**。
 
+## 技能
+
+收录一个站点或项目、逆向出原创组件库并归档进 UI 组件库的完整流程，写成了一份 skill：
+
+```bash
+cp -r skills/catalog-ui-site ~/.claude/skills/    # 或 ~/.codex/skills/
+```
+
+见 **[skills/catalog-ui-site/SKILL.md](skills/catalog-ui-site/SKILL.md)** —— 七个阶段（取范围 → 抓取 → CSS 普查 → 运行时普查 → 推导令牌 → 建组件 → 归档验证）、验收清单，以及一张「已经踩过的坑」对照表。
+
 ## 快捷键
 
 | 按键 | 功能 |
