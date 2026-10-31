@@ -13,6 +13,8 @@ import ApGlass from '../apple-kit/ApGlass.vue'
 import ApLocalNav from '../apple-kit/ApLocalNav.vue'
 import ApSnapGallery from '../apple-kit/ApSnapGallery.vue'
 import ApStickyStory from '../apple-kit/ApStickyStory.vue'
+import ApMedia from '../apple-kit/ApMedia.vue'
+import ApBuyBar from '../apple-kit/ApBuyBar.vue'
 
 const t = (zh: string, en: string) => (lang.value === 'zh' ? zh : en)
 
@@ -139,8 +141,33 @@ const aiContext = computed(() =>
       <ApSnapGallery :items="7" :label="t('横向画廊 · snap x mandatory', 'Horizontal gallery · snap x mandatory')" />
     </section>
 
+    <section class="aplview-section">
+      <ApHeadline :eyebrow="t('06 / 版式', '06 / LAYOUT')" :title="t('三层容器，一条节奏', 'Three containers, one rhythm')" :lede="t('宽度 734 / 833 / 1068px，主断点 734 与 1068；纵向留白不对称，上紧下松。', 'Widths step 734 / 833 / 1068px with breakpoints at 734 and 1068; vertical padding is asymmetric, tight above and loose below.')" />
+      <div class="aplview-layout">
+        <div class="aplview-frame aplview-frame--wide"><span>1068</span>
+          <div class="aplview-frame aplview-frame--mid"><span>833</span>
+            <div class="aplview-frame aplview-frame--narrow"><span>734</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="apl-section aplview-rhythm">
+        <p class="apl-caption">{{ t('这一段的 padding 是 90 / 27（上 / 下），沿用实测的不对称节奏。', 'This block uses 90 / 27 padding, following the measured asymmetric rhythm.') }}</p>
+      </div>
+    </section>
+
+    <section class="aplview-section">
+      <ApHeadline :eyebrow="t('07 / 媒体与组件', '07 / MEDIA & PIECES')" :title="t('媒体框、价格条', 'Media frame, buy bar')" :lede="t('产品页 311 图 / 17 视频 / 81 按钮 / 31 个吸顶元素；卡片圆角 18–32px，药丸 980px。', 'Product pages carry 311 images, 17 videos, 81 buttons and 31 sticky elements; card radii run 18–32px with 980px pills.')" />
+      <div class="aplview-media">
+        <ApMedia ratio="16 / 10" label="16:10" :caption="t('浅色媒体框：圆角 28px，hover 放大 1.01', 'Light media frame: 28px radius, 1.01 hover scale')" />
+        <ApMedia ratio="4 / 5" label="4:5" dark :caption="t('深色媒体框：正文用 #f5f5f7，不用纯白', 'Dark frame: body text at #f5f5f7, never pure white')" />
+      </div>
+      <div class="aplview-buyrow">
+        <ApBuyBar :price="t('¥ 7,999 起', 'From $999')" :note="t('或 ¥666.58/月 · 24 期', 'or $41.62/mo. for 24 mo.')" :cta="t('购买', 'Buy')" />
+      </div>
+    </section>
+
     <section class="aplview-section aplview-notes">
-      <ApHeadline :eyebrow="t('06 / 边界', '06 / LIMITS')" :title="t('来源与替换', 'Provenance')" />
+      <ApHeadline :eyebrow="t('08 / 边界', '08 / LIMITS')" :title="t('来源与替换', 'Provenance')" />
       <ul>
         <li>{{ t('结构来自对三个公开页面的被动读取：DOM 形状、声明式 CSS 数值、计算样式普查。', 'Structure comes from a passive reading of three public pages: DOM shape, declared CSS values, computed styles.') }}</li>
         <li>{{ t('SF Pro 为苹果专有字体，不随仓库分发；这里的字体栈会回退到系统界面字体。', 'SF Pro is proprietary and is not shipped; the stack falls back to the system UI face.') }}</li>
@@ -241,6 +268,56 @@ const aiContext = computed(() =>
 .aplview-card span {
   font-size: var(--apl-t-12);
   color: var(--apl-ink-soft);
+}
+
+.aplview-layout {
+  display: grid;
+  place-items: center;
+  gap: 0.75rem;
+}
+
+.aplview-frame {
+  display: grid;
+  place-items: start;
+  padding: 0.75rem;
+  border-radius: 14px;
+  border: 1px dashed rgba(0, 0, 0, 0.18);
+  background: rgba(0, 0, 0, 0.02);
+  font-family: var(--apl-font);
+  font-size: var(--apl-t-12);
+  color: var(--apl-ink-soft);
+}
+
+.aplview-frame--wide {
+  width: min(1068px, 100%);
+}
+
+.aplview-frame--mid {
+  width: min(833px, 100%);
+  margin-top: 0.75rem;
+}
+
+.aplview-frame--narrow {
+  width: min(734px, 100%);
+  margin-top: 0.75rem;
+}
+
+.aplview-rhythm {
+  max-width: 640px;
+  padding-block: 90px 27px;
+  text-align: center;
+}
+
+.aplview-media {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.aplview-buyrow {
+  display: flex;
+  justify-content: center;
+  padding-top: 0.5rem;
 }
 
 .aplview-section--wide {

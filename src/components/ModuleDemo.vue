@@ -19,6 +19,8 @@ import ApCta from '../apple-kit/ApCta.vue'
 import ApGlass from '../apple-kit/ApGlass.vue'
 import ApLocalNav from '../apple-kit/ApLocalNav.vue'
 import ApSnapGallery from '../apple-kit/ApSnapGallery.vue'
+import ApMedia from '../apple-kit/ApMedia.vue'
+import ApBuyBar from '../apple-kit/ApBuyBar.vue'
 
 const props = defineProps<{ id: string; label: string; demoUrl?: string }>()
 
@@ -1492,6 +1494,35 @@ function moveQueue(index: number, dir: -1 | 1) {
           </div>
         </div>
         <div class="mdemo-foot"><span>{{ t('吸顶导航 / 横向吸附', 'Sticky nav / snap') }}</span><strong>STORY</strong></div>
+      </template>
+
+      <!-- apple kit: layout -->
+      <template v-else-if="id === 'ap-layout'">
+        <div class="ax-stage">
+          <div class="ax-frameset">
+            <div class="ax-frame ax-frame--wide"><span>1068</span>
+              <div class="ax-frame ax-frame--mid"><span>833</span>
+                <div class="ax-frame ax-frame--narrow"><span>734</span></div>
+              </div>
+            </div>
+          </div>
+          <p class="ax-notes">{{ t('断点 734 / 1068；flex 185 次、grid 27 次。', 'Breakpoints 734 / 1068; flex 185 vs grid 27.') }}</p>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('三档容器宽度', 'Three container widths') }}</span><strong>LAYOUT</strong></div>
+      </template>
+
+      <!-- apple kit: media -->
+      <template v-else-if="id === 'ap-media'">
+        <div class="ax-stage">
+          <div class="ax-mediapair">
+            <ApMedia ratio="16 / 10" label="16:10" />
+            <ApMedia ratio="4 / 5" label="4:5" dark />
+          </div>
+          <div class="ax-buyrow">
+            <ApBuyBar price="From $999" note="or $41.62/mo. for 24 mo." cta="Buy" />
+          </div>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('媒体框 / 价格药丸', 'Media frame / price pill') }}</span><strong>MEDIA</strong></div>
       </template>
 
       <div v-else class="mdemo-empty">{{ t('该模块暂无独立视觉演示', 'No visual demo for this module yet') }}</div>

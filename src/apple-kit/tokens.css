@@ -109,3 +109,19 @@
   --apl-shadow-card: 0 1px 3px rgba(0, 0, 0, 0.3);
   --apl-shadow-float: 3px 5px 30px rgba(0, 0, 0, 0.22);
 }
+
+/* --- layout ladder (measured container widths and breakpoints) -------- */
+:root {
+  --apl-w-narrow: 734px;
+  --apl-w-mid: 833px;
+  --apl-w-wide: 1068px;
+  --apl-w-max: 1440px;
+
+  /* Vertical rhythm measured across sections: mostly asymmetric. */
+  --apl-space-section: clamp(3rem, 8vw, 5.625rem);
+  --apl-space-tight: clamp(1.75rem, 4vw, 2.75rem);
+
+  /* Card radii observed on product pages: 18 / 28 / 32, pills at 980. */
+  --apl-radius-media: 28px;
+  --apl-radius-tile: 32px;
+}

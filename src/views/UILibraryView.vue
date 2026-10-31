@@ -644,9 +644,9 @@ const PROJECTS: Project[] = [
   {
     id: 'apple-kit',
     name: 'Apple · 排版与动效',
-    tagline: '从 apple.com、iPad Pro 与 iPhone Duo 三个页面里量出字号梯级与动效节奏，重写成 8 个 Vue 组件。',
+    tagline: '从 apple.com、iPad Pro 与 iPhone Duo 三个页面量出版式、字号、材质与动效，重写成 10 个 Vue 组件。',
     description:
-      '只看两件事：字怎么排、动怎么走。对三个公开页面做被动读取——DOM 形状、声明式 CSS 的数值、一次计算样式普查——得到一条连续的字号梯级（每级绑定字距与行高）和一套 240/320/400/500ms 的时长刻度。滚动效果由 IntersectionObserver + rAF 驱动，进度写进 CSS 变量，动画本身仍是声明式的。SF Pro 不随仓库分发，演示内容全部为占位文字。',
+      '重点在排版与动效，但不止这两块。对三个公开页面做被动读取——DOM 形状、声明式 CSS 的数值、计算样式普查——得到：734 / 833 / 1068 三档容器宽度与 734 / 1068 主断点、一条每级绑定字距与行高的字号梯级、18–32px 的卡片圆角与 980px 药丸、三档毛玻璃（20 / 20 / 7px 模糊）、以及 240/320/400/500ms 的时长刻度。产品页是 311 张图 + 17 段视频 + 31 个吸顶元素的长文档，首页则是 102 张图短叙事。滚动由 IntersectionObserver + rAF 驱动，进度写进 CSS 变量，动画本身仍是声明式的；SF Pro 不随仓库分发，演示内容全部为占位文字。',
     repo: 'https://github.com/hhdtc/cover-studio',
     release: 'https://github.com/hhdtc/cover-studio/blob/main/docs/apple-design-system.md',
     design: 'https://github.com/hhdtc/cover-studio/blob/main/docs/apple-design-system.md',
@@ -814,6 +814,40 @@ const PROJECTS: Project[] = [
           'sticky 的 top 要减去全局导航高度，否则图形列会被导航压住一截。',
           '段落点亮用 rootMargin 收窄到视口中带（-42%），比监听滚动计算更省。',
           'scroll-snap 不需要手势库：scroll-snap-align 就够，滚轮与触控板都自然吸附。',
+        ],
+      },
+      {
+        id: 'ap-layout',
+        name: '版式与节奏',
+        group: '版式',
+        summary:
+          '三档容器宽度 734 / 833 / 1068px，主断点 734 与 1068（样式表里分别出现 717 / 565 次）；布局以 flex 为主（185 次）而非 grid（27 次）；纵向留白几乎都是不对称的，例如 40/84、76/76、90/0。',
+        files: [
+          { label: 'tokens.css', path: 'src/apple-kit/tokens.css' },
+          { label: 'kit.css', path: 'src/apple-kit/kit.css' },
+          { label: 'ApMedia.vue', path: 'src/apple-kit/ApMedia.vue' },
+        ],
+        points: [
+          '容器宽度不是断点数字的复制品，而是三档阶梯：窄 734、中 833、宽 1068，超出后交给外边距。',
+          '纵向节奏不对称（上 40 / 下 84 这种），让内容像是「落」在区块里，而不是居中放置。',
+          'flex 承担绝大多数排布，grid 只用在确实需要二维对齐的地方。',
+        ],
+      },
+      {
+        id: 'ap-media',
+        name: '媒体与组件形态',
+        group: '组件',
+        summary:
+          '产品页 311 图 / 17 视频 / 81 按钮 / 434 链接 / 31 个吸顶元素；卡片圆角 18 / 28 / 32px，药丸 980px，小控件 5–10px；首页另有 980px 药丸 35 处。',
+        files: [
+          { label: 'ApMedia.vue', path: 'src/apple-kit/ApMedia.vue' },
+          { label: 'ApBuyBar.vue', path: 'src/apple-kit/ApBuyBar.vue' },
+          { label: 'kit.css', path: 'src/apple-kit/kit.css' },
+        ],
+        points: [
+          '媒体框用 aspect-ratio 固定比例，圆角 28px，hover 只做 1.01 的轻微放大，不叠阴影。',
+          '价格条是悬浮药丸：左价格右按钮，整体 980px 圆角，带毛玻璃与一层柔和投影。',
+          '深色页的正文不用纯白（#f5f5f7 出现 402 次），次级文字用 #86868b。',
         ],
       },
     ],

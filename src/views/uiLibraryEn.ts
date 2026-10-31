@@ -258,6 +258,28 @@ export const UI_EN: Record<string, EnProject> = {
           'Scroll-snap needs no gesture library: scroll-snap-align is enough, and wheel and trackpad both settle naturally.',
         ],
       },
+      'ap-layout': {
+        name: 'Layout & rhythm',
+        group: 'Layout',
+        summary:
+          'Three container widths — 734 / 833 / 1068px — with the main breakpoints at 734 and 1068 (717 and 565 occurrences in the stylesheet). Layout is mostly flex (185) rather than grid (27), and vertical padding is almost always asymmetric: 40/84, 76/76, 90/0.',
+        points: [
+          'Container widths are a three-step ladder, not a copy of the breakpoint numbers; past 1068 the margins take over.',
+          'Asymmetric vertical spacing (40 above, 84 below) makes a block read as dropped into place rather than centred.',
+          'Flex carries almost all arrangement; grid appears only where two-dimensional alignment is genuinely needed.',
+        ],
+      },
+      'ap-media': {
+        name: 'Media & pieces',
+        group: 'Components',
+        summary:
+          'Product pages carry 311 images, 17 videos, 81 buttons, 434 links and 31 sticky elements. Card radii run 18 / 28 / 32px, pills sit at 980px and small controls at 5–10px; the home page alone uses 35 pills at 980px.',
+        points: [
+          'Media frames lock an aspect ratio, use a 28px radius, and hover only nudges to 1.01 — no shadow stacking.',
+          'The price bar is a floating pill: price on the left, action on the right, 980px radius, frosted with one soft shadow.',
+          'Dark pages never use pure white for body text (#f5f5f7 appears 402 times); secondary copy is #86868b.',
+        ],
+      },
     },
   },
   'endfield-kit': {

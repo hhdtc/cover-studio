@@ -197,6 +197,16 @@
           "id": "ap-story",
           "name": "Sticky story & snap gallery",
           "route": "/#/ui/apple-kit/ap-story"
+        },
+        {
+          "id": "ap-layout",
+          "name": "Layout & rhythm",
+          "route": "/#/ui/apple-kit/ap-layout"
+        },
+        {
+          "id": "ap-media",
+          "name": "Media & pieces",
+          "route": "/#/ui/apple-kit/ap-media"
         }
       ],
       "route": "/#/ui/apple-kit"

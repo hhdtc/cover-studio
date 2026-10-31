@@ -7104,3 +7104,46 @@ a.lib-card {
   color: var(--muted-2);
   font-size: 12px;
 }
+
+/* apple kit: layout + media demos */
+.ax-frameset {
+  display: grid;
+  place-items: center;
+}
+
+.ax-frame {
+  display: grid;
+  place-items: start;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px dashed #d2d2d7;
+  background: rgba(0, 0, 0, 0.02);
+  font-family: var(--apl-font);
+  font-size: 10px;
+  color: #6e6e73;
+}
+
+.ax-frame--wide {
+  width: min(420px, 100%);
+}
+
+.ax-frame--mid {
+  width: min(320px, 100%);
+  margin-top: 8px;
+}
+
+.ax-frame--narrow {
+  width: min(220px, 100%);
+  margin-top: 8px;
+}
+
+.ax-mediapair {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+.ax-buyrow {
+  display: flex;
+  justify-content: center;
+}
