@@ -1,12 +1,18 @@
 # Load the REA MCP server into a DSH profile.
-# Start DSH with: dsh web --patch /absolute/path/to/dsh-mcp-rea.patch.yml
-- id: mcp-rea
-  name: '@deepseek-ai/dsh-mcp-client'
-  config:
-    serverName: rea
-    transport: stdio
-    command: /home/hhdtc/.local/share/fnm/node-versions/v24.18.1/installation/bin/rea
-    args:
-      - mcp
-    failOnStartupError: true
-    toolCallTimeoutMs: 120000
+#
+# Cordis patches append to an existing plugin list, so a bare `- id: ...` entry
+# fails with `patch: entry "..." not found`. Wrap the entry in `insert`.
+#
+# One profile only:  dsh web --patch /absolute/path/to/dsh-mcp-rea.patch.yml
+# Every profile:     copy this file to ~/.dsh/cordis.patch.yml
+- insert:
+    - id: rea-mcp
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: rea
+        transport: stdio
+        command: /home/hhdtc/.local/share/fnm/node-versions/v24.18.1/installation/bin/rea
+        args:
+          - mcp
+        failOnStartupError: true
+        toolCallTimeoutMs: 120000
