@@ -1,8 +1,36 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 import { t } from '../i18n'
+import EfButton from '../endfield-kit/EfButton.vue'
+import EfPanel from '../endfield-kit/EfPanel.vue'
+import EfTabBar from '../endfield-kit/EfTabBar.vue'
+import EfStat from '../endfield-kit/EfStat.vue'
+import EfMarquee from '../endfield-kit/EfMarquee.vue'
+import EfGlitch from '../endfield-kit/EfGlitch.vue'
+import EfTag from '../endfield-kit/EfTag.vue'
+import EfRail from '../endfield-kit/EfRail.vue'
+import EfScrollHint from '../endfield-kit/EfScrollHint.vue'
 
 const props = defineProps<{ id: string; label: string; demoUrl?: string }>()
+
+/* Endfield Kit demo state */
+const ekTab = ref(0)
+const ekRail = ref('a')
+const ekLadder = [
+  { k: '30', px: 30, label: 'SANCTUARY' },
+  { k: '25', px: 25, label: 'Core Chapter' },
+  { k: '19', px: 18.75, label: 'Section Label' },
+  { k: '13', px: 13.75, label: 'UI CONTROL' },
+  { k: '10', px: 10, label: 'MICRO / 10PX' },
+]
+const ekRailItems = [
+  { id: 'a', glyph: '✦', label: 'Hero' },
+  { id: 'b', glyph: '▤', label: 'Tokens' },
+  { id: 'c', glyph: '◈', label: 'Components' },
+  { id: 'd', glyph: '≋', label: 'Motion' },
+]
+const ekTabs = ['Overview', 'Assets', 'Comms', 'Logs']
+const ekItems = ['protocol synced', 'orbit calibrated 03', 'signal −62 dBm', 'archive sealed']
 
 const albums = [
   { title: '日光留声', artist: 'RHINE', year: 2026, genre: 'AMBIENT', tracks: 12, cover: '/mock/cover-daylight.svg', bg: 'linear-gradient(135deg,#f6c47b,#b74b32)' },
@@ -1269,6 +1297,81 @@ function moveQueue(index: number, dir: -1 | 1) {
           </div>
         </div>
         <div class="mdemo-foot"><span>{{ t('Registry / CLI / 区块', 'Registry / CLI / blocks') }}</span><strong>CLI</strong></div>
+      </template>
+
+      <!-- endfield kit: typography -->
+      <template v-else-if="id === 'ek-typography'">
+        <div class="ek-stage">
+          <div class="ek-type">
+            <span v-for="s in ekLadder" :key="s.k" :style="{ fontSize: s.px + 'px' }">{{ s.label }}</span>
+          </div>
+          <div class="ek-micro">
+            <span>--efk-t-10</span><span>UPPERCASE · TRACKING .14EM</span>
+          </div>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('字号阶梯 10 → 60px', 'Type ladder 10 → 60px') }}</span><strong>TYPE</strong></div>
+      </template>
+
+      <!-- endfield kit: geometry -->
+      <template v-else-if="id === 'ek-geometry'">
+        <div class="ek-stage">
+          <div class="ek-row">
+            <EfButton variant="primary">{{ t('下载', 'Download') }}</EfButton>
+            <EfButton variant="solid">{{ t('进入', 'Enter') }}</EfButton>
+            <EfButton variant="ghost">{{ t('详情', 'Details') }}</EfButton>
+            <EfButton variant="danger" size="sm">{{ t('中止', 'Abort') }}</EfButton>
+          </div>
+          <EfPanel index="01" :title="t('切角面板', 'Notched panel')" :scan="true">
+            <p class="ek-copy">{{ t('切角来自 clip-path 变量，四角刻度用伪元素绘制。', 'Notches come from a clip-path variable; corner ticks are pseudo-elements.') }}</p>
+          </EfPanel>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('切角 / 楔形 / 刻度', 'Notch / wedge / ticks') }}</span><strong>SHAPE</strong></div>
+      </template>
+
+      <!-- endfield kit: hud -->
+      <template v-else-if="id === 'ek-hud'">
+        <div class="ek-stage">
+          <div class="ek-hud">
+            <div class="ek-hud-main">
+              <EfStat :label="t('同步率', 'Sync')" value="98.2" unit="%" :ratio="0.982" />
+              <EfStat :label="t('信号', 'Signal')" value="−62" unit="dBm" :ratio="0.38" />
+              <div class="ek-tags">
+                <EfTag accent>NEW</EfTag>
+                <EfTag live>LIVE</EfTag>
+              </div>
+            </div>
+            <div class="ek-hud-rail">
+              <EfRail v-model="ekRail" :items="ekRailItems" />
+            </div>
+          </div>
+          <EfMarquee :items="ekItems" />
+        </div>
+        <div class="mdemo-foot"><span>{{ t('读数 / 标签 / 导轨', 'Stats / tags / rail') }}</span><strong>HUD</strong></div>
+      </template>
+
+      <!-- endfield kit: effects -->
+      <template v-else-if="id === 'ek-effects'">
+        <div class="ek-stage ek-effects">
+          <p class="ek-glitch-title"><EfGlitch text="OVER THE FRONTIER" /></p>
+          <p class="ek-glitch-title"><EfGlitch text="SIGNAL LOST" live /></p>
+          <div class="ek-scanline">
+            <span>{{ t('扫描线 + 斜纹叠层', 'Scanlines + hatch overlay') }}</span>
+          </div>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('色差 / 扫描线 / 斜纹', 'Aberration / scanline / hatch') }}</span><strong>FX</strong></div>
+      </template>
+
+      <!-- endfield kit: motion -->
+      <template v-else-if="id === 'ek-motion'">
+        <div class="ek-stage">
+          <div class="ek-boot">1s · {{ t('四段衰减', 'four decays') }}</div>
+          <EfMarquee :items="ekItems" />
+          <div class="ek-motion-row">
+            <EfScrollHint :label="t('继续向下', 'Keep scrolling')" />
+            <EfTabBar v-model="ekTab" :tabs="ekTabs" />
+          </div>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('频闪 1s / 轮播 6s / 提示 1.6s', 'Boot 1s / roll 6s / tip 1.6s') }}</span><strong>MOTION</strong></div>
       </template>
 
       <div v-else class="mdemo-empty">{{ t('该模块暂无独立视觉演示', 'No visual demo for this module yet') }}</div>

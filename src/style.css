@@ -6690,3 +6690,149 @@ input[type='color'] {
     display: none;
   }
 }
+
+/* ---------------- endfield kit demos (module level) ---------------- */
+
+.ek-stage {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 12px;
+  background: #191919;
+  border: 1px solid #2b2b2b;
+}
+
+.ek-type {
+  display: grid;
+  gap: 2px;
+}
+
+.ek-type span {
+  color: #fff;
+  font-family: var(--efk-font-display);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+}
+
+.ek-micro {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-family: var(--efk-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #7e7e7e;
+}
+
+.ek-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ek-copy {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #b3b3b3;
+}
+
+.ek-hud {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.ek-hud-main {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+
+.ek-tags {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.ek-hud-rail {
+  border: 1px solid #2b2b2b;
+  display: flex;
+}
+
+.ek-hud-rail .efk-rail {
+  background: transparent;
+  border-right: 0;
+}
+
+.ek-hud-rail .efk-rail__item {
+  color: #b3b3b3;
+}
+
+.ek-hud-rail .efk-rail__item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.ek-effects {
+  justify-items: start;
+}
+
+.ek-glitch-title {
+  margin: 0;
+  font-family: var(--efk-font-display);
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.ek-scanline {
+  position: relative;
+  width: 100%;
+  padding: 12px;
+  background: #141414;
+  color: #b3b3b3;
+  font-family: var(--efk-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  overflow: hidden;
+}
+
+.ek-scanline::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.07) 0 1px,
+    transparent 1px 3px
+  );
+}
+
+.ek-boot {
+  padding: 16px;
+  background: #141414;
+  color: #fffa00;
+  font-family: var(--efk-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-align: center;
+  text-transform: uppercase;
+  animation: efk-boot 1s cubic-bezier(1, 0, 0.7, 1) both;
+}
+
+.ek-motion-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}

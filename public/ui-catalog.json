@@ -100,6 +100,36 @@
       ]
     },
     {
+      "id": "endfield-kit",
+      "name": "Endfield Kit (this site)",
+      "repo": "https://github.com/hhdtc/cover-studio",
+      "demo": "#/endfield-kit",
+      "docs": "https://github.com/hhdtc/cover-studio/blob/main/docs/endfield-design-system.md",
+      "license": "Original implementation; no third-party assets, fonts or copy",
+      "modules": [
+        {
+          "id": "ek-typography",
+          "name": "Type & scale"
+        },
+        {
+          "id": "ek-geometry",
+          "name": "Cut corners & shape"
+        },
+        {
+          "id": "ek-hud",
+          "name": "Readouts & navigation"
+        },
+        {
+          "id": "ek-effects",
+          "name": "Aberration & texture"
+        },
+        {
+          "id": "ek-motion",
+          "name": "Motion rhythm"
+        }
+      ]
+    },
+    {
       "id": "nasa-punk",
       "name": "NASA-Punk UI Skill",
       "repo": "https://github.com/duanth/NASA-Punk-UI-SKILL",

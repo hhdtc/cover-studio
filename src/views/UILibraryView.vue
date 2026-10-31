@@ -443,6 +443,119 @@ const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'endfield-kit',
+    name: 'Endfield Kit · 本站自研',
+    tagline: '把《明日方舟：终末地》官网的字体层级、切角几何与色差字效，重写成 10 个 Vue 组件。',
+    description:
+      '对官网做的一次被动结构观察：DOM 形状、公开 CSS 的声明值、一次计算样式普查，再由这些数值规律重建组件。只保留结构与节奏——商业字体、美术、文案一律不复制，类名用 efk- 前缀与站内既有的 Endfield 演示区分。产物是 10 个不依赖任何 UI 框架的 Vue 组件加一套 --efk-* 令牌。',
+    repo: 'https://github.com/hhdtc/cover-studio',
+    release: 'https://github.com/hhdtc/cover-studio/blob/main/docs/endfield-design-system.md',
+    design: 'https://github.com/hhdtc/cover-studio/blob/main/docs/endfield-design-system.md',
+    demo: {
+      label: '完整样式指南',
+      url: '#/endfield-kit',
+      note: '本站自研的完整展示页：令牌、字号阶梯、10 个组件、动效与来源说明；可一键切换「减少动效」。',
+    },
+    stack: ['Vue 3', 'TypeScript', '原生 CSS', 'clip-path 几何', 'CSS 色差'],
+    theme: '墨黑 #191919 / 纸白 / 信号黄 #fffa00',
+    screenshots: [
+      {
+        src: '/endfield-kit/guide-hero.png',
+        caption: '样式指南首屏：信号黄色带、色差标题、滚动信息条与读数标签。',
+      },
+      {
+        src: '/endfield-kit/guide-components.png',
+        caption: '组件区：切角按钮、楔形页签、读数行、色差标题、标签与图标导轨。',
+      },
+    ],
+    modules: [
+      {
+        id: 'ek-typography',
+        name: '字体与字号阶梯',
+        group: '基础',
+        summary:
+          '原站把字重写进 family 名（如 Novecentosanswide-DemiBold），并用一条 10 → 60px 的阶梯组织版面；行高几乎恒定为 1，显示级字距收到 -0.05em。',
+        files: [
+          { label: 'tokens.css', path: 'src/endfield-kit/tokens.css' },
+          { label: 'kit.css', path: 'src/endfield-kit/kit.css' },
+        ],
+        points: [
+          '字号令牌 --efk-t-10 … --efk-t-30，对应实测的 10 / 11.25 / 12.5 / 13.75 / 15.6 / 17.5 / 18.75 / 25 / 30px。',
+          '显示体紧收（-0.05em），技术标注反而放宽到 0.14em 并全大写——两种字距承担不同信息层级。',
+          '商业字体不随仓库分发，页面只给可替换字体栈；需要正式效果请自行授权或换成 OFL 字体。',
+        ],
+      },
+      {
+        id: 'ek-geometry',
+        name: '切角与形状语言',
+        group: '形状',
+        summary:
+          '切角是全站主语言：按钮双端斜切、页签右缘 55° 楔形、面板四角刻度、标题色带的斜端梯形，含义在不同控件间复用。',
+        files: [
+          { label: 'EfButton.vue', path: 'src/endfield-kit/EfButton.vue' },
+          { label: 'EfPanel.vue', path: 'src/endfield-kit/EfPanel.vue' },
+          { label: 'EfTabBar.vue', path: 'src/endfield-kit/EfTabBar.vue' },
+        ],
+        points: [
+          '按钮切角由 --efk-btn-notch 控制，三档尺寸各自一套角度；内描边用同形状伪元素保持边缘清晰。',
+          '悬停是一道斜向扫光穿过，而不是放大或阴影——与工业 HUD 的克制一致。',
+          '面板四角刻度用 ::before/::after 画 L 形，不额外增加 DOM。',
+        ],
+      },
+      {
+        id: 'ek-hud',
+        name: '读数与导航',
+        group: '信息层',
+        summary:
+          '仪表读数（标签 / 数值 / 单位 / 刻度条）、滚动信息条、状态标签与左侧图标导轨，构成页面的「仪器层」。',
+        files: [
+          { label: 'EfStat.vue', path: 'src/endfield-kit/EfStat.vue' },
+          { label: 'EfMarquee.vue', path: 'src/endfield-kit/EfMarquee.vue' },
+          { label: 'EfRail.vue', path: 'src/endfield-kit/EfRail.vue' },
+          { label: 'EfTag.vue', path: 'src/endfield-kit/EfTag.vue' },
+        ],
+        points: [
+          '读数用等宽数字（tabular-nums），小数位对齐，滑块只做比例提示不做交互。',
+          '滚动条复制一份内容，才能在 50% 位移处无缝接回；hover 时暂停。',
+          '导轨选中项反色并加左侧黄色刻度，与页签的选中逻辑共用一套语法。',
+        ],
+      },
+      {
+        id: 'ek-effects',
+        name: '色差与纹理',
+        group: '视觉特效',
+        summary:
+          '原站用内联 SVG 滤镜 url(#red-green) 配合 grayscale + contrast(200) 做通道错位；本库改成纯 CSS：两层通道副本以 screen 混合抖动。',
+        files: [
+          { label: 'EfGlitch.vue', path: 'src/endfield-kit/EfGlitch.vue' },
+          { label: 'kit.css', path: 'src/endfield-kit/kit.css' },
+        ],
+        points: [
+          '色差默认只在 hover 或 live 时开启，避免整页常驻滤镜拖慢低端设备。',
+          '扫描线用 repeating-linear-gradient 叠一层，斜纹 45° 做纸张纹理，都不引入图片。',
+          '通道色 --efk-channel-r / --efk-channel-g 是独立令牌，可整体换成冷色或单色。',
+        ],
+      },
+      {
+        id: 'ek-motion',
+        name: '动效节奏',
+        group: '动效',
+        summary:
+          '入场是四段衰减频闪（1s ease-out forwards），滚动条在 80% 处停顿再回卷，滚动提示 1.6s 呼吸；常规过渡只有 0.2–0.3s。',
+        files: [
+          { label: 'tokens.css', path: 'src/endfield-kit/tokens.css' },
+          { label: 'kit.css', path: 'src/endfield-kit/kit.css' },
+          { label: 'EfScrollHint.vue', path: 'src/endfield-kit/EfScrollHint.vue' },
+        ],
+        points: [
+          'prefers-reduced-motion 下所有时长收到 1ms，另有 .efk-no-motion 全局开关供演示页手动切换。',
+          '动效承载状态（入场、循环、提示），不做无意义的位移装饰。',
+          '时长与缓动都来自观察值：1s / 6s / 1.6s，缓动 cubic-bezier(1,0,.7,1)。',
+        ],
+      },
+    ],
+  },
+  {
     id: 'nasa-punk',
     name: 'NASA-Punk UI Skill',
     tagline: 'NASA 黄金时代复古未来主义设计系统，给 AI 编码智能体的 UI 技能包。',
@@ -1191,7 +1304,9 @@ const aiContext = computed(() => {
       ? 'license: NO LICENSE — all rights reserved; link-only, no code/assets copied'
       : p.id === 'nasa-punk'
         ? 'license: MIT; NASA insignia are U.S. Government marks'
-        : 'license: MIT (non-code assets excluded)'
+        : p.id === 'endfield-kit'
+          ? 'license: original implementation; no third-party assets, fonts or copy'
+          : 'license: MIT (non-code assets excluded)'
   const lines = [
     `route: ${route}`,
     `project: ${p.name} (${p.id})`,
@@ -1217,6 +1332,13 @@ const aiContext = computed(() => {
     lines.push('runtime: Next.js 16 local server at http://127.0.0.1:5179/')
   } else if (p.id === 'shadcn-ui') {
     lines.push('runtime: online documentation at https://ui.shadcn.com/')
+  } else if (p.id === 'endfield-kit') {
+    lines.push(
+      'runtime: Vue 3 SFCs compiled into this site at src/endfield-kit/',
+      'import: import { EfButton, EfPanel } from "./endfield-kit"',
+      'styles: src/endfield-kit/tokens.css + kit.css; classes prefixed efk-, tokens --efk-*',
+      'analysis: docs/endfield-design-system.md',
+    )
   } else {
     lines.push('runtime: local Vite + Node music server, visual demo ?demo=1')
   }

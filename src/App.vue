@@ -47,8 +47,10 @@ function syncFromHash() {
 }
 
 const PRIMARY_IDS = ['ui', 'assets']
+/** Routable but not shown in the shell nav: the kit lives inside UI 组件库. */
+const HIDDEN_IDS = ['endfield-kit']
 const primaryTools = PRIMARY_IDS.map((id) => TOOLS.find((t) => t.id === id)!)
-const secondaryTools = TOOLS.filter((t) => !PRIMARY_IDS.includes(t.id))
+const secondaryTools = TOOLS.filter((t) => !PRIMARY_IDS.includes(t.id) && !HIDDEN_IDS.includes(t.id))
 const othersOpen = ref(false)
 const othersRef = ref<HTMLElement | null>(null)
 const secondaryActive = computed(() => secondaryTools.some((t) => t.id === tool.value))

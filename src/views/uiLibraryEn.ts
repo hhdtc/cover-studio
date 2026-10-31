@@ -167,6 +167,77 @@ export const UI_EN: Record<string, EnProject> = {
       },
     },
   },
+  'endfield-kit': {
+    tagline:
+      'The official Endfield site’s type ladder, notched geometry and chromatic type, rebuilt as 10 Vue components.',
+    description:
+      'A passive structural observation of the marketing site — DOM shape, declared CSS values, one computed-style census — re-expressed as components. Structure and rhythm only: no commercial fonts, artwork or copy are reproduced, and the efk- prefix keeps it clear of the existing Endfield demo in this repo. The result is 10 framework-agnostic Vue components plus a --efk-* token set.',
+    theme: 'Ink #191919 / paper / signal yellow #fffa00',
+    demoLabel: 'Full style guide',
+    demoNote:
+      'This site’s own showcase: tokens, type ladder, all 10 components, motion and provenance — with a one-click reduced-motion switch.',
+    shots: [
+      'Guide hero: signal-yellow band, chromatic title, rolling ticker and readout tags.',
+      'Components: notched buttons, wedge tabs, stat rows, chromatic headline, tags and icon rail.',
+    ],
+    modules: {
+      'ek-typography': {
+        name: 'Type & scale',
+        group: 'Foundations',
+        summary:
+          'The original encodes weight in the family name (e.g. Novecentosanswide-DemiBold) and organises layout on a 10 → 60px ladder; line-height is almost always 1, and display tracking tightens to -0.05em.',
+        points: [
+          'Tokens --efk-t-10 … --efk-t-30 match the measured 10 / 11.25 / 12.5 / 13.75 / 15.6 / 17.5 / 18.75 / 25 / 30px steps.',
+          'Display type tightens while technical labels open up to 0.14em uppercase — two trackings for two information layers.',
+          'Commercial faces are not redistributed; the kit ships a substitutable stack, so licence your own or switch to an OFL face.',
+        ],
+      },
+      'ek-geometry': {
+        name: 'Cut corners & shape',
+        group: 'Shape',
+        summary:
+          'Cut corners are the site’s core grammar: double-notched buttons, 55° wedge tabs, corner ticks on panels, and a trapezoid title band — one shape vocabulary reused across controls.',
+        points: [
+          'Button notches come from --efk-btn-notch with three size steps; an inner pseudo-element keeps the edge crisp.',
+          'Hover is a skewed light bar sweeping across, not a scale or shadow — consistent with a restrained industrial HUD.',
+          'Panel corner ticks are drawn with ::before/::after, adding no extra DOM.',
+        ],
+      },
+      'ek-hud': {
+        name: 'Readouts & navigation',
+        group: 'Information',
+        summary:
+          'Instrument readouts (label / value / unit / tick bar), a rolling ticker, status tags and a left icon rail form the page’s instrument layer.',
+        points: [
+          'Values use tabular figures so decimals line up; the tick bar only hints at proportion.',
+          'The ticker duplicates its content so a 50% translate loops seamlessly, and pauses on hover.',
+          'The rail inverts the active item and adds a yellow left tick — the same selection grammar as tabs.',
+        ],
+      },
+      'ek-effects': {
+        name: 'Aberration & texture',
+        group: 'Visual effects',
+        summary:
+          'The original uses an inline SVG filter url(#red-green) with grayscale + contrast(200) to offset channels; this kit does it in pure CSS with two screen-blended copies.',
+        points: [
+          'Aberration only runs on hover or when live, so no full-page filter taxes low-end devices.',
+          'Scanlines are a repeating-linear-gradient overlay and the hatch is a 45° stripe — no image assets.',
+          'Channel colours --efk-channel-r / --efk-channel-g are separate tokens, so the effect can go cool or monochrome.',
+        ],
+      },
+      'ek-motion': {
+        name: 'Motion rhythm',
+        group: 'Motion',
+        summary:
+          'Entrances are a four-decay strobe (1s ease-out forwards), the ticker holds at 80% before wrapping, the scroll hint breathes at 1.6s, and ordinary transitions stay within 0.2–0.3s.',
+        points: [
+          'prefers-reduced-motion collapses every duration to 1ms, and .efk-no-motion is a manual kill switch in the showcase.',
+          'Motion carries state (entrance, loop, hint) rather than decorating with movement.',
+          'Durations and easing come from observation: 1s / 6s / 1.6s with cubic-bezier(1,0,.7,1).',
+        ],
+      },
+    },
+  },
   'endfield-ui': {
     tagline:
       'A design-language guide for Arknights: Endfield and a React component library built from it.',
