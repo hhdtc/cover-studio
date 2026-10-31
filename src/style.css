@@ -6991,3 +6991,116 @@ input[type='color'] {
   padding: 14px 0 0;
   background: #fff;
 }
+
+/* ---------------- UI library: anchors + project overview ---------------- */
+
+/* These elements used to be <button>; anchors keep the same box model. */
+a.lib-project,
+a.lib-module,
+a.lib-card {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+a.lib-card {
+  display: block;
+}
+
+.lib-overview {
+  display: grid;
+  gap: 20px;
+  padding: 4px 0 8px;
+}
+
+.lib-overview-head {
+  display: grid;
+  gap: 8px;
+  max-width: 72ch;
+}
+
+.lib-overview-head h2 {
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+}
+
+.lib-overview-head p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.lib-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+.lib-group {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--panel);
+  padding: 12px 14px;
+}
+
+.lib-group h3 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lib-group ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.lib-group li {
+  display: grid;
+  gap: 2px;
+}
+
+.lib-group li a {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  width: fit-content;
+}
+
+.lib-group li a:hover,
+.lib-group li a:focus-visible {
+  border-bottom-color: var(--accent);
+}
+
+.lib-group li span {
+  color: var(--muted-2);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.lib-overview-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid var(--border-soft);
+  padding-top: 14px;
+}
+
+.lib-overview-foot p {
+  margin: 0;
+  color: var(--muted-2);
+  font-size: 12px;
+}

@@ -1614,14 +1614,35 @@ const currentModule = computed(
 const currentShot = computed(
   () => project.value.screenshots[shotIndex.value] ?? project.value.screenshots[0],
 )
+const groupedModules = computed(() => {
+  const groups = []
+  for (const m of project.value.modules) {
+    let g = groups.find((item) => item.name === m.group)
+    if (!g) {
+      g = { name: m.group, items: [] }
+      groups.push(g)
+    }
+    g.items.push(m)
+  }
+  return groups
+})
 
 function selectProject(p: Project) {
   activeProject.value = p
-  activeModule.value = p.modules[0] ?? null
+  // Project landing shows the overview; a module is chosen explicitly.
+  activeModule.value = null
   shotIndex.value = 0
   demoOpen.value = false
   demoVariant.value = 'main'
   syncRoute()
+}
+
+function projectHref(p: Project) {
+  return `#/ui/${p.id}`
+}
+
+function moduleHref(p: Project, m: ModuleDoc) {
+  return `#/ui/${p.id}/${m.id}`
 }
 
 function selectModule(m: ModuleDoc) {
@@ -1634,11 +1655,14 @@ function parseRoute() {
   const parts = window.location.hash.replace(/^#\/?/, '').split('/')
   const p = PROJECTS.find((item) => item.id === parts[1]) ?? PROJECTS[0]
   activeProject.value = p
-  activeModule.value = p.modules.find((item) => item.id === parts[2]) ?? p.modules[0] ?? null
+  // No module segment means the project overview, not "first module".
+  activeModule.value = parts[2] ? (p.modules.find((item) => item.id === parts[2]) ?? null) : null
 }
 
 function syncRoute() {
-  const target = `#/ui/${activeProject.value.id}/${activeModule.value?.id ?? ''}`
+  const target = activeModule.value
+    ? `#/ui/${activeProject.value.id}/${activeModule.value.id}`
+    : `#/ui/${activeProject.value.id}`
   if (window.location.hash !== target) window.location.hash = target
 }
 
@@ -1751,33 +1775,33 @@ async function copyAiContext() {
           <span class="count">{{ PROJECTS.length }}</span>
         </div>
         <div class="panel-scroll">
-          <button
+          <a
             v-for="p in PROJECTS"
             :key="p.id"
             class="lib-project"
             :class="{ active: p.id === project.id }"
-            @click="selectProject(p)"
+            :href="projectHref(p)"
           >
             <span class="lib-project-name">{{ p.name }}</span>
             <span class="lib-project-meta">{{ p.stack.slice(0, 2).join(' · ') }}</span>
-          </button>
+          </a>
           <div class="lib-future">{{ t('更多项目待收录', 'More projects coming') }}</div>
 
           <div class="panel-header lib-module-head">
             <h3>{{ t('模块索引', 'Modules') }}</h3>
             <span class="count">{{ project.modules.length }}</span>
           </div>
-          <button
+          <a
             v-for="m in project.modules"
             :key="m.id"
             class="lib-module"
             :class="{ active: currentModule?.id === m.id }"
-            @click="selectModule(m)"
+            :href="moduleHref(project, m)"
           >
             <span class="lib-module-dot" />
             <span class="lib-module-name">{{ m.name }}</span>
             <span class="lib-module-group">{{ m.group }}</span>
-          </button>
+          </a>
         </div>
       </aside>
 
@@ -1818,6 +1842,45 @@ async function copyAiContext() {
               />
             </div>
           </figure>
+        </section>
+
+        <section v-if="!currentModule" class="lib-overview">
+          <div class="lib-overview-head">
+            <span class="lib-eyebrow">OVERVIEW / {{ groupedModules.length }} {{ t('个分组', 'groups') }}</span>
+            <h2>{{ t('项目总览：先看全貌，再进模块', 'Project overview: the whole shape first') }}</h2>
+            <p>
+              {{
+                t(
+                  '当前 URL 停在项目层，没有选中任何模块。下面按分组汇总全部模块，每个名字都是可直接访问的链接；点进任意模块才会出现演示与文件清单。',
+                  'The URL stops at the project, with no module selected. Modules are grouped below and every name is a real link; demos and file manifests appear only once you open one.',
+                )
+              }}
+            </p>
+          </div>
+          <div class="lib-groups">
+            <article v-for="g in groupedModules" :key="g.name" class="lib-group">
+              <h3>{{ g.name }} <span class="count">{{ g.items.length }}</span></h3>
+              <ul>
+                <li v-for="m in g.items" :key="m.id">
+                  <a :href="moduleHref(project, m)">{{ m.name }}</a>
+                  <span>{{ m.summary }}</span>
+                </li>
+              </ul>
+            </article>
+          </div>
+          <div class="lib-overview-foot">
+            <p>
+              {{
+                t(
+                  '机器可读索引：/ui-catalog.json 列出全部项目、模块与路由，抓取一次即可枚举所有 URL。',
+                  'Machine-readable index: /ui-catalog.json lists every project, module and route, so one fetch enumerates all URLs.',
+                )
+              }}
+            </p>
+            <a v-if="project.demo?.url" class="soft-btn" :href="project.demo.url" target="_blank" rel="noreferrer">
+              {{ t('打开项目 Demo', 'Open project demo') }}
+            </a>
+          </div>
         </section>
 
         <section class="lib-live">
@@ -1918,18 +1981,18 @@ async function copyAiContext() {
             <p>{{ t('按功能域拆开的模块与文件，点击左侧索引或卡片查看职责与使用要点。', 'Modules and files grouped by area; pick an index or card to see its role and usage notes.') }}</p>
           </div>
           <div class="lib-grid">
-            <button
+            <a
               v-for="m in project.modules"
               :key="m.id"
               class="lib-card"
               :class="{ active: currentModule?.id === m.id }"
-              @click="selectModule(m)"
+              :href="moduleHref(project, m)"
             >
               <span class="lib-card-group">{{ m.group }}</span>
               <strong>{{ m.name }}</strong>
               <p>{{ m.summary }}</p>
               <span class="lib-card-files">{{ m.files.length }} {{ t('个相关文件', 'related files') }}</span>
-            </button>
+            </a>
           </div>
         </section>
 

@@ -16,53 +16,66 @@
       "modules": [
         {
           "id": "shelf",
-          "name": "3D album shelf"
+          "name": "3D album shelf",
+          "route": "/#/ui/rhine-music/shelf"
         },
         {
           "id": "cd-case",
-          "name": "Glass album case"
+          "name": "Glass album case",
+          "route": "/#/ui/rhine-music/cd-case"
         },
         {
           "id": "overview",
-          "name": "Thumbnail overview & artist grid"
+          "name": "Thumbnail overview & artist grid",
+          "route": "/#/ui/rhine-music/overview"
         },
         {
           "id": "settings",
-          "name": "Two-page settings"
+          "name": "Two-page settings",
+          "route": "/#/ui/rhine-music/settings"
         },
         {
           "id": "player",
-          "name": "Local playback & transitions"
+          "name": "Local playback & transitions",
+          "route": "/#/ui/rhine-music/player"
         },
         {
           "id": "navigation",
-          "name": "Ruler & wheel navigation"
+          "name": "Ruler & wheel navigation",
+          "route": "/#/ui/rhine-music/navigation"
         },
         {
           "id": "theme",
-          "name": "Themes & opening"
+          "name": "Themes & opening",
+          "route": "/#/ui/rhine-music/theme"
         },
         {
           "id": "search",
-          "name": "Library & search"
+          "name": "Library & search",
+          "route": "/#/ui/rhine-music/search"
         },
         {
           "id": "lyrics",
-          "name": "Synced lyrics"
+          "name": "Synced lyrics",
+          "route": "/#/ui/rhine-music/lyrics"
         },
         {
           "id": "queue",
-          "name": "Playlists & queue"
+          "name": "Playlists & queue",
+          "route": "/#/ui/rhine-music/queue"
         },
         {
           "id": "performance",
-          "name": "Cover atlas & instancing"
+          "name": "Cover atlas & instancing",
+          "route": "/#/ui/rhine-music/performance"
         },
         {
           "id": "navhud",
-          "name": "Bottom navigation & status"
+          "name": "Bottom navigation & status",
+          "route": "/#/ui/rhine-music/navhud"
         }
-      ]
+      ],
+      "route": "/#/ui/rhine-music"
     },
     {
       "id": "endfield-ui",
@@ -75,29 +88,36 @@
       "modules": [
         {
           "id": "ef-foundations",
-          "name": "Foundations & theming"
+          "name": "Foundations & theming",
+          "route": "/#/ui/endfield-ui/ef-foundations"
         },
         {
           "id": "ef-controls",
-          "name": "Core controls"
+          "name": "Core controls",
+          "route": "/#/ui/endfield-ui/ef-controls"
         },
         {
           "id": "ef-forms",
-          "name": "Form controls"
+          "name": "Form controls",
+          "route": "/#/ui/endfield-ui/ef-forms"
         },
         {
           "id": "ef-feedback",
-          "name": "Feedback & overlays"
+          "name": "Feedback & overlays",
+          "route": "/#/ui/endfield-ui/ef-feedback"
         },
         {
           "id": "ef-display",
-          "name": "Display & navigation"
+          "name": "Display & navigation",
+          "route": "/#/ui/endfield-ui/ef-display"
         },
         {
           "id": "ef-motifs",
-          "name": "Motifs & motion"
+          "name": "Motifs & motion",
+          "route": "/#/ui/endfield-ui/ef-motifs"
         }
-      ]
+      ],
+      "route": "/#/ui/endfield-ui"
     },
     {
       "id": "endfield-kit",
@@ -109,25 +129,31 @@
       "modules": [
         {
           "id": "ek-typography",
-          "name": "Type & scale"
+          "name": "Type & scale",
+          "route": "/#/ui/endfield-kit/ek-typography"
         },
         {
           "id": "ek-geometry",
-          "name": "Cut corners & shape"
+          "name": "Cut corners & shape",
+          "route": "/#/ui/endfield-kit/ek-geometry"
         },
         {
           "id": "ek-hud",
-          "name": "Readouts & navigation"
+          "name": "Readouts & navigation",
+          "route": "/#/ui/endfield-kit/ek-hud"
         },
         {
           "id": "ek-effects",
-          "name": "Aberration & texture"
+          "name": "Aberration & texture",
+          "route": "/#/ui/endfield-kit/ek-effects"
         },
         {
           "id": "ek-motion",
-          "name": "Motion rhythm"
+          "name": "Motion rhythm",
+          "route": "/#/ui/endfield-kit/ek-motion"
         }
-      ]
+      ],
+      "route": "/#/ui/endfield-kit"
     },
     {
       "id": "apple-kit",
@@ -139,33 +165,41 @@
       "modules": [
         {
           "id": "ap-type",
-          "name": "Size ladder"
+          "name": "Size ladder",
+          "route": "/#/ui/apple-kit/ap-type"
         },
         {
           "id": "ap-scroll",
-          "name": "Scroll-driven"
+          "name": "Scroll-driven",
+          "route": "/#/ui/apple-kit/ap-scroll"
         },
         {
           "id": "ap-material",
-          "name": "Material & sticky"
+          "name": "Material & sticky",
+          "route": "/#/ui/apple-kit/ap-material"
         },
         {
           "id": "ap-color",
-          "name": "Colour & gradient"
+          "name": "Colour & gradient",
+          "route": "/#/ui/apple-kit/ap-color"
         },
         {
           "id": "ap-limits",
-          "name": "Limits & substitution"
+          "name": "Limits & substitution",
+          "route": "/#/ui/apple-kit/ap-limits"
         },
         {
           "id": "ap-glass",
-          "name": "Glass & focus ring"
+          "name": "Glass & focus ring",
+          "route": "/#/ui/apple-kit/ap-glass"
         },
         {
           "id": "ap-story",
-          "name": "Sticky story & snap gallery"
+          "name": "Sticky story & snap gallery",
+          "route": "/#/ui/apple-kit/ap-story"
         }
-      ]
+      ],
+      "route": "/#/ui/apple-kit"
     },
     {
       "id": "nasa-punk",
@@ -177,29 +211,36 @@
       "modules": [
         {
           "id": "nasa-foundations",
-          "name": "Base skin & type"
+          "name": "Base skin & type",
+          "route": "/#/ui/nasa-punk/nasa-foundations"
         },
         {
           "id": "nasa-print",
-          "name": "Print document layer"
+          "name": "Print document layer",
+          "route": "/#/ui/nasa-punk/nasa-print"
         },
         {
           "id": "nasa-console",
-          "name": "Console instruments"
+          "name": "Console instruments",
+          "route": "/#/ui/nasa-punk/nasa-console"
         },
         {
           "id": "nasa-charts",
-          "name": "Chart & instrument grammar"
+          "name": "Chart & instrument grammar",
+          "route": "/#/ui/nasa-punk/nasa-charts"
         },
         {
           "id": "nasa-motion",
-          "name": "Motion rhythm & quality gates"
+          "name": "Motion rhythm & quality gates",
+          "route": "/#/ui/nasa-punk/nasa-motion"
         },
         {
           "id": "nasa-emblem",
-          "name": "Era grades & insignia"
+          "name": "Era grades & insignia",
+          "route": "/#/ui/nasa-punk/nasa-emblem"
         }
-      ]
+      ],
+      "route": "/#/ui/nasa-punk"
     },
     {
       "id": "aureole",
@@ -211,29 +252,36 @@
       "modules": [
         {
           "id": "aureole-observation",
-          "name": "Physical observation"
+          "name": "Physical observation",
+          "route": "/#/ui/aureole/aureole-observation"
         },
         {
           "id": "aureole-blueprint",
-          "name": "Structural blueprint"
+          "name": "Structural blueprint",
+          "route": "/#/ui/aureole/aureole-blueprint"
         },
         {
           "id": "aureole-deconstruct",
-          "name": "Deconstruction"
+          "name": "Deconstruction",
+          "route": "/#/ui/aureole/aureole-deconstruct"
         },
         {
           "id": "aureole-float",
-          "name": "Floating scene & projection"
+          "name": "Floating scene & projection",
+          "route": "/#/ui/aureole/aureole-float"
         },
         {
           "id": "aureole-annotate",
-          "name": "Labels, search & archive"
+          "name": "Labels, search & archive",
+          "route": "/#/ui/aureole/aureole-annotate"
         },
         {
           "id": "aureole-settings",
-          "name": "Config & accessibility"
+          "name": "Config & accessibility",
+          "route": "/#/ui/aureole/aureole-settings"
         }
-      ]
+      ],
+      "route": "/#/ui/aureole"
     },
     {
       "id": "p5-ui",
@@ -245,29 +293,36 @@
       "modules": [
         {
           "id": "p5-foundations",
-          "name": "Global styles & icons"
+          "name": "Global styles & icons",
+          "route": "/#/ui/p5-ui/p5-foundations"
         },
         {
           "id": "p5-actions",
-          "name": "Buttons, titles & text"
+          "name": "Buttons, titles & text",
+          "route": "/#/ui/p5-ui/p5-actions"
         },
         {
           "id": "p5-controls",
-          "name": "Slider & switch"
+          "name": "Slider & switch",
+          "route": "/#/ui/p5-ui/p5-controls"
         },
         {
           "id": "p5-feedback",
-          "name": "Message, notification & back to top"
+          "name": "Message, notification & back to top",
+          "route": "/#/ui/p5-ui/p5-feedback"
         },
         {
           "id": "p5-layout",
-          "name": "Divider, upload & table"
+          "name": "Divider, upload & table",
+          "route": "/#/ui/p5-ui/p5-layout"
         },
         {
           "id": "p5-motion",
-          "name": "Crowd motion & zoom"
+          "name": "Crowd motion & zoom",
+          "route": "/#/ui/p5-ui/p5-motion"
         }
-      ]
+      ],
+      "route": "/#/ui/p5-ui"
     },
     {
       "id": "persona3",
@@ -279,29 +334,36 @@
       "modules": [
         {
           "id": "p3-home",
-          "name": "Diagonal home & typography"
+          "name": "Diagonal home & typography",
+          "route": "/#/ui/persona3/p3-home"
         },
         {
           "id": "p3-motion",
-          "name": "Ink cursor & glass transition"
+          "name": "Ink cursor & glass transition",
+          "route": "/#/ui/persona3/p3-motion"
         },
         {
           "id": "p3-chapters",
-          "name": "Chapter navigation"
+          "name": "Chapter navigation",
+          "route": "/#/ui/persona3/p3-chapters"
         },
         {
           "id": "p3-creative",
-          "name": "Creative categories & photo viewer"
+          "name": "Creative categories & photo viewer",
+          "route": "/#/ui/persona3/p3-creative"
         },
         {
           "id": "p3-projects",
-          "name": "Project index & 3D configurator"
+          "name": "Project index & 3D configurator",
+          "route": "/#/ui/persona3/p3-projects"
         },
         {
           "id": "p3-profile",
-          "name": "Profile page"
+          "name": "Profile page",
+          "route": "/#/ui/persona3/p3-profile"
         }
-      ]
+      ],
+      "route": "/#/ui/persona3"
     },
     {
       "id": "shadcn-ui",
@@ -313,29 +375,36 @@
       "modules": [
         {
           "id": "shadcn-foundations",
-          "name": "Foundations & theming"
+          "name": "Foundations & theming",
+          "route": "/#/ui/shadcn-ui/shadcn-foundations"
         },
         {
           "id": "shadcn-core",
-          "name": "Core components"
+          "name": "Core components",
+          "route": "/#/ui/shadcn-ui/shadcn-core"
         },
         {
           "id": "shadcn-overlays",
-          "name": "Overlays & menus"
+          "name": "Overlays & menus",
+          "route": "/#/ui/shadcn-ui/shadcn-overlays"
         },
         {
           "id": "shadcn-forms",
-          "name": "Form controls"
+          "name": "Form controls",
+          "route": "/#/ui/shadcn-ui/shadcn-forms"
         },
         {
           "id": "shadcn-data",
-          "name": "Data display"
+          "name": "Data display",
+          "route": "/#/ui/shadcn-ui/shadcn-data"
         },
         {
           "id": "shadcn-registry",
-          "name": "Registry & blocks"
+          "name": "Registry & blocks",
+          "route": "/#/ui/shadcn-ui/shadcn-registry"
         }
-      ]
+      ],
+      "route": "/#/ui/shadcn-ui"
     }
   ]
 }
