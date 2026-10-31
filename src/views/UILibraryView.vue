@@ -84,6 +84,9 @@ const PROJECTS: Project[] = [
           { label: 'music-array-layout.ts', path: 'src/music-array-layout.ts' },
           { label: 'music-camera.ts', path: 'src/music-camera.ts' },
           { label: 'scene.ts', path: 'src/scene.ts' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'index.html', path: 'index.html' },
+          { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
         ],
         points: [
           '列中心距 4.746，盒体之间保留 0.75 净空；真实专辑列模式下每张专辑只出现一次。',
@@ -102,6 +105,9 @@ const PROJECTS: Project[] = [
           { label: 'cover-atlas.ts', path: 'src/cover-atlas.ts' },
           { label: 'glass-reveal.ts', path: 'src/glass-reveal.ts' },
           { label: 'internal-optics.ts', path: 'src/internal-optics.ts' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'index.html', path: 'index.html' },
+          { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
         ],
         points: [
           '盒体总宽 3.996、高 3.35，侧条约 0.269；玻璃主体比正方形宽约 11.25%。',
@@ -118,10 +124,10 @@ const PROJECTS: Project[] = [
         files: [
           { label: 'music-overview.ts', path: 'src/music-overview.ts' },
           { label: 'music-overview-ui.ts', path: 'src/music-overview-ui.ts' },
-          {
-            label: 'music-overview-artist-grid.ts',
-            path: 'src/music-overview-artist-grid.ts',
-          },
+          { label: 'music-overview-artist-grid.ts', path: 'src/music-overview-artist-grid.ts' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'index.html', path: 'index.html' },
+          { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
         ],
         points: [
           '总览里选择不会自动播放；Esc 或 V 返回近景。',
@@ -137,12 +143,12 @@ const PROJECTS: Project[] = [
           '音乐库设置与画面声音两个页签，常用项外露、高级项折叠；页签固定在顶部，内容独立滚动。',
         files: [
           { label: 'music-panel-layout.css', path: 'src/music-panel-layout.css' },
-          {
-            label: 'music-settings-theme.css',
-            path: 'src/music-settings-theme.css',
-          },
+          { label: 'music-settings-theme.css', path: 'src/music-settings-theme.css' },
           { label: 'quality-settings.ts', path: 'src/quality-settings.ts' },
           { label: 'audio-settings.ts', path: 'src/audio-settings.ts' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'index.html', path: 'index.html' },
+          { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
         ],
         points: [
           '切换页签会保留已输入内容、导入预览和各页滚动位置。',
@@ -160,10 +166,10 @@ const PROJECTS: Project[] = [
           { label: 'music-player.ts', path: 'src/music-player.ts' },
           { label: 'audio.ts', path: 'src/audio.ts' },
           { label: 'music-browser-gapless.ts', path: 'src/music-browser-gapless.ts' },
-          {
-            label: 'music-transport-title.ts',
-            path: 'src/music-transport-title.ts',
-          },
+          { label: 'music-transport-title.ts', path: 'src/music-transport-title.ts' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'index.html', path: 'index.html' },
+          { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
         ],
         points: [
           '浏览器输出与 CoreAudio 原生输出可切换；原生输出可选择设备。',
@@ -179,14 +185,11 @@ const PROJECTS: Project[] = [
           '底部滑尺、滚轮、方向键与触摸共同驱动浏览；滑尺刻度与导航动画独立成模块。',
         files: [
           { label: 'music-ruler.ts', path: 'src/music-ruler.ts' },
-          {
-            label: 'music-wheel-navigation.ts',
-            path: 'src/music-wheel-navigation.ts',
-          },
-          {
-            label: 'music-navigation-motion.ts',
-            path: 'src/music-navigation-motion.ts',
-          },
+          { label: 'music-wheel-navigation.ts', path: 'src/music-wheel-navigation.ts' },
+          { label: 'music-navigation-motion.ts', path: 'src/music-navigation-motion.ts' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'index.html', path: 'index.html' },
+          { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
         ],
         points: [
           '方向键、底部滑尺与滚轮共享同一套目标定位。',
@@ -206,6 +209,9 @@ const PROJECTS: Project[] = [
           { label: 'appearance.ts', path: 'src/appearance.ts' },
           { label: 'music-opening.ts', path: 'src/music-opening.ts' },
           { label: 'boot.ts', path: 'src/boot.ts' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'index.html', path: 'index.html' },
+          { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
         ],
         points: [
           '开场由「ONE ALBUM AT A TIME」淡入淡出后接三维专辑阵列，可跳过、重播。',
@@ -223,6 +229,9 @@ const PROJECTS: Project[] = [
           { label: 'lyrics.ts', path: 'src/lyrics.ts' },
           { label: 'music-player.ts', path: 'src/music-player.ts' },
           { label: 'music-app.ts', path: 'src/music-app.ts' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'index.html', path: 'index.html' },
+          { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
         ],
         points: [
           '歌词文件与音频同名放置即可被识别，不复制、不上传音频。',
@@ -240,6 +249,9 @@ const PROJECTS: Project[] = [
           { label: 'music-app.ts', path: 'src/music-app.ts' },
           { label: 'music-playlists.css', path: 'src/music-playlists.css' },
           { label: 'music-player.ts', path: 'src/music-player.ts' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'index.html', path: 'index.html' },
+          { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
         ],
         points: [
           '歌单与队列保存在本机，播放仍读取原音频路径。',
@@ -257,6 +269,9 @@ const PROJECTS: Project[] = [
           { label: 'cover-atlas.ts', path: 'src/cover-atlas.ts' },
           { label: 'music-model.ts', path: 'src/music-model.ts' },
           { label: 'music-array-layout.ts', path: 'src/music-array-layout.ts' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'index.html', path: 'index.html' },
+          { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
         ],
         points: [
           '封面更新只上传变化的图块，而不是整套图集。',
@@ -276,6 +291,9 @@ const PROJECTS: Project[] = [
           { label: 'music-text-motion.ts', path: 'src/music-text-motion.ts' },
           { label: 'music-navigation-motion.ts', path: 'src/music-navigation-motion.ts' },
           { label: 'music-boot.ts', path: 'src/music-boot.ts' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'index.html', path: 'index.html' },
+          { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
         ],
         points: [
           'ALBUM / SELECT 的序号会随切专辑滚动切换，总数来自当前分类。',
@@ -297,6 +315,9 @@ const PROJECTS: Project[] = [
           { label: 'music-browser-gapless.ts', path: 'src/music-browser-gapless.ts' },
           { label: 'music-order.ts', path: 'src/music-order.ts' },
           { label: 'music-real-columns.ts', path: 'src/music-real-columns.ts' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'index.html', path: 'index.html' },
+          { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
         ],
         points: [
           '搜索覆盖专辑与歌曲，可按流派过滤。',
@@ -343,6 +364,10 @@ const PROJECTS: Project[] = [
           { label: 'theme.css', path: 'packages/ui/src/styles/theme.css' },
           { label: 'utilities.css', path: 'packages/ui/src/styles/utilities.css' },
           { label: 'useTheme.ts', path: 'packages/ui/src/hooks/useTheme.ts' },
+          { label: 'index.css', path: 'packages/ui/src/styles/index.css' },
+          { label: 'theme.test.ts', path: 'packages/ui/src/styles/theme.test.ts' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'package.json', path: 'packages/ui/package.json' },
         ],
         points: [
           '默认亮色；在 <html> 或任意容器写 data-theme="dark" 即可切暗色，标题带用 inverse 反转。',
@@ -360,6 +385,16 @@ const PROJECTS: Project[] = [
           { label: 'Button.tsx', path: 'packages/ui/src/components/button/Button.tsx' },
           { label: 'Tag.tsx', path: 'packages/ui/src/components/tag/Tag.tsx' },
           { label: 'Panel.tsx', path: 'packages/ui/src/components/panel/Panel.tsx' },
+          { label: 'Button.test.tsx', path: 'packages/ui/src/components/button/Button.test.tsx' },
+          { label: 'ButtonGroup.test.tsx', path: 'packages/ui/src/components/button/ButtonGroup.test.tsx' },
+          { label: 'ButtonGroup.tsx', path: 'packages/ui/src/components/button/ButtonGroup.tsx' },
+          { label: 'index.ts', path: 'packages/ui/src/components/button/index.ts' },
+          { label: 'Tag.test.tsx', path: 'packages/ui/src/components/tag/Tag.test.tsx' },
+          { label: 'TagPair.tsx', path: 'packages/ui/src/components/tag/TagPair.tsx' },
+          { label: 'index.ts', path: 'packages/ui/src/components/tag/index.ts' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'package.json', path: 'packages/ui/package.json' },
+          { label: 'theme.css', path: 'packages/ui/src/styles/theme.css' },
         ],
         points: [
           '切角、楔形、角括号是形状语言，不是装饰贴纸；同一含义在不同控件里复用。',
@@ -375,11 +410,18 @@ const PROJECTS: Project[] = [
           'Input、Select、Combobox、OtpInput、Checkbox、SegmentedControl、Slider、FileUpload 等，含校验与错误状态。',
         files: [
           { label: 'Input.tsx', path: 'packages/ui/src/components/input/Input.tsx' },
-          {
-            label: 'SegmentedControl.tsx',
-            path: 'packages/ui/src/components/segmented-control/SegmentedControl.tsx',
-          },
+          { label: 'SegmentedControl.tsx', path: 'packages/ui/src/components/segmented-control/SegmentedControl.tsx' },
           { label: 'Checkbox.tsx', path: 'packages/ui/src/components/checkbox/Checkbox.tsx' },
+          { label: 'Input.test.tsx', path: 'packages/ui/src/components/input/Input.test.tsx' },
+          { label: 'control-box.ts', path: 'packages/ui/src/components/input/control-box.ts' },
+          { label: 'index.ts', path: 'packages/ui/src/components/input/index.ts' },
+          { label: 'value-chip.ts', path: 'packages/ui/src/components/input/value-chip.ts' },
+          { label: 'SegmentedControl.test.tsx', path: 'packages/ui/src/components/segmented-control/SegmentedControl.test.tsx' },
+          { label: 'index.ts', path: 'packages/ui/src/components/segmented-control/index.ts' },
+          { label: 'Checkbox.test.tsx', path: 'packages/ui/src/components/checkbox/Checkbox.test.tsx' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'package.json', path: 'packages/ui/package.json' },
+          { label: 'theme.css', path: 'packages/ui/src/styles/theme.css' },
         ],
         points: [
           '输入框的聚焦线从左往右擦出，错误状态用颜色之外的记号再说明一次。',
@@ -397,6 +439,16 @@ const PROJECTS: Project[] = [
           { label: 'Alert.tsx', path: 'packages/ui/src/components/alert/Alert.tsx' },
           { label: 'Dialog.tsx', path: 'packages/ui/src/components/dialog/Dialog.tsx' },
           { label: 'Progress.tsx', path: 'packages/ui/src/components/progress/Progress.tsx' },
+          { label: 'Alert.test.tsx', path: 'packages/ui/src/components/alert/Alert.test.tsx' },
+          { label: 'index.ts', path: 'packages/ui/src/components/alert/index.ts' },
+          { label: 'Dialog.test.tsx', path: 'packages/ui/src/components/dialog/Dialog.test.tsx' },
+          { label: 'index.ts', path: 'packages/ui/src/components/dialog/index.ts' },
+          { label: 'initial-focus.ts', path: 'packages/ui/src/components/dialog/initial-focus.ts' },
+          { label: 'overlay-style.ts', path: 'packages/ui/src/components/dialog/overlay-style.ts' },
+          { label: 'Progress.test.tsx', path: 'packages/ui/src/components/progress/Progress.test.tsx' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'package.json', path: 'packages/ui/package.json' },
+          { label: 'theme.css', path: 'packages/ui/src/styles/theme.css' },
         ],
         points: [
           '浮层从触发它的那一侧来，进入与退出都在 0.2–0.3 秒内完成，没有回弹。',
@@ -414,6 +466,16 @@ const PROJECTS: Project[] = [
           { label: 'ItemSlot.tsx', path: 'packages/ui/src/components/item-slot/ItemSlot.tsx' },
           { label: 'SideRail.tsx', path: 'packages/ui/src/components/side-rail/SideRail.tsx' },
           { label: 'Stat.tsx', path: 'packages/ui/src/components/stat/Stat.tsx' },
+          { label: 'ItemGrid.test.tsx', path: 'packages/ui/src/components/item-slot/ItemGrid.test.tsx' },
+          { label: 'ItemGrid.tsx', path: 'packages/ui/src/components/item-slot/ItemGrid.tsx' },
+          { label: 'ItemSlot.test.tsx', path: 'packages/ui/src/components/item-slot/ItemSlot.test.tsx' },
+          { label: 'index.ts', path: 'packages/ui/src/components/item-slot/index.ts' },
+          { label: 'SideRail.test.tsx', path: 'packages/ui/src/components/side-rail/SideRail.test.tsx' },
+          { label: 'SideRailSub.tsx', path: 'packages/ui/src/components/side-rail/SideRailSub.tsx' },
+          { label: 'index.ts', path: 'packages/ui/src/components/side-rail/index.ts' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'package.json', path: 'packages/ui/package.json' },
+          { label: 'theme.css', path: 'packages/ui/src/styles/theme.css' },
         ],
         points: [
           '物品格用稀有度、库存与角标表达状态，暗色下仍能分辨层级。',
@@ -432,6 +494,15 @@ const PROJECTS: Project[] = [
           { label: 'TickRing.tsx', path: 'packages/ui/src/components/tick-ring/TickRing.tsx' },
           { label: 'GhostText.tsx', path: 'packages/ui/src/components/ghost-text/GhostText.tsx' },
           { label: 'CornerBrackets.tsx', path: 'packages/ui/src/components/corner-brackets/CornerBrackets.tsx' },
+          { label: 'TickRing.test.tsx', path: 'packages/ui/src/components/tick-ring/TickRing.test.tsx' },
+          { label: 'index.ts', path: 'packages/ui/src/components/tick-ring/index.ts' },
+          { label: 'GhostText.test.tsx', path: 'packages/ui/src/components/ghost-text/GhostText.test.tsx' },
+          { label: 'index.ts', path: 'packages/ui/src/components/ghost-text/index.ts' },
+          { label: 'CornerBrackets.test.tsx', path: 'packages/ui/src/components/corner-brackets/CornerBrackets.test.tsx' },
+          { label: 'index.ts', path: 'packages/ui/src/components/corner-brackets/index.ts' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'package.json', path: 'packages/ui/package.json' },
+          { label: 'theme.css', path: 'packages/ui/src/styles/theme.css' },
         ],
         points: [
           '切角、斜楔、角括号、镂空字、斜纹同时是组件与 Tailwind 工具类。',
@@ -478,6 +549,8 @@ const PROJECTS: Project[] = [
         files: [
           { label: 'tokens.css', path: 'src/endfield-kit/tokens.css' },
           { label: 'kit.css', path: 'src/endfield-kit/kit.css' },
+          { label: 'index.ts', path: 'src/endfield-kit/index.ts' },
+          { label: 'main.ts', path: 'src/main.ts' },
         ],
         points: [
           '字号令牌 --efk-t-10 … --efk-t-30，对应实测的 10 / 11.25 / 12.5 / 13.75 / 15.6 / 17.5 / 18.75 / 25 / 30px。',
@@ -495,6 +568,10 @@ const PROJECTS: Project[] = [
           { label: 'EfButton.vue', path: 'src/endfield-kit/EfButton.vue' },
           { label: 'EfPanel.vue', path: 'src/endfield-kit/EfPanel.vue' },
           { label: 'EfTabBar.vue', path: 'src/endfield-kit/EfTabBar.vue' },
+          { label: 'index.ts', path: 'src/endfield-kit/index.ts' },
+          { label: 'tokens.css', path: 'src/endfield-kit/tokens.css' },
+          { label: 'kit.css', path: 'src/endfield-kit/kit.css' },
+          { label: 'main.ts', path: 'src/main.ts' },
         ],
         points: [
           '按钮切角由 --efk-btn-notch 控制，三档尺寸各自一套角度；内描边用同形状伪元素保持边缘清晰。',
@@ -513,6 +590,10 @@ const PROJECTS: Project[] = [
           { label: 'EfMarquee.vue', path: 'src/endfield-kit/EfMarquee.vue' },
           { label: 'EfRail.vue', path: 'src/endfield-kit/EfRail.vue' },
           { label: 'EfTag.vue', path: 'src/endfield-kit/EfTag.vue' },
+          { label: 'index.ts', path: 'src/endfield-kit/index.ts' },
+          { label: 'tokens.css', path: 'src/endfield-kit/tokens.css' },
+          { label: 'kit.css', path: 'src/endfield-kit/kit.css' },
+          { label: 'main.ts', path: 'src/main.ts' },
         ],
         points: [
           '读数用等宽数字（tabular-nums），小数位对齐，滑块只做比例提示不做交互。',
@@ -529,6 +610,9 @@ const PROJECTS: Project[] = [
         files: [
           { label: 'EfGlitch.vue', path: 'src/endfield-kit/EfGlitch.vue' },
           { label: 'kit.css', path: 'src/endfield-kit/kit.css' },
+          { label: 'index.ts', path: 'src/endfield-kit/index.ts' },
+          { label: 'tokens.css', path: 'src/endfield-kit/tokens.css' },
+          { label: 'main.ts', path: 'src/main.ts' },
         ],
         points: [
           '色差默认只在 hover 或 live 时开启，避免整页常驻滤镜拖慢低端设备。',
@@ -546,6 +630,8 @@ const PROJECTS: Project[] = [
           { label: 'tokens.css', path: 'src/endfield-kit/tokens.css' },
           { label: 'kit.css', path: 'src/endfield-kit/kit.css' },
           { label: 'EfScrollHint.vue', path: 'src/endfield-kit/EfScrollHint.vue' },
+          { label: 'index.ts', path: 'src/endfield-kit/index.ts' },
+          { label: 'main.ts', path: 'src/main.ts' },
         ],
         points: [
           'prefers-reduced-motion 下所有时长收到 1ms，另有 .efk-no-motion 全局开关供演示页手动切换。',
@@ -596,6 +682,9 @@ const PROJECTS: Project[] = [
           { label: 'tokens.css', path: 'src/apple-kit/tokens.css' },
           { label: 'kit.css', path: 'src/apple-kit/kit.css' },
           { label: 'ApHeadline.vue', path: 'src/apple-kit/ApHeadline.vue' },
+          { label: 'index.ts', path: 'src/apple-kit/index.ts' },
+          { label: 'main.ts', path: 'src/main.ts' },
+          { label: 'AppleKitView.vue', path: 'src/views/AppleKitView.vue' },
         ],
         points: [
           '字号、字距、行高是绑定的三元组：单独改字号会把版面的呼吸感破坏掉。',
@@ -613,6 +702,11 @@ const PROJECTS: Project[] = [
           { label: 'ApHero.vue', path: 'src/apple-kit/ApHero.vue' },
           { label: 'ApReveal.vue', path: 'src/apple-kit/ApReveal.vue' },
           { label: 'ApParallax.vue', path: 'src/apple-kit/ApParallax.vue' },
+          { label: 'index.ts', path: 'src/apple-kit/index.ts' },
+          { label: 'tokens.css', path: 'src/apple-kit/tokens.css' },
+          { label: 'kit.css', path: 'src/apple-kit/kit.css' },
+          { label: 'main.ts', path: 'src/main.ts' },
+          { label: 'AppleKitView.vue', path: 'src/views/AppleKitView.vue' },
         ],
         points: [
           '滚动监听 passive，一帧只读一次布局；元素离屏时不调度任何工作。',
@@ -630,6 +724,10 @@ const PROJECTS: Project[] = [
           { label: 'ApBar.vue', path: 'src/apple-kit/ApBar.vue' },
           { label: 'ApPills.vue', path: 'src/apple-kit/ApPills.vue' },
           { label: 'kit.css', path: 'src/apple-kit/kit.css' },
+          { label: 'index.ts', path: 'src/apple-kit/index.ts' },
+          { label: 'tokens.css', path: 'src/apple-kit/tokens.css' },
+          { label: 'main.ts', path: 'src/main.ts' },
+          { label: 'AppleKitView.vue', path: 'src/views/AppleKitView.vue' },
         ],
         points: [
           '毛玻璃要同时给 -webkit- 前缀，否则 Safari 上会退化成纯色。',
@@ -646,6 +744,10 @@ const PROJECTS: Project[] = [
         files: [
           { label: 'ApBand.vue', path: 'src/apple-kit/ApBand.vue' },
           { label: 'kit.css', path: 'src/apple-kit/kit.css' },
+          { label: 'index.ts', path: 'src/apple-kit/index.ts' },
+          { label: 'tokens.css', path: 'src/apple-kit/tokens.css' },
+          { label: 'main.ts', path: 'src/main.ts' },
+          { label: 'AppleKitView.vue', path: 'src/views/AppleKitView.vue' },
         ],
         points: [
           '颜色过渡用 color-mix 在 oklab 空间插值，比 sRGB 直插少一段发灰的中间态。',
@@ -662,6 +764,9 @@ const PROJECTS: Project[] = [
         files: [
           { label: 'tokens.css', path: 'src/apple-kit/tokens.css' },
           { label: 'index.ts', path: 'src/apple-kit/index.ts' },
+          { label: 'kit.css', path: 'src/apple-kit/kit.css' },
+          { label: 'main.ts', path: 'src/main.ts' },
+          { label: 'AppleKitView.vue', path: 'src/views/AppleKitView.vue' },
         ],
         points: [
           '字体栈以 -apple-system / BlinkMacSystemFont 开头，在 macOS 上自然得到系统字体。',
@@ -679,6 +784,9 @@ const PROJECTS: Project[] = [
           { label: 'ApGlass.vue', path: 'src/apple-kit/ApGlass.vue' },
           { label: 'tokens.css', path: 'src/apple-kit/tokens.css' },
           { label: 'kit.css', path: 'src/apple-kit/kit.css' },
+          { label: 'index.ts', path: 'src/apple-kit/index.ts' },
+          { label: 'main.ts', path: 'src/main.ts' },
+          { label: 'AppleKitView.vue', path: 'src/views/AppleKitView.vue' },
         ],
         points: [
           '先写不透明底，再用 @supports 包住 backdrop-filter，不支持时不至于变成透明块。',
@@ -696,6 +804,11 @@ const PROJECTS: Project[] = [
           { label: 'ApStickyStory.vue', path: 'src/apple-kit/ApStickyStory.vue' },
           { label: 'ApSnapGallery.vue', path: 'src/apple-kit/ApSnapGallery.vue' },
           { label: 'ApLocalNav.vue', path: 'src/apple-kit/ApLocalNav.vue' },
+          { label: 'index.ts', path: 'src/apple-kit/index.ts' },
+          { label: 'tokens.css', path: 'src/apple-kit/tokens.css' },
+          { label: 'kit.css', path: 'src/apple-kit/kit.css' },
+          { label: 'main.ts', path: 'src/main.ts' },
+          { label: 'AppleKitView.vue', path: 'src/views/AppleKitView.vue' },
         ],
         points: [
           'sticky 的 top 要减去全局导航高度，否则图形列会被导航压住一截。',
@@ -759,6 +872,7 @@ const PROJECTS: Project[] = [
           { label: 'SKILL.md', path: 'SKILL.md' },
           { label: 'component-matrix.md', path: 'references/component-matrix.md' },
           { label: 'reference.html', path: 'assets/reference.html' },
+          { label: 'snippets.css', path: 'references/snippets.css' },
         ],
         points: [
           '页面级底色默认保持浅色，阅读区不铺暗色仪表。',
@@ -793,6 +907,7 @@ const PROJECTS: Project[] = [
           { label: 'SKILL.md', path: 'SKILL.md' },
           { label: 'component-matrix.md', path: 'references/component-matrix.md' },
           { label: 'reference.html', path: 'assets/reference.html' },
+          { label: 'snippets.css', path: 'references/snippets.css' },
         ],
         points: [
           '填充阶梯：描边 → 实心 → 45° 影线 → 交叉影线，用同一套语法表达数据层级。',
@@ -810,6 +925,8 @@ const PROJECTS: Project[] = [
           { label: 'SKILL.md', path: 'SKILL.md' },
           { label: 'collision-check.js', path: 'scripts/collision-check.js' },
           { label: 'icon-geometry-check.js', path: 'assets/icon-geometry-check.js' },
+          { label: 'snippets.css', path: 'references/snippets.css' },
+          { label: 'reference.html', path: 'assets/reference.html' },
         ],
         points: [
           '闪烁是硬失败：需要持续注意的状态用呼吸，不用高频闪烁。',
@@ -873,6 +990,8 @@ const PROJECTS: Project[] = [
           { label: 'App.jsx', path: 'src/opening/App.jsx' },
           { label: 'Components.jsx', path: 'src/opening/Components.jsx' },
           { label: 'opening.css', path: 'src/opening/opening.css' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'index.html', path: 'index.html' },
         ],
         points: [
           '标本主体拆成透明平面，按不同深度与相位漂浮；编号与引线独立成网页图层。',
@@ -890,6 +1009,8 @@ const PROJECTS: Project[] = [
           { label: 'LayeredSubject.jsx', path: 'src/opening/LayeredSubject.jsx' },
           { label: 'layerGeometry.js', path: 'src/opening/layerGeometry.js' },
           { label: 'opening.css', path: 'src/opening/opening.css' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'index.html', path: 'index.html' },
         ],
         points: [
           '轮廓由前景连通域派生，结构点按所属图层定位，再投影到屏幕。',
@@ -907,6 +1028,8 @@ const PROJECTS: Project[] = [
           { label: 'App.jsx', path: 'src/opening/App.jsx' },
           { label: 'Components.jsx', path: 'src/opening/Components.jsx' },
           { label: 'opening.css', path: 'src/opening/opening.css' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'index.html', path: 'index.html' },
         ],
         points: [
           '浅色反相层与斜切片让同一主体呈现“被拆开阅读”的状态。',
@@ -924,6 +1047,9 @@ const PROJECTS: Project[] = [
           { label: 'useFloatingScene.js', path: 'src/opening/useFloatingScene.js' },
           { label: 'floatingMath.js', path: 'src/opening/floatingMath.js' },
           { label: 'layerGeometry.js', path: 'src/opening/layerGeometry.js' },
+          { label: 'opening.css', path: 'src/opening/opening.css' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'index.html', path: 'index.html' },
         ],
         points: [
           '图层、短句和碎字使用不同深度与相位，但共用一个连续时基。',
@@ -941,6 +1067,9 @@ const PROJECTS: Project[] = [
           { label: 'App.jsx', path: 'src/opening/App.jsx' },
           { label: 'data.js', path: 'src/opening/data.js' },
           { label: 'Components.jsx', path: 'src/opening/Components.jsx' },
+          { label: 'opening.css', path: 'src/opening/opening.css' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'index.html', path: 'index.html' },
         ],
         points: [
           '1 / 2 / 3 切换观测模式，左右方向键切换标本，/ 聚焦搜索，Escape 关闭浮层。',
@@ -957,7 +1086,10 @@ const PROJECTS: Project[] = [
         files: [
           { label: 'App.jsx', path: 'src/opening/App.jsx' },
           { label: 'data.js', path: 'src/opening/data.js' },
-          { label: 'docs/ASSETS.md', path: 'docs/ASSETS.md' },
+          { label: 'ASSETS.md', path: 'docs/ASSETS.md' },
+          { label: 'opening.css', path: 'src/opening/opening.css' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'index.html', path: 'index.html' },
         ],
         points: [
           '导出包含标本 ID、模式和界面设置；标本记录仍是模板中的虚构数据。',
@@ -1000,6 +1132,9 @@ const PROJECTS: Project[] = [
           { label: 'global.scss', path: 'src/assets/styles/global.scss' },
           { label: 'index.scss', path: 'src/assets/styles/index.scss' },
           { label: 'icon.vue', path: 'src/components/icon/icon.vue' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'index.html', path: 'index.html' },
+          { label: 'App.vue', path: 'examples/App.vue' },
         ],
         points: [
           '红 #e60012、黑与纸白构成主色；斜切、锯齿与描边是主要形状语言。',
@@ -1017,6 +1152,9 @@ const PROJECTS: Project[] = [
           { label: 'button.vue', path: 'src/components/button/button.vue' },
           { label: 'title.vue', path: 'src/components/title/title.vue' },
           { label: 'text.vue', path: 'src/components/text/text.vue' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'index.html', path: 'index.html' },
+          { label: 'App.vue', path: 'examples/App.vue' },
         ],
         points: [
           '按钮有实心红、黑白描边与悬停位移，按下有短促反馈。',
@@ -1033,6 +1171,9 @@ const PROJECTS: Project[] = [
         files: [
           { label: 'slider.vue', path: 'src/components/slider/slider.vue' },
           { label: 'switch.vue', path: 'src/components/switch/switch.vue' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'index.html', path: 'index.html' },
+          { label: 'App.vue', path: 'examples/App.vue' },
         ],
         points: [
           '滑块轨道使用粗描边与红色进度段，拖拽时数值实时更新。',
@@ -1050,6 +1191,9 @@ const PROJECTS: Project[] = [
           { label: 'message.vue', path: 'src/components/message/message.vue' },
           { label: 'notification.vue', path: 'src/components/notification/notification.vue' },
           { label: 'backTop.vue', path: 'src/components/backTop/backTop.vue' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'index.html', path: 'index.html' },
+          { label: 'App.vue', path: 'examples/App.vue' },
         ],
         points: [
           '消息以斜切条从边缘进入，自动消失；通知可带角色剪影与标题。',
@@ -1067,6 +1211,11 @@ const PROJECTS: Project[] = [
           { label: 'divider.vue', path: 'src/components/divider/divider.vue' },
           { label: 'upload.vue', path: 'src/components/upload/upload.vue' },
           { label: 'table.vue', path: 'src/components/table/table.vue' },
+          { label: 'zoom.vue', path: 'src/components/upload/zoom.vue' },
+          { label: 'tableItem.vue', path: 'src/components/table/tableItem.vue' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'index.html', path: 'index.html' },
+          { label: 'App.vue', path: 'examples/App.vue' },
         ],
         points: [
           '分隔符用锯齿/斜切代替普通直线，强化拼贴感。',
@@ -1084,6 +1233,10 @@ const PROJECTS: Project[] = [
           { label: 'crowd.vue', path: 'src/components/canvas/crowd/crowd.vue' },
           { label: 'createCrowd.js', path: 'src/components/canvas/crowd/createCrowd.js' },
           { label: 'zoom.vue', path: 'src/components/upload/zoom.vue' },
+          { label: 'upload.vue', path: 'src/components/upload/upload.vue' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'index.html', path: 'index.html' },
+          { label: 'App.vue', path: 'examples/App.vue' },
         ],
         points: [
           '人群剪影在 Canvas 中持续移动，密度与速度可配置。',
@@ -1130,6 +1283,14 @@ const PROJECTS: Project[] = [
           { label: 'home-page.tsx', path: 'src/features/home/home-page.tsx' },
           { label: 'page.tsx', path: 'src/app/page.tsx' },
           { label: 'sections.ts', path: 'src/data/sections.ts' },
+          { label: 'globals.css', path: 'src/app/globals.css' },
+          { label: 'layout.tsx', path: 'src/app/layout.tsx' },
+          { label: 'creative.ts', path: 'src/data/creative.ts' },
+          { label: 'profile.ts', path: 'src/data/profile.ts' },
+          { label: 'projects.ts', path: 'src/data/projects.ts' },
+          { label: 'site.ts', path: 'src/data/site.ts' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'next.config.ts', path: 'next.config.ts' },
         ],
         points: [
           '大标题使用 Anton，正文与标签使用 IBM Plex Mono；字距与行高服务斜切构图。',
@@ -1148,6 +1309,15 @@ const PROJECTS: Project[] = [
           { label: 'transition-clock.tsx', path: 'src/features/navigation/transition-clock.tsx' },
           { label: 'page-transition.tsx', path: 'src/features/navigation/page-transition.tsx' },
           { label: 'transitions.css', path: 'src/features/navigation/transitions.css' },
+          { label: 'chapter-navigation.tsx', path: 'src/features/navigation/chapter-navigation.tsx' },
+          { label: 'circle-overlay.tsx', path: 'src/features/navigation/circle-overlay.tsx' },
+          { label: 'glass-geometry.ts', path: 'src/features/navigation/glass-geometry.ts' },
+          { label: 'glass-sprites.ts', path: 'src/features/navigation/glass-sprites.ts' },
+          { label: 'press-feedback.ts', path: 'src/features/navigation/press-feedback.ts' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'layout.tsx', path: 'src/app/layout.tsx' },
+          { label: 'globals.css', path: 'src/app/globals.css' },
+          { label: 'next.config.ts', path: 'next.config.ts' },
         ],
         points: [
           '墨迹光标跟随指针，悬停可交互元素时扩张；触屏与减少动态时自动降级。',
@@ -1165,6 +1335,17 @@ const PROJECTS: Project[] = [
           { label: 'chapter-navigation.tsx', path: 'src/features/navigation/chapter-navigation.tsx' },
           { label: 'chapter-shell.tsx', path: 'src/components/layout/chapter-shell.tsx' },
           { label: 'chapters.css', path: 'src/components/layout/chapters.css' },
+          { label: 'circle-overlay.tsx', path: 'src/features/navigation/circle-overlay.tsx' },
+          { label: 'glass-geometry.ts', path: 'src/features/navigation/glass-geometry.ts' },
+          { label: 'glass-sprites.ts', path: 'src/features/navigation/glass-sprites.ts' },
+          { label: 'ink-cursor.tsx', path: 'src/features/navigation/ink-cursor.tsx' },
+          { label: 'page-transition.tsx', path: 'src/features/navigation/page-transition.tsx' },
+          { label: 'press-feedback.ts', path: 'src/features/navigation/press-feedback.ts' },
+          { label: 'transition-clock.tsx', path: 'src/features/navigation/transition-clock.tsx' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'layout.tsx', path: 'src/app/layout.tsx' },
+          { label: 'globals.css', path: 'src/app/globals.css' },
+          { label: 'next.config.ts', path: 'next.config.ts' },
         ],
         points: [
           '章节标签随页面模块切换，当前项用色块与编号强调。',
@@ -1183,6 +1364,16 @@ const PROJECTS: Project[] = [
           { label: 'photo-media.tsx', path: 'src/features/creative/photo-media.tsx' },
           { label: 'viewing-session.tsx', path: 'src/features/creative/viewing-session.tsx' },
           { label: 'creative.ts', path: 'src/data/creative.ts' },
+          { label: 'catalog.ts', path: 'src/features/creative/catalog.ts' },
+          { label: 'category-menu.module.css', path: 'src/features/creative/category-menu.module.css' },
+          { label: 'category-menu.tsx', path: 'src/features/creative/category-menu.tsx' },
+          { label: 'creative-visual.tsx', path: 'src/features/creative/creative-visual.tsx' },
+          { label: 'creative.module.css', path: 'src/features/creative/creative.module.css' },
+          { label: 'mux-video-player.tsx', path: 'src/features/creative/mux-video-player.tsx' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'layout.tsx', path: 'src/app/layout.tsx' },
+          { label: 'globals.css', path: 'src/app/globals.css' },
+          { label: 'next.config.ts', path: 'next.config.ts' },
         ],
         points: [
           '分类菜单负责路由与筛选，图库按分类展示媒体卡。',
@@ -1201,6 +1392,16 @@ const PROJECTS: Project[] = [
           { label: 'alcove-configurator.tsx', path: 'src/features/space-configurator/alcove-configurator.tsx' },
           { label: 'alcove-scene.ts', path: 'src/features/space-configurator/alcove-scene.ts' },
           { label: 'projects.ts', path: 'src/data/projects.ts' },
+          { label: 'case-contents-dock.tsx', path: 'src/features/projects/case-contents-dock.tsx' },
+          { label: 'case-study.css', path: 'src/features/projects/case-study.css' },
+          { label: 'catalog.ts', path: 'src/features/projects/catalog.ts' },
+          { label: 'alcove-config.ts', path: 'src/features/space-configurator/alcove-config.ts' },
+          { label: 'alcove-materials.ts', path: 'src/features/space-configurator/alcove-materials.ts' },
+          { label: 'alcove.module.css', path: 'src/features/space-configurator/alcove.module.css' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'layout.tsx', path: 'src/app/layout.tsx' },
+          { label: 'globals.css', path: 'src/app/globals.css' },
+          { label: 'next.config.ts', path: 'next.config.ts' },
         ],
         points: [
           '项目卡进入案例页；案例内容是可替换的示例，不是真实商业项目。',
@@ -1217,7 +1418,14 @@ const PROJECTS: Project[] = [
         files: [
           { label: 'profile.ts', path: 'src/data/profile.ts' },
           { label: 'site.ts', path: 'src/data/site.ts' },
-          { label: 'about/page.tsx', path: 'src/app/(modules)/about/page.tsx' },
+          { label: 'page.tsx', path: 'src/app/(modules)/about/page.tsx' },
+          { label: 'creative.ts', path: 'src/data/creative.ts' },
+          { label: 'projects.ts', path: 'src/data/projects.ts' },
+          { label: 'sections.ts', path: 'src/data/sections.ts' },
+          { label: 'package.json', path: 'package.json' },
+          { label: 'layout.tsx', path: 'src/app/layout.tsx' },
+          { label: 'globals.css', path: 'src/app/globals.css' },
+          { label: 'next.config.ts', path: 'next.config.ts' },
         ],
         points: [
           '姓名、头衔、地点与 SEO 元数据集中在 site.ts；简介与经历在 profile.ts。',
@@ -1260,6 +1468,13 @@ const PROJECTS: Project[] = [
           { label: 'themes.ts', path: 'apps/v4/registry/themes.ts' },
           { label: 'style-vega.css', path: 'apps/v4/registry/styles/style-vega.css' },
           { label: 'style-nova.css', path: 'apps/v4/registry/styles/style-nova.css' },
+          { label: 'style-luma.css', path: 'apps/v4/registry/styles/style-luma.css' },
+          { label: 'style-lyra.css', path: 'apps/v4/registry/styles/style-lyra.css' },
+          { label: 'style-maia.css', path: 'apps/v4/registry/styles/style-maia.css' },
+          { label: 'style-mira.css', path: 'apps/v4/registry/styles/style-mira.css' },
+          { label: 'style-rhea.css', path: 'apps/v4/registry/styles/style-rhea.css' },
+          { label: 'style-sera.css', path: 'apps/v4/registry/styles/style-sera.css' },
+          { label: 'package.json', path: 'package.json' },
         ],
         points: [
           '颜色、圆角、间距都落在 CSS 变量里，组件只引用 token。',
@@ -1277,6 +1492,7 @@ const PROJECTS: Project[] = [
           { label: 'button.tsx', path: 'apps/v4/registry/bases/radix/ui/button.tsx' },
           { label: 'card.tsx', path: 'apps/v4/registry/bases/radix/ui/card.tsx' },
           { label: 'badge.tsx', path: 'apps/v4/registry/bases/radix/ui/badge.tsx' },
+          { label: 'package.json', path: 'package.json' },
         ],
         points: [
           '组件使用 cva 管理 variant / size，默认样式与业务样式分离。',
@@ -1294,6 +1510,7 @@ const PROJECTS: Project[] = [
           { label: 'dialog.tsx', path: 'apps/v4/registry/bases/radix/ui/dialog.tsx' },
           { label: 'popover.tsx', path: 'apps/v4/registry/bases/radix/ui/popover.tsx' },
           { label: 'command.tsx', path: 'apps/v4/registry/bases/radix/ui/command.tsx' },
+          { label: 'package.json', path: 'package.json' },
         ],
         points: [
           '浮层默认带遮罩、焦点锁定、Esc 关闭与返回焦点。',
@@ -1311,6 +1528,7 @@ const PROJECTS: Project[] = [
           { label: 'field.tsx', path: 'apps/v4/registry/bases/radix/ui/field.tsx' },
           { label: 'select.tsx', path: 'apps/v4/registry/bases/radix/ui/select.tsx' },
           { label: 'checkbox.tsx', path: 'apps/v4/registry/bases/radix/ui/checkbox.tsx' },
+          { label: 'package.json', path: 'package.json' },
         ],
         points: [
           'Field 统一 label、描述与错误信息，错误不只靠颜色表达。',
@@ -1328,6 +1546,7 @@ const PROJECTS: Project[] = [
           { label: 'table.tsx', path: 'apps/v4/registry/bases/radix/ui/table.tsx' },
           { label: 'chart.tsx', path: 'apps/v4/registry/bases/radix/ui/chart.tsx' },
           { label: 'sidebar.tsx', path: 'apps/v4/registry/bases/radix/ui/sidebar.tsx' },
+          { label: 'package.json', path: 'package.json' },
         ],
         points: [
           'Table 只提供结构样式，排序、筛选与分页由 TanStack Table 示例组合。',
@@ -1345,6 +1564,7 @@ const PROJECTS: Project[] = [
           { label: 'registry.ts', path: 'apps/v4/registry/bases/radix/registry.ts' },
           { label: 'blocks', path: 'apps/v4/registry/bases/radix/blocks' },
           { label: 'components.json', path: 'apps/v4/components.json' },
+          { label: 'package.json', path: 'package.json' },
         ],
         points: [
           'registry 描述每个组件的文件、依赖与目标路径。',
@@ -1708,7 +1928,7 @@ async function copyAiContext() {
               <span class="lib-card-group">{{ m.group }}</span>
               <strong>{{ m.name }}</strong>
               <p>{{ m.summary }}</p>
-              <span class="lib-card-files">{{ m.files.length }} {{ t('个模块文件', 'module files') }}</span>
+              <span class="lib-card-files">{{ m.files.length }} {{ t('个相关文件', 'related files') }}</span>
             </button>
           </div>
         </section>
@@ -1719,7 +1939,7 @@ async function copyAiContext() {
               <span class="lib-eyebrow">{{ currentModule.group }} / MODULE</span>
               <h2>{{ currentModule.name }}</h2>
             </div>
-            <span class="chip">{{ currentModule.files.length }} {{ t('个文件', 'files') }}</span>
+            <span class="chip">{{ currentModule.files.length }} {{ t('个相关文件', 'related files') }}</span>
           </div>
           <p class="lib-detail-summary">{{ currentModule.summary }}</p>
 
@@ -1758,7 +1978,7 @@ async function copyAiContext() {
           </div>
 
           <p class="lib-disclaimer">
-            {{ t('说明依据仓库 README、设计文档与文件职责整理；具体 API 以项目源码为准。这里只做组件索引与使用摘记，不复制项目代码。', 'Notes are compiled from each repository’s README, design docs and file roles. The source is authoritative; this is an index and usage summary, not a copy of project code.') }}
+            {{ t('相关文件＝模块自身文件＋运行所需的共享依赖（样式令牌、入口接线、清单与构建配置），按项目源码树逐个核对；具体 API 仍以源码为准，这里不复制项目代码。', 'Related files = the module\u2019s own files plus the shared dependencies it needs to run (style tokens, entry wiring, manifest, build config), checked against each project\u2019s source tree. The source stays authoritative; no project code is copied here.') }}
           </p>
         </section>
       </main>
