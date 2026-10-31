@@ -236,6 +236,28 @@ export const UI_EN: Record<string, EnProject> = {
           'prefers-reduced-motion and .apl-no-motion both collapse durations to 1ms.',
         ],
       },
+      'ap-glass': {
+        name: 'Glass & focus ring',
+        group: 'Material',
+        summary:
+          'Three measured glass steps: 20px blur at 0.8 alpha for the nav, 20px at 0.4 for the scrim, 7px at 0.7 for a floating pill — all on saturate(180%). The focus ring is a double ring: a 3px white gap plus a 5px accent ring.',
+        points: [
+          'Paint an opaque fill first, then gate backdrop-filter behind @supports so unsupported browsers do not end up with a see-through block.',
+          'Alpha is computed with color-mix, so changing the tint does not mean editing a dozen rgba values.',
+          'The focus ring uses two box-shadows, avoiding cross-browser outline differences while staying keyboard-reachable.',
+        ],
+      },
+      'ap-story': {
+        name: 'Sticky story & snap gallery',
+        group: 'Narrative',
+        summary:
+          'The classic product-page structure: the visual column is position: sticky while the copy scrolls, and only the step inside the middle band lights up; galleries align one card at a time with scroll-snap-type: x mandatory.',
+        points: [
+          'The sticky top must subtract the global bar height or the visual column hides behind it.',
+          'Step activation narrows to the viewport’s middle band with rootMargin (-42%), which is cheaper than computing scroll offsets.',
+          'Scroll-snap needs no gesture library: scroll-snap-align is enough, and wheel and trackpad both settle naturally.',
+        ],
+      },
     },
   },
   'endfield-kit': {

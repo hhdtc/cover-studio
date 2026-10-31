@@ -344,3 +344,234 @@
   outline: 2px solid var(--apl-accent-soft);
   outline-offset: 3px;
 }
+
+/* ------------------------------------------------------------------ */
+/* Glass ladder                                                        */
+/* ------------------------------------------------------------------ */
+
+/* Fallback first: opaque surface when backdrop-filter is unsupported. */
+.apl-glass {
+  --apl-glass-blur: var(--apl-glass-blur-nav);
+  --apl-glass-alpha: var(--apl-glass-alpha-nav);
+  position: relative;
+  background: color-mix(in srgb, var(--apl-glass-tint, #1d1d1f) 96%, transparent);
+  color: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+@supports (backdrop-filter: initial) or (-webkit-backdrop-filter: initial) {
+  .apl-glass {
+    background: color-mix(
+      in srgb,
+      var(--apl-glass-tint, #1d1d1f) calc(var(--apl-glass-alpha) * 100%),
+      transparent
+    );
+    -webkit-backdrop-filter: saturate(var(--apl-glass-saturate)) blur(var(--apl-glass-blur));
+    backdrop-filter: saturate(var(--apl-glass-saturate)) blur(var(--apl-glass-blur));
+  }
+}
+
+.apl-glass--scrim {
+  --apl-glass-blur: var(--apl-glass-blur-scrim);
+  --apl-glass-alpha: var(--apl-glass-alpha-scrim);
+}
+
+.apl-glass--pill {
+  --apl-glass-blur: var(--apl-glass-blur-pill);
+  --apl-glass-alpha: var(--apl-glass-alpha-pill);
+  border-radius: var(--apl-radius);
+}
+
+.apl-glass__body {
+  position: relative;
+  padding: 1rem 1.25rem;
+}
+
+/* Content that reads through the glass: a soft tinted backdrop. */
+.apl-glass-demo {
+  position: relative;
+  isolation: isolate;
+  padding: 2.5rem 1.25rem;
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+  background:
+    radial-gradient(70% 90% at 20% 10%, #ffd9c2 0%, transparent 60%),
+    radial-gradient(70% 90% at 85% 80%, #c9e0ff 0%, transparent 62%),
+    linear-gradient(140deg, #f5f5f7, #e6e6ec);
+  overflow: hidden;
+}
+
+/* High-frequency backdrop so the blur is actually visible. */
+.apl-glass-demo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.18) 0 2px, transparent 2px 14px),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.14) 0 2px, transparent 2px 18px),
+    radial-gradient(circle at 30% 40%, rgba(255, 120, 60, 0.55) 0 18px, transparent 19px),
+    radial-gradient(circle at 72% 66%, rgba(60, 130, 255, 0.55) 0 22px, transparent 23px);
+  background-size: auto, auto, auto, auto;
+}
+
+/* ------------------------------------------------------------------ */
+/* Focus ring                                                          */
+/* ------------------------------------------------------------------ */
+
+.apl-focusable {
+  border-radius: 10px;
+}
+
+.apl-focusable:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 var(--apl-focus-gap) var(--apl-paper),
+    0 0 0 var(--apl-focus-ring) var(--apl-accent);
+}
+
+/* ------------------------------------------------------------------ */
+/* Local nav (sub navigation)                                          */
+/* ------------------------------------------------------------------ */
+
+.apl-localnav {
+  position: sticky;
+  top: var(--apl-bar-h);
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0.75rem 1.25rem;
+  font-family: var(--apl-font);
+  font-size: var(--apl-t-14);
+  letter-spacing: var(--apl-tr-14);
+  background: rgba(245, 245, 247, 0.9);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.apl-localnav__title {
+  font-family: var(--apl-font-display);
+  font-weight: var(--apl-w-semibold);
+  margin-right: auto;
+}
+
+.apl-localnav__link {
+  appearance: none;
+  border: 0;
+  background: none;
+  padding: 0.25rem 0;
+  font: inherit;
+  letter-spacing: inherit;
+  color: var(--apl-ink);
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity var(--apl-dur-fast) var(--apl-ease);
+}
+.apl-localnav__link:hover,
+.apl-localnav__link[aria-current='true'] {
+  opacity: 1;
+}
+.apl-localnav__link[aria-current='true'] {
+  font-weight: var(--apl-w-semibold);
+}
+
+/* ------------------------------------------------------------------ */
+/* Snap gallery                                                        */
+/* ------------------------------------------------------------------ */
+
+.apl-gallery {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.apl-gallery__track {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 1rem;
+  padding: 0.25rem 1rem 1rem;
+  scrollbar-width: none;
+}
+.apl-gallery__track::-webkit-scrollbar {
+  display: none;
+}
+
+.apl-gallery__item {
+  flex: 0 0 clamp(160px, 38vw, 240px);
+  scroll-snap-align: center;
+  aspect-ratio: 4 / 3;
+  display: grid;
+  place-items: end start;
+  padding: 0.75rem;
+  border-radius: var(--apl-radius-card);
+  background: linear-gradient(150deg, #ffffff, #ececf1);
+  box-shadow: var(--apl-shadow-card);
+  font-family: var(--apl-font);
+  font-size: var(--apl-t-12);
+  color: var(--apl-ink-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* Sticky story                                                        */
+/* ------------------------------------------------------------------ */
+
+.apl-story {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1rem, 4vw, 3rem);
+  padding: clamp(2rem, 6vw, 4rem) 1.25rem;
+  align-items: start;
+}
+
+.apl-story__media {
+  position: sticky;
+  top: calc(var(--apl-bar-h) + 2rem);
+  aspect-ratio: 1;
+  border-radius: var(--apl-radius-card);
+  background: linear-gradient(160deg, #e8e8ee, #cfcfd8);
+  display: grid;
+  place-items: center;
+  font-family: var(--apl-font);
+  font-size: var(--apl-t-12);
+  color: var(--apl-ink-soft);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+.apl-story__steps {
+  display: grid;
+  gap: clamp(3rem, 12vh, 8rem);
+  padding-block: 2rem;
+}
+
+.apl-story__step {
+  display: grid;
+  gap: 0.5rem;
+  opacity: 0.28;
+  transition: opacity var(--apl-dur-slow) var(--apl-ease);
+}
+
+.apl-story__step[data-active='true'] {
+  opacity: 1;
+}
+
+.apl-story__step h4 {
+  margin: 0;
+  font-family: var(--apl-font-display);
+  font-size: var(--apl-t-28);
+  font-weight: var(--apl-w-semibold);
+  letter-spacing: var(--apl-tr-28);
+}
+
+@media (max-width: 760px) {
+  .apl-story {
+    grid-template-columns: 1fr;
+  }
+  .apl-story__media {
+    position: relative;
+    top: 0;
+  }
+}

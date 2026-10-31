@@ -9,6 +9,10 @@ import ApReveal from '../apple-kit/ApReveal.vue'
 import ApBand from '../apple-kit/ApBand.vue'
 import ApParallax from '../apple-kit/ApParallax.vue'
 import ApCta from '../apple-kit/ApCta.vue'
+import ApGlass from '../apple-kit/ApGlass.vue'
+import ApLocalNav from '../apple-kit/ApLocalNav.vue'
+import ApSnapGallery from '../apple-kit/ApSnapGallery.vue'
+import ApStickyStory from '../apple-kit/ApStickyStory.vue'
 
 const t = (zh: string, en: string) => (lang.value === 'zh' ? zh : en)
 
@@ -18,6 +22,23 @@ const barTone = ref<'light' | 'dark'>('light')
 const pill = ref(0)
 const pills = [t('紧凑', 'Compact'), t('常规', 'Regular'), t('宽松', 'Roomy')]
 const motionOn = ref(true)
+
+const localLinks = [t('概览', 'Overview'), t('规格', 'Specs'), t('对比', 'Compare')]
+const localActive = ref(localLinks[0])
+const storySteps = computed(() => [
+  {
+    title: t('先立材质', 'Material first'),
+    body: t('玻璃三档：导航 20px 模糊、蒙层 20px、悬浮药丸 7px，透明度 0.8 / 0.4 / 0.7。', 'Three glass steps: 20px blur for nav, 20px for the scrim, 7px for a floating pill; alpha 0.8 / 0.4 / 0.7.'),
+  },
+  {
+    title: t('再定层级', 'Then hierarchy'),
+    body: t('内容列固定，文字列滚动；进入中部带的段落才点亮，其余压到 28% 不透明度。', 'The visual column pins while text scrolls; only the step inside the middle band lights up, the rest sit at 28% opacity.'),
+  },
+  {
+    title: t('最后收束', 'Finally settle'),
+    body: t('横向画廊用 scroll-snap 对齐，一次一张，不需要手势库。', 'The horizontal gallery aligns with scroll-snap, one card at a time, no gesture library.'),
+  },
+])
 
 const ladder = [
   { px: 80, token: '--apl-t-80', sample: 'Display', tr: '-0.008em', lh: 1.06 },
@@ -92,8 +113,34 @@ const aiContext = computed(() =>
 
     <ApParallax :items="6" :shift="70" />
 
+    <section class="aplview-section">
+      <ApHeadline :eyebrow="t('04 / 材质', '04 / MATERIAL')" :title="t('三档玻璃，一个回退', 'Three glass steps, one fallback')" :lede="t('实测值为 20px / 20px / 7px 模糊，透明度 0.8 / 0.4 / 0.7；不支持 backdrop-filter 时退回不透明底。', 'Measured blur is 20 / 20 / 7px at alpha 0.8 / 0.4 / 0.7, and the whole thing degrades to an opaque fill when backdrop-filter is unsupported.')" />
+      <div class="apl-glass-demo">
+        <ApGlass kind="scrim" :tint="'#1d1d1f'" style="width: min(420px, 100%)">
+          <p class="apl-caption" style="color: #d2d2d7">SCRIM · blur 20px · alpha 0.4</p>
+        </ApGlass>
+        <ApGlass kind="nav" :tint="'#1d1d1f'" style="width: min(420px, 100%)">
+          <p class="apl-caption" style="color: #d2d2d7">NAV · blur 20px · alpha 0.8</p>
+        </ApGlass>
+        <ApGlass kind="pill" :tint="'#424245'" style="width: min(420px, 100%)">
+          <p class="apl-caption" style="color: #f5f5f7">PILL · blur 7px · alpha 0.7</p>
+        </ApGlass>
+      </div>
+      <div class="aplview-row">
+        <button class="apl-cta apl-focusable">{{ t('用 Tab 键看焦点环', 'Tab here for the focus ring') }}</button>
+        <span class="apl-caption">{{ t('白色 3px 间隙 + 蓝色 5px 外环', 'white 3px gap + blue 5px ring') }}</span>
+      </div>
+    </section>
+
+    <section class="aplview-section aplview-section--wide">
+      <ApHeadline :eyebrow="t('05 / 叙事', '05 / STORY')" :title="t('固定一列，滚动另一列', 'Pin one column, scroll the other')" :lede="t('产品页用吸顶图形配滚动文案讲故事；画廊则用 scroll-snap 横向对齐。', 'Product pages pin the visual and scroll the copy; galleries align horizontally with scroll-snap.')" />
+      <ApLocalNav :title="t('叙事示例', 'Story demo')" :links="localLinks" :active="localActive" @select="localActive = $event" />
+      <ApStickyStory :steps="storySteps" />
+      <ApSnapGallery :items="7" :label="t('横向画廊 · snap x mandatory', 'Horizontal gallery · snap x mandatory')" />
+    </section>
+
     <section class="aplview-section aplview-notes">
-      <ApHeadline :eyebrow="t('04 / 边界', '04 / LIMITS')" :title="t('来源与替换', 'Provenance')" />
+      <ApHeadline :eyebrow="t('06 / 边界', '06 / LIMITS')" :title="t('来源与替换', 'Provenance')" />
       <ul>
         <li>{{ t('结构来自对三个公开页面的被动读取：DOM 形状、声明式 CSS 数值、计算样式普查。', 'Structure comes from a passive reading of three public pages: DOM shape, declared CSS values, computed styles.') }}</li>
         <li>{{ t('SF Pro 为苹果专有字体，不随仓库分发；这里的字体栈会回退到系统界面字体。', 'SF Pro is proprietary and is not shipped; the stack falls back to the system UI face.') }}</li>
@@ -194,6 +241,10 @@ const aiContext = computed(() =>
 .aplview-card span {
   font-size: var(--apl-t-12);
   color: var(--apl-ink-soft);
+}
+
+.aplview-section--wide {
+  max-width: 1120px;
 }
 
 .aplview-notes ul {

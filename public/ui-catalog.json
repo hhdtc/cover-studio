@@ -156,6 +156,14 @@
         {
           "id": "ap-limits",
           "name": "Limits & substitution"
+        },
+        {
+          "id": "ap-glass",
+          "name": "Glass & focus ring"
+        },
+        {
+          "id": "ap-story",
+          "name": "Sticky story & snap gallery"
         }
       ]
     },

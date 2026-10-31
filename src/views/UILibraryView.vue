@@ -580,6 +580,10 @@ const PROJECTS: Project[] = [
         src: '/apple-kit/guide-scale.png',
         caption: '字号梯级：每一级同时标注 px、字距与行高。',
       },
+      {
+        src: '/apple-kit/guide-glass.png',
+        caption: '毛玻璃三档：20px / 20px / 7px 模糊，透明度 0.8 / 0.4 / 0.7，带高频底噪才看得出模糊。',
+      },
     ],
     modules: [
       {
@@ -663,6 +667,40 @@ const PROJECTS: Project[] = [
           '字体栈以 -apple-system / BlinkMacSystemFont 开头，在 macOS 上自然得到系统字体。',
           '类名前缀 apl-、变量 --apl-*，与站内既有的 ef- / efk- 组件互不干扰。',
           'prefers-reduced-motion 与 .apl-no-motion 都会把时长压到 1ms。',
+        ],
+      },
+      {
+        id: 'ap-glass',
+        name: '毛玻璃与焦点环',
+        group: '材质',
+        summary:
+          '实测三档玻璃：导航 20px 模糊 / 0.8 透明、蒙层 20px / 0.4、悬浮药丸 7px / 0.7，统一 saturate(180%)。焦点环是「白色 3px 间隙 + 蓝色 5px 外环」的双环写法。',
+        files: [
+          { label: 'ApGlass.vue', path: 'src/apple-kit/ApGlass.vue' },
+          { label: 'tokens.css', path: 'src/apple-kit/tokens.css' },
+          { label: 'kit.css', path: 'src/apple-kit/kit.css' },
+        ],
+        points: [
+          '先写不透明底，再用 @supports 包住 backdrop-filter，不支持时不至于变成透明块。',
+          '背景透明度用 color-mix 计算，换 tint 色不用同时改十几个 rgba。',
+          '焦点环用双层 box-shadow 实现，键盘可达性不依赖 outline 的浏览器差异。',
+        ],
+      },
+      {
+        id: 'ap-story',
+        name: '吸顶叙事与横向画廊',
+        group: '叙事',
+        summary:
+          '产品页的经典结构：图形列 position: sticky 固定，文案列滚动，进入中部带的段落才点亮；画廊用 scroll-snap-type: x mandatory 一张一张对齐。',
+        files: [
+          { label: 'ApStickyStory.vue', path: 'src/apple-kit/ApStickyStory.vue' },
+          { label: 'ApSnapGallery.vue', path: 'src/apple-kit/ApSnapGallery.vue' },
+          { label: 'ApLocalNav.vue', path: 'src/apple-kit/ApLocalNav.vue' },
+        ],
+        points: [
+          'sticky 的 top 要减去全局导航高度，否则图形列会被导航压住一截。',
+          '段落点亮用 rootMargin 收窄到视口中带（-42%），比监听滚动计算更省。',
+          'scroll-snap 不需要手势库：scroll-snap-align 就够，滚轮与触控板都自然吸附。',
         ],
       },
     ],

@@ -90,3 +90,22 @@
   transition-duration: 1ms !important;
   animation-iteration-count: 1 !important;
 }
+
+/* --- glass ladder (measured: blur 7 / 20 px, alpha .4 / .7 / .8) ------ */
+:root {
+  --apl-glass-blur-nav: 20px;
+  --apl-glass-blur-scrim: 20px;
+  --apl-glass-blur-pill: 7px;
+  --apl-glass-saturate: 180%;
+  --apl-glass-alpha-nav: 0.8;
+  --apl-glass-alpha-scrim: 0.4;
+  --apl-glass-alpha-pill: 0.7;
+
+  /* Focus ring: white gap plus a solid accent ring (measured 3px + 5px). */
+  --apl-focus-gap: 3px;
+  --apl-focus-ring: 5px;
+
+  /* Elevation used by cards and floating bars. */
+  --apl-shadow-card: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --apl-shadow-float: 3px 5px 30px rgba(0, 0, 0, 0.22);
+}

@@ -95,7 +95,35 @@
 
 颜色过渡单独成族这一点值得注意：他们把「区块换色」当成一等动画，而不是附带效果。
 
-## 5. 组件映射
+## 5. 材质：玻璃阶梯
+
+第二轮专门量了毛玻璃。计算样式里带 `backdrop-filter` 的元素：iPad Pro 页 29 个、首页 2 个。按「模糊半径 / 底色透明度」可以归成三档：
+
+| 档位 | 模糊 | 底色 | saturate | 尺寸 | 出现 |
+| --- | --- | --- | --- | --- | --- |
+| 全局导航 | 20px | `rgba(29,29,31,0.8)` | 180% | 44px 高、fixed | 每页 |
+| 飞入蒙层 | 20px | `rgba(0,0,0,0.4)` | — | 满视口、fixed | 每页 |
+| 悬浮药丸 | 7px | `rgba(66,66,69,0.7)` | — | 56px 高 | 20 处 |
+
+两个值得抄的细节：
+
+1. **特性检测回退**：样式表里有 `@supports (backdrop-filter: initial)`。不支持时退回不透明底，而不是留一块半透明色。
+2. **模糊是过渡出来的**：蒙层的 `backdrop-filter` 在 `blur(0px)` 与 `blur(20px)` 之间有过渡值，不是开关。
+
+另外 `prefers-reduced-transparency` 的出现次数是 **0** —— 他们没有为「降低透明度」这个偏好做降级，只在 `prefers-contrast` 上有一处处理。
+
+**焦点环**：实测为双层 `box-shadow: 0 0 0 3px #fff, 0 0 0 5px #0071e3`，即白色 3px 间隙 + 蓝色 5px 外环，代替浏览器默认 outline。
+
+## 6. 叙事结构
+
+产品页的长文档不是平铺，而是两种结构的组合：
+
+- **吸顶叙事**：图形列 `position: sticky` 固定，文案列滚动；只有进入视口中带的段落才点亮，其余保持低不透明度。sticky 的 `top` 必须减去全局导航高度。
+- **横向吸附画廊**：`scroll-snap-type: x mandatory`，出现 3 次；媒体画廊与滚动容器都用 `x mandatory`。不需要手势库，滚轮与触控板自然吸附。
+
+局部导航（Overview / Specs / Compare）是第二层吸顶条，`top` 等于全局导航高度，本身也带模糊。
+
+## 7. 组件映射
 
 | 组件 | 文件 | 对应观察 |
 | --- | --- | --- |
@@ -107,8 +135,12 @@
 | `ApBand` | `ApBand.vue` | 色带：滚动进度驱动的 1s 线性换色 |
 | `ApParallax` | `ApParallax.vue` | 视差行：合成层位移 |
 | `ApCta` | `ApCta.vue` | 胶囊按钮，焦点环 |
+| `ApGlass` | `ApGlass.vue` | 玻璃三档（20 / 20 / 7px）+ `@supports` 回退 + 双环焦点 |
+| `ApLocalNav` | `ApLocalNav.vue` | 第二层吸顶条，`top` 让位于全局导航 |
+| `ApStickyStory` | `ApStickyStory.vue` | 吸顶图形 + 滚动文案，段落按中带点亮 |
+| `ApSnapGallery` | `ApSnapGallery.vue` | `scroll-snap-type: x mandatory` 横向画廊 |
 
-## 6. 实现取舍
+## 8. 实现取舍
 
 1. **滚动用 rAF 合并读取**：passive 监听，一帧只读一次布局，元素离屏时不调度工作。原站的做法类似，但我们的实现只依赖 CSS 变量，不直接在 JS 里写 transform 字符串。
 2. **合成层优先**：位移统一 `translate3d`，不碰 `top/left`。
@@ -116,7 +148,7 @@
 4. **可访问性**：`prefers-reduced-motion` 与 `.apl-no-motion` 双开关，都会把时长压到 1ms；控件保留 `focus-visible` 轮廓。
 5. **前缀隔离**：类名 `apl-`、变量 `--apl-*`，与站内既有的 `ef-` / `efk-` 互不干扰。
 
-## 7. 明确没有做的事
+## 9. 明确没有做的事
 
 - 没有下载或分发 SF Pro 字体文件。
 - 没有复制样式表规则文本、SVG、图片、商标或产品文案；演示内容全部是占位文字。

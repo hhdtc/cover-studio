@@ -16,6 +16,9 @@ import ApPills from '../apple-kit/ApPills.vue'
 import ApReveal from '../apple-kit/ApReveal.vue'
 import ApBand from '../apple-kit/ApBand.vue'
 import ApCta from '../apple-kit/ApCta.vue'
+import ApGlass from '../apple-kit/ApGlass.vue'
+import ApLocalNav from '../apple-kit/ApLocalNav.vue'
+import ApSnapGallery from '../apple-kit/ApSnapGallery.vue'
 
 const props = defineProps<{ id: string; label: string; demoUrl?: string }>()
 
@@ -1462,6 +1465,33 @@ function moveQueue(index: number, dir: -1 | 1) {
           </div>
         </div>
         <div class="mdemo-foot"><span>{{ t('来源 / 替换 / 许可', 'Origin / substitution / licence') }}</span><strong>NOTES</strong></div>
+      </template>
+
+      <!-- apple kit: glass -->
+      <template v-else-if="id === 'ap-glass'">
+        <div class="ax-glassdemo">
+          <ApGlass kind="scrim" :tint="'#1d1d1f'">
+            <p class="ax-glasslabel">SCRIM 20px / 0.4</p>
+          </ApGlass>
+          <ApGlass kind="nav" :tint="'#1d1d1f'">
+            <p class="ax-glasslabel">NAV 20px / 0.8</p>
+          </ApGlass>
+          <ApGlass kind="pill" :tint="'#424245'">
+            <p class="ax-glasslabel">PILL 7px / 0.7</p>
+          </ApGlass>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('三档模糊 / 透明度', 'Three blur / alpha steps') }}</span><strong>GLASS</strong></div>
+      </template>
+
+      <!-- apple kit: story -->
+      <template v-else-if="id === 'ap-story'">
+        <div class="ax-stage ax-stage--flush">
+          <ApLocalNav :title="t('示例', 'Demo')" :links="['Overview', 'Specs', 'Compare']" active="Specs" />
+          <div class="ax-gallerywrap">
+            <ApSnapGallery :items="5" :label="t('scroll-snap 横向画廊', 'scroll-snap gallery')" />
+          </div>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('吸顶导航 / 横向吸附', 'Sticky nav / snap') }}</span><strong>STORY</strong></div>
       </template>
 
       <div v-else class="mdemo-empty">{{ t('该模块暂无独立视觉演示', 'No visual demo for this module yet') }}</div>
