@@ -5,7 +5,7 @@
 ## Health check
 
 ```sh
-rea mcp doctor
+/home/hhdtc/.local/share/fnm/aliases/default/bin/rea mcp doctor
 ```
 
 Expected: `healthy: true`, 207 tools, 6 prompts, `rea-agents` 6.7.0.
@@ -27,14 +27,19 @@ New plugins must be added through `insert`:
       config:
         serverName: rea
         transport: stdio
-        command: /home/hhdtc/.local/share/fnm/node-versions/v24.18.1/installation/bin/rea
+        command: /home/hhdtc/.local/share/fnm/aliases/default/bin/rea
         args:
           - mcp
-        failOnStartupError: true
+        failOnStartupError: false
         toolCallTimeoutMs: 120000
 ```
 
 `dsh-mcp-rea.patch.yml` in the repository root contains exactly this block.
+
+Two deliberate choices:
+
+- **`aliases/default/bin/rea`, not `node-versions/v24.18.1/...`.** The pinned path dies the moment that Node build is deleted. The alias follows `fnm default`, so a Node upgrade keeps working as long as rea is installed in the new default. Do not use bare `rea` either — in a shell that is an fnm multishell shim (`/run/user/<uid>/fnm_multishells/<pid>_<ts>/bin/rea`) that only exists for that terminal.
+- **`failOnStartupError: false`.** With `true`, the plugin throws during activation and `dsh web` refuses to boot when rea is missing. With `false` (also the client default) registration failure is contained: DSH starts normally, `mcp__rea__*` is simply absent, and the reconnect policy retries — so fixing the path can restore the tools without a restart.
 
 ## Install
 
@@ -72,7 +77,13 @@ It returns the bound provider list plus catalog digests (`207` tools, `6` prompt
 
 Provider-dependent tools report `capability_unavailable` with an explicit remediation when their external binary is missing (for example `adb`, `apktool`, `GHIDRA_INSTALL_DIR`, `REA_TSHARK_COMMAND`). That is the server working as designed, not a broken MCP link.
 
-Adjust `command` in the patch if the Node installation moves — pnpm/fnm upgrades change the absolute path.
+Check the configured command still resolves:
+
+```sh
+/home/hhdtc/.local/share/fnm/aliases/default/bin/rea mcp doctor
+```
+
+If rea stops showing up, run that first; then `dsh web --dump-config | grep -A9 rea-mcp` to confirm the entry still composes.
 
 ## CLI fallback
 

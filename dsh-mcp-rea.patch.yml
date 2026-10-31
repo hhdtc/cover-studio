@@ -11,8 +11,12 @@
       config:
         serverName: rea
         transport: stdio
-        command: /home/hhdtc/.local/share/fnm/node-versions/v24.18.1/installation/bin/rea
+        # fnm's `default` alias, not a pinned node-versions/ path: survives
+        # deleting the Node build rea was installed into.
+        command: /home/hhdtc/.local/share/fnm/aliases/default/bin/rea
         args:
           - mcp
-        failOnStartupError: true
+        # false = a missing/broken rea leaves DSH running without rea tools
+        # instead of aborting startup; the reconnect policy still retries.
+        failOnStartupError: false
         toolCallTimeoutMs: 120000
