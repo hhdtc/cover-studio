@@ -9,6 +9,7 @@ import PortraitView from './views/PortraitView.vue'
 import AssetsView from './views/AssetsView.vue'
 import UILibraryView from './views/UILibraryView.vue'
 import EndfieldKitView from './views/EndfieldKitView.vue'
+import AppleKitView from './views/AppleKitView.vue'
 import ToastHost from './components/ToastHost.vue'
 import { toast } from './lib/toast'
 import { lang, setLang } from './i18n'
@@ -22,6 +23,7 @@ const TOOLS = [
   { id: 'assets', label: '素材生成', labelEn: 'Assets', icon: 'sparkles', desc: '素材生成器', component: AssetsView },
   { id: 'ui', label: 'UI 组件库', labelEn: 'UI Library', icon: 'library', desc: 'UI 组件库', component: UILibraryView },
   { id: 'endfield-kit', label: '终末地组件库', labelEn: 'Endfield Kit', icon: 'library', desc: '逆向组件库', component: EndfieldKitView },
+  { id: 'apple-kit', label: 'Apple 排版动效', labelEn: 'Apple Kit', icon: 'library', desc: '排版与动效组件库', component: AppleKitView },
 ] as const
 
 function routeFromHash(): string {
@@ -48,7 +50,7 @@ function syncFromHash() {
 
 const PRIMARY_IDS = ['ui', 'assets']
 /** Routable but not shown in the shell nav: the kit lives inside UI 组件库. */
-const HIDDEN_IDS = ['endfield-kit']
+const HIDDEN_IDS = ['endfield-kit', 'apple-kit']
 const primaryTools = PRIMARY_IDS.map((id) => TOOLS.find((t) => t.id === id)!)
 const secondaryTools = TOOLS.filter((t) => !PRIMARY_IDS.includes(t.id) && !HIDDEN_IDS.includes(t.id))
 const othersOpen = ref(false)

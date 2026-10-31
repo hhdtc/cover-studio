@@ -6836,3 +6836,131 @@ input[type='color'] {
   gap: 12px;
   flex-wrap: wrap;
 }
+
+/* ---------------- apple kit demos (module level) ---------------- */
+
+.ax-stage {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 12px;
+  background: #fff;
+  color: #1d1d1f;
+  font-family: var(--apl-font);
+  border: 1px solid #e2e2e7;
+}
+
+.ax-stage--bar {
+  padding: 0;
+  overflow: hidden;
+  gap: 0;
+}
+
+.ax-stage--flush {
+  padding: 0;
+  overflow: hidden;
+  gap: 0;
+}
+
+.ax-ladder {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ax-ladder li {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr) 5.5rem;
+  align-items: baseline;
+  gap: 10px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #ececf1;
+}
+
+.ax-ladder-meta,
+.ax-ladder-spec {
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  color: #6e6e73;
+}
+
+.ax-ladder-spec {
+  text-align: right;
+}
+
+.ax-ladder-sample {
+  font-family: var(--apl-font-display);
+  font-weight: 600;
+  color: #1d1d1f;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ax-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+.ax-card {
+  display: grid;
+  gap: 2px;
+  padding: 14px;
+  border-radius: 14px;
+  background: #f5f5f7;
+}
+
+.ax-card strong {
+  font-family: var(--apl-font-display);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.ax-card span {
+  font-size: 11px;
+  color: #6e6e73;
+}
+
+.ax-pillrow {
+  padding: 14px 16px;
+  background: #f5f5f7;
+}
+
+.ax-band-title {
+  margin: 0;
+  font-family: var(--apl-font-display);
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: 0.007em;
+  color: #f5f5f7;
+}
+
+.ax-gradient-row {
+  display: grid;
+  place-items: center;
+  padding: 22px 16px;
+  background: #fff;
+}
+
+.ax-gradient-row .apl-display {
+  font-size: 40px;
+}
+
+.ax-notes {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding-left: 1rem;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #6e6e73;
+}
+
+.ax-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}

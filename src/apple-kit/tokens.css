@@ -1,0 +1,92 @@
+/*
+ * Typography & motion tokens, derived from a passive reading of apple.com.
+ *
+ * Values below are measured facts (rendered font sizes, tracking, leading,
+ * transition durations); the CSS itself is written from scratch. SF Pro is
+ * proprietary and is not bundled — the stack degrades to the system UI face.
+ */
+
+:root {
+  /* --- surfaces & ink ------------------------------------------------ */
+  --apl-ink: #1d1d1f;
+  --apl-ink-soft: #6e6e73;
+  --apl-paper: #ffffff;
+  --apl-surface: #f5f5f7;
+  --apl-line: #d2d2d7;
+  --apl-accent: #0071e3;
+  --apl-accent-soft: #2997ff;
+
+  /* --- typefaces ----------------------------------------------------- */
+  --apl-font: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI',
+    system-ui, 'Helvetica Neue', Arial, sans-serif;
+  --apl-font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display',
+    'Segoe UI', system-ui, 'Helvetica Neue', Arial, sans-serif;
+
+  /* --- size ladder (px → rem at 16px base) ---------------------------- */
+  --apl-t-12: 0.75rem;
+  --apl-t-14: 0.875rem;
+  --apl-t-17: 1.0625rem;
+  --apl-t-19: 1.1875rem;
+  --apl-t-21: 1.3125rem;
+  --apl-t-24: 1.5rem;
+  --apl-t-28: 1.75rem;
+  --apl-t-32: 2rem;
+  --apl-t-40: 2.5rem;
+  --apl-t-48: 3rem;
+  --apl-t-56: 3.5rem;
+  --apl-t-64: 4rem;
+  --apl-t-80: 5rem;
+
+  /* --- leading ------------------------------------------------------- */
+  --apl-lh-tight: 1.06;
+  --apl-lh-display: 1.12;
+  --apl-lh-copy: 1.47;
+  --apl-lh-caption: 1.34;
+
+  /* --- tracking (negative large, slightly positive around 21–24px) ---- */
+  --apl-tr-12: -0.01em;
+  --apl-tr-14: -0.016em;
+  --apl-tr-17: -0.022em;
+  --apl-tr-21: 0.011em;
+  --apl-tr-24: 0.009em;
+  --apl-tr-28: 0.007em;
+  --apl-tr-32: -0.008em;
+  --apl-tr-40: -0.001em;
+  --apl-tr-48: -0.003em;
+  --apl-tr-56: -0.005em;
+  --apl-tr-80: -0.008em;
+
+  /* --- weights ------------------------------------------------------- */
+  --apl-w-regular: 400;
+  --apl-w-medium: 500;
+  --apl-w-semibold: 600;
+
+  /* --- motion -------------------------------------------------------- */
+  --apl-dur-fast: 240ms;
+  --apl-dur-base: 320ms;
+  --apl-dur-slow: 400ms;
+  --apl-dur-slower: 500ms;
+  --apl-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --apl-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* --- material ------------------------------------------------------ */
+  --apl-bar-h: 44px;
+  --apl-radius: 980px; /* pill controls */
+  --apl-radius-card: 18px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --apl-dur-fast: 1ms;
+    --apl-dur-base: 1ms;
+    --apl-dur-slow: 1ms;
+    --apl-dur-slower: 1ms;
+  }
+}
+
+.apl-no-motion,
+.apl-no-motion * {
+  animation-duration: 1ms !important;
+  transition-duration: 1ms !important;
+  animation-iteration-count: 1 !important;
+}

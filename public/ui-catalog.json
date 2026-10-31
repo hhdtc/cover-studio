@@ -130,6 +130,36 @@
       ]
     },
     {
+      "id": "apple-kit",
+      "name": "Apple typography & motion (this site)",
+      "repo": "https://github.com/hhdtc/cover-studio",
+      "demo": "#/apple-kit",
+      "docs": "https://github.com/hhdtc/cover-studio/blob/main/docs/apple-design-system.md",
+      "license": "Original implementation; no SF Pro files, imagery, marks or copy",
+      "modules": [
+        {
+          "id": "ap-type",
+          "name": "Size ladder"
+        },
+        {
+          "id": "ap-scroll",
+          "name": "Scroll-driven"
+        },
+        {
+          "id": "ap-material",
+          "name": "Material & sticky"
+        },
+        {
+          "id": "ap-color",
+          "name": "Colour & gradient"
+        },
+        {
+          "id": "ap-limits",
+          "name": "Limits & substitution"
+        }
+      ]
+    },
+    {
       "id": "nasa-punk",
       "name": "NASA-Punk UI Skill",
       "repo": "https://github.com/duanth/NASA-Punk-UI-SKILL",

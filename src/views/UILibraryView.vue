@@ -556,6 +556,118 @@ const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'apple-kit',
+    name: 'Apple · 排版与动效',
+    tagline: '从 apple.com、iPad Pro 与 iPhone Duo 三个页面里量出字号梯级与动效节奏，重写成 8 个 Vue 组件。',
+    description:
+      '只看两件事：字怎么排、动怎么走。对三个公开页面做被动读取——DOM 形状、声明式 CSS 的数值、一次计算样式普查——得到一条连续的字号梯级（每级绑定字距与行高）和一套 240/320/400/500ms 的时长刻度。滚动效果由 IntersectionObserver + rAF 驱动，进度写进 CSS 变量，动画本身仍是声明式的。SF Pro 不随仓库分发，演示内容全部为占位文字。',
+    repo: 'https://github.com/hhdtc/cover-studio',
+    release: 'https://github.com/hhdtc/cover-studio/blob/main/docs/apple-design-system.md',
+    design: 'https://github.com/hhdtc/cover-studio/blob/main/docs/apple-design-system.md',
+    demo: {
+      label: '排版动效展示页',
+      url: '#/apple-kit',
+      note: '本站自研：字号梯级、滚动位移、毛玻璃吸顶条、色带过渡与视差；可一键切换「减少动效」。',
+    },
+    stack: ['Vue 3', 'TypeScript', '原生 CSS', 'IntersectionObserver', 'rAF 进度'],
+    theme: '墨黑 #1d1d1f / 浅灰 #f5f5f7 / 蓝 #0071e3',
+    screenshots: [
+      {
+        src: '/apple-kit/guide-hero.png',
+        caption: '展示页首屏：大字标题、滚动位移的展示台与药丸控件。',
+      },
+      {
+        src: '/apple-kit/guide-scale.png',
+        caption: '字号梯级：每一级同时标注 px、字距与行高。',
+      },
+    ],
+    modules: [
+      {
+        id: 'ap-type',
+        name: '字号梯级',
+        group: '排版',
+        summary:
+          '连续梯级 12 / 14 / 17 / 21 / 24 / 28 / 40 / 56 / 80px；大字号收紧字距（-0.008em 起），中等字号反而轻微放宽（+0.011em），行高从 1.06 递增到 1.47。',
+        files: [
+          { label: 'tokens.css', path: 'src/apple-kit/tokens.css' },
+          { label: 'kit.css', path: 'src/apple-kit/kit.css' },
+          { label: 'ApHeadline.vue', path: 'src/apple-kit/ApHeadline.vue' },
+        ],
+        points: [
+          '字号、字距、行高是绑定的三元组：单独改字号会把版面的呼吸感破坏掉。',
+          '正文 17px/1.47 是基准，控制标签 14px，法务与说明 12px。',
+          '显示级字重统一 600（观察值里出现 214 次），不用 700 以上造成过重。',
+        ],
+      },
+      {
+        id: 'ap-scroll',
+        name: '滚动驱动',
+        group: '动效',
+        summary:
+          '原站没有使用 CSS 滚动时间线（animation-timeline 计数为 0），而是脚本读取滚动位置改写变换。本库同样用 IntersectionObserver 判定可见性、rAF 合并读取、把进度写进 --apl-p。',
+        files: [
+          { label: 'ApHero.vue', path: 'src/apple-kit/ApHero.vue' },
+          { label: 'ApReveal.vue', path: 'src/apple-kit/ApReveal.vue' },
+          { label: 'ApParallax.vue', path: 'src/apple-kit/ApParallax.vue' },
+        ],
+        points: [
+          '滚动监听 passive，一帧只读一次布局；元素离屏时不调度任何工作。',
+          '位移用 translate3d 走合成层，不用 top/left 触发重排。',
+          '入场是 500ms 的缓出曲线加阶梯延迟，不是逐个元素写死动画。',
+        ],
+      },
+      {
+        id: 'ap-material',
+        name: '材质与吸顶',
+        group: '材质',
+        summary:
+          '44px 高的吸顶条，用 saturate(180%) blur(20px) 做毛玻璃；经过深色区块时整条反色。产品页统计到 12–20 个 sticky 元素、21–27 处 backdrop-filter。',
+        files: [
+          { label: 'ApBar.vue', path: 'src/apple-kit/ApBar.vue' },
+          { label: 'ApPills.vue', path: 'src/apple-kit/ApPills.vue' },
+          { label: 'kit.css', path: 'src/apple-kit/kit.css' },
+        ],
+        points: [
+          '毛玻璃要同时给 -webkit- 前缀，否则 Safari 上会退化成纯色。',
+          '反色不是换主题，只改背景透明度、文字与描边三处，过渡 320ms。',
+          '药丸控件用绝对定位的滑块，宽度由 ResizeObserver 实测，避免文字变化后错位。',
+        ],
+      },
+      {
+        id: 'ap-color',
+        name: '色带与渐变字',
+        group: '视觉',
+        summary:
+          '区块底色随滚动在两种颜色之间过渡（观察值为 1s 线性），标题用 background-clip: text 做双色渐变；两者都不引入图片。',
+        files: [
+          { label: 'ApBand.vue', path: 'src/apple-kit/ApBand.vue' },
+          { label: 'kit.css', path: 'src/apple-kit/kit.css' },
+        ],
+        points: [
+          '颜色过渡用 color-mix 在 oklab 空间插值，比 sRGB 直插少一段发灰的中间态。',
+          '渐变字必须保留 color: transparent 与两个 clip 属性，否则部分浏览器只显示背景。',
+          '深色区块上的正文改用 #f5f5f7，不直接用纯白，避免刺眼。',
+        ],
+      },
+      {
+        id: 'ap-limits',
+        name: '边界与替换',
+        group: '说明',
+        summary:
+          'SF Pro 是苹果专有字体，本库不附带字体文件，字体栈回退到系统界面字体；没有复制样式表文本、图片、商标或产品文案。',
+        files: [
+          { label: 'tokens.css', path: 'src/apple-kit/tokens.css' },
+          { label: 'index.ts', path: 'src/apple-kit/index.ts' },
+        ],
+        points: [
+          '字体栈以 -apple-system / BlinkMacSystemFont 开头，在 macOS 上自然得到系统字体。',
+          '类名前缀 apl-、变量 --apl-*，与站内既有的 ef- / efk- 组件互不干扰。',
+          'prefers-reduced-motion 与 .apl-no-motion 都会把时长压到 1ms。',
+        ],
+      },
+    ],
+  },
+  {
     id: 'nasa-punk',
     name: 'NASA-Punk UI Skill',
     tagline: 'NASA 黄金时代复古未来主义设计系统，给 AI 编码智能体的 UI 技能包。',

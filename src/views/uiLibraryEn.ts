@@ -167,6 +167,77 @@ export const UI_EN: Record<string, EnProject> = {
       },
     },
   },
+  'apple-kit': {
+    tagline:
+      'Type ladder and motion pacing measured from three product pages, rebuilt as 8 Vue components.',
+    description:
+      'Two subjects only: how type is spaced, and how motion is paced. A passive reading of three public pages — DOM shape, declared CSS values, one computed-style census — yields a continuous size ladder (each step bound to its own tracking and leading) and a 240/320/400/500ms duration scale. Scroll effects run on IntersectionObserver plus rAF, writing progress into CSS variables so the animation stays declarative. SF Pro is not redistributed and every demo string is placeholder text.',
+    theme: 'Ink #1d1d1f / surface #f5f5f7 / blue #0071e3',
+    demoLabel: 'Type & motion showcase',
+    demoNote:
+      'This site’s own build: size ladder, scroll drift, frosted sticky bar, colour band and parallax — with a one-click reduced-motion switch.',
+    shots: [
+      'Showcase hero: oversized headline, drifting stage and pill controls.',
+      'Size ladder: each step labelled with px, tracking and leading.',
+    ],
+    modules: {
+      'ap-type': {
+        name: 'Size ladder',
+        group: 'Type',
+        summary:
+          'A continuous ladder of 12 / 14 / 17 / 21 / 24 / 28 / 40 / 56 / 80px. Large steps tighten tracking (from -0.008em) while mid sizes open slightly (+0.011em); leading climbs from 1.06 to 1.47.',
+        points: [
+          'Size, tracking and leading are one triple: changing only the size destroys the rhythm.',
+          'Body sits at 17px/1.47, controls at 14px, legal and captions at 12px.',
+          'Display weight stays 600 (the most frequent observed value); nothing heavier.',
+        ],
+      },
+      'ap-scroll': {
+        name: 'Scroll-driven',
+        group: 'Motion',
+        summary:
+          'The original ships no CSS scroll timelines (animation-timeline count is zero) and drives transforms from script. This kit also uses IntersectionObserver for visibility, rAF for merged reads, and writes progress into --apl-p.',
+        points: [
+          'Scroll listeners are passive and read layout once per frame; off-screen elements schedule nothing.',
+          'Movement uses translate3d so it stays on the compositor, never top/left.',
+          'Entrances are a 500ms ease-out with staggered delays rather than per-element keyframes.',
+        ],
+      },
+      'ap-material': {
+        name: 'Material & sticky',
+        group: 'Material',
+        summary:
+          'A 44px sticky bar using saturate(180%) blur(20px) for frosted glass, inverting wholesale over dark sections. Product pages carry 12–20 sticky elements and 21–27 backdrop-filter layers.',
+        points: [
+          'Ship the -webkit- prefix as well, or Safari degrades the blur to a flat fill.',
+          'Inversion changes only background alpha, text and border — three values over 320ms.',
+          'The pill thumb is absolutely positioned and measured with ResizeObserver so label changes cannot desync it.',
+        ],
+      },
+      'ap-color': {
+        name: 'Colour & gradient',
+        group: 'Visual',
+        summary:
+          'Section grounds cross-fade between two colours as they pass (1s linear, matching the measurement), and headlines use background-clip: text for a two-stop ramp. Neither needs an image.',
+        points: [
+          'Colour interpolation runs in oklab via color-mix, avoiding the grey midpoint of sRGB blending.',
+          'Gradient text needs color: transparent plus both clip properties or the background shows through as a block.',
+          'Body copy on dark grounds uses #f5f5f7 rather than pure white.',
+        ],
+      },
+      'ap-limits': {
+        name: 'Limits & substitution',
+        group: 'Notes',
+        summary:
+          'SF Pro is proprietary, so no font files ship and the stack falls back to the system UI face. No stylesheet text, imagery, marks or product copy is reproduced.',
+        points: [
+          'The stack starts with -apple-system / BlinkMacSystemFont, so macOS resolves the native face.',
+          'Prefix apl- and tokens --apl-* keep this kit isolated from the existing ef- / efk- sets.',
+          'prefers-reduced-motion and .apl-no-motion both collapse durations to 1ms.',
+        ],
+      },
+    },
+  },
   'endfield-kit': {
     tagline:
       'The official Endfield site’s type ladder, notched geometry and chromatic type, rebuilt as 10 Vue components.',

@@ -1,0 +1,346 @@
+/*
+ * Typography-and-motion kit. Original CSS written against the measured
+ * values in tokens.css; no third-party stylesheet text is reproduced.
+ * Class prefix: apl-  (tokens: --apl-*)
+ */
+
+/* ------------------------------------------------------------------ */
+/* Type ramp                                                           */
+/* ------------------------------------------------------------------ */
+
+.apl-type {
+  font-family: var(--apl-font-display);
+  margin: 0;
+  color: inherit;
+}
+
+.apl-display {
+  font-family: var(--apl-font-display);
+  font-size: clamp(2.5rem, 7.5vw, var(--apl-t-80));
+  font-weight: var(--apl-w-semibold);
+  line-height: var(--apl-lh-tight);
+  letter-spacing: var(--apl-tr-80);
+  margin: 0;
+}
+
+.apl-headline {
+  font-family: var(--apl-font-display);
+  font-size: clamp(1.75rem, 4.4vw, var(--apl-t-56));
+  font-weight: var(--apl-w-semibold);
+  line-height: var(--apl-lh-display);
+  letter-spacing: var(--apl-tr-56);
+  margin: 0;
+}
+
+.apl-title {
+  font-family: var(--apl-font-display);
+  font-size: var(--apl-t-28);
+  font-weight: var(--apl-w-semibold);
+  line-height: 1.14;
+  letter-spacing: var(--apl-tr-28);
+  margin: 0;
+}
+
+.apl-lede {
+  font-family: var(--apl-font-display);
+  font-size: var(--apl-t-21);
+  font-weight: var(--apl-w-regular);
+  line-height: 1.38;
+  letter-spacing: var(--apl-tr-21);
+  color: var(--apl-ink-soft);
+  margin: 0;
+  max-width: 46ch;
+  text-wrap: pretty;
+}
+
+.apl-body {
+  font-family: var(--apl-font);
+  font-size: var(--apl-t-17);
+  font-weight: var(--apl-w-regular);
+  line-height: var(--apl-lh-copy);
+  letter-spacing: var(--apl-tr-17);
+  margin: 0;
+}
+
+.apl-caption {
+  font-family: var(--apl-font);
+  font-size: var(--apl-t-12);
+  font-weight: var(--apl-w-regular);
+  line-height: var(--apl-lh-caption);
+  letter-spacing: var(--apl-tr-12);
+  color: var(--apl-ink-soft);
+  margin: 0;
+}
+
+.apl-eyebrow {
+  font-family: var(--apl-font);
+  font-size: var(--apl-t-17);
+  font-weight: var(--apl-w-semibold);
+  letter-spacing: var(--apl-tr-17);
+  margin: 0;
+}
+
+/* Gradient headline: clip the text box to a two-stop ramp. */
+.apl-gradient-text {
+  background-image: linear-gradient(92deg, var(--apl-ink) 0 46%, var(--apl-accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ------------------------------------------------------------------ */
+/* Sticky bar (frosted material)                                       */
+/* ------------------------------------------------------------------ */
+
+.apl-bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.75rem, 2vw, 2rem);
+  height: var(--apl-bar-h);
+  padding: 0 1rem;
+  font-family: var(--apl-font);
+  font-size: var(--apl-t-12);
+  letter-spacing: var(--apl-tr-12);
+  color: var(--apl-ink);
+  background: rgba(251, 251, 253, 0.8);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  transition:
+    background-color var(--apl-dur-base) var(--apl-ease),
+    color var(--apl-dur-base) var(--apl-ease),
+    border-color var(--apl-dur-base) var(--apl-ease);
+}
+
+/* Inverted state while the bar overlaps a dark band. */
+.apl-bar[data-tone='dark'] {
+  background: rgba(22, 22, 23, 0.72);
+  color: #f5f5f7;
+  border-bottom-color: rgba(255, 255, 255, 0.14);
+}
+
+.apl-bar__link {
+  appearance: none;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  padding: 0.375rem 0.25rem;
+  cursor: pointer;
+  opacity: 0.86;
+  transition: opacity var(--apl-dur-fast) var(--apl-ease);
+}
+.apl-bar__link:hover,
+.apl-bar__link[aria-current='true'] {
+  opacity: 1;
+}
+
+/* ------------------------------------------------------------------ */
+/* Pill control with sliding thumb                                     */
+/* ------------------------------------------------------------------ */
+
+.apl-pills {
+  position: relative;
+  display: inline-flex;
+  padding: 4px;
+  border-radius: var(--apl-radius);
+  background: rgba(0, 0, 0, 0.055);
+}
+
+.apl-pills__thumb {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  border-radius: var(--apl-radius);
+  background: var(--apl-paper);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  transition:
+    left var(--apl-dur-base) var(--apl-ease),
+    width var(--apl-dur-base) var(--apl-ease);
+}
+
+.apl-pills__btn {
+  position: relative;
+  z-index: 1;
+  appearance: none;
+  border: 0;
+  background: none;
+  padding: 0.5rem 1.125rem;
+  border-radius: var(--apl-radius);
+  font-family: var(--apl-font);
+  font-size: var(--apl-t-14);
+  font-weight: var(--apl-w-regular);
+  letter-spacing: var(--apl-tr-14);
+  color: var(--apl-ink);
+  cursor: pointer;
+  transition: color var(--apl-dur-fast) var(--apl-ease);
+}
+
+.apl-pills__btn[aria-selected='true'] {
+  font-weight: var(--apl-w-semibold);
+}
+
+/* ------------------------------------------------------------------ */
+/* Enter animation                                                     */
+/* ------------------------------------------------------------------ */
+
+.apl-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity var(--apl-dur-slower) var(--apl-ease-out),
+    transform var(--apl-dur-slower) var(--apl-ease-out);
+  will-change: opacity, transform;
+}
+
+.apl-reveal[data-shown='true'] {
+  opacity: 1;
+  transform: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Scroll-linked hero                                                  */
+/* ------------------------------------------------------------------ */
+
+.apl-hero {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.75rem;
+  padding: clamp(2.5rem, 7vw, 5rem) 1rem clamp(3rem, 9vw, 7rem);
+  overflow: hidden;
+  text-align: center;
+}
+
+.apl-hero__inner {
+  /* --apl-p is written by the component: 0 at rest, 1 when fully scrolled. */
+  --apl-p: 0;
+  transform: translate3d(0, calc(var(--apl-p) * -14px), 0)
+    scale(calc(1 - var(--apl-p) * 0.06));
+  opacity: calc(1 - var(--apl-p) * 0.35);
+  transition: transform 80ms linear, opacity 80ms linear;
+  will-change: transform, opacity;
+}
+
+.apl-hero__stage {
+  position: relative;
+  width: min(680px, 92vw);
+  aspect-ratio: 16 / 10;
+  margin-top: 1.5rem;
+  border-radius: var(--apl-radius-card);
+  background:
+    radial-gradient(120% 90% at 50% 0%, #e9e9ee 0%, #d7d7de 46%, #c9c9d2 100%);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+  transform: translate3d(0, calc(var(--apl-p) * 22px), 0);
+  transition: transform 80ms linear;
+  will-change: transform;
+}
+
+/* Layered drift inside the stage. */
+.apl-hero__layer {
+  position: absolute;
+  inset: 12% 14%;
+  border-radius: 14px;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.35));
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+  transform: translate3d(0, calc(var(--apl-p) * var(--apl-depth, 30px) * -1), 0);
+  transition: transform 80ms linear;
+  will-change: transform;
+}
+.apl-hero__layer:nth-child(1) {
+  --apl-depth: 26px;
+  inset: 16% 20%;
+}
+.apl-hero__layer:nth-child(2) {
+  --apl-depth: 48px;
+  inset: 24% 30%;
+}
+
+/* ------------------------------------------------------------------ */
+/* Colour band                                                         */
+/* ------------------------------------------------------------------ */
+
+.apl-band {
+  --apl-band-color: var(--apl-surface);
+  --apl-band-ink: var(--apl-ink);
+  display: grid;
+  gap: 0.75rem;
+  place-content: center;
+  padding: clamp(3rem, 9vw, 6rem) 1rem;
+  text-align: center;
+  background-color: var(--apl-band-color);
+  color: var(--apl-band-ink);
+  /* Long, linear colour change: the band reads as a slow material shift. */
+  transition: background-color 1s linear, color 1s linear;
+}
+
+/* ------------------------------------------------------------------ */
+/* Parallax rows                                                       */
+/* ------------------------------------------------------------------ */
+
+.apl-parallax {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(2rem, 6vw, 4rem) 1rem;
+}
+
+.apl-parallax__row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  transform: translate3d(calc(var(--apl-p, 0) * var(--apl-shift, 40px) * -1), 0, 0);
+  transition: transform 80ms linear;
+  will-change: transform;
+}
+
+.apl-parallax__card {
+  flex: 0 0 auto;
+  width: clamp(120px, 22vw, 200px);
+  aspect-ratio: 4 / 5;
+  border-radius: var(--apl-radius-card);
+  background: linear-gradient(150deg, #fff, #ececf1);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
+  display: grid;
+  place-items: center;
+  font-family: var(--apl-font);
+  font-size: var(--apl-t-12);
+  color: var(--apl-ink-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* CTA                                                                 */
+/* ------------------------------------------------------------------ */
+
+.apl-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--apl-radius);
+  background: var(--apl-ink);
+  color: var(--apl-paper);
+  font-family: var(--apl-font);
+  font-size: var(--apl-t-14);
+  letter-spacing: var(--apl-tr-14);
+  border: 0;
+  cursor: pointer;
+  transition: background-color var(--apl-dur-fast) var(--apl-ease), transform var(--apl-dur-fast) var(--apl-ease);
+}
+
+.apl-cta--accent {
+  background: var(--apl-accent);
+}
+
+.apl-cta:hover {
+  background: var(--apl-accent);
+}
+
+.apl-cta:focus-visible {
+  outline: 2px solid var(--apl-accent-soft);
+  outline-offset: 3px;
+}

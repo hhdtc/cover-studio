@@ -10,6 +10,12 @@ import EfGlitch from '../endfield-kit/EfGlitch.vue'
 import EfTag from '../endfield-kit/EfTag.vue'
 import EfRail from '../endfield-kit/EfRail.vue'
 import EfScrollHint from '../endfield-kit/EfScrollHint.vue'
+import ApHeadline from '../apple-kit/ApHeadline.vue'
+import ApBar from '../apple-kit/ApBar.vue'
+import ApPills from '../apple-kit/ApPills.vue'
+import ApReveal from '../apple-kit/ApReveal.vue'
+import ApBand from '../apple-kit/ApBand.vue'
+import ApCta from '../apple-kit/ApCta.vue'
 
 const props = defineProps<{ id: string; label: string; demoUrl?: string }>()
 
@@ -31,6 +37,19 @@ const ekRailItems = [
 ]
 const ekTabs = ['Overview', 'Assets', 'Comms', 'Logs']
 const ekItems = ['protocol synced', 'orbit calibrated 03', 'signal −62 dBm', 'archive sealed']
+
+/* Apple kit demo state */
+const axPill = ref(1)
+const axPillOptions = ['Compact', 'Regular', 'Roomy']
+const axLadder = [
+  { px: 56, tr: '-0.005em', lh: 1.12, label: 'Headline' },
+  { px: 28, tr: '0.007em', lh: 1.14, label: 'Title' },
+  { px: 21, tr: '0.011em', lh: 1.38, label: 'Lede' },
+  { px: 17, tr: '-0.022em', lh: 1.47, label: 'Body' },
+  { px: 12, tr: '-0.01em', lh: 1.34, label: 'Caption' },
+]
+const axBarItems = ['Overview', 'Type', 'Motion', 'Material']
+const axBarActive = ref('Type')
 
 const albums = [
   { title: '日光留声', artist: 'RHINE', year: 2026, genre: 'AMBIENT', tracks: 12, cover: '/mock/cover-daylight.svg', bg: 'linear-gradient(135deg,#f6c47b,#b74b32)' },
@@ -1372,6 +1391,77 @@ function moveQueue(index: number, dir: -1 | 1) {
           </div>
         </div>
         <div class="mdemo-foot"><span>{{ t('频闪 1s / 轮播 6s / 提示 1.6s', 'Boot 1s / roll 6s / tip 1.6s') }}</span><strong>MOTION</strong></div>
+      </template>
+
+      <!-- apple kit: type ladder -->
+      <template v-else-if="id === 'ap-type'">
+        <div class="ax-stage">
+          <ul class="ax-ladder">
+            <li v-for="s in axLadder" :key="s.label">
+              <span class="ax-ladder-meta">{{ s.px }}px</span>
+              <span class="ax-ladder-sample" :style="{ fontSize: s.px + 'px', letterSpacing: s.tr, lineHeight: s.lh }">{{ s.label }}</span>
+              <span class="ax-ladder-spec">{{ s.tr }}</span>
+            </li>
+          </ul>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('字号 / 字距 / 行高', 'Size / tracking / leading') }}</span><strong>TYPE</strong></div>
+      </template>
+
+      <!-- apple kit: scroll reveal -->
+      <template v-else-if="id === 'ap-scroll'">
+        <div class="ax-stage">
+          <div class="ax-cards">
+            <ApReveal v-for="(d, i) in [240, 320, 500]" :key="d" :delay="i * 90">
+              <div class="ax-card">
+                <strong>{{ d }}ms</strong>
+                <span>{{ t('阶梯延迟', 'stagger') }} {{ i * 90 }}ms</span>
+              </div>
+            </ApReveal>
+          </div>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('缓出 + 阶梯延迟', 'Ease-out + stagger') }}</span><strong>MOTION</strong></div>
+      </template>
+
+      <!-- apple kit: material -->
+      <template v-else-if="id === 'ap-material'">
+        <div class="ax-stage ax-stage--bar">
+          <ApBar :items="axBarItems" :active="axBarActive" tone="light" @select="axBarActive = $event" />
+          <div class="ax-pillrow">
+            <ApPills v-model="axPill" :options="axPillOptions" />
+          </div>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('毛玻璃吸顶条 / 药丸控件', 'Frosted bar / pill control') }}</span><strong>MATERIAL</strong></div>
+      </template>
+
+      <!-- apple kit: colour -->
+      <template v-else-if="id === 'ap-color'">
+        <div class="ax-stage ax-stage--flush">
+          <ApBand :from="'#f5f5f7'" :to="'#1d1d1f'" dark>
+            <p class="apl-eyebrow" style="color: #a1a1a6">BAND</p>
+            <h3 class="ax-band-title">Colour in motion</h3>
+            <p class="apl-caption" style="color: #a1a1a6">{{ t('底色 1s 线性过渡', '1s linear ground transition') }}</p>
+          </ApBand>
+          <div class="ax-gradient-row">
+            <ApHeadline title="Gradient" gradient as="h3" />
+          </div>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('色带 / 渐变字', 'Colour band / gradient text') }}</span><strong>COLOR</strong></div>
+      </template>
+
+      <!-- apple kit: limits -->
+      <template v-else-if="id === 'ap-limits'">
+        <div class="ax-stage">
+          <ul class="ax-notes">
+            <li>{{ t('SF Pro 不随仓库分发，字体栈回退系统字体。', 'SF Pro is not shipped; the stack falls back to the system face.') }}</li>
+            <li>{{ t('未复制样式表文本、图片、商标或产品文案。', 'No stylesheet text, imagery, marks or product copy reproduced.') }}</li>
+            <li>{{ t('类名 apl-、变量 --apl-*，与 ef- / efk- 隔离。', 'Prefix apl- and tokens --apl-* stay isolated from ef- / efk-.') }}</li>
+          </ul>
+          <div class="ax-row">
+            <ApCta accent>{{ t('主操作', 'Primary') }}</ApCta>
+            <ApCta>{{ t('次操作', 'Secondary') }}</ApCta>
+          </div>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('来源 / 替换 / 许可', 'Origin / substitution / licence') }}</span><strong>NOTES</strong></div>
       </template>
 
       <div v-else class="mdemo-empty">{{ t('该模块暂无独立视觉演示', 'No visual demo for this module yet') }}</div>
