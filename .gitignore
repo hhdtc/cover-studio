@@ -35,3 +35,6 @@ demos/p5-ui/
 
 # Persona3-like-web local checkout
 demos/persona3-like-web/
+
+# Local reverse-engineering captures (never committed: third-party CSS/fonts)
+.analysis/

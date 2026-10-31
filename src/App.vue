@@ -8,6 +8,7 @@ import SlidesView from './views/SlidesView.vue'
 import PortraitView from './views/PortraitView.vue'
 import AssetsView from './views/AssetsView.vue'
 import UILibraryView from './views/UILibraryView.vue'
+import EndfieldKitView from './views/EndfieldKitView.vue'
 import ToastHost from './components/ToastHost.vue'
 import { toast } from './lib/toast'
 import { lang, setLang } from './i18n'
@@ -20,6 +21,7 @@ const TOOLS = [
   { id: 'portrait', label: '动态立绘', labelEn: 'Portrait', icon: 'portrait', desc: '动态立绘', component: PortraitView },
   { id: 'assets', label: '素材生成', labelEn: 'Assets', icon: 'sparkles', desc: '素材生成器', component: AssetsView },
   { id: 'ui', label: 'UI 组件库', labelEn: 'UI Library', icon: 'library', desc: 'UI 组件库', component: UILibraryView },
+  { id: 'endfield-kit', label: '终末地组件库', labelEn: 'Endfield Kit', icon: 'library', desc: '逆向组件库', component: EndfieldKitView },
 ] as const
 
 function routeFromHash(): string {
