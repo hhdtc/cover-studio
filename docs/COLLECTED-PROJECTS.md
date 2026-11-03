@@ -289,6 +289,9 @@ npm run preview -- --port 5176
 
 ## 7. p5-ui · Persona 5 UI
 
+> 许可：仓库没有 LICENSE，按「保留所有权利」处理。因此**不构建镜像、不托管**，只保留索引与模块说明；本机可用 `npm run demo:p5` 起 5177 查看。
+
+
 ### 6.1 基本信息
 
 | 项目 | 内容 |
@@ -338,6 +341,9 @@ python3 -m http.server 5177 --bind 127.0.0.1 \
 权利人提出异议，或仓库后续补充了限制性许可时，立即移除本地 Demo 入口、模块说明中的代码链接与封面，仅保留项目名称与仓库链接（或全部移除）。
 
 ## 8. Persona3-like-web
+
+> 运行方式：作为 compose 服务 `persona3`（`docker/persona3/Dockerfile`），nginx 以 `p3.localhost` 反代，宿主不额外开端口；本地开发仍可 `npm run demo:persona3` 起 5179。
+
 
 ### 7.1 基本信息
 

@@ -1283,7 +1283,7 @@ const PROJECTS: Project[] = [
     demo: {
       label: '本地文档站（仅评估）',
       url: 'http://127.0.0.1:5177/',
-      note: '仓库自带的预构建文档站，仅在本机运行用于评估；未取得再分发许可，不随本站发布。',
+      note: '仓库没有 LICENSE（保留所有权利），因此不构建镜像、不托管，只能在本机用 npm run demo:p5 起 5177 自行查看；本项目只做索引与模块说明。',
     },
     stack: ['Vue 3', 'Vite', 'Sass', 'Canvas', 'npm p5-ui'],
     theme: '红 / 黑 / 白 · 斜切拼贴',
@@ -1432,8 +1432,8 @@ const PROJECTS: Project[] = [
     design: 'https://github.com/Masonli1203/Persona3-like-web/blob/main/docs/ARCHITECTURE.md',
     demo: {
       label: '本地 Next.js Demo',
-      url: 'http://127.0.0.1:5179/',
-      note: '完整模板运行在本地 5179，包含首页、创作分类、项目页、3D 配置器与个人资料页。',
+      url: 'http://p3.localhost:{port}/',
+      note: '完整模板作为 compose 服务 persona3 运行，nginx 以 p3.localhost 反代；含首页、创作分类、项目页、3D 配置器与个人资料页。',
     },
     stack: ['Next.js 16', 'React 19', 'TypeScript', 'Tailwind CSS v4', 'Framer Motion', 'Three.js'],
     theme: '深蓝 / 青色 / 斜切排版',

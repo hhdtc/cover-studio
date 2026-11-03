@@ -17,6 +17,7 @@ services:
     image: cover-studio-web:local
     depends_on:
       - rhine
+      - persona3
     ports:
       - "${PORT:-8080}:80"
     restart: unless-stopped
@@ -28,4 +29,13 @@ services:
       args:
         REPO_REF: main
     image: cover-studio-rhine:local
+    restart: unless-stopped
+
+  persona3:
+    build:
+      context: .
+      dockerfile: docker/persona3/Dockerfile
+      args:
+        REPO_REF: main
+    image: cover-studio-persona3:local
     restart: unless-stopped
