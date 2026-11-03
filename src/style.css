@@ -7319,24 +7319,40 @@ a.lib-card {
 }
 
 .lib-origin-badge {
-  padding: 2px 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 9px;
   border-radius: 999px;
   border: 1px solid var(--border);
   font-size: 10px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  text-decoration: none;
+  /* Neutral by default: provenance is a fact, not a warning. */
+  color: var(--muted);
+  background: transparent;
+}
+
+.gh-mark {
+  flex: none;
+  opacity: 0.9;
 }
 
 .lib-origin-badge.is-repo {
-  color: #ffd479;
-  border-color: rgba(255, 212, 121, 0.35);
-  background: rgba(255, 212, 121, 0.08);
+  color: var(--text);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.lib-origin-badge.is-repo:hover,
+.lib-origin-badge.is-repo:focus-visible {
+  border-color: rgba(255, 255, 255, 0.42);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .lib-origin-badge.is-analysis {
-  color: #8ad6a0;
-  border-color: rgba(138, 214, 160, 0.35);
-  background: rgba(138, 214, 160, 0.08);
+  color: var(--muted-2);
+  border-style: dashed;
 }
 
 .lib-origin-author a,
