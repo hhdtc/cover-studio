@@ -7392,3 +7392,40 @@ a.lib-card {
   line-height: 1.55;
   color: var(--muted-2);
 }
+
+/* On a module page the project-wide demo is context, not the subject: keep it
+   as a slim strip instead of a full-height poster. */
+.lib-live--compact {
+  margin-top: 16px;
+}
+
+.lib-live--compact .lib-live-head {
+  padding: 12px 16px;
+  align-items: center;
+}
+
+.lib-live--compact .lib-live-head h2 {
+  margin: 2px 0 0;
+  font-size: 14px;
+}
+
+.lib-live--compact .lib-live-head p {
+  display: none;
+}
+
+.lib-live--compact .lib-live-poster img {
+  max-height: 132px;
+  opacity: 0.6;
+}
+
+.lib-live--compact .lib-live-cta {
+  gap: 4px;
+}
+
+.lib-live--compact .lib-live-cta small {
+  display: none;
+}
+
+.lib-live--compact .lib-live-frame {
+  height: 360px;
+}

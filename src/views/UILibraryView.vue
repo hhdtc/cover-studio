@@ -2146,7 +2146,7 @@ async function copyAiContext() {
           </div>
         </section>
 
-        <section class="lib-live">
+        <section class="lib-live" :class="{ 'lib-live--compact': currentModule }">
           <div class="lib-live-head">
             <div>
               <span class="lib-eyebrow">DEMO</span>
