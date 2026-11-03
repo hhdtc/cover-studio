@@ -59,12 +59,12 @@ const PROJECTS: Project[] = [
     release: 'https://github.com/RonaldDeng/Rhine-Music-Demo/releases/tag/v0.6.1',
     design: 'https://github.com/RonaldDeng/Rhine-Music-Demo/blob/main/DESIGN.md',
     demo: {
-      label: '真实前端（本地 5175）',
-      url: 'http://127.0.0.1:5175/?demo=1',
-      note: '上游构建的真实应用，靠内置演示封面运行。先执行 npm run demo:rhine 在本机 5175 起服务；没有服务时可切到「界面截图」。',
+      label: '真实前端（同域 /rhine/）',
+      url: 'http://rhine.localhost:{port}/?demo=1',
+      note: '上游构建的真实应用，作为独立容器跑在 compose 内网，nginx 按主机名 rhine.localhost 反代，不占用额外宿主端口；?demo=1 加载内置演示封面。',
       altLabel: '界面截图',
       altUrl: '/rhine-gallery.html',
-      altNote: '上游 docs/media 的真实截图（远程加载）：亮暗主题、专辑详情、沉浸式歌词与显示设置，不需要本地服务。',
+      altNote: '上游 docs/media 的真实截图（远程加载）：亮暗主题、专辑详情、沉浸式歌词与显示设置，不依赖任何服务。',
     },
     stack: ['Vue 3', 'TypeScript', 'Three.js', 'Vite', 'MIT'],
     theme: 'Morning Mist / Moon Shadow',
@@ -1768,7 +1768,12 @@ const activeDemo = computed(() => {
   }
   return d
 })
-const demoUrl = computed(() => activeDemo.value?.url ?? project.value.repo)
+const demoUrl = computed(() => {
+  const raw = activeDemo.value?.url ?? project.value.repo
+  // `{port}` lets a service live on its own container hostname while still
+  // opening through the port this site is actually served on.
+  return raw.replace('{port}', window.location.port || (window.location.protocol === 'https:' ? '443' : '80'))
+})
 
 const project = computed<Project>(() => {
   const p = activeProject.value
@@ -2189,12 +2194,12 @@ async function copyAiContext() {
           <div>
             <h2>{{ t('运行真实前端', 'Run the real app') }}</h2>
             <p>
-              {{ t('上游构建已经 clone 到 demos/rhine-music-demo 并完成 npm ci 与 build；用一条命令在本机 5175 起服务，页面默认带 ?demo=1，用内置封面直接看到专辑架。', 'The upstream build is cloned into demos/rhine-music-demo and already installed and built; one command serves it on port 5175, and the demo URL carries ?demo=1 so the shelf shows built-in covers immediately.') }}
+              {{ t('真实前端作为 compose 服务 rhine 运行：镜像里 clone 上游、安装并构建，nginx 用 rhine.localhost 主机名反代到它，宿主不额外开端口。', 'The real app runs as the compose service rhine: the image clones, installs and builds it, and nginx proxies the rhine.localhost hostname to it without publishing an extra host port.') }}
             </p>
             <ol>
-              <li><code>npm run demo:rhine</code></li>
-              <li>{{ t('打开 http://127.0.0.1:5175/?demo=1；首次进入有进场动画，点「跳过进场」可直接看架。', 'Open http://127.0.0.1:5175/?demo=1; the first visit plays an intro, and 「跳过进场」 skips straight to the shelf.') }}</li>
-              <li>{{ t('需要支持 WebGL 2 的浏览器；没有本地服务时用「界面截图」看静态结果。', 'A WebGL 2 browser is required; without the local server use the screenshot gallery.') }}</li>
+              <li>{{ t('跟着主站一起起：docker compose up -d --build（会构建 rhine 镜像）。', 'Start it with the site: docker compose up -d --build (builds the rhine image).') }}</li>
+              <li>{{ t('打开 rhine.localhost:8080/?demo=1；首次进入有进场动画，点「跳过进场」直接看架。', 'Open rhine.localhost:8080/?demo=1; the intro plays first, and 「跳过进场」 skips to the shelf.') }}</li>
+              <li>{{ t('本机开发也可以单独跑：npm run demo:rhine（宿主机 5175）。', 'For local development: npm run demo:rhine (host port 5175).') }}</li>
             </ol>
             <p class="lib-note">
               {{ t('模型、MiSans 字体、音频与官方美术不在 MIT 范围内，只在本地运行，不随本站仓库分发。', 'Models, MiSans, audio and official artwork are outside the MIT licence; they run locally and are never distributed with this site.') }}

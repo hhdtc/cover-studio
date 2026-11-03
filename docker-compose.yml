@@ -4,6 +4,9 @@ name: cover-studio
 # it through nginx. No GitHub token, no volume juggling — `docker compose up -d`
 # is the whole workflow.
 #
+# The Rhine Music demo runs as its own service on the internal network; nginx
+# proxies /rhine/ and /api/ to it, so no host port is published.
+#
 # To build exactly what is pushed to GitHub instead, use:
 #   docker compose -f docker-compose.remote.yml up -d
 services:
@@ -12,6 +15,17 @@ services:
       context: .
       dockerfile: Dockerfile
     image: cover-studio-web:local
+    depends_on:
+      - rhine
     ports:
       - "${PORT:-8080}:80"
+    restart: unless-stopped
+
+  rhine:
+    build:
+      context: .
+      dockerfile: docker/rhine/Dockerfile
+      args:
+        REPO_REF: main
+    image: cover-studio-rhine:local
     restart: unless-stopped

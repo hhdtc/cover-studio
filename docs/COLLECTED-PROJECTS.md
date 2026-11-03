@@ -82,10 +82,12 @@
 
 - 源码 clone 到 `demos/rhine-music-demo`（整个 `demos/` 已在 `.gitignore` 中，不进仓库、不进主站构建）。
 - 依赖用 `npm ci` 安装；lockfile 里的 `registry.npmmirror.com` 已改写成 `registry.npmjs.org`（沙箱禁止拉 remote 包）。
-- `npm run build` 产出 `dist/`，由上游自带的 `scripts/music-server.mjs` 在本机 5175 提供服务。
+- `npm run build` 产出 `dist/`，由上游自带的 `scripts/music-server.mjs` 提供服务。
+- 正式运行走 Docker：`docker/rhine/Dockerfile` 在镜像里 clone、安装、构建，`compose` 服务 `rhine` 只在内网监听 8080，**不发布宿主端口**；`web` 的 nginx 用主机名 `rhine.localhost` 反代到它。
+- 反代时需要把 `Host` 与 `Origin` 一起改写为 `127.0.0.1:8080`：上游服务只接受 loopback 的 Host，且会比较 Origin 与 Host 是否同源，否则 ES module 请求会被判成跨站并返回 JSON 403。
 - 10 个模块的「相关文件」路径全部对 `main` 分支的文件树逐个核对过（336 个文件）。
 - 界面截图通过 `raw.githubusercontent.com` 远程加载，不复制进仓库；离线时可能无法显示。
-- 站内默认 Demo 指向**真实构建**：`http://127.0.0.1:5175/?demo=1`，用内置演示封面。
+- 站内默认 Demo 指向**真实构建**：`http://rhine.localhost:8080/?demo=1`（同域反代，不占额外端口），用内置演示封面。
 - 没有本地服务时用 `/rhine-gallery.html`（上游截图页）；`/rhine-mock.html` 是早期的纯 CSS 近似版，仅作静态回退。
 
 ### 2.3 设计要点
