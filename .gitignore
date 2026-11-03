@@ -4,8 +4,10 @@ dist/
 .chrome-*/
 .chrome-profile/
 downloads/
-shot*.png
-check-*.png
+# capture artefacts land at the repo root; the nerv-ui screenshots
+# under public/ are shipped, so these rules are anchored.
+/shot*.png
+/check-*.png
 exported-check.png
 .DS_Store
 *.local
