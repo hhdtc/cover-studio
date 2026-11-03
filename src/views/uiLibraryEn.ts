@@ -6,6 +6,10 @@ export interface EnModule {
 }
 
 export interface EnProject {
+  /** Display name; only needed when the Chinese name is not English already. */
+  name?: string
+  /** Chip row under the description; only needed when the Chinese chips differ. */
+  stack?: string[]
   tagline: string
   description: string
   theme: string
@@ -143,6 +147,8 @@ export const UI_EN: Record<string, EnProject> = {
     },
   },
   'apple-kit': {
+    name: 'Apple · Type & motion',
+    stack: ['Vue 3', 'TypeScript', 'Plain CSS', 'IntersectionObserver', 'rAF progress'],
     tagline:
       'Type ladder and motion pacing measured from three product pages, rebuilt as 8 Vue components.',
     description:
@@ -280,6 +286,8 @@ export const UI_EN: Record<string, EnProject> = {
     },
   },
   'endfield-kit': {
+    name: 'Endfield Kit · from web analysis',
+    stack: ['Vue 3', 'TypeScript', 'Plain CSS', 'clip-path geometry', 'CSS aberration'],
     tagline:
       'The official Endfield site’s type ladder, notched geometry and chromatic type, rebuilt as 10 Vue components.',
     description:

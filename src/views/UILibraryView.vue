@@ -1800,6 +1800,8 @@ const project = computed<Project>(() => {
   if (!e) return p
   return {
     ...p,
+    name: e.name ?? p.name,
+    stack: e.stack ?? p.stack,
     tagline: e.tagline,
     description: e.description,
     theme: e.theme,
@@ -1810,6 +1812,11 @@ const project = computed<Project>(() => {
     modules: p.modules.map((m) => ({ ...m, ...(e.modules[m.id] ?? {}) })),
   }
 })
+/** Names shown in lists and search hits follow the active language. */
+function displayName(p: Project) {
+  return lang.value === 'en' ? (UI_EN[p.id]?.name ?? p.name) : p.name
+}
+
 const query = ref('')
 const q = computed(() => query.value.trim().toLowerCase())
 
@@ -2033,8 +2040,8 @@ async function copyAiContext() {
             :class="{ active: p.id === project.id }"
             :href="projectHref(p)"
           >
-            <span class="lib-project-name">{{ p.name }}</span>
-            <span class="lib-project-author">{{ p.author }}</span>
+            <span class="lib-project-name">{{ displayName(p) }}</span>
+            <span v-if="p.kind !== 'analysis'" class="lib-project-author">{{ p.author }}</span>
             <span class="lib-project-meta">{{ p.stack.slice(0, 2).join(' · ') }}</span>
           </a>
           <div v-if="q && !filteredProjects.length" class="lib-future">{{ t('没有匹配的项目', 'No matching projects') }}</div>
@@ -2051,7 +2058,7 @@ async function copyAiContext() {
               class="lib-hit"
               :href="moduleHref(hit.project, hit.module)"
             >
-              <span class="lib-hit-project">{{ hit.project.name }}</span>
+              <span class="lib-hit-project">{{ displayName(hit.project) }}</span>
               <span class="lib-hit-name">{{ hit.module.name }}</span>
             </a>
             <div v-if="!moduleHits.length" class="lib-future">{{ t('没有匹配的模块', 'No matching modules') }}</div>
