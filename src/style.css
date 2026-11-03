@@ -7227,3 +7227,134 @@ a.lib-card {
   border-color: var(--border-soft);
   background: var(--panel-3);
 }
+
+/* ---------------- UI library: search, provenance ---------------- */
+
+.lib-search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px 8px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.lib-search-input {
+  flex: 1;
+  min-width: 0;
+  appearance: none;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 7px 10px;
+  font: inherit;
+  font-size: 13px;
+}
+
+.lib-search-input::placeholder {
+  color: var(--muted-2);
+}
+
+.lib-search-input:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.lib-search-clear {
+  appearance: none;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--muted);
+  border-radius: 8px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.lib-search-clear:hover {
+  color: var(--text);
+}
+
+.lib-project-author {
+  font-size: 11px;
+  color: var(--muted-2);
+}
+
+.lib-hit {
+  display: grid;
+  gap: 1px;
+  padding: 6px 10px;
+  text-decoration: none;
+  color: inherit;
+  border-left: 2px solid transparent;
+}
+
+.lib-hit:hover,
+.lib-hit:focus-visible {
+  background: var(--panel-2);
+  border-left-color: var(--accent);
+}
+
+.lib-hit-project {
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted-2);
+}
+
+.lib-hit-name {
+  font-size: 13px;
+  color: var(--text);
+}
+
+.lib-origin {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 6px 0 2px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.lib-origin-badge {
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.lib-origin-badge.is-repo {
+  color: #ffd479;
+  border-color: rgba(255, 212, 121, 0.35);
+  background: rgba(255, 212, 121, 0.08);
+}
+
+.lib-origin-badge.is-analysis {
+  color: #8ad6a0;
+  border-color: rgba(138, 214, 160, 0.35);
+  background: rgba(138, 214, 160, 0.08);
+}
+
+.lib-origin-author a,
+.lib-origin-repo {
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.lib-origin-author a:hover,
+.lib-origin-repo:hover,
+.lib-origin-author a:focus-visible,
+.lib-origin-repo:focus-visible {
+  border-bottom-color: var(--accent);
+}
+
+.lib-origin-repo {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+}

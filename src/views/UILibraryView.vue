@@ -23,6 +23,9 @@ interface ModuleDoc {
 interface Project {
   id: string
   name: string
+  author: string
+  authorUrl?: string
+  kind?: 'third-party' | 'analysis'
   tagline: string
   description: string
   repo: string
@@ -46,6 +49,9 @@ const PROJECTS: Project[] = [
   {
     id: 'rhine-music',
     name: 'Rhine Music · Windows',
+    author: 'Bong712',
+    authorUrl: 'https://github.com/Bong712',
+    kind: 'third-party',
     tagline: 'Rhine Music 的 Windows 桌面移植版：同步歌词、歌单与播放队列。',
     description:
       '由 Bong712 维护的 Windows 移植版，界面基础来自 RonaldDeng / LBEILC 的 RhineLabUI。它在三维专辑架与本机播放之上加入同步 LRC 歌词、歌单和可编辑播放队列，并优化了封面图集与实例化绘制。这里展示的是纯视觉演示模式。',
@@ -330,6 +336,9 @@ const PROJECTS: Project[] = [
   {
     id: 'endfield-ui',
     name: 'Endfield UI',
+    author: 'icaruszezen',
+    authorUrl: 'https://github.com/icaruszezen',
+    kind: 'third-party',
     tagline: '《明日方舟：终末地》设计风格文档，以及按文档实现的 React 组件库。',
     description:
       '工业编辑风：纸白或烟黑的底、墨黑的字、一处信号黄，再叠一层克制的印刷与测绘痕迹。仓库包含设计规范、Tailwind v4 主题令牌、React 组件库、Storybook 预览站与文档站；主入口不包含官方素材。',
@@ -515,7 +524,9 @@ const PROJECTS: Project[] = [
   },
   {
     id: 'endfield-kit',
-    name: 'Endfield Kit · 本站自研',
+    name: 'Endfield Kit · 基于网页分析',
+    author: '基于网页分析',
+    kind: 'analysis',
     tagline: '把《明日方舟：终末地》官网的字体层级、切角几何与色差字效，重写成 10 个 Vue 组件。',
     description:
       '对官网做的一次被动结构观察：DOM 形状、公开 CSS 的声明值、一次计算样式普查，再由这些数值规律重建组件。只保留结构与节奏——商业字体、美术、文案一律不复制，类名用 efk- 前缀与站内既有的 Endfield 演示区分。产物是 10 个不依赖任何 UI 框架的 Vue 组件加一套 --efk-* 令牌。',
@@ -525,7 +536,7 @@ const PROJECTS: Project[] = [
     demo: {
       label: '完整样式指南',
       url: '#/endfield-kit',
-      note: '本站自研的完整展示页：令牌、字号阶梯、10 个组件、动效与来源说明；可一键切换「减少动效」。',
+      note: '基于网页分析的完整展示页：令牌、字号阶梯、10 个组件、动效与来源说明；可一键切换「减少动效」。',
     },
     stack: ['Vue 3', 'TypeScript', '原生 CSS', 'clip-path 几何', 'CSS 色差'],
     theme: '墨黑 #191919 / 纸白 / 信号黄 #fffa00',
@@ -644,6 +655,8 @@ const PROJECTS: Project[] = [
   {
     id: 'apple-kit',
     name: 'Apple · 排版与动效',
+    author: '基于网页分析',
+    kind: 'analysis',
     tagline: '从 apple.com、iPad Pro 与 iPhone Duo 三个页面量出版式、字号、材质与动效，重写成 10 个 Vue 组件。',
     description:
       '重点在排版与动效，但不止这两块。对三个公开页面做被动读取——DOM 形状、声明式 CSS 的数值、计算样式普查——得到：734 / 833 / 1068 三档容器宽度与 734 / 1068 主断点、一条每级绑定字距与行高的字号梯级、18–32px 的卡片圆角与 980px 药丸、三档毛玻璃（20 / 20 / 7px 模糊）、以及 240/320/400/500ms 的时长刻度。产品页是 311 张图 + 17 段视频 + 31 个吸顶元素的长文档，首页则是 102 张图短叙事。滚动由 IntersectionObserver + rAF 驱动，进度写进 CSS 变量，动画本身仍是声明式的；SF Pro 不随仓库分发，演示内容全部为占位文字。',
@@ -653,7 +666,7 @@ const PROJECTS: Project[] = [
     demo: {
       label: '排版动效展示页',
       url: '#/apple-kit',
-      note: '本站自研：字号梯级、滚动位移、毛玻璃吸顶条、色带过渡与视差；可一键切换「减少动效」。',
+      note: '基于网页分析：字号梯级、滚动位移、毛玻璃吸顶条、色带过渡与视差；可一键切换「减少动效」。',
     },
     stack: ['Vue 3', 'TypeScript', '原生 CSS', 'IntersectionObserver', 'rAF 进度'],
     theme: '墨黑 #1d1d1f / 浅灰 #f5f5f7 / 蓝 #0071e3',
@@ -889,6 +902,9 @@ const PROJECTS: Project[] = [
   {
     id: 'nerv-ui',
     name: 'NERV UI',
+    author: 'TheGreatGildo',
+    authorUrl: 'https://github.com/TheGreatGildo',
+    kind: 'third-party',
     tagline: '把「军用科研控制台」这一视觉母题做成可复用样式表与 HTML 组件。',
     description:
       'MIT 许可的零依赖样式表 + 自包含 HTML 组件：808 行 CSS，全部颜色、字体、CRT 效果与组件类都在里面。默认状态是纯黑 —— 屏幕在没有数据时保持关闭。组件覆盖事件流、金库卡片、MAGI 三源共识、指标栅格、数据表与紧急模式；完整 Demo 带一个 Three.js 拓扑可视化。仓库是给 AI 智能体用的 skill，SKILL.md 是完整规范。这里把上游文件原样托管在 /nerv-ui/ 下，便于直接看参考实现。',
@@ -1023,6 +1039,9 @@ const PROJECTS: Project[] = [
   {
     id: 'nasa-punk',
     name: 'NASA-Punk UI Skill',
+    author: 'duanth',
+    authorUrl: 'https://github.com/duanth',
+    kind: 'third-party',
     tagline: 'NASA 黄金时代复古未来主义设计系统，给 AI 编码智能体的 UI 技能包。',
     description:
       '一套可被 AI 编码智能体直接调用的设计系统技能：米白纸面打底，遇到终端、日志或仪表盘自动切换暗色仪表面；提供印刷文档、控制台与时代色调三套表面语言。参考实现是一个零依赖单文件 HTML，设计语言溯源 1976 年 NASA 图形标准手册与 NTRS 技术报告插图。',
@@ -1158,6 +1177,9 @@ const PROJECTS: Project[] = [
   {
     id: 'aureole',
     name: 'AUREOLE · Sixth UI',
+    author: 'AlphaZero78',
+    authorUrl: 'https://github.com/AlphaZero78',
+    kind: 'third-party',
     tagline: '从《明日方舟》六周年 PV 前 60 秒提取的交互模板：未来、机械、圣徒。',
     description:
       '把宣传影像里的黑场、银白结构、钴蓝图纸与浅色解构转成可交互的网页模板。主体被拆成透明图像平面，在 CSS 三维空间中持续漂浮；编号引线跟随部件，支持实体观测、结构透视与解构重组三种模式，以及搜索、档案、配置导出和减少动态。',
@@ -1304,6 +1326,9 @@ const PROJECTS: Project[] = [
   {
     id: 'p5-ui',
     name: 'p5-ui · Persona 5 UI',
+    author: 'q-mona',
+    authorUrl: 'https://github.com/q-mona',
+    kind: 'third-party',
     tagline: 'Vue 3 的 Persona 5 风格玩具组件库。',
     description:
       '一套红黑白、斜切与剪纸拼贴的 Vue 3 组件库，包含按钮、标题、文字、滑块、开关、消息、通知、返回顶部、分隔符、上传、表格和人群动画。仓库未提供许可证，因此本站只做链接索引与本地评估，不复制其代码、图片或构建产物；组件视觉 Demo 为原创 CSS 重绘。',
@@ -1451,6 +1476,9 @@ const PROJECTS: Project[] = [
   {
     id: 'persona3',
     name: 'Persona3-like-web',
+    author: 'Masonli1203',
+    authorUrl: 'https://github.com/Masonli1203',
+    kind: 'third-party',
     tagline: 'Persona 3 风格的斜切排版作品集模板：自定义光标、玻璃时钟与圆形转场。',
     description:
       'Next.js + TypeScript + Tailwind + Framer Motion 的作品集模板。用粗体斜切排版、漂浮章节导航、墨迹光标、玻璃时钟转场和照片查看器组织内容；附带可交互的 Three.js 空间配置器。仓库只包含原创占位图与通用文案，不包含官方游戏素材；演示数据为虚构内容。',
@@ -1640,6 +1668,9 @@ const PROJECTS: Project[] = [
   {
     id: 'shadcn-ui',
     name: 'shadcn/ui',
+    author: 'shadcn',
+    authorUrl: 'https://github.com/shadcn',
+    kind: 'third-party',
     tagline: '可组合、可访问、可直接改的 React 组件集合。',
     description:
       '不是传统依赖包，而是一套通过 registry 复制进项目的组件源码：React + Tailwind CSS，默认使用 Radix / Base UI 行为层，配好颜色、圆角、间距与键盘交互。组件、示例、区块和主题都可按需添加并直接修改。',
@@ -1811,6 +1842,40 @@ const project = computed<Project>(() => {
     modules: p.modules.map((m) => ({ ...m, ...(e.modules[m.id] ?? {}) })),
   }
 })
+const query = ref('')
+const q = computed(() => query.value.trim().toLowerCase())
+
+const matches = (text?: string) => Boolean(q.value) && (text ?? '').toLowerCase().includes(q.value)
+
+const filteredProjects = computed(() => {
+  if (!q.value) return PROJECTS
+  return PROJECTS.filter(
+    (p) =>
+      matches(p.name) ||
+      matches(p.tagline) ||
+      matches(p.description) ||
+      matches(p.author) ||
+      p.stack.some((s) => matches(s)) ||
+      p.modules.some((m) => matches(m.name) || matches(m.summary) || matches(m.group)),
+  )
+})
+
+/** Cross-project module matches, so a search can jump straight to a module. */
+const moduleHits = computed(() => {
+  if (!q.value) return [] as { project: Project; module: ModuleDoc }[]
+  const hits: { project: Project; module: ModuleDoc }[] = []
+  for (const p of PROJECTS) {
+    for (const m of p.modules) {
+      if (matches(m.name) || matches(m.summary) || matches(m.group)) hits.push({ project: p, module: m })
+    }
+  }
+  return hits.slice(0, 24)
+})
+
+function shortRepo(url: string) {
+  return url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')
+}
+
 const currentModule = computed(
   () => project.value.modules.find((m) => m.id === activeModule.value?.id) ?? null,
 )
@@ -1975,27 +2040,56 @@ async function copyAiContext() {
       <aside class="panel sm">
         <div class="panel-header">
           <h3>{{ t('收录项目', 'Projects') }}</h3>
-          <span class="count">{{ PROJECTS.length }}</span>
+          <span class="count">{{ q ? filteredProjects.length + '/' + PROJECTS.length : PROJECTS.length }}</span>
+        </div>
+        <div class="lib-search">
+          <input
+            v-model="query"
+            type="search"
+            class="lib-search-input"
+            :placeholder="t('搜索项目 / 模块…', 'Search projects / modules…')"
+            :aria-label="t('搜索项目或模块', 'Search projects or modules')"
+          />
+          <button v-if="query" class="lib-search-clear" type="button" :aria-label="t('清空搜索', 'Clear search')" @click="query = ''">✕</button>
         </div>
         <div class="panel-scroll">
           <a
-            v-for="p in PROJECTS"
+            v-for="p in filteredProjects"
             :key="p.id"
             class="lib-project"
             :class="{ active: p.id === project.id }"
             :href="projectHref(p)"
           >
             <span class="lib-project-name">{{ p.name }}</span>
+            <span class="lib-project-author">{{ p.author }}</span>
             <span class="lib-project-meta">{{ p.stack.slice(0, 2).join(' · ') }}</span>
           </a>
-          <div class="lib-future">{{ t('更多项目待收录', 'More projects coming') }}</div>
+          <div v-if="q && !filteredProjects.length" class="lib-future">{{ t('没有匹配的项目', 'No matching projects') }}</div>
+          <div v-if="!q" class="lib-future">{{ t('更多项目待收录', 'More projects coming') }}</div>
 
-          <div class="panel-header lib-module-head">
+          <template v-if="q">
+            <div class="panel-header lib-module-head">
+              <h3>{{ t('匹配模块', 'Matching modules') }}</h3>
+              <span class="count">{{ moduleHits.length }}</span>
+            </div>
+            <a
+              v-for="hit in moduleHits"
+              :key="hit.project.id + hit.module.id"
+              class="lib-hit"
+              :href="moduleHref(hit.project, hit.module)"
+            >
+              <span class="lib-hit-project">{{ hit.project.name }}</span>
+              <span class="lib-hit-name">{{ hit.module.name }}</span>
+            </a>
+            <div v-if="!moduleHits.length" class="lib-future">{{ t('没有匹配的模块', 'No matching modules') }}</div>
+          </template>
+
+          <div v-if="!q" class="panel-header lib-module-head">
             <h3>{{ t('模块索引', 'Modules') }}</h3>
             <span class="count">{{ project.modules.length }}</span>
           </div>
           <a
-            v-for="m in project.modules"
+            v-for="m in (q ? [] : project.modules)"
             :key="m.id"
             class="lib-module"
             :class="{ active: currentModule?.id === m.id }"
@@ -2012,6 +2106,17 @@ async function copyAiContext() {
         <section class="lib-hero">
           <div class="lib-hero-copy">
             <span class="lib-eyebrow">PROJECT / {{ project.id }}</span>
+            <div class="lib-origin">
+              <span class="lib-origin-badge" :class="project.kind === 'analysis' ? 'is-analysis' : 'is-repo'">
+                {{ project.kind === 'analysis' ? t('基于网页分析', 'From web analysis') : t('第三方仓库', 'Third-party repository') }}
+              </span>
+              <span v-if="project.kind !== 'analysis'" class="lib-origin-author">
+                {{ t('作者', 'by') }}
+                <a v-if="project.authorUrl" :href="project.authorUrl" target="_blank" rel="noreferrer">@{{ project.author }}</a>
+                <strong v-else>{{ project.author }}</strong>
+              </span>
+              <a class="lib-origin-repo" :href="project.repo" target="_blank" rel="noreferrer">{{ shortRepo(project.repo) }} ↗</a>
+            </div>
             <h1>{{ project.name }}</h1>
             <p class="lib-tagline">{{ project.tagline }}</p>
             <p class="lib-desc">{{ project.description }}</p>

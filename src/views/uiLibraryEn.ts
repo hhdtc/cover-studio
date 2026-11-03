@@ -175,7 +175,7 @@ export const UI_EN: Record<string, EnProject> = {
     theme: 'Ink #1d1d1f / surface #f5f5f7 / blue #0071e3',
     demoLabel: 'Type & motion showcase',
     demoNote:
-      'This site’s own build: size ladder, scroll drift, frosted sticky bar, colour band and parallax — with a one-click reduced-motion switch.',
+      'Built from web analysis: size ladder, scroll drift, frosted sticky bar, colour band and parallax — with a one-click reduced-motion switch.',
     shots: [
       'Showcase hero: oversized headline, drifting stage and pill controls.',
       'Size ladder: each step labelled with px, tracking and leading.',
@@ -312,7 +312,7 @@ export const UI_EN: Record<string, EnProject> = {
     theme: 'Ink #191919 / paper / signal yellow #fffa00',
     demoLabel: 'Full style guide',
     demoNote:
-      'This site’s own showcase: tokens, type ladder, all 10 components, motion and provenance — with a one-click reduced-motion switch.',
+      'Built from web analysis: tokens, type ladder, all 12 components, motion and provenance — with a one-click reduced-motion switch.',
     shots: [
       'Guide hero: signal-yellow band, chromatic title, rolling ticker and readout tags.',
       'Components: notched buttons, wedge tabs, stat rows, chromatic headline, tags and icon rail.',
