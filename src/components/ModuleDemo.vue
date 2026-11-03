@@ -43,6 +43,21 @@ const ekRailItems = [
 const ekTabs = ['Overview', 'Assets', 'Comms', 'Logs']
 const ekItems = ['protocol synced', 'orbit calibrated 03', 'signal −62 dBm', 'archive sealed']
 
+/* Rhine Music: real upstream screenshots (hotlinked, never copied) */
+const RHINE_MEDIA = 'https://raw.githubusercontent.com/RonaldDeng/Rhine-Music-Demo/main/docs/media'
+const rhineShots: Record<string, { src: string; caption: string }> = {
+  'rhine-overview': { src: `${RHINE_MEDIA}/v0.5.0/overview-artist-grid.jpg`, caption: 'v0.5.0 总览：艺术家网格与边缘裁切' },
+  'rhine-columns': { src: `${RHINE_MEDIA}/v0.5.0/overview-projected.jpg`, caption: 'v0.5.0 投影视图：三列在空间中的位置' },
+  'rhine-cd': { src: `${RHINE_MEDIA}/v0.6.1/album-preview-night.jpg`, caption: 'v0.6.1 唱片盒与 CD 预览（Moon Shadow）' },
+  'rhine-player': { src: `${RHINE_MEDIA}/v0.6.1/album-preview-morning.jpg`, caption: 'v0.6.1 播放器（Morning Mist）' },
+  'rhine-lyrics': { src: `${RHINE_MEDIA}/v0.6.1/lyrics-night.jpg`, caption: 'v0.6.1 沉浸式歌词：当前行高亮' },
+  'rhine-navigation': { src: `${RHINE_MEDIA}/v0.5.0/library-versions.png`, caption: 'v0.5.0 曲库版本与列位置' },
+  'rhine-transitions': { src: `${RHINE_MEDIA}/v0.6.1/detail-morning.jpg`, caption: 'v0.6.1 专辑详情：从卡片展开的转场终点' },
+  'rhine-theme': { src: `${RHINE_MEDIA}/v0.5.0/settings-comparison.png`, caption: 'v0.5.0 亮暗主题对照' },
+  'rhine-boot': { src: `${RHINE_MEDIA}/v0.5.0/library-introductions.png`, caption: 'v0.5.0 启动与曲库介绍序列' },
+  'rhine-platform': { src: `${RHINE_MEDIA}/v0.6.1/settings-display.jpg`, caption: 'v0.6.1 显示设置：主题 / 画质 / 动效' },
+}
+
 /* NERV UI demo state */
 const nrvPalette = [
   { name: 'structure', hex: '#FF9830' },
@@ -1578,6 +1593,18 @@ function moveQueue(index: number, dir: -1 | 1) {
       <template v-else-if="id === 'nrv-emergency'">
         <iframe class="nrv-frame" src="/nerv-ui/demo.html" title="Emergency mode demo" loading="lazy" />
         <div class="mdemo-foot"><span>{{ t('点右上角 EMERGENCY 切换', 'Toggle EMERGENCY top-right') }}</span><strong>ALERT</strong></div>
+      </template>
+
+      <!-- rhine music: real upstream screenshots -->
+      <template v-else-if="id.startsWith('rhine-')">
+        <figure class="rhine-shot">
+          <img :src="rhineShots[id]?.src" :alt="rhineShots[id]?.caption" loading="lazy" referrerpolicy="no-referrer" />
+          <figcaption>
+            <strong>{{ rhineShots[id]?.caption }}</strong>
+            <span>{{ t('上游仓库截图（非交互）：真实应用是 WebGL 三维场景，需要模型与字体等不在 MIT 范围内的素材，因此站内只放截图。', 'Upstream screenshot (not interactive): the real app is a WebGL 3D scene whose models and fonts are outside the MIT licence, so this catalogue shows stills only.') }}</span>
+          </figcaption>
+        </figure>
+        <div class="mdemo-foot"><span>{{ t('真实截图', 'Real screenshot') }}</span><strong>UPSTREAM</strong></div>
       </template>
 
       <div v-else class="mdemo-empty">{{ t('该模块暂无独立视觉演示', 'No visual demo for this module yet') }}</div>

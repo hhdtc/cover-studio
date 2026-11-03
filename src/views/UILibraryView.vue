@@ -59,9 +59,12 @@ const PROJECTS: Project[] = [
     release: 'https://github.com/RonaldDeng/Rhine-Music-Demo/releases/tag/v0.6.1',
     design: 'https://github.com/RonaldDeng/Rhine-Music-Demo/blob/main/DESIGN.md',
     demo: {
-      label: '自研视觉复现（CSS 3D）',
-      url: '/rhine-mock.html',
-      note: '按该项目的三列专辑架与 HUD 重写的纯 CSS 版本：3D 玻璃卡、详情、亮暗主题与开场，5 张本地 mock 封面，不依赖 WebGL。',
+      label: '上游界面截图',
+      url: '/rhine-gallery.html',
+      note: '直接取自上游 docs/media 的真实截图（远程加载）：亮暗主题、专辑详情、沉浸式歌词与显示设置。想点着玩可以切到「近似复刻」。',
+      altLabel: '近似复刻（CSS 3D）',
+      altUrl: '/rhine-mock.html',
+      altNote: '按三列专辑架与 HUD 手写的纯 CSS 版本，只保留版式与交互，不代表上游的视觉精度。',
     },
     stack: ['Vue 3', 'TypeScript', 'Three.js', 'Vite', 'MIT'],
     theme: 'Morning Mist / Moon Shadow',
@@ -2147,8 +2150,8 @@ async function copyAiContext() {
             </div>
             <div class="lib-live-actions">
               <div v-if="project.demo?.altUrl" class="lib-demo-switch">
-                <button :class="{ active: demoVariant === 'main' }" @click="demoVariant = 'main'">{{ t('真实前端', 'Real app') }}</button>
-                <button :class="{ active: demoVariant === 'alt' }" @click="demoVariant = 'alt'">{{ t('静态 Mock', 'Static mock') }}</button>
+                <button :class="{ active: demoVariant === 'main' }" @click="demoVariant = 'main'">{{ t('默认', 'Default') }}</button>
+                <button :class="{ active: demoVariant === 'alt' }" @click="demoVariant = 'alt'">{{ project.demo?.altLabel ?? t('备用', 'Alternate') }}</button>
               </div>
               <a class="soft-btn" :href="demoUrl" target="_blank" rel="noreferrer">{{ t('新窗口打开', 'Open in new tab') }}</a>
               <button class="soft-btn" @click="demoOpen = !demoOpen">

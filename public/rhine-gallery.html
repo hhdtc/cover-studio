@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rhine Music · 上游界面截图</title>
+    <!--
+      Screenshot gallery for RonaldDeng/Rhine-Music-Demo (MIT).
+      Images are hotlinked from the upstream repository and never copied into
+      this site: models, fonts and official artwork in them are not covered by
+      the MIT licence. Source: https://github.com/RonaldDeng/Rhine-Music-Demo
+    -->
+    <style>
+      :root { color-scheme: dark; }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        padding: 28px clamp(16px, 4vw, 44px) 56px;
+        background: #0b0c0e;
+        color: #e9eaee;
+        font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+      }
+      header { max-width: 1080px; margin: 0 auto 24px; display: grid; gap: 8px; }
+      .kicker { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #7d828c; }
+      h1 { margin: 0; font-size: clamp(22px, 3vw, 30px); letter-spacing: -0.01em; }
+      .lead { margin: 0; color: #9aa0aa; font-size: 13px; line-height: 1.7; }
+      .lead a { color: #7fb2ff; text-decoration: none; border-bottom: 1px solid rgba(127, 178, 255, 0.4); }
+      .grid {
+        max-width: 1080px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+        gap: 16px;
+      }
+      figure { margin: 0; display: grid; gap: 8px; }
+      figure img {
+        width: 100%;
+        border-radius: 14px;
+        border: 1px solid #24262b;
+        background: #111214;
+        display: block;
+      }
+      figcaption { display: grid; gap: 3px; }
+      figcaption strong { font-size: 13px; font-weight: 600; }
+      figcaption span { font-size: 12px; line-height: 1.6; color: #868c97; }
+      footer { max-width: 1080px; margin: 28px auto 0; font-size: 11px; line-height: 1.7; color: #6c727c; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <span class="kicker">UPSTREAM SCREENSHOTS · v0.6.1</span>
+      <h1>Rhine Music · 真实界面</h1>
+      <p class="lead">
+        以下截图直接来自上游仓库
+        <a href="https://github.com/RonaldDeng/Rhine-Music-Demo" target="_blank" rel="noreferrer">RonaldDeng/Rhine-Music-Demo</a>
+        的 <code>docs/media</code>，按原样远程加载、未做修改。真实应用是 WebGL 三维场景，站内不重复托管，
+        因为模型、MiSans 字体与官方美术素材都不在 MIT 许可范围内。
+      </p>
+    </header>
+    <div class="grid" id="grid"></div>
+    <footer>
+      代码许可 MIT（Copyright (c) 2026 LBEILC / RonaldDeng）；截图中出现的游戏相关视觉元素版权归原权利人。
+    </footer>
+    <script>
+      const BASE = 'https://raw.githubusercontent.com/RonaldDeng/Rhine-Music-Demo/main/docs/media'
+      const shots = [
+        ['v0.6.1/album-preview-night.jpg', 'Moon Shadow · 专辑预览', '三列专辑卡在深色主题下的位置与唱片盒预览。'],
+        ['v0.6.1/album-preview-morning.jpg', 'Morning Mist · 专辑预览', '同一视图在亮色主题下：玻璃卡、背景与光照一起变化。'],
+        ['v0.6.1/detail-morning.jpg', '专辑详情', '从列表卡片展开后的详情页，转场的终点状态。'],
+        ['v0.6.1/lyrics-night.jpg', '沉浸式歌词', '当前行高亮，其余行降透明度；歌词区铺满画面。'],
+        ['v0.6.1/settings-display.jpg', '显示设置', '主题、画质档位与动效偏好在同一个面板里。'],
+        ['v0.5.0/overview-artist-grid.jpg', '总览 · 艺术家网格', '按艺术家分组的网格，边缘卡片被裁切提示可继续滚动。'],
+        ['v0.5.0/overview-projected.jpg', '总览 · 投影视图', '同一份数据在空间中的投影布局。'],
+        ['v0.5.0/library-versions.png', '曲库版本', '列位置与版本信息的展示方式。']
+      ]
+      const grid = document.getElementById('grid')
+      for (const [path, title, desc] of shots) {
+        const fig = document.createElement('figure')
+        const img = document.createElement('img')
+        img.src = `${BASE}/${path}`
+        img.alt = title
+        img.loading = 'lazy'
+        img.referrerPolicy = 'no-referrer'
+        const cap = document.createElement('figcaption')
+        const strong = document.createElement('strong')
+        strong.textContent = title
+        const span = document.createElement('span')
+        span.textContent = desc
+        cap.append(strong, span)
+        fig.append(img, cap)
+        grid.append(fig)
+      }
+    </script>
+  </body>
+</html>
