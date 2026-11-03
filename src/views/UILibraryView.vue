@@ -1293,7 +1293,7 @@ const PROJECTS: Project[] = [
     theme: '红 / 黑 / 白 · 斜切拼贴',
     screenshots: [
       {
-        src: '/p5-poster.svg',
+        src: assetUrl('p5-poster.svg'),
         caption: '本站原创封面示意：红黑白斜切与 P5 风格排版，未使用项目素材。',
       },
     ],

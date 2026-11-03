@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { lang } from '../i18n'
+import { assetUrl } from '../lib/asset'
 import ApHeadline from '../apple-kit/ApHeadline.vue'
 import ApHero from '../apple-kit/ApHero.vue'
 import ApBar from '../apple-kit/ApBar.vue'
@@ -184,8 +185,8 @@ const aiContext = computed(() =>
     <section class="aplview-section">
       <ApHeadline :eyebrow="t('10 / 加载', '10 / LOADING')" :title="t('先声明，后请求', 'Declare first, request later')" :lede="t('17 段视频全部 preload=none，156 张图的 loading=lazy 是 0 —— 原生懒加载一条没用，全部交给脚本调度。', 'All 17 videos ship preload=none and none of the 156 images use loading=lazy: native lazy loading is unused, scheduling is entirely scripted.')" />
       <div class="aplview-media">
-        <ApLazyMedia src="/mock/cover-mist.svg" :alt="t('占位媒体', 'Placeholder media')" ratio="4 / 3" :label="t('进入视口才请求', 'requested on approach')" />
-        <ApLazyMedia src="/mock/cover-orbit.svg" :alt="t('占位媒体', 'Placeholder media')" ratio="4 / 3" :label="t('同样延迟', 'also deferred')" />
+        <ApLazyMedia :src="assetUrl('mock/cover-mist.svg')" :alt="t('占位媒体', 'Placeholder media')" ratio="4 / 3" :label="t('进入视口才请求', 'requested on approach')" />
+        <ApLazyMedia :src="assetUrl('mock/cover-orbit.svg')" :alt="t('占位媒体', 'Placeholder media')" ratio="4 / 3" :label="t('同样延迟', 'also deferred')" />
       </div>
     </section>
 
