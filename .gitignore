@@ -38,3 +38,6 @@ demos/persona3-like-web/
 
 # Local reverse-engineering captures (never committed: third-party CSS/fonts)
 .analysis/
+
+# gh CLI cache (HOME is read-only in some sandboxes)
+.gh-cache/
