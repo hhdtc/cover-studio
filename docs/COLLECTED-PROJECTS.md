@@ -201,7 +201,51 @@
 - 不把 CSS 重绘的 Demo 说成项目原始组件；
 - 不在未保留 MIT 版权与作者署名的情况下再分发 `reference.html`。
 
-## 5. AUREOLE · Sixth UI
+## 5. NERV UI
+
+### 5.1 基本信息
+
+| 项目 | 内容 |
+| --- | --- |
+| 仓库 | https://github.com/TheGreatGildo/nerv-ui |
+| 作者 | TheGreatGildo |
+| 代码许可 | MIT（Copyright (c) 2026 TheGreatGildo） |
+| 形态 | 零依赖样式表 + 自包含 HTML 组件 + AI 智能体技能包（`SKILL.md`） |
+| 体量 | `nerv-ui.css` 808 行；6 个组件页；`demo.html` 约 64 KB |
+| 站点 | 上游无独立站点，参考实现已原样托管在本站 `/nerv-ui/` |
+
+### 5.2 收录内容
+
+| 文件 | 说明 |
+| --- | --- |
+| `public/nerv-ui/demo.html` | 完整控制台：拓扑图、指标、事件流、金库卡、MAGI 共识、紧急模式 |
+| `public/nerv-ui/nerv-ui.css` | 全部设计令牌、CRT 效果与组件类 |
+| `public/nerv-ui/components/*.html` | `event-log` / `vault-card` / `magi-oracle` / `metrics-grid` / `data-table` |
+| `public/nerv-ui/components/crt-effects.css` | 可单独取用的 CRT 叠层 |
+| `public/nerv-ui/LICENSE` | MIT 原文，随文件一起分发 |
+| `public/nerv-ui/README.md` | 来源、许可与「未随附任何ip作品素材」的说明 |
+
+### 5.3 设计语言要点
+
+- **默认纯黑**：没有数据时屏幕保持关闭，不用骨架屏占位。
+- **一色一职**：橙 `#FF9830` 结构、绿 `#50FF50` 数据、青 `#20F0FF` 连线、红 `#FF3030` 仅告警。
+- **仪器化排版**：明朝体标题 + 等宽正文 + 压缩体印章，数字一律 tabular 对齐。
+- **CRT 效果零图片**：扫描线、暗角、闪烁、辉光全是 CSS 渐变与多层阴影。
+- **状态双重编码**：颜色之外总有文字（「一致 / 分歧」「OPERATIONAL」）。
+
+### 5.4 素材与许可边界
+
+- 上游代码为 MIT，本站**原样托管并保留 `LICENSE` 与版权声明**，未做改写。
+- 页面为纯 CSS/DOM，**不含任何动画作品的美术素材、标志或角色图像**；风格是对「虚构军用控制台」这一母题的个人演绎。
+- 字体来自 Google Fonts（Noto Serif Display、JetBrains Mono、Saira Extra Condensed、Shippori Mincho B1），各自遵循原许可；离线环境下会回退到系统衬线/等宽字体。
+
+### 5.5 对应模块
+
+`nrv-foundations` 色彩与字体 · `nrv-crt` CRT 效果 · `nrv-console` 布局与指标 · `nrv-data` 事件流与表格 · `nrv-magi` MAGI 与金库卡 · `nrv-emergency` 紧急模式
+
+---
+
+## 6. AUREOLE · Sixth UI
 
 ### 5.1 基本信息
 
@@ -242,7 +286,7 @@ npm run preview -- --port 5176
 - 不把演示主体图片说成官方素材；
 - 不在未保留 MIT 与字体 OFL 许可的情况下再分发模板或其构建产物。
 
-## 6. p5-ui · Persona 5 UI
+## 7. p5-ui · Persona 5 UI
 
 ### 6.1 基本信息
 
@@ -292,7 +336,7 @@ python3 -m http.server 5177 --bind 127.0.0.1 \
 
 权利人提出异议，或仓库后续补充了限制性许可时，立即移除本地 Demo 入口、模块说明中的代码链接与封面，仅保留项目名称与仓库链接（或全部移除）。
 
-## 7. Persona3-like-web
+## 8. Persona3-like-web
 
 ### 7.1 基本信息
 
@@ -333,7 +377,7 @@ npm run start -- -p 5179
 - 不把示例项目、人物与文案说成真实商业案例；
 - 不在未保留 MIT 与字体 OFL 许可的情况下再分发模板。
 
-## 8. shadcn/ui
+## 9. shadcn/ui
 
 ### 8.1 基本信息
 
@@ -366,7 +410,7 @@ npm run start -- -p 5179
 - 不宣称与 shadcn 或项目维护者存在官方合作；
 - 不把本站的原创视觉示意说成 shadcn/ui 官方组件。
 
-## 9. 新增项目检查清单
+## 10. 新增项目检查清单
 
 收录前逐项确认：
 
@@ -389,7 +433,7 @@ npm run start -- -p 5179
 
 ---
 
-## 10. 维护记录
+## 11. 维护记录
 
 | 日期 | 事项 |
 | --- | --- |
@@ -404,7 +448,7 @@ npm run start -- -p 5179
 
 ---
 
-## 11. 相关文件
+## 12. 相关文件
 
 - 页面与数据：`src/views/UILibraryView.vue`
 - 英文文案：`src/views/uiLibraryEn.ts`

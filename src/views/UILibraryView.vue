@@ -887,6 +887,140 @@ const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'nerv-ui',
+    name: 'NERV UI',
+    tagline: '把「军用科研控制台」这一视觉母题做成可复用样式表与 HTML 组件。',
+    description:
+      'MIT 许可的零依赖样式表 + 自包含 HTML 组件：808 行 CSS，全部颜色、字体、CRT 效果与组件类都在里面。默认状态是纯黑 —— 屏幕在没有数据时保持关闭。组件覆盖事件流、金库卡片、MAGI 三源共识、指标栅格、数据表与紧急模式；完整 Demo 带一个 Three.js 拓扑可视化。仓库是给 AI 智能体用的 skill，SKILL.md 是完整规范。这里把上游文件原样托管在 /nerv-ui/ 下，便于直接看参考实现。',
+    repo: 'https://github.com/TheGreatGildo/nerv-ui',
+    release: 'https://github.com/TheGreatGildo/nerv-ui',
+    design: 'https://github.com/TheGreatGildo/nerv-ui/blob/main/SKILL.md',
+    demo: {
+      label: '完整 Demo',
+      url: '/nerv-ui/demo.html',
+      note: '上游 demo.html 原样托管：拓扑图、事件流、金库卡、MAGI 共识、指标与紧急模式。字体走 Google Fonts，需联网。',
+    },
+    stack: ['HTML / CSS', 'Zero deps', 'CRT effects', 'Three.js (demo)', 'AI agent skill'],
+    theme: '纯黑 void + 磷光橙 / 数据绿 / 告警红',
+    screenshots: [
+      {
+        src: '/nerv-ui/shot-demo.png',
+        caption: '完整控制台：拓扑图、指标栅格、事件流与三源共识同屏。',
+      },
+      {
+        src: '/nerv-ui/shot-magi.png',
+        caption: 'MAGI 三源共识：三列表决，一致/分歧用颜色与文字双重标记。',
+      },
+      {
+        src: '/nerv-ui/shot-log.png',
+        caption: '事件流：类型分色、时间戳等宽、右侧区块高度对齐。',
+      },
+    ],
+    modules: [
+      {
+        id: 'nrv-foundations',
+        name: '色彩与字体',
+        group: '基础',
+        summary:
+          '磷光配色各有单一职责：橙 #FF9830 做结构、绿 #50FF50 做数据、青 #20F0FF 做连线、红 #FF3030 只给告警；底色是 #000 加三层极暗面板。字体是明朝体标题 + 等宽正文 + 压缩体印章。',
+        files: [
+          { label: 'nerv-ui.css', path: 'nerv-ui.css' },
+          { label: 'SKILL.md', path: 'SKILL.md' },
+          { label: 'LICENSE', path: 'LICENSE' },
+        ],
+        points: [
+          '每个颜色只有一个职责，跨色复用会直接破坏可读性。',
+          '文字几乎全部等宽，数字用 tabular 对齐，读起来像仪表而不是文章。',
+          '「屏幕默认关闭」：没有数据时保持纯黑，不用占位骨架屏。',
+        ],
+      },
+      {
+        id: 'nrv-crt',
+        name: 'CRT 效果',
+        group: '视觉特效',
+        summary:
+          '扫描线、暗角、闪烁与辉光全部用 CSS 渐变与动画实现，没有图片；crt-effects.css 可以单独拿走用在任意页面。',
+        files: [
+          { label: 'crt-effects.css', path: 'components/crt-effects.css' },
+          { label: 'nerv-ui.css', path: 'nerv-ui.css' },
+        ],
+        points: [
+          '扫描线用 repeating-linear-gradient 叠在内容之上，不拦截指针事件。',
+          '辉光是多层 text-shadow / box-shadow 叠加，而不是滤镜。',
+          '闪烁与扫描的时长都很短，避免变成干扰阅读的持续动画。',
+        ],
+      },
+      {
+        id: 'nrv-console',
+        name: '控制台布局与指标',
+        group: '布局',
+        summary:
+          '三列仪表盘：左侧拓扑、中间指标与金库卡、右侧事件流。指标栅格把「值—单位—说明」压成一行，靠颜色和字号区分层级。',
+        files: [
+          { label: 'metrics-grid.html', path: 'components/metrics-grid.html' },
+          { label: 'nerv-ui.css', path: 'nerv-ui.css' },
+          { label: 'demo.html', path: 'demo.html' },
+        ],
+        points: [
+          '列宽用比例而非固定像素，窄屏时按顺序堆叠。',
+          '指标值用大号等宽字，单位小一号且降饱和，避免抢读数。',
+          '面板边框只有 1px 且带一点内发光，边界靠亮度而非阴影。',
+        ],
+      },
+      {
+        id: 'nrv-data',
+        name: '事件流与数据表',
+        group: '数据',
+        summary:
+          '事件流是带类型色的滚动列表，时间戳等宽、金额右对齐；数据表把策略与变形器的表现并排，行高一致、无斑马纹。',
+        files: [
+          { label: 'event-log.html', path: 'components/event-log.html' },
+          { label: 'data-table.html', path: 'components/data-table.html' },
+          { label: 'nerv-ui.css', path: 'nerv-ui.css' },
+        ],
+        points: [
+          '事件类型靠颜色 + 文字双重编码，不只依赖颜色。',
+          '数字列一律右对齐并使用等宽字体，方便纵向扫读。',
+          '表格不画竖线，用行高和留白分隔，减少视觉噪音。',
+        ],
+      },
+      {
+        id: 'nrv-magi',
+        name: 'MAGI 三源与金库卡',
+        group: '组件',
+        summary:
+          'MAGI 共识把三个来源并排表决，一致时整行转绿；金库卡是「单元 + 状态灯 + 关键比率」的紧凑卡片，状态用颜色与文字同时表达。',
+        files: [
+          { label: 'magi-oracle.html', path: 'components/magi-oracle.html' },
+          { label: 'vault-card.html', path: 'components/vault-card.html' },
+          { label: 'nerv-ui.css', path: 'nerv-ui.css' },
+        ],
+        points: [
+          '三源表决用行内小字标注「一致 / 分歧」，不靠用户从颜色推断。',
+          '状态灯是带辉光的小圆点，只有在状态变化时才闪。',
+          '卡片内部用等宽字块对齐，右列数值形成一条竖直基准线。',
+        ],
+      },
+      {
+        id: 'nrv-emergency',
+        name: '紧急模式',
+        group: '状态',
+        summary:
+          '整页切换到告警态：斜纹警示带、六边形横幅、红色覆盖层与更强的扫描线；退出后恢复常态，不残留样式。',
+        files: [
+          { label: 'nerv-ui.css', path: 'nerv-ui.css' },
+          { label: 'demo.html', path: 'demo.html' },
+          { label: 'SKILL.md', path: 'SKILL.md' },
+        ],
+        points: [
+          '紧急态是页面级状态，不是单个组件变体。',
+          '斜纹用 repeating-linear-gradient 做，角度固定，不需要 SVG。',
+          '退出时移除根节点 class，所有副作用随选择器一起消失。',
+        ],
+      },
+    ],
+  },
+  {
     id: 'nasa-punk',
     name: 'NASA-Punk UI Skill',
     tagline: 'NASA 黄金时代复古未来主义设计系统，给 AI 编码智能体的 UI 技能包。',

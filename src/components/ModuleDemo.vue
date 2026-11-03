@@ -43,6 +43,16 @@ const ekRailItems = [
 const ekTabs = ['Overview', 'Assets', 'Comms', 'Logs']
 const ekItems = ['protocol synced', 'orbit calibrated 03', 'signal −62 dBm', 'archive sealed']
 
+/* NERV UI demo state */
+const nrvPalette = [
+  { name: 'structure', hex: '#FF9830' },
+  { name: 'data', hex: '#50FF50' },
+  { name: 'wire', hex: '#20F0FF' },
+  { name: 'alert', hex: '#FF3030' },
+  { name: 'steel', hex: '#D8D8D0' },
+  { name: 'void', hex: '#000000' },
+]
+
 /* Apple kit demo state */
 const axPill = ref(1)
 const axPillOptions = ['Compact', 'Regular', 'Roomy']
@@ -1523,6 +1533,51 @@ function moveQueue(index: number, dir: -1 | 1) {
           </div>
         </div>
         <div class="mdemo-foot"><span>{{ t('媒体框 / 价格药丸', 'Media frame / price pill') }}</span><strong>MEDIA</strong></div>
+      </template>
+
+      <!-- nerv ui: foundations -->
+      <template v-else-if="id === 'nrv-foundations'">
+        <div class="nrv-stage">
+          <div class="nrv-swatches">
+            <span v-for="c in nrvPalette" :key="c.name" class="nrv-swatch">
+              <i :style="{ background: c.hex }" />
+              <b>{{ c.name }}</b>
+              <em>{{ c.hex }}</em>
+            </span>
+          </div>
+          <p class="nrv-type">STRUCTURE / DATA / WIRE / ALERT</p>
+        </div>
+        <div class="mdemo-foot"><span>{{ t('磷光配色，每色一个职责', 'Phosphor palette, one job each') }}</span><strong>COLOR</strong></div>
+      </template>
+
+      <!-- nerv ui: crt -->
+      <template v-else-if="id === 'nrv-crt'">
+        <iframe class="nrv-frame" src="/nerv-ui/components/metrics-grid.html" title="CRT effects" loading="lazy" />
+        <div class="mdemo-foot"><span>{{ t('扫描线 / 辉光 / 暗角', 'Scanlines / glow / vignette') }}</span><strong>CRT</strong></div>
+      </template>
+
+      <!-- nerv ui: console -->
+      <template v-else-if="id === 'nrv-console'">
+        <iframe class="nrv-frame" src="/nerv-ui/components/metrics-grid.html" title="Metrics grid" loading="lazy" />
+        <div class="mdemo-foot"><span>{{ t('指标栅格', 'Metrics grid') }}</span><strong>CONSOLE</strong></div>
+      </template>
+
+      <!-- nerv ui: data -->
+      <template v-else-if="id === 'nrv-data'">
+        <iframe class="nrv-frame" src="/nerv-ui/components/event-log.html" title="Event log" loading="lazy" />
+        <div class="mdemo-foot"><span>{{ t('事件流：类型分色 + 等宽', 'Event log: typed colours + mono') }}</span><strong>DATA</strong></div>
+      </template>
+
+      <!-- nerv ui: magi -->
+      <template v-else-if="id === 'nrv-magi'">
+        <iframe class="nrv-frame" src="/nerv-ui/components/magi-oracle.html" title="MAGI oracle" loading="lazy" />
+        <div class="mdemo-foot"><span>{{ t('三源表决', 'Three-source vote') }}</span><strong>MAGI</strong></div>
+      </template>
+
+      <!-- nerv ui: emergency -->
+      <template v-else-if="id === 'nrv-emergency'">
+        <iframe class="nrv-frame" src="/nerv-ui/demo.html" title="Emergency mode demo" loading="lazy" />
+        <div class="mdemo-foot"><span>{{ t('点右上角 EMERGENCY 切换', 'Toggle EMERGENCY top-right') }}</span><strong>ALERT</strong></div>
       </template>
 
       <div v-else class="mdemo-empty">{{ t('该模块暂无独立视觉演示', 'No visual demo for this module yet') }}</div>

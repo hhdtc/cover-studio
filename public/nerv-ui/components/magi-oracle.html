@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NERV UI — MAGI Oracle Component</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@800;900&family=JetBrains+Mono:wght@400;500;700&family=Saira+Extra+Condensed:wght@700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: #000; --void-warm: #080807;
+  --nerv-orange: #FF9830; --nerv-orange-dim: #C87020;
+  --data-green: #50FF50;
+  --wire-cyan: #20F0FF; --wire-cyan-dim: #10A0B0;
+  --alert-red: #FF3030;
+  --steel: #D8D8D0; --steel-dim: #888880; --steel-faint: rgba(200,200,192,0.06);
+  --font-title: 'Noto Serif Display', serif;
+  --font-sys: 'JetBrains Mono', monospace;
+  --font-stamp: 'Saira Extra Condensed', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--void); font-family: var(--font-sys); padding: 40px; }
+
+.panel {
+  background: var(--void-warm); border: 1px solid var(--steel-faint);
+  display: flex; flex-direction: column; width: 420px; margin: 0 auto;
+}
+.panel-header {
+  font-size: 8px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--nerv-orange);
+  padding: 6px 10px 5px; border-bottom: 1px solid var(--nerv-orange-dim);
+  display: flex; justify-content: space-between;
+}
+.panel-header .tag { font-size: 7px; color: var(--steel-dim); }
+.panel-body { padding: 8px 10px; }
+
+.magi-oracle { display: flex; flex-direction: column; gap: 6px; }
+.magi-source {
+  padding: 6px 8px; border: 1px solid var(--wire-cyan-dim);
+  background: var(--void); display: flex; align-items: center; gap: 8px;
+}
+.magi-source .ms-name {
+  font-family: var(--font-title); font-size: 11px; font-weight: 800;
+  letter-spacing: 0.15em; text-transform: uppercase; color: var(--wire-cyan);
+  transform: scaleX(0.85); transform-origin: left; min-width: 90px;
+}
+.magi-source .ms-price {
+  font-size: 11px; font-weight: 700; color: var(--data-green); font-variant-numeric: tabular-nums;
+}
+.magi-source .ms-meta {
+  font-size: 7px; color: var(--steel-dim); margin-left: auto; text-align: right; line-height: 1.4;
+}
+.magi-source .ms-status {
+  font-family: var(--font-stamp); font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+}
+.ms-status.agree { color: var(--data-green); }
+.ms-status.stale { color: var(--nerv-orange); }
+.ms-status.reject { color: var(--alert-red); }
+.magi-consensus {
+  font-size: 8px; text-align: center; padding: 4px;
+  color: var(--steel-dim); letter-spacing: 0.1em; text-transform: uppercase;
+  border-top: 1px solid var(--wire-cyan-dim);
+}
+.led { display: inline-block; width: 5px; height: 5px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
+.led.green { background: var(--data-green); box-shadow: 0 0 4px var(--data-green); }
+.led.orange { background: var(--nerv-orange); box-shadow: 0 0 4px var(--nerv-orange); }
+</style>
+</head>
+<body>
+
+<div class="panel">
+  <div class="panel-header">
+    <span>MAGI Oracle — Price Consensus</span>
+    <span class="tag">合意形成</span>
+  </div>
+  <div class="panel-body">
+    <div class="magi-oracle">
+      <div class="magi-source">
+        <span class="led green"></span>
+        <div class="ms-name">Melchior</div>
+        <div class="ms-price" id="p1">$3,842.18</div>
+        <div class="ms-meta">Chainlink<br><span id="a1">2s ago</span></div>
+        <div class="ms-status agree">AGREE</div>
+      </div>
+      <div class="magi-source">
+        <span class="led green"></span>
+        <div class="ms-name">Balthasar</div>
+        <div class="ms-price" id="p2">$3,842.44</div>
+        <div class="ms-meta">Uniswap TWAP<br><span id="a2">5s ago</span></div>
+        <div class="ms-status agree">AGREE</div>
+      </div>
+      <div class="magi-source">
+        <span class="led green"></span>
+        <div class="ms-name">Casper</div>
+        <div class="ms-price" id="p3">$3,841.92</div>
+        <div class="ms-meta">Internal<br><span id="a3">1s ago</span></div>
+        <div class="ms-status agree">AGREE</div>
+      </div>
+      <div class="magi-consensus">
+        Consensus: <span style="color:var(--data-green);font-weight:700">3/3 AGREE — Deviation: 0.013%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Simulated oracle updates
+const base = 3842.18;
+const prices = [base, base + 0.26, base - 0.26];
+const intervals = [12000, 20000, 8000];
+const lastUpdate = [Date.now(), Date.now(), Date.now()];
+
+setInterval(() => {
+  const now = Date.now();
+  [1,2,3].forEach((n, i) => {
+    if (now - lastUpdate[i] > intervals[i]) {
+      lastUpdate[i] = now;
+      prices[i] = base + (Math.random() - 0.5) * 2;
+      document.getElementById('p' + n).textContent = '$' + prices[i].toFixed(2);
+    }
+    document.getElementById('a' + n).textContent = Math.round((now - lastUpdate[i]) / 1000) + 's ago';
+  });
+}, 1000);
+</script>
+</body>
+</html>

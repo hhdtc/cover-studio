@@ -222,6 +222,47 @@
       "route": "/#/ui/apple-kit"
     },
     {
+      "id": "nerv-ui",
+      "name": "NERV UI",
+      "repo": "https://github.com/TheGreatGildo/nerv-ui",
+      "demo": "/nerv-ui/demo.html",
+      "docs": "https://github.com/TheGreatGildo/nerv-ui/blob/main/SKILL.md",
+      "license": "MIT (Copyright (c) 2026 TheGreatGildo)",
+      "route": "/#/ui/nerv-ui",
+      "modules": [
+        {
+          "id": "nrv-foundations",
+          "name": "Colour & type",
+          "route": "/#/ui/nerv-ui/nrv-foundations"
+        },
+        {
+          "id": "nrv-crt",
+          "name": "CRT effects",
+          "route": "/#/ui/nerv-ui/nrv-crt"
+        },
+        {
+          "id": "nrv-console",
+          "name": "Console layout & metrics",
+          "route": "/#/ui/nerv-ui/nrv-console"
+        },
+        {
+          "id": "nrv-data",
+          "name": "Event log & tables",
+          "route": "/#/ui/nerv-ui/nrv-data"
+        },
+        {
+          "id": "nrv-magi",
+          "name": "MAGI & vault cards",
+          "route": "/#/ui/nerv-ui/nrv-magi"
+        },
+        {
+          "id": "nrv-emergency",
+          "name": "Emergency mode",
+          "route": "/#/ui/nerv-ui/nrv-emergency"
+        }
+      ]
+    },
+    {
       "id": "nasa-punk",
       "name": "NASA-Punk UI Skill",
       "repo": "https://github.com/duanth/NASA-Punk-UI-SKILL",

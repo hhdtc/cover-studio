@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NERV UI — Vault Card Component</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Saira+Extra+Condensed:wght@700&family=Shippori+Mincho+B1:wght@800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: #000; --void-warm: #080807;
+  --nerv-orange: #FF9830; --nerv-orange-dim: #C87020;
+  --data-green: #50FF50; --data-green-dim: #30BB30;
+  --wire-cyan: #20F0FF; --wire-cyan-dim: #10A0B0;
+  --steel: #D8D8D0; --steel-dim: #888880; --steel-faint: rgba(200,200,192,0.06);
+  --font-title: 'Noto Serif Display', serif;
+  --font-mincho: 'Shippori Mincho B1', serif;
+  --font-sys: 'JetBrains Mono', monospace;
+  --font-stamp: 'Saira Extra Condensed', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--void); font-family: var(--font-sys); padding: 40px; display: flex; gap: 2px; }
+
+.panel {
+  background: var(--void-warm);
+  border: 1px solid var(--steel-faint);
+  display: flex; flex-direction: column;
+  width: 320px;
+}
+.panel-header {
+  font-size: 8px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--nerv-orange);
+  padding: 6px 10px 5px; border-bottom: 1px solid var(--nerv-orange-dim);
+  display: flex; justify-content: space-between;
+}
+.panel-header .tag { font-size: 7px; color: var(--steel-dim); }
+.vault-card { padding: 8px 10px; }
+.vault-card .vc-id {
+  font-family: var(--font-title); font-size: 12px; font-weight: 800;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--wire-cyan);
+  transform: scaleX(0.82); transform-origin: left;
+}
+.vault-card .vc-name {
+  font-family: var(--font-mincho); font-size: 13px; font-weight: 800;
+  color: var(--steel); transform: scaleX(0.78); transform-origin: left;
+  margin: 2px 0 6px;
+}
+.vault-card .vc-row {
+  display: flex; justify-content: space-between;
+  font-size: 9px; padding: 2px 0; border-bottom: 1px solid var(--steel-faint);
+}
+.vault-card .vc-row:last-child { border-bottom: none; }
+.vault-card .vc-row .lbl { color: var(--nerv-orange-dim); text-transform: uppercase; letter-spacing: 0.06em; font-size: 8px; }
+.vault-card .vc-row .val { color: var(--data-green); font-weight: 500; font-variant-numeric: tabular-nums; }
+.led { display: inline-block; width: 5px; height: 5px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
+.led.green { background: var(--data-green); box-shadow: 0 0 4px var(--data-green), 0 0 8px rgba(80,255,80,0.3); }
+</style>
+</head>
+<body>
+
+<!-- Vault Card: replace data with your protocol's values -->
+<div class="panel">
+  <div class="panel-header">
+    <span>Unit-00 — alETH</span>
+    <span class="tag"><span class="led green"></span>Operational</span>
+  </div>
+  <div class="vault-card">
+    <div class="vc-id">Primary — Ethereum</div>
+    <div class="vc-name">自己返済型ＥＴＨ</div>
+    <div class="vc-row"><span class="lbl">TVL</span><span class="val">$142,800,000</span></div>
+    <div class="vc-row"><span class="lbl">Composite APY</span><span class="val">4.82%</span></div>
+    <div class="vc-row"><span class="lbl">Positions</span><span class="val">2,847</span></div>
+    <div class="vc-row"><span class="lbl">Debt Outstanding</span><span class="val">24,180 alETH</span></div>
+    <div class="vc-row"><span class="lbl">Collateral Ratio</span><span class="val">2.41x</span></div>
+    <div class="vc-row"><span class="lbl">Strategies</span><span class="val">Morpho · EtherFi · Aave</span></div>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="panel-header">
+    <span>Unit-01 — alUSD</span>
+    <span class="tag"><span class="led green"></span>Operational</span>
+  </div>
+  <div class="vault-card">
+    <div class="vc-id">Stablecoin — USDC</div>
+    <div class="vc-name">自己返済型ＵＳＤ</div>
+    <div class="vc-row"><span class="lbl">TVL</span><span class="val">$89,200,000</span></div>
+    <div class="vc-row"><span class="lbl">Composite APY</span><span class="val">6.14%</span></div>
+    <div class="vc-row"><span class="lbl">Positions</span><span class="val">1,623</span></div>
+    <div class="vc-row"><span class="lbl">Debt Outstanding</span><span class="val">18,420,000 alUSD</span></div>
+    <div class="vc-row"><span class="lbl">Collateral Ratio</span><span class="val">2.12x</span></div>
+    <div class="vc-row"><span class="lbl">Strategies</span><span class="val">Euler · Fluid · Aave</span></div>
+  </div>
+</div>
+
+</body>
+</html>

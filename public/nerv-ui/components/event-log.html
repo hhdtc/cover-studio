@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NERV UI — Event Log Component</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: #000000;
+  --void-warm: #080807;
+  --nerv-orange: #FF9830;
+  --nerv-orange-dim: #C87020;
+  --data-green: #50FF50;
+  --data-green-dim: #30BB30;
+  --data-green-faint: rgba(80,255,80,0.06);
+  --data-green-fill: rgba(80,255,80,0.1);
+  --wire-cyan: #20F0FF;
+  --wire-cyan-dim: #10A0B0;
+  --alert-red: #FF3030;
+  --thermal-yellow: #FFE820;
+  --thermal-magenta: #F030C0;
+  --steel: #D8D8D0;
+  --steel-dim: #888880;
+  --steel-faint: rgba(200,200,192,0.06);
+  --font-sys: 'JetBrains Mono', 'Cascadia Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--void); font-family: var(--font-sys); }
+
+.event-log {
+  background: var(--void-warm);
+  border: 1px solid var(--steel-faint);
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 600px;
+  margin: 20px auto;
+}
+
+.event-log .el-header {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--nerv-orange);
+  padding: 6px 10px 5px;
+  border-bottom: 1px solid var(--nerv-orange-dim);
+  display: flex;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.event-log .el-header .el-count {
+  font-size: 7px;
+  color: var(--data-green);
+  font-weight: 500;
+}
+
+.event-log .el-body {
+  flex: 1;
+  overflow-y: auto;
+  font-size: 9px;
+  line-height: 1.5;
+  padding: 2px 0;
+  min-height: 0;
+}
+
+.event-log .el-body::-webkit-scrollbar { width: 3px; }
+.event-log .el-body::-webkit-scrollbar-track { background: var(--void); }
+.event-log .el-body::-webkit-scrollbar-thumb { background: var(--steel-faint); }
+
+.ev {
+  padding: 1px 10px;
+  display: flex;
+  gap: 6px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  border-left: 2px solid transparent;
+}
+.ev:hover { background: var(--data-green-faint); }
+.ev .ev-time { color: var(--steel-dim); min-width: 52px; }
+.ev .ev-type { min-width: 62px; font-weight: 700; letter-spacing: 0.04em; }
+.ev .ev-detail { color: var(--steel); flex: 1; overflow: hidden; text-overflow: ellipsis; }
+.ev .ev-amount { color: var(--data-green); min-width: 85px; text-align: right; }
+.ev .ev-block { color: var(--steel-dim); font-size: 8px; min-width: 65px; text-align: right; }
+
+.ev-type.deposit  { color: var(--data-green); }
+.ev-type.borrow   { color: var(--wire-cyan); }
+.ev-type.harvest  { color: var(--nerv-orange); }
+.ev-type.repay    { color: var(--data-green-dim); }
+.ev-type.redeem   { color: var(--thermal-yellow); }
+.ev-type.mint     { color: var(--thermal-magenta); }
+
+.ev.new-entry { border-left-color: var(--data-green); animation: ev-flash 0.6s ease-out; }
+@keyframes ev-flash { 0% { background: var(--data-green-fill); } 100% { background: transparent; } }
+</style>
+</head>
+<body>
+
+<div class="event-log">
+  <div class="el-header">
+    <span>Blockchain Event Log — ブロックチェーンイベント</span>
+    <span class="el-count" id="eventCount">0 events</span>
+  </div>
+  <div class="el-body" id="logBody"></div>
+</div>
+
+<script>
+// ── Minimal event generator for demo ──
+const TYPES = [
+  { type: 'DEPOSIT', cls: 'deposit', w: 30 },
+  { type: 'BORROW', cls: 'borrow', w: 20 },
+  { type: 'HARVEST', cls: 'harvest', w: 25 },
+  { type: 'REPAY', cls: 'repay', w: 10 },
+  { type: 'REDEEM', cls: 'redeem', w: 10 },
+  { type: 'MINT', cls: 'mint', w: 5 },
+];
+const totalW = TYPES.reduce((s, e) => s + e.w, 0);
+let blockNum = 19284721, evCount = 0;
+
+function randAddr() {
+  const h = '0123456789abcdef';
+  let a = '0x';
+  for (let i = 0; i < 40; i++) a += h[Math.floor(Math.random() * 16)];
+  return a.slice(0, 6) + '…' + a.slice(-4);
+}
+
+function genEvent() {
+  let r = Math.random() * totalW;
+  let et = TYPES[0];
+  for (const e of TYPES) { r -= e.w; if (r <= 0) { et = e; break; } }
+  blockNum += Math.floor(Math.random() * 3) + 1;
+  evCount++;
+  const time = new Date().toTimeString().split(' ')[0];
+  const amounts = ['142.5 ETH', '5,000 alUSD', '+0.847 ETH', '28.3 ETH', '1,200 alETH', '50,000 USDC'];
+  return {
+    time, type: et.type, cls: et.cls,
+    detail: et.type === 'HARVEST' ? 'Morpho wETH yield' : randAddr(),
+    amount: amounts[Math.floor(Math.random() * amounts.length)],
+    block: blockNum,
+  };
+}
+
+function render(ev, isNew) {
+  const d = document.createElement('div');
+  d.className = 'ev' + (isNew ? ' new-entry' : '');
+  d.innerHTML = `<span class="ev-time">${ev.time}</span><span class="ev-type ${ev.cls}">${ev.type}</span><span class="ev-detail">${ev.detail}</span><span class="ev-amount">${ev.amount}</span><span class="ev-block">#${ev.block}</span>`;
+  logBody.appendChild(d);
+  if (isNew) setTimeout(() => d.classList.remove('new-entry'), 700);
+  while (logBody.children.length > 200) logBody.removeChild(logBody.firstChild);
+  logBody.scrollTop = logBody.scrollHeight;
+  document.getElementById('eventCount').textContent = evCount + ' events';
+}
+
+const logBody = document.getElementById('logBody');
+for (let i = 30; i >= 1; i--) render(genEvent(), false);
+(function tick() {
+  setTimeout(() => { render(genEvent(), true); tick(); }, 2000 + Math.random() * 5000);
+})();
+</script>
+</body>
+</html>

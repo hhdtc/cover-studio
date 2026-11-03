@@ -7147,3 +7147,63 @@ a.lib-card {
   display: flex;
   justify-content: center;
 }
+
+/* ---------------- NERV UI demos ---------------- */
+
+.nrv-stage {
+  display: grid;
+  gap: 14px;
+  padding: 18px 16px;
+  border-radius: 12px;
+  background: #000;
+  border: 1px solid #222;
+}
+
+.nrv-swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+  gap: 8px;
+}
+
+.nrv-swatch {
+  display: grid;
+  gap: 4px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.nrv-swatch i {
+  display: block;
+  height: 26px;
+  border-radius: 3px;
+  box-shadow: 0 0 12px currentColor;
+}
+
+.nrv-swatch b {
+  color: #d8d8d0;
+  font-weight: 600;
+}
+
+.nrv-swatch em {
+  color: #888880;
+  font-style: normal;
+}
+
+.nrv-type {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  color: #ff9830;
+  text-transform: uppercase;
+}
+
+.nrv-frame {
+  width: 100%;
+  height: 360px;
+  border: 1px solid #222;
+  border-radius: 12px;
+  background: #000;
+}

@@ -1,0 +1,1892 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="nominal">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NERV OPERATIONS CONSOLE — ALCHEMIX V3</title>
+
+<!-- TYPOGRAPHY: Authentic EVA stack. NO HELVETICA. -->
+<!-- Noto Serif Display = Heavy compressed English titles (replaces thin Cormorant) -->
+<!-- Shippori Mincho B1 = Matisse EB equivalent for Japanese -->
+<!-- JetBrains Mono = terminal/data readouts -->
+<!-- Saira Extra Condensed = WARNING stamps -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Saira+Extra+Condensed:wght@400;600;700;800&family=Shippori+Mincho+B1:wght@500;700;800&display=swap" rel="stylesheet">
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"
+  }
+}
+</script>
+
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   NERV UI v2.1 — Dense Operations Console
+   Every pixel conveys information. No decorative waste.
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --void:             #000000;
+  --void-warm:        #080807;
+  --void-panel:       #0C0C0A;
+  --void-raised:      #111110;
+
+  --nerv-orange:      #FF9830;
+  --nerv-orange-dim:  #C87020;
+  --nerv-orange-hot:  #FFCC50;
+  --nerv-orange-fill: rgba(255, 152, 48, 0.08);
+
+  --data-green:       #50FF50;
+  --data-green-dim:   #30BB30;
+  --data-green-faint: rgba(80, 255, 80, 0.06);
+  --data-green-fill:  rgba(80, 255, 80, 0.1);
+
+  --wire-cyan:        #20F0FF;
+  --wire-cyan-dim:    #10A0B0;
+  --wire-cyan-glow:   rgba(32, 240, 255, 0.12);
+
+  --alert-red:        #FF3030;
+  --alert-red-dim:    #CC2020;
+  --alert-red-hot:    #FF5050;
+  --alert-red-fill:   rgba(255, 48, 48, 0.15);
+
+  --thermal-yellow:   #FFE820;
+  --thermal-magenta:  #F030C0;
+  --thermal-blue:     #3060F0;
+
+  --steel:            #D8D8D0;
+  --steel-dim:        #888880;
+  --steel-faint:      rgba(200, 200, 192, 0.06);
+  --steel-line:       rgba(200, 200, 192, 0.12);
+
+  --font-mincho:      'Shippori Mincho B1', 'YuMincho', 'Hiragino Mincho ProN', serif;
+  --font-title:       'Noto Serif Display', 'Times New Roman', serif;
+  --font-sys:         'JetBrains Mono', 'Cascadia Mono', 'Consolas', monospace;
+  --font-stamp:       'Saira Extra Condensed', 'Impact', sans-serif;
+
+  --scan-opacity:     0.04;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: var(--void); color: var(--data-green); }
+
+body {
+  font-family: var(--font-sys);
+  font-size: 12px;
+  line-height: 1.4;
+  background: var(--void);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── CRT EFFECTS ───────────────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,var(--scan-opacity)) 2px, rgba(0,0,0,var(--scan-opacity)) 4px);
+  pointer-events: none;
+  z-index: 10000;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 70% at center, transparent 50%, rgba(0,0,0,0.4) 100%);
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@keyframes phosphor-flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.96; }
+  94% { opacity: 1; }
+}
+body { animation: phosphor-flicker 4s ease-in-out infinite; }
+
+.scan-line-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(80,255,80,0.15) 20%, rgba(80,255,80,0.3) 50%, rgba(80,255,80,0.15) 80%, transparent 100%);
+  pointer-events: none;
+  z-index: 9997;
+  animation: scan-line 4s linear infinite;
+  opacity: 0.5;
+}
+
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+[data-mode="emergency"] .scan-line-overlay {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,48,48,0.2) 20%, rgba(255,48,48,0.5) 50%, rgba(255,48,48,0.2) 80%, transparent 100%);
+  animation-duration: 2s;
+  opacity: 0.8;
+}
+
+/* ── GLOW EFFECTS ──────────────────────────────────────────── */
+.glow-green { text-shadow: 0 0 8px rgba(80,255,80,0.5), 0 0 16px rgba(80,255,80,0.2); }
+.glow-orange { text-shadow: 0 0 8px rgba(255,152,48,0.5), 0 0 16px rgba(255,152,48,0.2); }
+.glow-cyan { text-shadow: 0 0 8px rgba(32,240,255,0.5), 0 0 16px rgba(32,240,255,0.2); }
+.glow-red { text-shadow: 0 0 8px rgba(255,48,48,0.5), 0 0 16px rgba(255,48,48,0.3); }
+
+/* ── GLITCH/EMERGENCY ──────────────────────────────────────── */
+@keyframes glitch-jitter {
+  0%, 100% { transform: translate(0,0); }
+  10% { transform: translate(-1px,0); }
+  30% { transform: translate(0,1px); }
+  50% { transform: translate(-1px,1px); }
+  70% { transform: translate(0,-1px); }
+  90% { transform: translate(1px,1px); }
+}
+[data-mode="emergency"] .glitch-target { animation: glitch-jitter 0.3s steps(10) infinite; }
+@media (prefers-reduced-motion: reduce) { body, [data-mode="emergency"] * { animation: none !important; } }
+
+/* ── NAVIGATION ────────────────────────────────────────────── */
+.nerv-nav {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  background: var(--void);
+  border-bottom: 1px solid var(--nerv-orange-dim);
+  gap: 20px;
+  z-index: 100;
+}
+
+.nerv-nav .org-mark {
+  font-family: var(--font-title);
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: 0.25em;
+  color: var(--nerv-orange);
+  text-transform: uppercase;
+  transform: scaleX(0.82);
+  transform-origin: left center;
+  line-height: 1.15;
+}
+
+.nerv-nav .org-mark .sub {
+  font-family: var(--font-sys);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--steel-dim);
+  display: block;
+  transform: scaleX(1.22);
+  font-weight: 400;
+}
+
+.nerv-nav .jp-sub {
+  font-family: var(--font-mincho);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--nerv-orange-dim);
+  transform: scaleX(0.8);
+  transform-origin: left;
+}
+
+.nerv-nav .nav-links {
+  display: flex;
+  gap: 14px;
+  margin-left: auto;
+}
+
+.nerv-nav a, .nerv-nav button {
+  font-family: var(--font-sys);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--steel-dim);
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color 0.15s;
+}
+
+.nerv-nav a:hover, .nerv-nav a.active, .nerv-nav button:hover { color: var(--nerv-orange); }
+
+.emergency-toggle { position: relative; }
+.emergency-toggle::before { content: '⚠'; margin-right: 4px; }
+[data-mode="emergency"] .emergency-toggle {
+  background: var(--alert-red) !important;
+  color: var(--void) !important;
+  border-color: var(--alert-red) !important;
+}
+
+/* ── TICKER ────────────────────────────────────────────────── */
+.ticker {
+  overflow: hidden;
+  white-space: nowrap;
+  background: var(--void);
+  border-bottom: 1px solid var(--steel-faint);
+  padding: 2px 0;
+  font-family: var(--font-sys);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--nerv-orange);
+}
+
+.ticker .scroll {
+  display: inline-block;
+  animation: ticker-scroll 60s linear infinite;
+  padding-left: 100%;
+}
+
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+[data-mode="emergency"] .ticker { background: var(--alert-red); color: var(--void); border-color: var(--alert-red); }
+
+/* ── PANEL (base component) ────────────────────────────────── */
+.panel {
+  background: var(--void-warm);
+  border: 1px solid var(--steel-faint);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-header {
+  font-family: var(--font-sys);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--nerv-orange);
+  padding: 6px 10px 5px;
+  border-bottom: 1px solid var(--nerv-orange-dim);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.panel-header .tag {
+  font-size: 7px;
+  color: var(--steel-dim);
+  letter-spacing: 0.08em;
+}
+
+.panel-body {
+  padding: 8px 10px;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ── DASHBOARD LAYOUT ──────────────────────────────────────── */
+.console-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.dashboard {
+  display: flex;
+  gap: 2px;
+  flex: 1;
+  padding: 2px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.dash-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  overflow-y: auto;
+}
+
+.dash-right {
+  width: 370px;
+  min-width: 370px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dash-row {
+  display: grid;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.dash-row.r1 { grid-template-columns: 1.2fr 1fr; min-height: 380px; }
+.dash-row.r2 { grid-template-columns: 1fr 1fr; }
+.dash-row.r3 { grid-template-columns: 1.5fr 1fr; min-height: 180px; }
+.dash-row.r4 { grid-template-columns: 1fr; }
+
+@media (max-width: 1100px) {
+  .dashboard { flex-direction: column; }
+  .dash-right { width: 100%; min-width: 0; max-height: 300px; }
+  .dash-row.r1, .dash-row.r2, .dash-row.r3 { grid-template-columns: 1fr; }
+}
+
+/* ── METRICS GRID ──────────────────────────────────────────── */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--steel-faint);
+  flex: 1;
+}
+
+.metric-cell {
+  background: var(--void-warm);
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.metric-cell .m-label {
+  font-size: 7px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--nerv-orange);
+  margin-bottom: 2px;
+}
+
+.metric-cell .m-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--data-green);
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 6px rgba(80,255,80,0.4), 0 0 12px rgba(80,255,80,0.15);
+  line-height: 1.1;
+}
+
+.metric-cell .m-sub {
+  font-size: 7px;
+  color: var(--steel-dim);
+  margin-top: 2px;
+  letter-spacing: 0.06em;
+}
+
+.metric-cell.highlight .m-value {
+  color: var(--nerv-orange);
+  text-shadow: 0 0 6px rgba(255,152,48,0.4), 0 0 12px rgba(255,152,48,0.15);
+  font-size: 22px;
+}
+
+.metric-cell.zero .m-value {
+  font-family: var(--font-title);
+  font-weight: 900;
+  font-size: 28px;
+  letter-spacing: 0.05em;
+  transform: scaleX(0.85);
+  transform-origin: left;
+}
+
+/* ── VAULT CARD ────────────────────────────────────────────── */
+.vault-card {
+  padding: 8px 10px;
+  flex: 1;
+}
+
+.vault-card .vc-id {
+  font-family: var(--font-title);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--wire-cyan);
+  transform: scaleX(0.82);
+  transform-origin: left;
+}
+
+.vault-card .vc-name {
+  font-family: var(--font-mincho);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--steel);
+  transform: scaleX(0.78);
+  transform-origin: left;
+  margin: 2px 0 6px;
+}
+
+.vault-card .vc-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  padding: 2px 0;
+  border-bottom: 1px solid var(--steel-faint);
+}
+
+.vault-card .vc-row:last-child { border-bottom: none; }
+.vault-card .vc-row .lbl { color: var(--nerv-orange-dim); text-transform: uppercase; letter-spacing: 0.06em; font-size: 8px; }
+.vault-card .vc-row .val { color: var(--data-green); font-weight: 500; font-variant-numeric: tabular-nums; }
+
+.vault-card .vc-status {
+  margin-top: 4px;
+  font-family: var(--font-stamp);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--data-green);
+}
+
+.led {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+.led.green { background: var(--data-green); box-shadow: 0 0 4px var(--data-green), 0 0 8px rgba(80,255,80,0.3); }
+.led.red { background: var(--alert-red); box-shadow: 0 0 4px var(--alert-red); }
+.led.orange { background: var(--nerv-orange); box-shadow: 0 0 4px var(--nerv-orange); }
+.led.cyan { background: var(--wire-cyan); box-shadow: 0 0 4px var(--wire-cyan); }
+@keyframes led-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.led.blink { animation: led-blink 1s ease-in-out infinite; }
+
+/* ── DATA TABLE ────────────────────────────────────────────── */
+.nerv-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-sys);
+  font-size: 10px;
+}
+
+.nerv-table th {
+  font-size: 7px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 4px 8px;
+  color: var(--nerv-orange);
+  border-bottom: 1px solid var(--nerv-orange-dim);
+}
+
+.nerv-table td {
+  padding: 3px 8px;
+  color: var(--data-green);
+  border-bottom: 1px solid var(--steel-faint);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+.nerv-table td.lbl {
+  color: var(--nerv-orange-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 8px;
+  font-weight: 400;
+}
+
+.nerv-table tr:hover td { background: var(--data-green-faint); }
+
+/* ── THREE.JS VIEWPORT ────────────────────────────────────── */
+.three-viewport {
+  position: relative;
+  background: var(--void);
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.three-viewport canvas { width: 100% !important; height: 100% !important; display: block; }
+
+.three-viewport .vp-label {
+  position: absolute;
+  bottom: 4px;
+  left: 8px;
+  font-family: var(--font-sys);
+  font-size: 7px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--nerv-orange-dim);
+  z-index: 2;
+  background: rgba(0,0,0,0.65);
+  padding: 2px 6px;
+}
+
+.three-viewport .vp-data {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  font-family: var(--font-sys);
+  font-size: 9px;
+  color: var(--wire-cyan);
+  z-index: 2;
+  line-height: 1.5;
+  background: rgba(0,0,0,0.65);
+  padding: 4px 8px;
+  border-left: 1px solid var(--nerv-orange-dim);
+}
+
+.measurement-grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(var(--steel-line) 1px, transparent 1px), linear-gradient(90deg, var(--steel-line) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.3;
+}
+
+/* ── WAVEFORM DISPLAY ──────────────────────────────────────── */
+.waveform-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  background: var(--void);
+}
+
+.waveform-wrap canvas { width: 100%; height: 100%; display: block; }
+
+.waveform-wrap .readout {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--data-green);
+  text-shadow: 0 0 6px rgba(80,255,80,0.8), 0 0 12px rgba(80,255,80,0.5), 0 0 24px rgba(80,255,80,0.3);
+  z-index: 2;
+}
+
+.waveform-wrap .readout-label {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  font-size: 7px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--nerv-orange);
+  z-index: 2;
+}
+
+.waveform-wrap .timecode {
+  position: absolute;
+  bottom: 4px;
+  right: 8px;
+  font-size: 7px;
+  color: var(--nerv-orange-dim);
+  letter-spacing: 0.08em;
+  z-index: 2;
+}
+
+.waveform-wrap .legend {
+  position: absolute;
+  bottom: 4px;
+  left: 8px;
+  font-size: 7px;
+  color: var(--steel-dim);
+  z-index: 2;
+  display: flex;
+  gap: 12px;
+}
+
+.waveform-wrap .legend span::before {
+  content: '●';
+  margin-right: 3px;
+}
+.waveform-wrap .legend .l-green::before { color: var(--data-green); }
+.waveform-wrap .legend .l-cyan::before { color: var(--wire-cyan); }
+.waveform-wrap .legend .l-orange::before { color: var(--nerv-orange); }
+
+/* ── MAGI ORACLE ───────────────────────────────────────────── */
+.magi-oracle {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.magi-source {
+  padding: 6px 8px;
+  border: 1px solid var(--wire-cyan-dim);
+  background: var(--void);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.magi-source .ms-name {
+  font-family: var(--font-title);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--wire-cyan);
+  transform: scaleX(0.85);
+  transform-origin: left;
+  min-width: 90px;
+}
+
+.magi-source .ms-price {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--data-green);
+  font-variant-numeric: tabular-nums;
+}
+
+.magi-source .ms-meta {
+  font-size: 7px;
+  color: var(--steel-dim);
+  margin-left: auto;
+  text-align: right;
+  line-height: 1.4;
+}
+
+.magi-source .ms-status {
+  font-family: var(--font-stamp);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.magi-source .ms-status.agree { color: var(--data-green); }
+.magi-source .ms-status.stale { color: var(--nerv-orange); }
+.magi-source .ms-status.reject { color: var(--alert-red); }
+
+.magi-consensus {
+  font-size: 8px;
+  text-align: center;
+  padding: 4px;
+  color: var(--steel-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-top: 1px solid var(--wire-cyan-dim);
+}
+
+.magi-consensus span { font-weight: 700; }
+
+/* ── EVENT LOG ─────────────────────────────────────────────── */
+.event-log {
+  background: var(--void-warm);
+  border: 1px solid var(--steel-faint);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.event-log .el-header {
+  font-family: var(--font-sys);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--nerv-orange);
+  padding: 6px 10px 5px;
+  border-bottom: 1px solid var(--nerv-orange-dim);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.event-log .el-header .el-count {
+  font-size: 7px;
+  color: var(--data-green);
+  font-weight: 500;
+}
+
+.event-log .el-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-family: var(--font-sys);
+  font-size: 9px;
+  line-height: 1.5;
+  padding: 2px 0;
+  min-height: 0;
+}
+
+.event-log .el-body::-webkit-scrollbar { width: 3px; }
+.event-log .el-body::-webkit-scrollbar-track { background: var(--void); }
+.event-log .el-body::-webkit-scrollbar-thumb { background: var(--steel-faint); border-radius: 2px; }
+
+.ev {
+  padding: 1px 10px;
+  display: flex;
+  gap: 6px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  border-left: 2px solid transparent;
+}
+
+.ev:hover { background: var(--data-green-faint); }
+
+.ev .ev-time { color: var(--steel-dim); min-width: 52px; flex-shrink: 0; }
+.ev .ev-type { min-width: 62px; font-weight: 700; letter-spacing: 0.04em; flex-shrink: 0; }
+.ev .ev-detail { color: var(--steel); flex: 1; overflow: hidden; text-overflow: ellipsis; }
+.ev .ev-amount { color: var(--data-green); min-width: 85px; text-align: right; flex-shrink: 0; }
+.ev .ev-block { color: var(--steel-dim); font-size: 8px; min-width: 65px; text-align: right; flex-shrink: 0; }
+
+.ev-type.deposit  { color: var(--data-green); }
+.ev-type.borrow   { color: var(--wire-cyan); }
+.ev-type.harvest  { color: var(--nerv-orange); }
+.ev-type.repay    { color: var(--data-green-dim); }
+.ev-type.redeem   { color: var(--thermal-yellow); }
+.ev-type.transmute{ color: var(--wire-cyan-dim); }
+.ev-type.mint     { color: var(--thermal-magenta); }
+
+.ev.new-entry { border-left-color: var(--data-green); }
+.ev.new-entry { animation: ev-flash 0.6s ease-out; }
+@keyframes ev-flash {
+  0% { background: var(--data-green-fill); }
+  100% { background: transparent; }
+}
+
+/* ── ALERT BANNER / EMERGENCY ──────────────────────────────── */
+.alert-banner {
+  background: var(--alert-red);
+  color: var(--void);
+  padding: 6px 20px;
+  font-family: var(--font-stamp);
+  font-size: clamp(18px, 3vw, 28px);
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1;
+}
+
+@keyframes alert-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+.alert-banner.pulse { animation: alert-pulse 0.8s ease-in-out infinite; }
+
+.hazard-stripe {
+  background: repeating-linear-gradient(-45deg, var(--alert-red) 0px, var(--alert-red) 16px, var(--void) 16px, var(--void) 32px);
+  padding: 4px 0;
+}
+
+.emergency-hex-banner { display: none; }
+[data-mode="emergency"] .emergency-hex-banner { display: block; }
+
+.emergency-overlay { display: none; position: fixed; inset: 0; z-index: 9990; pointer-events: none; }
+[data-mode="emergency"] .emergency-overlay { display: block; }
+[data-mode="emergency"] .emergency-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,0,0,0.03);
+  animation: emergency-pulse 0.5s ease-in-out infinite alternate;
+}
+@keyframes emergency-pulse { from { background: rgba(255,0,0,0.02); } to { background: rgba(255,0,0,0.08); } }
+
+[data-mode="emergency"] {
+  --data-green: #FF3030;
+  --data-green-dim: #CC2020;
+  --data-green-faint: rgba(255,48,48,0.06);
+  --data-green-fill: rgba(255,48,48,0.1);
+  --wire-cyan: #FF5050;
+  --wire-cyan-dim: #AA3030;
+  --scan-opacity: 0.08;
+}
+
+[data-mode="emergency"] .panel { border-color: rgba(255,48,48,0.2); }
+[data-mode="emergency"] .panel-header { border-bottom-color: var(--alert-red-dim); }
+[data-mode="emergency"] .nerv-nav { border-bottom-color: var(--alert-red); background: rgba(255,0,0,0.04); }
+
+/* ── STRATEGY TABLE ────────────────────────────────────────── */
+.strat-table td.strat-name {
+  color: var(--wire-cyan);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.strat-table td.alloc { color: var(--nerv-orange); }
+.strat-table td.apy { font-weight: 700; }
+
+.nerv-progress {
+  height: 3px;
+  background: var(--void-panel);
+  border: 1px solid var(--steel-faint);
+  overflow: hidden;
+  min-width: 60px;
+}
+.nerv-progress .fill {
+  height: 100%;
+  background: var(--data-green);
+  box-shadow: 0 0 4px rgba(80,255,80,0.3);
+}
+
+/* ── BOTTOM BAR ────────────────────────────────────────────── */
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 12px;
+  font-size: 7px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--steel-dim);
+  border-top: 1px solid var(--steel-faint);
+  flex-shrink: 0;
+}
+</style>
+</head>
+
+<body>
+
+<div class="scan-line-overlay"></div>
+<div class="emergency-overlay" id="emergencyOverlay"></div>
+
+<div class="console-wrapper">
+
+<!-- ═══ NAV ═══ -->
+<nav class="nerv-nav">
+  <div class="org-mark">
+    Alchemix
+    <span class="sub">V3 Protocol Operations Console — Self-Repaying Finance</span>
+  </div>
+  <span class="jp-sub">特務機関アルケミックス</span>
+  <div class="nav-links">
+    <a href="#" class="active">Dashboard</a>
+    <a href="#">Vaults</a>
+    <a href="#">Transmuter</a>
+    <a href="#">Strategies</a>
+    <button class="emergency-toggle" onclick="toggleEmergency()">Emergency</button>
+  </div>
+</nav>
+
+<!-- ═══ TICKER ═══ -->
+<div class="ticker" id="mainTicker">
+  <div class="scroll" id="tickerContent"></div>
+</div>
+
+<!-- ═══ EMERGENCY BANNER ═══ -->
+<div class="emergency-hex-banner">
+  <div class="alert-banner pulse">◀ ◀ ◀  EMERGENCY — 緊急事態 — PROTOCOL STRESS DETECTED  ▶ ▶ ▶</div>
+  <div class="hazard-stripe"></div>
+</div>
+
+<!-- ═══ DASHBOARD ═══ -->
+<div class="dashboard">
+
+  <!-- ── LEFT COLUMN: All data panels ── -->
+  <div class="dash-left">
+
+    <!-- ROW 1: Globe + Metrics -->
+    <div class="dash-row r1">
+
+      <!-- 3D Globe: TVL topology — vault sizes proportional to TVL -->
+      <div class="panel">
+        <div class="panel-header">
+          <span>Protocol Topology — TVL Distribution</span>
+          <span class="tag">ネットワーク構造</span>
+        </div>
+        <div class="three-viewport" id="globeViewport">
+          <div class="vp-data">
+            <div style="color:var(--nerv-orange);font-size:7px;letter-spacing:0.12em">TOTAL VALUE LOCKED</div>
+            <div style="font-size:18px;font-weight:700;color:var(--data-green);text-shadow:0 0 8px rgba(80,255,80,0.6),0 0 20px rgba(80,255,80,0.3);" id="tvlReadout">$299,400,000</div>
+            <div style="font-size:7px;color:var(--steel-dim);margin-top:2px">
+              <span style="color:var(--wire-cyan)">●</span> alETH &nbsp;
+              <span style="color:var(--nerv-orange)">●</span> alUSD &nbsp;
+              <span style="color:var(--wire-cyan)">■</span> MESH &nbsp;
+              <span style="color:var(--nerv-orange)">■</span> FLOWS &nbsp;
+              <span style="color:var(--data-green)">■</span> BARS
+            </div>
+          </div>
+          <div class="vp-label">MAGI DATA ANALYSIS — YIELD TOPOLOGY — ネットワーク構造解析</div>
+        </div>
+      </div>
+
+      <!-- Protocol Metrics Grid -->
+      <div class="panel">
+        <div class="panel-header">
+          <span>Protocol Metrics</span>
+          <span class="tag">プロトコル指標</span>
+        </div>
+        <div class="metrics-grid">
+          <div class="metric-cell">
+            <div class="m-label">Total TVL</div>
+            <div class="m-value" id="metricTVL">$299.4M</div>
+            <div class="m-sub">across 2 vaults</div>
+          </div>
+          <div class="metric-cell">
+            <div class="m-label">Yield Generated (24h)</div>
+            <div class="m-value" id="metricYield">$284,190</div>
+            <div class="m-sub">accrued to collateral</div>
+          </div>
+          <div class="metric-cell">
+            <div class="m-label">Active Positions</div>
+            <div class="m-value" id="metricPositions">5,361</div>
+            <div class="m-sub">NFT-based (ERC-8004)</div>
+          </div>
+          <div class="metric-cell">
+            <div class="m-label">Harvests (24h)</div>
+            <div class="m-value" id="metricHarvests">847</div>
+            <div class="m-sub">MYT strategy harvests</div>
+          </div>
+          <div class="metric-cell">
+            <div class="m-label">Transmuter Buffer</div>
+            <div class="m-value highlight" id="metricBuffer">94.2%</div>
+            <div class="m-sub">avg across assets</div>
+          </div>
+          <div class="metric-cell zero">
+            <div class="m-label">Liquidations</div>
+            <div class="m-value" style="color:var(--data-green)">0 ∞</div>
+            <div class="m-sub">by design — 設計上ゼロ</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ROW 2: Vault Cards -->
+    <div class="dash-row r2">
+
+      <div class="panel">
+        <div class="panel-header"><span>Unit-00 — alETH</span><span class="tag"><span class="led green"></span>Operational</span></div>
+        <div class="vault-card">
+          <div class="vc-id">Primary — Ethereum</div>
+          <div class="vc-name">自己返済型ＥＴＨ</div>
+          <div class="vc-row"><span class="lbl">TVL</span><span class="val" id="vETH_tvl">$142,800,000</span></div>
+          <div class="vc-row"><span class="lbl">Composite APY</span><span class="val" id="vETH_apy">4.82%</span></div>
+          <div class="vc-row"><span class="lbl">Positions</span><span class="val" id="vETH_pos">2,847</span></div>
+          <div class="vc-row"><span class="lbl">Debt Outstanding</span><span class="val" id="vETH_debt">24,180 alETH</span></div>
+          <div class="vc-row"><span class="lbl">Collateral Ratio</span><span class="val" id="vETH_cr">2.41x</span></div>
+          <div class="vc-row"><span class="lbl">Strategies</span><span class="val">Morpho · EtherFi · Aave</span></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header"><span>Unit-01 — alUSD</span><span class="tag"><span class="led green"></span>Operational</span></div>
+        <div class="vault-card">
+          <div class="vc-id">Stablecoin — USDC</div>
+          <div class="vc-name">自己返済型ＵＳＤ</div>
+          <div class="vc-row"><span class="lbl">TVL</span><span class="val" id="vUSD_tvl">$89,200,000</span></div>
+          <div class="vc-row"><span class="lbl">Composite APY</span><span class="val" id="vUSD_apy">6.14%</span></div>
+          <div class="vc-row"><span class="lbl">Positions</span><span class="val" id="vUSD_pos">1,623</span></div>
+          <div class="vc-row"><span class="lbl">Debt Outstanding</span><span class="val" id="vUSD_debt">18,420,000 alUSD</span></div>
+          <div class="vc-row"><span class="lbl">Collateral Ratio</span><span class="val" id="vUSD_cr">2.12x</span></div>
+          <div class="vc-row"><span class="lbl">Strategies</span><span class="val">Euler · Fluid · Aave</span></div>
+        </div>
+      </div>
+
+
+
+    </div>
+
+    <!-- ROW 3: Waveform + MAGI Oracle -->
+    <div class="dash-row r3">
+
+      <!-- Yield Waveform — multi-strategy -->
+      <div class="panel">
+        <div class="panel-header">
+          <span>Yield Rate — Multi-Strategy Waveform</span>
+          <span class="tag">収益同期率</span>
+        </div>
+        <div class="waveform-wrap" id="waveformWrap">
+          <canvas id="waveformCanvas"></canvas>
+          <div class="readout-label">Composite Yield Rate</div>
+          <div class="readout" id="syncReadout">4.72%</div>
+          <div class="timecode" id="waveformTime">00:00:00.000</div>
+          <div class="legend">
+            <span class="l-green">Composite</span>
+            <span class="l-cyan">Morpho wETH</span>
+            <span class="l-orange">Euler USDC</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAGI Oracle Consensus -->
+      <div class="panel">
+        <div class="panel-header">
+          <span>MAGI Oracle — Price Consensus</span>
+          <span class="tag">合意形成</span>
+        </div>
+        <div class="panel-body">
+          <div class="magi-oracle">
+            <div class="magi-source" id="magi1">
+              <span class="led green"></span>
+              <div class="ms-name">Melchior</div>
+              <div class="ms-price" id="magi1Price">$3,842.18</div>
+              <div class="ms-meta">Chainlink<br><span id="magi1Age">2s ago</span></div>
+              <div class="ms-status agree" id="magi1Status">AGREE</div>
+            </div>
+            <div class="magi-source" id="magi2">
+              <span class="led green"></span>
+              <div class="ms-name">Balthasar</div>
+              <div class="ms-price" id="magi2Price">$3,842.44</div>
+              <div class="ms-meta">Uniswap TWAP<br><span id="magi2Age">5s ago</span></div>
+              <div class="ms-status agree" id="magi2Status">AGREE</div>
+            </div>
+            <div class="magi-source" id="magi3">
+              <span class="led green"></span>
+              <div class="ms-name">Casper</div>
+              <div class="ms-price" id="magi3Price">$3,841.92</div>
+              <div class="ms-meta">Internal<br><span id="magi3Age">1s ago</span></div>
+              <div class="ms-status agree" id="magi3Status">AGREE</div>
+            </div>
+            <div class="magi-consensus">
+              Consensus: <span style="color:var(--data-green)" id="magiResult">3/3 AGREE — Deviation: 0.013%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ROW 4: Strategy Table + Transmuter -->
+    <div class="dash-row r4">
+      <div class="panel">
+        <div class="panel-header">
+          <span>MYT Strategy Performance</span>
+          <span class="tag">メタイールドトークン</span>
+        </div>
+        <div class="panel-body" style="padding:0 0 4px 0;overflow-x:auto">
+          <table class="nerv-table strat-table">
+            <thead>
+              <tr>
+                <th>Strategy</th>
+                <th>Vault</th>
+                <th>TVL Allocated</th>
+                <th>APY</th>
+                <th>24h Yield</th>
+                <th>Harvests</th>
+                <th>Share Price</th>
+                <th>Utilization</th>
+              </tr>
+            </thead>
+            <tbody id="strategyBody">
+              <tr>
+                <td class="strat-name">Morpho wETH</td>
+                <td class="lbl">alETH</td>
+                <td>$68,200,000</td>
+                <td class="apy">5.12%</td>
+                <td>$9,572</td>
+                <td>312</td>
+                <td>1.0847</td>
+                <td><div class="nerv-progress" style="display:inline-block;width:60px;vertical-align:middle"><div class="fill" style="width:78%"></div></div> 78%</td>
+              </tr>
+              <tr>
+                <td class="strat-name">EtherFi eETH</td>
+                <td class="lbl">alETH</td>
+                <td>$42,100,000</td>
+                <td class="apy">4.68%</td>
+                <td>$5,401</td>
+                <td>198</td>
+                <td>1.0621</td>
+                <td><div class="nerv-progress" style="display:inline-block;width:60px;vertical-align:middle"><div class="fill" style="width:64%"></div></div> 64%</td>
+              </tr>
+              <tr>
+                <td class="strat-name">Aave wstETH</td>
+                <td class="lbl">alETH</td>
+                <td>$32,500,000</td>
+                <td class="apy">4.21%</td>
+                <td>$3,751</td>
+                <td>147</td>
+                <td>1.0412</td>
+                <td><div class="nerv-progress" style="display:inline-block;width:60px;vertical-align:middle"><div class="fill" style="width:52%"></div></div> 52%</td>
+              </tr>
+              <tr>
+                <td class="strat-name">Euler USDC</td>
+                <td class="lbl">alUSD</td>
+                <td>$38,400,000</td>
+                <td class="apy">6.84%</td>
+                <td>$7,198</td>
+                <td>89</td>
+                <td>1.1242</td>
+                <td><div class="nerv-progress" style="display:inline-block;width:60px;vertical-align:middle"><div class="fill" style="width:71%"></div></div> 71%</td>
+              </tr>
+              <tr>
+                <td class="strat-name">Fluid fUSDC</td>
+                <td class="lbl">alUSD</td>
+                <td>$28,900,000</td>
+                <td class="apy">5.92%</td>
+                <td>$4,689</td>
+                <td>67</td>
+                <td>1.0891</td>
+                <td><div class="nerv-progress" style="display:inline-block;width:60px;vertical-align:middle"><div class="fill" style="width:58%"></div></div> 58%</td>
+              </tr>
+              <tr>
+                <td class="strat-name">Aave USDC</td>
+                <td class="lbl">alUSD</td>
+                <td>$21,900,000</td>
+                <td class="apy">5.48%</td>
+                <td>$3,290</td>
+                <td>54</td>
+                <td>1.0724</td>
+                <td><div class="nerv-progress" style="display:inline-block;width:60px;vertical-align:middle"><div class="fill" style="width:44%"></div></div> 44%</td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 5: Transmuter Status -->
+    <div class="dash-row r4">
+      <div class="panel">
+        <div class="panel-header">
+          <span>Transmuter Status — Redemption Engine</span>
+          <span class="tag">変成器</span>
+        </div>
+        <div class="panel-body" style="padding:0 0 4px 0">
+          <table class="nerv-table">
+            <thead>
+              <tr>
+                <th>Pair</th>
+                <th>Buffer</th>
+                <th>Exchange Rate</th>
+                <th>24h Redeemed</th>
+                <th>Queue Depth</th>
+                <th>Avg Wait</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="lbl">alETH → ETH</td>
+                <td id="xmETH_buf">94.2%</td>
+                <td>0.9997</td>
+                <td>$2,184,200</td>
+                <td>142 positions</td>
+                <td>~4.2h</td>
+                <td><span class="led green"></span>Nominal</td>
+              </tr>
+              <tr>
+                <td class="lbl">alUSD → USDC</td>
+                <td id="xmUSD_buf">91.8%</td>
+                <td>0.9999</td>
+                <td>$1,442,800</td>
+                <td>89 positions</td>
+                <td>~2.8h</td>
+                <td><span class="led green"></span>Nominal</td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── RIGHT COLUMN: Event Log ── -->
+  <div class="dash-right">
+    <div class="event-log">
+      <div class="el-header">
+        <span>Blockchain Event Log — ブロックチェーンイベント</span>
+        <span class="el-count" id="eventCount">0 events</span>
+      </div>
+      <div class="el-body" id="eventLogBody">
+        <!-- Events injected by JS -->
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══ BOTTOM TICKER ═══ -->
+<div class="ticker">
+  <div class="scroll">
+    ◆ 特務機関アルケミックス — NERV OPERATIONS CONSOLE ◆ ZERO LIQUIDATIONS BY DESIGN — 設計上ゼロ清算 ◆ DEPOSIT. BORROW. FORGET. — 預ける。借りる。忘れる。◆ 全システム正常 ◆
+  </div>
+</div>
+
+<!-- ═══ STATUS BAR ═══ -->
+<div class="status-bar">
+  <span>NERV v2.1 — ALCHEMIX V3 OPERATIONS</span>
+  <span>CLASSIFICATION: <span style="color:var(--nerv-orange)">RESTRICTED</span></span>
+  <span id="systemClock">—</span>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SCRIPTS — Data-Driven Protocol Dashboard
+     ═══════════════════════════════════════════════════════════ -->
+
+<!-- Protocol Data Model -->
+<script>
+// ── Shared protocol state — all visuals reference this ──
+const PROTO = {
+  ethPrice: 3842.18,
+  blockNumber: 19284721,
+  vaults: {
+    alETH: { tvl: 142800000, positions: 2847, apy: 4.82, debt: 24180, unit: 'ETH', cr: 2.41 },
+    alUSD: { tvl: 89200000, positions: 1623, apy: 6.14, debt: 18420000, unit: 'USDC', cr: 2.12 },
+  },
+  strategies: [
+    { name: 'Morpho wETH', vault: 'alETH', tvl: 68200000, apy: 5.12 },
+    { name: 'EtherFi eETH', vault: 'alETH', tvl: 42100000, apy: 4.68 },
+    { name: 'Aave wstETH', vault: 'alETH', tvl: 32500000, apy: 4.21 },
+    { name: 'Euler USDC', vault: 'alUSD', tvl: 38400000, apy: 6.84 },
+    { name: 'Fluid fUSDC', vault: 'alUSD', tvl: 28900000, apy: 5.92 },
+    { name: 'Aave USDC', vault: 'alUSD', tvl: 21900000, apy: 5.48 },
+  ],
+  transmuter: {
+    alETH: { buffer: 94.2, rate: 0.9997 },
+    alUSD: { buffer: 91.8, rate: 0.9999 },
+  },
+  yieldGenerated24h: 284190,
+  harvests24h: 847,
+  liquidations: 0,
+  eventCount: 0,
+};
+
+PROTO.totalTVL = function() {
+  return Object.values(this.vaults).reduce((s, v) => s + v.tvl, 0);
+};
+
+// Generate random Ethereum address
+function randAddr() {
+  const hex = '0123456789abcdef';
+  let a = '0x';
+  for (let i = 0; i < 40; i++) a += hex[Math.floor(Math.random() * 16)];
+  return a;
+}
+
+function shortAddr(a) {
+  return a.slice(0, 6) + '…' + a.slice(-4);
+}
+
+function fmtUSD(n) {
+  if (n >= 1e9) return '$' + (n / 1e9).toFixed(2) + 'B';
+  if (n >= 1e6) return '$' + (n / 1e6).toFixed(1) + 'M';
+  if (n >= 1e3) return '$' + Math.round(n).toLocaleString();
+  return '$' + n.toFixed(2);
+}
+
+function fmtNum(n) {
+  return n.toLocaleString('en-US', { maximumFractionDigits: 2 });
+}
+</script>
+
+<!-- Event Generator + Log Renderer -->
+<script>
+(function() {
+  const logBody = document.getElementById('eventLogBody');
+  const countEl = document.getElementById('eventCount');
+  if (!logBody) return;
+
+  const EVENT_TYPES = [
+    { type: 'DEPOSIT', cls: 'deposit', weight: 30 },
+    { type: 'BORROW', cls: 'borrow', weight: 20 },
+    { type: 'HARVEST', cls: 'harvest', weight: 25 },
+    { type: 'REPAY', cls: 'repay', weight: 10 },
+    { type: 'REDEEM', cls: 'redeem', weight: 10 },
+    { type: 'MINT', cls: 'mint', weight: 5 },
+  ];
+
+  const totalWeight = EVENT_TYPES.reduce((s, e) => s + e.weight, 0);
+
+  function pickType() {
+    let r = Math.random() * totalWeight;
+    for (const e of EVENT_TYPES) {
+      r -= e.weight;
+      if (r <= 0) return e;
+    }
+    return EVENT_TYPES[0];
+  }
+
+  const VAULTS = ['alETH', 'alUSD'];
+
+  function generateEvent() {
+    const et = pickType();
+    const vault = VAULTS[Math.floor(Math.random() * 2)];
+    const v = PROTO.vaults[vault];
+    const addr = randAddr();
+    const now = new Date();
+    const time = now.toTimeString().split(' ')[0].slice(0, 8);
+    PROTO.blockNumber += Math.floor(Math.random() * 3) + 1;
+
+    let detail = '', amount = '';
+
+    switch (et.type) {
+      case 'DEPOSIT': {
+        const amts = { alETH: [0.5, 200, 'ETH'], alUSD: [500, 100000, 'USDC'] };
+        const [lo, hi, unit] = amts[vault];
+        const qty = lo + Math.random() * (hi - lo);
+        detail = shortAddr(addr) + ' → ' + vault + ' Vault';
+        amount = fmtNum(qty) + ' ' + unit;
+        const usdVal = vault === 'alETH' ? qty * PROTO.ethPrice : qty;
+        PROTO.vaults[vault].tvl += usdVal;
+        break;
+      }
+      case 'BORROW': {
+        const amts = { alETH: [0.1, 50, 'alETH'], alUSD: [100, 25000, 'alUSD'] };
+        const [lo, hi, unit] = amts[vault];
+        const qty = lo + Math.random() * (hi - lo);
+        detail = shortAddr(addr) + ' borrows';
+        amount = fmtNum(qty) + ' ' + unit;
+        break;
+      }
+      case 'HARVEST': {
+        const strats = PROTO.strategies.filter(s => s.vault === vault);
+        const strat = strats[Math.floor(Math.random() * strats.length)];
+        const amts = { alETH: [0.01, 2, 'ETH'], alUSD: [50, 5000, 'USDC'] };
+        const [lo, hi, unit] = amts[vault];
+        const qty = lo + Math.random() * (hi - lo);
+        detail = strat.name + ' yield';
+        amount = '+' + fmtNum(qty) + ' ' + unit;
+        PROTO.harvests24h++;
+        const usdVal = vault === 'alETH' ? qty * PROTO.ethPrice : qty;
+        PROTO.yieldGenerated24h += usdVal;
+        break;
+      }
+      case 'REPAY': {
+        const amts = { alETH: [0.1, 20, 'alETH'], alUSD: [100, 10000, 'alUSD'] };
+        const [lo, hi, unit] = amts[vault];
+        const qty = lo + Math.random() * (hi - lo);
+        detail = shortAddr(addr) + ' repays';
+        amount = fmtNum(qty) + ' ' + unit;
+        break;
+      }
+      case 'REDEEM': {
+        const amts = { alETH: [0.5, 50, 'alETH'], alUSD: [500, 50000, 'alUSD'] };
+        const [lo, hi, unit] = amts[vault];
+        const qty = lo + Math.random() * (hi - lo);
+        detail = shortAddr(addr) + ' → Transmuter';
+        amount = fmtNum(qty) + ' ' + unit;
+        break;
+      }
+      case 'MINT': {
+        const qty = vault === 'alETH' ? (1 + Math.random() * 100) : (1000 + Math.random() * 50000);
+        detail = 'Position #' + (Math.floor(Math.random() * 9000) + 1000);
+        amount = fmtNum(qty) + ' ' + (vault === 'alETH' ? 'alETH' : 'alUSD');
+        break;
+      }
+    }
+
+    PROTO.eventCount++;
+
+    return { time, type: et.type, cls: et.cls, detail, amount, block: PROTO.blockNumber };
+  }
+
+  function renderEvent(ev, isNew) {
+    const div = document.createElement('div');
+    div.className = 'ev' + (isNew ? ' new-entry' : '');
+    div.innerHTML = `<span class="ev-time">${ev.time}</span><span class="ev-type ${ev.cls}">${ev.type}</span><span class="ev-detail">${ev.detail}</span><span class="ev-amount">${ev.amount}</span><span class="ev-block">#${ev.block}</span>`;
+    logBody.appendChild(div);
+
+    // Remove new-entry class after animation
+    if (isNew) setTimeout(() => div.classList.remove('new-entry'), 700);
+
+    // Keep max 200 entries
+    while (logBody.children.length > 200) logBody.removeChild(logBody.firstChild);
+
+    // Auto-scroll
+    logBody.scrollTop = logBody.scrollHeight;
+
+    // Update count
+    if (countEl) countEl.textContent = PROTO.eventCount + ' events';
+  }
+
+  // Pre-populate with 40 historical events
+  const now = Date.now();
+  for (let i = 40; i >= 1; i--) {
+    const ev = generateEvent();
+    const past = new Date(now - i * 15000); // ~15s apart
+    ev.time = past.toTimeString().split(' ')[0].slice(0, 8);
+    ev.block = PROTO.blockNumber - i;
+    renderEvent(ev, false);
+  }
+
+  // Live events every 3-8 seconds
+  function scheduleNext() {
+    const delay = 3000 + Math.random() * 5000;
+    setTimeout(() => {
+      const ev = generateEvent();
+      renderEvent(ev, true);
+      updateMetrics();
+      scheduleNext();
+    }, delay);
+  }
+  scheduleNext();
+})();
+
+// ── Update dashboard metrics from PROTO state ──
+function updateMetrics() {
+  const tvl = PROTO.totalTVL();
+  const el = (id) => document.getElementById(id);
+  if (el('metricTVL')) el('metricTVL').textContent = fmtUSD(tvl);
+  if (el('metricYield')) el('metricYield').textContent = '$' + Math.round(PROTO.yieldGenerated24h).toLocaleString();
+  if (el('metricHarvests')) el('metricHarvests').textContent = PROTO.harvests24h.toLocaleString();
+  if (el('tvlReadout')) el('tvlReadout').textContent = '$' + Math.round(tvl).toLocaleString();
+}
+</script>
+
+<!-- Ticker: data-driven from protocol state -->
+<script>
+(function() {
+  const el = document.getElementById('tickerContent');
+  if (!el) return;
+
+  function updateTicker() {
+    const tvl = PROTO.totalTVL();
+    el.textContent = `◆ ALCHEMIX V3 — STATUS: NOMINAL ◆ TOTAL TVL: ${fmtUSD(tvl)} ◆ alETH: ${fmtUSD(PROTO.vaults.alETH.tvl)} ◆ alUSD: ${fmtUSD(PROTO.vaults.alUSD.tvl)} ◆ YIELD (24H): $${Math.round(PROTO.yieldGenerated24h).toLocaleString()} ◆ HARVESTS: ${PROTO.harvests24h} ◆ BLOCK: #${PROTO.blockNumber} ◆ 自己返済型金融 ◆ LIQUIDATIONS: 0 ∞ ◆ PATTERN: GREEN ◆`;
+  }
+
+  updateTicker();
+  setInterval(updateTicker, 10000);
+})();
+</script>
+
+<!-- Waveform Canvas — multi-strategy yield -->
+<script>
+(function() {
+  const canvas = document.getElementById('waveformCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w, h;
+
+  function resize() {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width = w = rect.width * 2;
+    canvas.height = h = rect.height * 2;
+    canvas.style.width = rect.width + 'px';
+    canvas.style.height = rect.height + 'px';
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+
+  let t = 0;
+  const isEmergency = () => document.documentElement.dataset.mode === 'emergency';
+
+  function draw() {
+    t += 0.015;
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, w, h);
+
+    // Grid
+    ctx.strokeStyle = 'rgba(200,200,192,0.05)';
+    ctx.lineWidth = 1;
+    for (let x = 0; x < w; x += 80) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke(); }
+    for (let y = 0; y < h; y += 40) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
+
+    // Center baseline (represents 0% yield deviation)
+    const em = isEmergency();
+    ctx.strokeStyle = em ? 'rgba(255,48,48,0.15)' : 'rgba(80,255,80,0.1)';
+    ctx.beginPath(); ctx.moveTo(0, h/2); ctx.lineTo(w, h/2); ctx.stroke();
+
+    // Strategy-specific yield rate frequencies (each strategy has distinct wave pattern)
+    const waves = [
+      { color: em ? '#FF3030' : '#50FF50', width: 2.5, glow: em ? 'rgba(255,48,48,0.25)' : 'rgba(80,255,80,0.25)', freq: 0.008, amp: 0.22, phase: 0, speed: 1 },      // Composite
+      { color: em ? '#FF5050' : '#20F0FF', width: 1.5, glow: em ? 'rgba(255,80,80,0.15)' : 'rgba(32,240,255,0.15)', freq: 0.012, amp: 0.15, phase: 1.2, speed: 0.8 },  // Morpho wETH
+      { color: em ? '#CC2020' : '#FF9830', width: 1, glow: null, freq: 0.015, amp: 0.12, phase: 2.4, speed: 1.3 },  // Euler USDC
+    ];
+
+    waves.forEach(wave => {
+      // Glow pass
+      if (wave.glow) {
+        ctx.strokeStyle = wave.glow;
+        ctx.lineWidth = wave.width + 4;
+        ctx.beginPath();
+        for (let x = 0; x < w; x++) {
+          const y = h/2 + Math.sin(x * wave.freq + t * wave.speed + wave.phase) * h * wave.amp
+            + Math.sin(x * wave.freq * 2.5 + t * wave.speed * 1.5 + wave.phase) * h * wave.amp * 0.3
+            + Math.sin(x * wave.freq * 5 + t * wave.speed * 3) * h * 0.02;
+          x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+      }
+
+      // Sharp pass
+      ctx.strokeStyle = wave.color;
+      ctx.lineWidth = wave.width;
+      ctx.beginPath();
+      for (let x = 0; x < w; x++) {
+        const y = h/2 + Math.sin(x * wave.freq + t * wave.speed + wave.phase) * h * wave.amp
+          + Math.sin(x * wave.freq * 2.5 + t * wave.speed * 1.5 + wave.phase) * h * wave.amp * 0.3
+          + Math.sin(x * wave.freq * 5 + t * wave.speed * 3) * h * 0.02;
+        x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    });
+
+    // Update readout with composite yield
+    const baseAPY = PROTO.vaults.alETH.apy;
+    const noise = Math.sin(t * 0.3) * 0.3 + Math.random() * 0.05;
+    const readoutEl = document.getElementById('syncReadout');
+    if (readoutEl) readoutEl.textContent = (baseAPY + noise).toFixed(2) + '%';
+
+    const now = new Date();
+    const tc = document.getElementById('waveformTime');
+    if (tc) tc.textContent = now.toTimeString().split(' ')[0] + '.' + String(now.getMilliseconds()).padStart(3, '0');
+
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+})();
+</script>
+
+<!-- System Clock -->
+<script>
+(function() {
+  function tick() {
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = String(now.getMonth() + 1).padStart(2, '0');
+    const d = String(now.getDate()).padStart(2, '0');
+    const time = now.toTimeString().split(' ')[0];
+    const el = document.getElementById('systemClock');
+    if (el) el.textContent = `${y}.${m}.${d} — ${time} GMT+8`;
+  }
+  setInterval(tick, 1000);
+  tick();
+})();
+</script>
+
+<!-- MAGI Oracle — simulated price feed updates -->
+<script>
+(function() {
+  const basePrice = PROTO.ethPrice;
+  let lastUpdate = [Date.now(), Date.now(), Date.now()];
+
+  function updateOracles() {
+    const now = Date.now();
+    // Each oracle updates at different intervals
+    const intervals = [12000, 20000, 8000]; // Chainlink ~12s, TWAP ~20s, Internal ~8s
+    const ids = ['magi1', 'magi2', 'magi3'];
+    const names = ['Chainlink', 'Uniswap TWAP', 'Internal'];
+
+    ids.forEach((id, i) => {
+      const elapsed = now - lastUpdate[i];
+      if (elapsed > intervals[i]) {
+        lastUpdate[i] = now;
+        // Slight price variation per source
+        const deviation = (Math.random() - 0.5) * 2;
+        const price = basePrice + deviation;
+        const priceEl = document.getElementById(id + 'Price');
+        if (priceEl) priceEl.textContent = '$' + price.toFixed(2);
+      }
+
+      const age = Math.round((now - lastUpdate[i]) / 1000);
+      const ageEl = document.getElementById(id + 'Age');
+      if (ageEl) ageEl.textContent = age + 's ago';
+
+      // Status based on data freshness
+      const led = document.querySelector('#' + id + ' .led');
+      const statusEl = document.getElementById(id + 'Status');
+      if (age < 30) {
+        if (led) { led.className = 'led green'; }
+        if (statusEl) { statusEl.className = 'ms-status agree'; statusEl.textContent = 'AGREE'; }
+      } else if (age < 60) {
+        if (led) { led.className = 'led orange'; }
+        if (statusEl) { statusEl.className = 'ms-status stale'; statusEl.textContent = 'STALE'; }
+      } else {
+        if (led) { led.className = 'led red'; }
+        if (statusEl) { statusEl.className = 'ms-status reject'; statusEl.textContent = 'REJECT'; }
+      }
+    });
+
+    // Consensus deviation
+    const prices = ids.map((id, i) => {
+      const el = document.getElementById(id + 'Price');
+      return el ? parseFloat(el.textContent.replace('$', '')) : basePrice;
+    });
+    const avg = prices.reduce((a, b) => a + b, 0) / 3;
+    const maxDev = Math.max(...prices.map(p => Math.abs(p - avg) / avg * 100));
+    const resultEl = document.getElementById('magiResult');
+    const allAgree = document.querySelectorAll('.ms-status.agree').length === 3;
+    if (resultEl) {
+      resultEl.style.color = allAgree ? 'var(--data-green)' : 'var(--nerv-orange)';
+      resultEl.textContent = (allAgree ? '3/3 AGREE' : '⚠ DEVIATION') + ' — Spread: ' + maxDev.toFixed(3) + '%';
+    }
+  }
+
+  setInterval(updateOracles, 1000);
+  updateOracles();
+})();
+</script>
+
+<!-- Emergency Toggle -->
+<script>
+function toggleEmergency() {
+  const html = document.documentElement;
+  html.dataset.mode = html.dataset.mode === 'emergency' ? 'nominal' : 'emergency';
+}
+</script>
+
+<!-- Three.js: MAGI Data Analysis — Yield Topology -->
+<script type="module">
+import * as THREE from 'three';
+
+{
+  const container = document.getElementById('globeViewport');
+  if (container) {
+    const rect = container.getBoundingClientRect();
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(42, rect.width / rect.height, 0.1, 1000);
+    camera.position.set(0, 6, 12);
+    camera.lookAt(0, 1.5, 0);
+
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(rect.width, rect.height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0x000000, 1);
+    container.appendChild(renderer.domElement);
+
+    const isEm = () => document.documentElement.dataset.mode === 'emergency';
+
+    window.addEventListener('resize', () => {
+      const r = container.getBoundingClientRect();
+      camera.aspect = r.width / r.height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(r.width, r.height);
+    });
+
+    // ═══ 1. DATA MESH — Yield Surface (Strategy × Time) ═══
+    const MC = 16, MR = 10;
+    const meshGeo = new THREE.PlaneGeometry(11, 7, MC, MR);
+    const meshMat = new THREE.MeshBasicMaterial({
+      color: 0x20F0FF, wireframe: true, transparent: true, opacity: 0.35,
+    });
+    const dataMesh = new THREE.Mesh(meshGeo, meshMat);
+    dataMesh.rotation.x = -Math.PI / 2;
+    scene.add(dataMesh);
+
+    const mPos = meshGeo.attributes.position;
+    const baseH = new Float32Array(mPos.count);
+    for (let i = 0; i < mPos.count; i++) {
+      const x = mPos.getX(i), z = mPos.getY(i);
+      baseH[i] = Math.sin(x * 0.5) * Math.cos(z * 0.8) * 0.4 + Math.sin(x * 1.2 + z * 0.3) * 0.2;
+    }
+
+    // ═══ 2. VERTEX NUMBER LABELS (digits at grid intersections) ═══
+    const digitTex = [];
+    for (let d = 0; d <= 9; d++) {
+      const c = document.createElement('canvas');
+      c.width = 64; c.height = 64;
+      const ctx = c.getContext('2d');
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = 'bold 44px monospace';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(d.toString(), 32, 32);
+      digitTex.push(new THREE.CanvasTexture(c));
+    }
+
+    const labels = [];
+    const step = 2;
+    for (let r = 0; r <= MR; r += step) {
+      for (let c = 0; c <= MC; c += step) {
+        const idx = r * (MC + 1) + c;
+        const x = mPos.getX(idx), z = mPos.getY(idx);
+        const digit = (c / step + r / step) % 10;
+        const sm = new THREE.SpriteMaterial({ map: digitTex[digit], transparent: true, opacity: 0.55, depthWrite: false });
+        const sp = new THREE.Sprite(sm);
+        sp.scale.set(0.32, 0.32, 1);
+        sp.position.set(x, 0.12, -z);
+        scene.add(sp);
+        labels.push({ sp, idx });
+      }
+    }
+
+    // Red accent labels near right edge
+    for (let r = 0; r <= MR; r += step) {
+      const c = MC;
+      const idx = r * (MC + 1) + c;
+      const x = mPos.getX(idx), z = mPos.getY(idx);
+      const digit = r % 10;
+      const rc = document.createElement('canvas');
+      rc.width = 64; rc.height = 64;
+      const rctx = rc.getContext('2d');
+      rctx.fillStyle = '#FF3060';
+      rctx.font = 'bold 44px monospace';
+      rctx.textAlign = 'center';
+      rctx.textBaseline = 'middle';
+      rctx.fillText(digit.toString(), 32, 32);
+      const rsm = new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(rc), transparent: true, opacity: 0.7, depthWrite: false });
+      const rsp = new THREE.Sprite(rsm);
+      rsp.scale.set(0.35, 0.35, 1);
+      rsp.position.set(x + 0.3, 0.12, -z);
+      scene.add(rsp);
+    }
+
+    // ═══ 3. YIELD FLOW CURVES (organic orange lines rising from mesh) ═══
+    const NUM_FLOWS = 30;
+    const flows = [];
+    for (let i = 0; i < NUM_FLOWS; i++) {
+      const bx = (Math.random() - 0.5) * 7;
+      const bz = (Math.random() - 0.5) * 4;
+      const mh = 2.5 + Math.random() * 4;
+      const ns = 35 + Math.floor(Math.random() * 15);
+      const positions = new Float32Array((ns + 1) * 3);
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+      const bright = 0.45 + Math.random() * 0.45;
+      const mat = new THREE.LineBasicMaterial({
+        color: new THREE.Color().setHSL(0.06, 1, bright),
+        transparent: true, opacity: bright,
+      });
+      const line = new THREE.Line(geo, mat);
+      scene.add(line);
+
+      // Tip dot
+      const dot = new THREE.Mesh(
+        new THREE.SphereGeometry(0.055, 6, 6),
+        new THREE.MeshBasicMaterial({ color: 0xFF9830 })
+      );
+      scene.add(dot);
+
+      flows.push({
+        line, geo, positions, dot, bx, bz, mh, ns,
+        ph: Math.random() * Math.PI * 2,
+        fx: 1.5 + Math.random() * 2,
+        fz: 1 + Math.random() * 1.5,
+        sp: 0.2 + Math.random() * 0.35,
+        ax: 0.3 + Math.random() * 1.0,
+        az: 0.2 + Math.random() * 0.7,
+      });
+    }
+
+    // ═══ 4. VERTICAL BAR COLUMNS (flanking the scene) ═══
+    function createBars(xPos, data, faceZ) {
+      const group = new THREE.Group();
+      group.position.set(xPos, 0, faceZ);
+      const bars = [];
+      let yOff = 0;
+      data.forEach(d => {
+        const h = d.h, w = d.w || 0.4;
+        // Solid fill
+        const bm = new THREE.MeshBasicMaterial({ color: 0xFF9830, transparent: true, opacity: d.o || 0.7 });
+        const bar = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.15), bm);
+        bar.position.set(0, yOff + h / 2, 0);
+        group.add(bar);
+        // Wireframe outline
+        const wm = new THREE.MeshBasicMaterial({ color: 0xFF9830, wireframe: true, transparent: true, opacity: 0.25 });
+        const wire = new THREE.Mesh(new THREE.BoxGeometry(w + 0.04, h + 0.04, 0.19), wm);
+        wire.position.copy(bar.position);
+        group.add(wire);
+        bars.push(bar);
+        yOff += h + 0.12;
+      });
+      scene.add(group);
+      return bars;
+    }
+
+    // Left column — TVL breakdown + sub-metrics
+    const leftBars = createBars(-6.8, [
+      { h: 3.0, w: 0.55, o: 0.8 },
+      { h: 1.8, w: 0.55, o: 0.7 },
+      { h: 1.3, w: 0.55, o: 0.6 },
+      { h: 0.3, w: 0.2, o: 0.2 },
+      { h: 2.2, w: 0.35, o: 0.5 },
+      { h: 0.8, w: 0.3, o: 0.4 },
+      { h: 1.5, w: 0.4, o: 0.55 },
+      { h: 0.5, w: 0.25, o: 0.3 },
+    ], 0);
+
+    // Right column — strategy APYs
+    const rightBars = createBars(6.8, [
+      { h: 2.0, w: 0.45, o: 0.7 },
+      { h: 2.8, w: 0.55, o: 0.8 },
+      { h: 1.0, w: 0.3, o: 0.5 },
+      { h: 1.6, w: 0.4, o: 0.55 },
+      { h: 0.6, w: 0.25, o: 0.35 },
+      { h: 2.4, w: 0.5, o: 0.7 },
+      { h: 0.9, w: 0.3, o: 0.4 },
+      { h: 1.8, w: 0.45, o: 0.6 },
+    ], 0);
+
+    // Small wireframe outline bars (additional depth/detail)
+    [leftBars, rightBars].forEach(bars => {
+      bars.forEach(b => {
+        const ghost = new THREE.Mesh(
+          new THREE.BoxGeometry(0.15, b.geometry.parameters.height * 0.6, 0.08),
+          new THREE.MeshBasicMaterial({ color: 0xFF9830, wireframe: true, transparent: true, opacity: 0.12 })
+        );
+        ghost.position.set(b.position.x + 0.45, b.position.y, b.position.z);
+        b.parent.add(ghost);
+      });
+    });
+
+    // ═══ 5. BACKGROUND PARTICLES (scattered green dots) ═══
+    const bgN = 180;
+    const bgPos = new Float32Array(bgN * 3);
+    for (let i = 0; i < bgN; i++) {
+      bgPos[i * 3] = (Math.random() - 0.5) * 35;
+      bgPos[i * 3 + 1] = Math.random() * 18;
+      bgPos[i * 3 + 2] = (Math.random() - 0.5) * 25 - 5;
+    }
+    const bgGeo = new THREE.BufferGeometry();
+    bgGeo.setAttribute('position', new THREE.BufferAttribute(bgPos, 3));
+    scene.add(new THREE.Points(bgGeo, new THREE.PointsMaterial({
+      color: 0x20FF60, size: 0.07, transparent: true, opacity: 0.35
+    })));
+
+    // ═══ ANIMATE ═══
+    function animate() {
+      requestAnimationFrame(animate);
+      const t = Date.now() * 0.001;
+      const em = isEm();
+
+      // Slow camera orbit
+      camera.position.x = Math.sin(t * 0.055) * 4;
+      camera.position.y = 5.5 + Math.sin(t * 0.035) * 0.6;
+      camera.position.z = 11 + Math.cos(t * 0.055) * 2.5;
+      camera.lookAt(0, 1.5, 0);
+
+      // Animate mesh surface — undulating yield landscape
+      dataMesh.material.color.setHex(em ? 0xFF3030 : 0x20F0FF);
+      for (let i = 0; i < mPos.count; i++) {
+        const x = mPos.getX(i), z = mPos.getY(i);
+        mPos.setZ(i, baseH[i]
+          + Math.sin(x * 0.3 + t * 0.5) * 0.1
+          + Math.cos(z * 0.5 + t * 0.3) * 0.06
+          + Math.sin(x * 0.8 + z * 0.4 + t * 0.8) * 0.04);
+      }
+      mPos.needsUpdate = true;
+
+      // Labels follow mesh height
+      labels.forEach(l => {
+        l.sp.position.y = mPos.getZ(l.idx) + 0.15;
+      });
+
+      // Animate yield flow curves — organic swaying
+      const flowHue = em ? 0xFF3030 : 0xFF6020;
+      flows.forEach(f => {
+        for (let j = 0; j <= f.ns; j++) {
+          const frac = j / f.ns;
+          const idx = j * 3;
+          const y = frac * f.mh;
+          // Organic curve: amplitude increases with height, multiple wave frequencies
+          f.positions[idx] = f.bx
+            + Math.sin(frac * Math.PI * f.fx + f.ph + t * f.sp) * f.ax * frac
+            + Math.sin(frac * Math.PI * 3.5 + t * f.sp * 1.5) * 0.15 * frac;
+          f.positions[idx + 1] = y;
+          f.positions[idx + 2] = f.bz
+            + Math.cos(frac * Math.PI * f.fz + f.ph * 0.7 + t * f.sp * 0.8) * f.az * frac
+            + Math.cos(frac * Math.PI * 2.8 + t * f.sp * 1.2) * 0.1 * frac;
+        }
+        f.geo.attributes.position.needsUpdate = true;
+        f.line.material.color.setHex(flowHue);
+
+        // Tip dot follows curve end
+        const li = f.ns * 3;
+        f.dot.position.set(f.positions[li], f.positions[li + 1], f.positions[li + 2]);
+        f.dot.material.color.setHex(em ? 0xFF3030 : 0xFF9830);
+        // Subtle dot pulse
+        const pulse = 0.8 + Math.sin(t * 3 + f.ph) * 0.3;
+        f.dot.scale.setScalar(pulse);
+      });
+
+      // Pulse bar columns
+      leftBars.forEach((b, i) => { b.scale.y = 1 + Math.sin(t * 1.5 + i * 0.8) * 0.04; });
+      rightBars.forEach((b, i) => { b.scale.y = 1 + Math.sin(t * 1.2 + i * 0.6 + 1) * 0.04; });
+
+      renderer.render(scene, camera);
+    }
+    animate();
+  }
+}
+</script>
+
+</body>
+</html>

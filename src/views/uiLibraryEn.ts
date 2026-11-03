@@ -458,6 +458,89 @@ export const UI_EN: Record<string, EnProject> = {
       },
     },
   },
+  'nerv-ui': {
+    tagline:
+      'A reusable stylesheet and HTML component set built around a military research console aesthetic.',
+    description:
+      'MIT-licensed, zero-dependency stylesheet plus self-contained HTML components: 808 lines of CSS holding every colour, font, CRT effect and component class. The default state is pure black — the screen stays off until data demands it. Components cover an event log, vault cards, a three-source oracle, a metrics grid, data tables and an emergency mode; the full demo adds a Three.js topology view. The repo is packaged as an AI agent skill, with SKILL.md as the complete spec. Upstream files are served unmodified under /nerv-ui/ so the reference implementation can be inspected directly.',
+    theme: 'Pure black void + phosphor orange / data green / alert red',
+    demoLabel: 'Full demo',
+    demoNote:
+      'Upstream demo.html served as-is: topology, event log, vault cards, MAGI consensus, metrics and emergency mode. Fonts come from Google Fonts, so it needs network access.',
+    shots: [
+      'Full console: topology, metrics grid, event log and three-source consensus on one screen.',
+      'MAGI consensus: three columns voting, with agreement and divergence marked by colour and text.',
+      'Event log: typed colours, monospaced timestamps, aligned right-hand column.',
+    ],
+    modules: {
+      'nrv-foundations': {
+        name: 'Colour & type',
+        group: 'Foundations',
+        summary:
+          'Each phosphor colour has exactly one job: orange #FF9830 for structure, green #50FF50 for data, cyan #20F0FF for wiring, red #FF3030 only for alerts; the ground is #000 plus three very dark panel levels. Type pairs a Mincho display face with monospaced body copy and a condensed stamp face.',
+        points: [
+          'Reusing a colour outside its role breaks legibility immediately.',
+          'Nearly all copy is monospaced, and numbers use tabular figures, so it reads like an instrument rather than an article.',
+          '“The screen is off until data demands it”: no skeleton placeholders, just black.',
+        ],
+      },
+      'nrv-crt': {
+        name: 'CRT effects',
+        group: 'Effects',
+        summary:
+          'Scanlines, vignette, flicker and glow are pure CSS gradients and animations with no images; crt-effects.css drops into any page on its own.',
+        points: [
+          'Scanlines are a repeating-linear-gradient overlay that never intercepts pointer events.',
+          'Glow stacks multiple text-shadow / box-shadow layers instead of using filters.',
+          'Flicker and sweep durations stay short so they never fight the reading.',
+        ],
+      },
+      'nrv-console': {
+        name: 'Console layout & metrics',
+        group: 'Layout',
+        summary:
+          'A three-column dashboard: topology on the left, metrics and vault cards in the middle, event log on the right. The metrics grid compresses value, unit and note into one row, separating levels by colour and size.',
+        points: [
+          'Columns use ratios rather than fixed pixels and stack in order on narrow screens.',
+          'Metric values are large monospaced figures; units drop one size and lose saturation so they never compete.',
+          'Panel borders are 1px with a faint inner glow — boundaries come from brightness, not shadow.',
+        ],
+      },
+      'nrv-data': {
+        name: 'Event log & tables',
+        group: 'Data',
+        summary:
+          'The event log is a typed, scrolling feed with monospaced timestamps and right-aligned amounts; the data table puts strategy and transmuter performance side by side with a constant row height and no zebra striping.',
+        points: [
+          'Event types are encoded twice, colour and word, so the feed never relies on colour alone.',
+          'Numeric columns are right-aligned and monospaced for vertical scanning.',
+          'Tables drop vertical rules and rely on row height and spacing instead.',
+        ],
+      },
+      'nrv-magi': {
+        name: 'MAGI & vault cards',
+        group: 'Components',
+        summary:
+          'The consensus panel puts three sources side by side and turns the row green on agreement; vault cards are compact unit + status lamp + key ratios, with state expressed by colour and text together.',
+        points: [
+          'The three-source vote labels agreement in small inline text rather than expecting the reader to infer it from colour.',
+          'Status lamps are small glowing dots that animate only when the state changes.',
+          'Monospaced blocks inside cards line the right-hand values up on one baseline.',
+        ],
+      },
+      'nrv-emergency': {
+        name: 'Emergency mode',
+        group: 'State',
+        summary:
+          'The whole page flips into an alert state: hazard stripes, a hexagonal banner, a red overlay and heavier scanlines. Leaving the state restores everything with no residue.',
+        points: [
+          'Emergency is a page-level state, not a component variant.',
+          'Stripes are a fixed-angle repeating-linear-gradient with no SVG needed.',
+          'Exiting removes the root class, so every side effect disappears with its selector.',
+        ],
+      },
+    },
+  },
   'nasa-punk': {
     tagline:
       'A NASA golden-age retro-futurist design system packaged as a UI skill for AI coding agents.',

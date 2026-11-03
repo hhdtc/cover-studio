@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NERV UI — Data Table Component</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: #000; --void-warm: #080807;
+  --nerv-orange: #FF9830; --nerv-orange-dim: #C87020;
+  --data-green: #50FF50; --data-green-faint: rgba(80,255,80,0.06);
+  --wire-cyan: #20F0FF;
+  --steel-dim: #888880; --steel-faint: rgba(200,200,192,0.06);
+  --font-sys: 'JetBrains Mono', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--void); font-family: var(--font-sys); padding: 40px; }
+
+.panel {
+  background: var(--void-warm); border: 1px solid var(--steel-faint);
+  max-width: 900px; margin: 0 auto;
+}
+.panel-header {
+  font-size: 8px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--nerv-orange);
+  padding: 6px 10px 5px; border-bottom: 1px solid var(--nerv-orange-dim);
+  display: flex; justify-content: space-between;
+}
+.panel-header .tag { font-size: 7px; color: var(--steel-dim); }
+
+.nerv-table {
+  width: 100%; border-collapse: collapse; font-size: 10px;
+}
+.nerv-table th {
+  font-size: 7px; font-weight: 500; letter-spacing: 0.12em;
+  text-transform: uppercase; text-align: left;
+  padding: 4px 8px; color: var(--nerv-orange);
+  border-bottom: 1px solid var(--nerv-orange-dim);
+}
+.nerv-table td {
+  padding: 3px 8px; color: var(--data-green);
+  border-bottom: 1px solid var(--steel-faint);
+  font-variant-numeric: tabular-nums; font-weight: 500;
+}
+.nerv-table td.lbl {
+  color: var(--nerv-orange-dim); text-transform: uppercase;
+  letter-spacing: 0.06em; font-size: 8px; font-weight: 400;
+}
+.nerv-table td.strat-name { color: var(--wire-cyan); font-weight: 500; }
+.nerv-table td.apy { font-weight: 700; }
+.nerv-table tr:hover td { background: var(--data-green-faint); }
+
+.nerv-progress {
+  height: 3px; background: #0C0C0A;
+  border: 1px solid var(--steel-faint); overflow: hidden; min-width: 60px;
+}
+.nerv-progress .fill {
+  height: 100%; background: var(--data-green);
+  box-shadow: 0 0 4px rgba(80,255,80,0.3);
+}
+.led { display: inline-block; width: 5px; height: 5px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
+.led.green { background: var(--data-green); box-shadow: 0 0 4px var(--data-green); }
+</style>
+</head>
+<body>
+
+<!-- Strategy Performance Table -->
+<div class="panel" style="margin-bottom:20px">
+  <div class="panel-header">
+    <span>MYT Strategy Performance</span>
+    <span class="tag">メタイールドトークン</span>
+  </div>
+  <div style="padding:0 0 4px 0">
+    <table class="nerv-table">
+      <thead><tr><th>Strategy</th><th>Vault</th><th>TVL</th><th>APY</th><th>24h Yield</th><th>Utilization</th></tr></thead>
+      <tbody>
+        <tr><td class="strat-name">Morpho wETH</td><td class="lbl">alETH</td><td>$68.2M</td><td class="apy">5.12%</td><td>$9,572</td><td><div class="nerv-progress" style="display:inline-block;width:60px;vertical-align:middle"><div class="fill" style="width:78%"></div></div> 78%</td></tr>
+        <tr><td class="strat-name">EtherFi eETH</td><td class="lbl">alETH</td><td>$42.1M</td><td class="apy">4.68%</td><td>$5,401</td><td><div class="nerv-progress" style="display:inline-block;width:60px;vertical-align:middle"><div class="fill" style="width:64%"></div></div> 64%</td></tr>
+        <tr><td class="strat-name">Euler USDC</td><td class="lbl">alUSD</td><td>$38.4M</td><td class="apy">6.84%</td><td>$7,198</td><td><div class="nerv-progress" style="display:inline-block;width:60px;vertical-align:middle"><div class="fill" style="width:71%"></div></div> 71%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Transmuter Status Table -->
+<div class="panel">
+  <div class="panel-header">
+    <span>Transmuter Status — Redemption Engine</span>
+    <span class="tag">変成器</span>
+  </div>
+  <div style="padding:0 0 4px 0">
+    <table class="nerv-table">
+      <thead><tr><th>Pair</th><th>Buffer</th><th>Rate</th><th>24h Redeemed</th><th>Queue</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td class="lbl">alETH → ETH</td><td>94.2%</td><td>0.9997</td><td>$2,184,200</td><td>142 pos</td><td><span class="led green"></span>Nominal</td></tr>
+        <tr><td class="lbl">alUSD → USDC</td><td>91.8%</td><td>0.9999</td><td>$1,442,800</td><td>89 pos</td><td><span class="led green"></span>Nominal</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
