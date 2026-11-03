@@ -2,9 +2,9 @@
   "name": "Cover Studio UI Library",
   "version": 1,
   "routes": {
-    "library": "/#/ui",
-    "project": "/#/ui/{project}",
-    "module": "/#/ui/{project}/{module}"
+    "library": "#/ui",
+    "project": "#/ui/{project}",
+    "module": "#/ui/{project}/{module}"
   },
   "projects": [
     {
@@ -14,57 +14,57 @@
       "demo": "/rhine-mock.html",
       "docs": "https://github.com/RonaldDeng/Rhine-Music-Demo/blob/main/DESIGN.md",
       "license": "MIT (interface base: LBEILC / RhineLabUI)",
-      "route": "/#/ui/rhine-music",
+      "route": "#/ui/rhine-music",
       "modules": [
         {
           "id": "rhine-overview",
           "name": "Overview & artist grid",
-          "route": "/#/ui/rhine-music/rhine-overview"
+          "route": "#/ui/rhine-music/rhine-overview"
         },
         {
           "id": "rhine-columns",
           "name": "Three-column shelf",
-          "route": "/#/ui/rhine-music/rhine-columns"
+          "route": "#/ui/rhine-music/rhine-columns"
         },
         {
           "id": "rhine-cd",
           "name": "CD & case",
-          "route": "/#/ui/rhine-music/rhine-cd"
+          "route": "#/ui/rhine-music/rhine-cd"
         },
         {
           "id": "rhine-player",
           "name": "Playback & gapless",
-          "route": "/#/ui/rhine-music/rhine-player"
+          "route": "#/ui/rhine-music/rhine-player"
         },
         {
           "id": "rhine-lyrics",
           "name": "Synced lyrics",
-          "route": "/#/ui/rhine-music/rhine-lyrics"
+          "route": "#/ui/rhine-music/rhine-lyrics"
         },
         {
           "id": "rhine-navigation",
           "name": "Wheel & ruler",
-          "route": "/#/ui/rhine-music/rhine-navigation"
+          "route": "#/ui/rhine-music/rhine-navigation"
         },
         {
           "id": "rhine-transitions",
           "name": "Track & view transitions",
-          "route": "/#/ui/rhine-music/rhine-transitions"
+          "route": "#/ui/rhine-music/rhine-transitions"
         },
         {
           "id": "rhine-theme",
           "name": "Themes",
-          "route": "/#/ui/rhine-music/rhine-theme"
+          "route": "#/ui/rhine-music/rhine-theme"
         },
         {
           "id": "rhine-boot",
           "name": "Boot sequence",
-          "route": "/#/ui/rhine-music/rhine-boot"
+          "route": "#/ui/rhine-music/rhine-boot"
         },
         {
           "id": "rhine-platform",
           "name": "PWA, quality & settings",
-          "route": "/#/ui/rhine-music/rhine-platform"
+          "route": "#/ui/rhine-music/rhine-platform"
         }
       ]
     },
@@ -80,35 +80,35 @@
         {
           "id": "ef-foundations",
           "name": "Foundations & theming",
-          "route": "/#/ui/endfield-ui/ef-foundations"
+          "route": "#/ui/endfield-ui/ef-foundations"
         },
         {
           "id": "ef-controls",
           "name": "Core controls",
-          "route": "/#/ui/endfield-ui/ef-controls"
+          "route": "#/ui/endfield-ui/ef-controls"
         },
         {
           "id": "ef-forms",
           "name": "Form controls",
-          "route": "/#/ui/endfield-ui/ef-forms"
+          "route": "#/ui/endfield-ui/ef-forms"
         },
         {
           "id": "ef-feedback",
           "name": "Feedback & overlays",
-          "route": "/#/ui/endfield-ui/ef-feedback"
+          "route": "#/ui/endfield-ui/ef-feedback"
         },
         {
           "id": "ef-display",
           "name": "Display & navigation",
-          "route": "/#/ui/endfield-ui/ef-display"
+          "route": "#/ui/endfield-ui/ef-display"
         },
         {
           "id": "ef-motifs",
           "name": "Motifs & motion",
-          "route": "/#/ui/endfield-ui/ef-motifs"
+          "route": "#/ui/endfield-ui/ef-motifs"
         }
       ],
-      "route": "/#/ui/endfield-ui"
+      "route": "#/ui/endfield-ui"
     },
     {
       "id": "endfield-kit",
@@ -121,30 +121,30 @@
         {
           "id": "ek-typography",
           "name": "Type & scale",
-          "route": "/#/ui/endfield-kit/ek-typography"
+          "route": "#/ui/endfield-kit/ek-typography"
         },
         {
           "id": "ek-geometry",
           "name": "Cut corners & shape",
-          "route": "/#/ui/endfield-kit/ek-geometry"
+          "route": "#/ui/endfield-kit/ek-geometry"
         },
         {
           "id": "ek-hud",
           "name": "Readouts & navigation",
-          "route": "/#/ui/endfield-kit/ek-hud"
+          "route": "#/ui/endfield-kit/ek-hud"
         },
         {
           "id": "ek-effects",
           "name": "Aberration & texture",
-          "route": "/#/ui/endfield-kit/ek-effects"
+          "route": "#/ui/endfield-kit/ek-effects"
         },
         {
           "id": "ek-motion",
           "name": "Motion rhythm",
-          "route": "/#/ui/endfield-kit/ek-motion"
+          "route": "#/ui/endfield-kit/ek-motion"
         }
       ],
-      "route": "/#/ui/endfield-kit"
+      "route": "#/ui/endfield-kit"
     },
     {
       "id": "apple-kit",
@@ -157,60 +157,60 @@
         {
           "id": "ap-type",
           "name": "Size ladder",
-          "route": "/#/ui/apple-kit/ap-type"
+          "route": "#/ui/apple-kit/ap-type"
         },
         {
           "id": "ap-scroll",
           "name": "Scroll-driven",
-          "route": "/#/ui/apple-kit/ap-scroll"
+          "route": "#/ui/apple-kit/ap-scroll"
         },
         {
           "id": "ap-material",
           "name": "Material & sticky",
-          "route": "/#/ui/apple-kit/ap-material"
+          "route": "#/ui/apple-kit/ap-material"
         },
         {
           "id": "ap-color",
           "name": "Colour & gradient",
-          "route": "/#/ui/apple-kit/ap-color"
+          "route": "#/ui/apple-kit/ap-color"
         },
         {
           "id": "ap-limits",
           "name": "Limits & substitution",
-          "route": "/#/ui/apple-kit/ap-limits"
+          "route": "#/ui/apple-kit/ap-limits"
         },
         {
           "id": "ap-glass",
           "name": "Glass & focus ring",
-          "route": "/#/ui/apple-kit/ap-glass"
+          "route": "#/ui/apple-kit/ap-glass"
         },
         {
           "id": "ap-story",
           "name": "Sticky story & snap gallery",
-          "route": "/#/ui/apple-kit/ap-story"
+          "route": "#/ui/apple-kit/ap-story"
         },
         {
           "id": "ap-layout",
           "name": "Layout & rhythm",
-          "route": "/#/ui/apple-kit/ap-layout"
+          "route": "#/ui/apple-kit/ap-layout"
         },
         {
           "id": "ap-media",
           "name": "Media & pieces",
-          "route": "/#/ui/apple-kit/ap-media"
+          "route": "#/ui/apple-kit/ap-media"
         },
         {
           "id": "ap-responsive",
           "name": "Breakpoints & collapse",
-          "route": "/#/ui/apple-kit/ap-responsive"
+          "route": "#/ui/apple-kit/ap-responsive"
         },
         {
           "id": "ap-loading",
           "name": "Media loading",
-          "route": "/#/ui/apple-kit/ap-loading"
+          "route": "#/ui/apple-kit/ap-loading"
         }
       ],
-      "route": "/#/ui/apple-kit"
+      "route": "#/ui/apple-kit"
     },
     {
       "id": "nerv-ui",
@@ -219,37 +219,37 @@
       "demo": "/nerv-ui/demo.html",
       "docs": "https://github.com/TheGreatGildo/nerv-ui/blob/main/SKILL.md",
       "license": "MIT (Copyright (c) 2026 TheGreatGildo)",
-      "route": "/#/ui/nerv-ui",
+      "route": "#/ui/nerv-ui",
       "modules": [
         {
           "id": "nrv-foundations",
           "name": "Colour & type",
-          "route": "/#/ui/nerv-ui/nrv-foundations"
+          "route": "#/ui/nerv-ui/nrv-foundations"
         },
         {
           "id": "nrv-crt",
           "name": "CRT effects",
-          "route": "/#/ui/nerv-ui/nrv-crt"
+          "route": "#/ui/nerv-ui/nrv-crt"
         },
         {
           "id": "nrv-console",
           "name": "Console layout & metrics",
-          "route": "/#/ui/nerv-ui/nrv-console"
+          "route": "#/ui/nerv-ui/nrv-console"
         },
         {
           "id": "nrv-data",
           "name": "Event log & tables",
-          "route": "/#/ui/nerv-ui/nrv-data"
+          "route": "#/ui/nerv-ui/nrv-data"
         },
         {
           "id": "nrv-magi",
           "name": "MAGI & vault cards",
-          "route": "/#/ui/nerv-ui/nrv-magi"
+          "route": "#/ui/nerv-ui/nrv-magi"
         },
         {
           "id": "nrv-emergency",
           "name": "Emergency mode",
-          "route": "/#/ui/nerv-ui/nrv-emergency"
+          "route": "#/ui/nerv-ui/nrv-emergency"
         }
       ]
     },
@@ -264,35 +264,35 @@
         {
           "id": "nasa-foundations",
           "name": "Base skin & type",
-          "route": "/#/ui/nasa-punk/nasa-foundations"
+          "route": "#/ui/nasa-punk/nasa-foundations"
         },
         {
           "id": "nasa-print",
           "name": "Print document layer",
-          "route": "/#/ui/nasa-punk/nasa-print"
+          "route": "#/ui/nasa-punk/nasa-print"
         },
         {
           "id": "nasa-console",
           "name": "Console instruments",
-          "route": "/#/ui/nasa-punk/nasa-console"
+          "route": "#/ui/nasa-punk/nasa-console"
         },
         {
           "id": "nasa-charts",
           "name": "Chart & instrument grammar",
-          "route": "/#/ui/nasa-punk/nasa-charts"
+          "route": "#/ui/nasa-punk/nasa-charts"
         },
         {
           "id": "nasa-motion",
           "name": "Motion rhythm & quality gates",
-          "route": "/#/ui/nasa-punk/nasa-motion"
+          "route": "#/ui/nasa-punk/nasa-motion"
         },
         {
           "id": "nasa-emblem",
           "name": "Era grades & insignia",
-          "route": "/#/ui/nasa-punk/nasa-emblem"
+          "route": "#/ui/nasa-punk/nasa-emblem"
         }
       ],
-      "route": "/#/ui/nasa-punk"
+      "route": "#/ui/nasa-punk"
     },
     {
       "id": "aureole",
@@ -305,35 +305,35 @@
         {
           "id": "aureole-observation",
           "name": "Physical observation",
-          "route": "/#/ui/aureole/aureole-observation"
+          "route": "#/ui/aureole/aureole-observation"
         },
         {
           "id": "aureole-blueprint",
           "name": "Structural blueprint",
-          "route": "/#/ui/aureole/aureole-blueprint"
+          "route": "#/ui/aureole/aureole-blueprint"
         },
         {
           "id": "aureole-deconstruct",
           "name": "Deconstruction",
-          "route": "/#/ui/aureole/aureole-deconstruct"
+          "route": "#/ui/aureole/aureole-deconstruct"
         },
         {
           "id": "aureole-float",
           "name": "Floating scene & projection",
-          "route": "/#/ui/aureole/aureole-float"
+          "route": "#/ui/aureole/aureole-float"
         },
         {
           "id": "aureole-annotate",
           "name": "Labels, search & archive",
-          "route": "/#/ui/aureole/aureole-annotate"
+          "route": "#/ui/aureole/aureole-annotate"
         },
         {
           "id": "aureole-settings",
           "name": "Config & accessibility",
-          "route": "/#/ui/aureole/aureole-settings"
+          "route": "#/ui/aureole/aureole-settings"
         }
       ],
-      "route": "/#/ui/aureole"
+      "route": "#/ui/aureole"
     },
     {
       "id": "p5-ui",
@@ -346,35 +346,35 @@
         {
           "id": "p5-foundations",
           "name": "Global styles & icons",
-          "route": "/#/ui/p5-ui/p5-foundations"
+          "route": "#/ui/p5-ui/p5-foundations"
         },
         {
           "id": "p5-actions",
           "name": "Buttons, titles & text",
-          "route": "/#/ui/p5-ui/p5-actions"
+          "route": "#/ui/p5-ui/p5-actions"
         },
         {
           "id": "p5-controls",
           "name": "Slider & switch",
-          "route": "/#/ui/p5-ui/p5-controls"
+          "route": "#/ui/p5-ui/p5-controls"
         },
         {
           "id": "p5-feedback",
           "name": "Message, notification & back to top",
-          "route": "/#/ui/p5-ui/p5-feedback"
+          "route": "#/ui/p5-ui/p5-feedback"
         },
         {
           "id": "p5-layout",
           "name": "Divider, upload & table",
-          "route": "/#/ui/p5-ui/p5-layout"
+          "route": "#/ui/p5-ui/p5-layout"
         },
         {
           "id": "p5-motion",
           "name": "Crowd motion & zoom",
-          "route": "/#/ui/p5-ui/p5-motion"
+          "route": "#/ui/p5-ui/p5-motion"
         }
       ],
-      "route": "/#/ui/p5-ui"
+      "route": "#/ui/p5-ui"
     },
     {
       "id": "persona3",
@@ -387,35 +387,35 @@
         {
           "id": "p3-home",
           "name": "Diagonal home & typography",
-          "route": "/#/ui/persona3/p3-home"
+          "route": "#/ui/persona3/p3-home"
         },
         {
           "id": "p3-motion",
           "name": "Ink cursor & glass transition",
-          "route": "/#/ui/persona3/p3-motion"
+          "route": "#/ui/persona3/p3-motion"
         },
         {
           "id": "p3-chapters",
           "name": "Chapter navigation",
-          "route": "/#/ui/persona3/p3-chapters"
+          "route": "#/ui/persona3/p3-chapters"
         },
         {
           "id": "p3-creative",
           "name": "Creative categories & photo viewer",
-          "route": "/#/ui/persona3/p3-creative"
+          "route": "#/ui/persona3/p3-creative"
         },
         {
           "id": "p3-projects",
           "name": "Project index & 3D configurator",
-          "route": "/#/ui/persona3/p3-projects"
+          "route": "#/ui/persona3/p3-projects"
         },
         {
           "id": "p3-profile",
           "name": "Profile page",
-          "route": "/#/ui/persona3/p3-profile"
+          "route": "#/ui/persona3/p3-profile"
         }
       ],
-      "route": "/#/ui/persona3"
+      "route": "#/ui/persona3"
     },
     {
       "id": "shadcn-ui",
@@ -428,35 +428,35 @@
         {
           "id": "shadcn-foundations",
           "name": "Foundations & theming",
-          "route": "/#/ui/shadcn-ui/shadcn-foundations"
+          "route": "#/ui/shadcn-ui/shadcn-foundations"
         },
         {
           "id": "shadcn-core",
           "name": "Core components",
-          "route": "/#/ui/shadcn-ui/shadcn-core"
+          "route": "#/ui/shadcn-ui/shadcn-core"
         },
         {
           "id": "shadcn-overlays",
           "name": "Overlays & menus",
-          "route": "/#/ui/shadcn-ui/shadcn-overlays"
+          "route": "#/ui/shadcn-ui/shadcn-overlays"
         },
         {
           "id": "shadcn-forms",
           "name": "Form controls",
-          "route": "/#/ui/shadcn-ui/shadcn-forms"
+          "route": "#/ui/shadcn-ui/shadcn-forms"
         },
         {
           "id": "shadcn-data",
           "name": "Data display",
-          "route": "/#/ui/shadcn-ui/shadcn-data"
+          "route": "#/ui/shadcn-ui/shadcn-data"
         },
         {
           "id": "shadcn-registry",
           "name": "Registry & blocks",
-          "route": "/#/ui/shadcn-ui/shadcn-registry"
+          "route": "#/ui/shadcn-ui/shadcn-registry"
         }
       ],
-      "route": "/#/ui/shadcn-ui"
+      "route": "#/ui/shadcn-ui"
     }
   ]
 }

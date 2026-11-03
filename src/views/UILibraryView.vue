@@ -2,6 +2,7 @@
 import { computed, onActivated, onBeforeUnmount, onDeactivated, onMounted, ref } from 'vue'
 import Icon from '../components/Icon.vue'
 import ModuleDemo from '../components/ModuleDemo.vue'
+import { assetUrl } from '../lib/asset'
 import { lang, t } from '../i18n'
 import { toast } from '../lib/toast'
 import { UI_EN } from './uiLibraryEn'
@@ -35,6 +36,8 @@ interface Project {
     label: string
     url: string
     note: string
+    /** Needs one of the compose services; unavailable on static hosting. */
+    containerOnly?: boolean
     altLabel?: string
     altUrl?: string
     altNote?: string
@@ -60,10 +63,11 @@ const PROJECTS: Project[] = [
     design: 'https://github.com/RonaldDeng/Rhine-Music-Demo/blob/main/DESIGN.md',
     demo: {
       label: '真实前端（同域 /rhine/）',
+      containerOnly: true,
       url: 'http://rhine.localhost:{port}/?demo=1',
       note: '上游构建的真实应用，作为独立容器跑在 compose 内网，nginx 按主机名 rhine.localhost 反代，不占用额外宿主端口；?demo=1 加载内置演示封面。',
       altLabel: '界面截图',
-      altUrl: '/rhine-gallery.html',
+      altUrl: assetUrl('rhine-gallery.html'),
       altNote: '上游 docs/media 的真实截图（远程加载）：亮暗主题、专辑详情、沉浸式歌词与显示设置，不依赖任何服务。',
     },
     stack: ['Vue 3', 'TypeScript', 'Three.js', 'Vite', 'MIT'],
@@ -487,11 +491,11 @@ const PROJECTS: Project[] = [
     theme: '墨黑 #191919 / 纸白 / 信号黄 #fffa00',
     screenshots: [
       {
-        src: '/endfield-kit/guide-hero.png',
+        src: assetUrl('endfield-kit/guide-hero.png'),
         caption: '样式指南首屏：信号黄色带、色差标题、滚动信息条与读数标签。',
       },
       {
-        src: '/endfield-kit/guide-components.png',
+        src: assetUrl('endfield-kit/guide-components.png'),
         caption: '组件区：切角按钮、楔形页签、读数行、色差标题、标签与图标导轨。',
       },
     ],
@@ -617,15 +621,15 @@ const PROJECTS: Project[] = [
     theme: '墨黑 #1d1d1f / 浅灰 #f5f5f7 / 蓝 #0071e3',
     screenshots: [
       {
-        src: '/apple-kit/guide-hero.png',
+        src: assetUrl('apple-kit/guide-hero.png'),
         caption: '展示页首屏：大字标题、滚动位移的展示台与药丸控件。',
       },
       {
-        src: '/apple-kit/guide-scale.png',
+        src: assetUrl('apple-kit/guide-scale.png'),
         caption: '字号梯级：每一级同时标注 px、字距与行高。',
       },
       {
-        src: '/apple-kit/guide-glass.png',
+        src: assetUrl('apple-kit/guide-glass.png'),
         caption: '毛玻璃三档：20px / 20px / 7px 模糊，透明度 0.8 / 0.4 / 0.7，带高频底噪才看得出模糊。',
       },
     ],
@@ -858,22 +862,22 @@ const PROJECTS: Project[] = [
     design: 'https://github.com/TheGreatGildo/nerv-ui/blob/main/SKILL.md',
     demo: {
       label: '完整 Demo',
-      url: '/nerv-ui/demo.html',
+      url: assetUrl('nerv-ui/demo.html'),
       note: '上游 demo.html 原样托管：拓扑图、事件流、金库卡、MAGI 共识、指标与紧急模式。字体走 Google Fonts，需联网。',
     },
     stack: ['HTML / CSS', 'Zero deps', 'CRT effects', 'Three.js (demo)', 'AI agent skill'],
     theme: '纯黑 void + 磷光橙 / 数据绿 / 告警红',
     screenshots: [
       {
-        src: '/nerv-ui/shot-demo.png',
+        src: assetUrl('nerv-ui/shot-demo.png'),
         caption: '完整控制台：拓扑图、指标栅格、事件流与三源共识同屏。',
       },
       {
-        src: '/nerv-ui/shot-magi.png',
+        src: assetUrl('nerv-ui/shot-magi.png'),
         caption: 'MAGI 三源共识：三列表决，一致/分歧用颜色与文字双重标记。',
       },
       {
-        src: '/nerv-ui/shot-log.png',
+        src: assetUrl('nerv-ui/shot-log.png'),
         caption: '事件流：类型分色、时间戳等宽、右侧区块高度对齐。',
       },
     ],
@@ -995,7 +999,7 @@ const PROJECTS: Project[] = [
     design: 'https://github.com/duanth/NASA-Punk-UI-SKILL/blob/main/SKILL.md',
     demo: {
       label: 'Reference implementation',
-      url: '/nasa-punk-reference.html',
+      url: assetUrl('nasa-punk-reference.html'),
       note: '仓库自带的零依赖单文件参考实现，已本地托管；含印刷文档、控制台与图表三种版面。',
     },
     stack: ['HTML / CSS', 'Design tokens', 'SKILL.md', 'Zero deps', 'AI agent skill'],
@@ -1432,6 +1436,7 @@ const PROJECTS: Project[] = [
     design: 'https://github.com/Masonli1203/Persona3-like-web/blob/main/docs/ARCHITECTURE.md',
     demo: {
       label: '本地 Next.js Demo',
+      containerOnly: true,
       url: 'http://p3.localhost:{port}/',
       note: '完整模板作为 compose 服务 persona3 运行，nginx 以 p3.localhost 反代；含首页、创作分类、项目页、3D 配置器与个人资料页。',
     },
@@ -1760,9 +1765,22 @@ const activeModule = ref<ModuleDoc | null>(null)
 const shotIndex = ref(0)
 const demoOpen = ref(false)
 const demoVariant = ref<'main' | 'alt'>('main')
+/** True on GitHub Pages and anywhere that is not a local Docker host. */
+const staticHost = computed(() => {
+  const host = window.location.hostname
+  return !/^(localhost|127\.0\.0\.1|\[::1\])$/.test(host) && !host.endsWith('.localhost')
+})
+const demoUnavailable = computed(() => staticHost.value && Boolean(activeDemo.value?.containerOnly))
+
 const activeDemo = computed(() => {
   const d = project.value.demo
   if (!d) return undefined
+  // The compose demos cannot run on static hosting: fall back to whatever
+  // static variant the project has (screenshots) instead of a dead iframe.
+  if (staticHost.value && d.containerOnly) {
+    if (d.altUrl) return { label: d.altLabel ?? d.label, url: d.altUrl, note: d.altNote ?? d.note }
+    return d
+  }
   if (demoVariant.value === 'alt' && d.altUrl) {
     return { label: d.altLabel ?? d.label, url: d.altUrl, note: d.altNote ?? d.note }
   }
@@ -2168,7 +2186,7 @@ async function copyAiContext() {
               <p>{{ activeDemo?.note }}</p>
             </div>
             <div class="lib-live-actions">
-              <div v-if="project.demo?.altUrl" class="lib-demo-switch">
+              <div v-if="project.demo?.altUrl && !staticHost" class="lib-demo-switch">
                 <button :class="{ active: demoVariant === 'main' }" @click="demoVariant = 'main'">{{ t('默认', 'Default') }}</button>
                 <button :class="{ active: demoVariant === 'alt' }" @click="demoVariant = 'alt'">{{ project.demo?.altLabel ?? t('备用', 'Alternate') }}</button>
               </div>
@@ -2178,7 +2196,14 @@ async function copyAiContext() {
               </button>
             </div>
           </div>
-          <template v-if="demoOpen">
+          <div v-if="demoUnavailable" class="lib-live-unavailable">
+            <strong>{{ t('这个演示需要本地容器', 'This demo needs the local container') }}</strong>
+            <p>
+              {{ t('它由 compose 服务提供，静态托管（如 GitHub Pages）上无法运行。下方截图来自上游仓库，可先看界面。', 'It is served by a compose service and cannot run on static hosting such as GitHub Pages. The screenshots above come from the upstream repository.') }}
+            </p>
+            <a class="soft-btn" :href="project.repo" target="_blank" rel="noreferrer">{{ t('打开仓库', 'Open repository') }}</a>
+          </div>
+          <template v-else-if="demoOpen">
             <iframe
               :src="demoUrl"
               class="lib-live-frame"

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 import { t } from '../i18n'
+import { assetUrl } from '../lib/asset'
 import EfButton from '../endfield-kit/EfButton.vue'
 import EfPanel from '../endfield-kit/EfPanel.vue'
 import EfTabBar from '../endfield-kit/EfTabBar.vue'
@@ -1567,31 +1568,31 @@ function moveQueue(index: number, dir: -1 | 1) {
 
       <!-- nerv ui: crt -->
       <template v-else-if="id === 'nrv-crt'">
-        <iframe class="nrv-frame" src="/nerv-ui/components/metrics-grid.html" title="CRT effects" loading="lazy" />
+        <iframe class="nrv-frame" :src="assetUrl('nerv-ui/components/metrics-grid.html')" title="CRT effects" loading="lazy" />
         <div class="mdemo-foot"><span>{{ t('扫描线 / 辉光 / 暗角', 'Scanlines / glow / vignette') }}</span><strong>CRT</strong></div>
       </template>
 
       <!-- nerv ui: console -->
       <template v-else-if="id === 'nrv-console'">
-        <iframe class="nrv-frame" src="/nerv-ui/components/metrics-grid.html" title="Metrics grid" loading="lazy" />
+        <iframe class="nrv-frame" :src="assetUrl('nerv-ui/components/metrics-grid.html')" title="Metrics grid" loading="lazy" />
         <div class="mdemo-foot"><span>{{ t('指标栅格', 'Metrics grid') }}</span><strong>CONSOLE</strong></div>
       </template>
 
       <!-- nerv ui: data -->
       <template v-else-if="id === 'nrv-data'">
-        <iframe class="nrv-frame" src="/nerv-ui/components/event-log.html" title="Event log" loading="lazy" />
+        <iframe class="nrv-frame" :src="assetUrl('nerv-ui/components/event-log.html')" title="Event log" loading="lazy" />
         <div class="mdemo-foot"><span>{{ t('事件流：类型分色 + 等宽', 'Event log: typed colours + mono') }}</span><strong>DATA</strong></div>
       </template>
 
       <!-- nerv ui: magi -->
       <template v-else-if="id === 'nrv-magi'">
-        <iframe class="nrv-frame" src="/nerv-ui/components/magi-oracle.html" title="MAGI oracle" loading="lazy" />
+        <iframe class="nrv-frame" :src="assetUrl('nerv-ui/components/magi-oracle.html')" title="MAGI oracle" loading="lazy" />
         <div class="mdemo-foot"><span>{{ t('三源表决', 'Three-source vote') }}</span><strong>MAGI</strong></div>
       </template>
 
       <!-- nerv ui: emergency -->
       <template v-else-if="id === 'nrv-emergency'">
-        <iframe class="nrv-frame" src="/nerv-ui/demo.html" title="Emergency mode demo" loading="lazy" />
+        <iframe class="nrv-frame" :src="assetUrl('nerv-ui/demo.html')" title="Emergency mode demo" loading="lazy" />
         <div class="mdemo-foot"><span>{{ t('点右上角 EMERGENCY 切换', 'Toggle EMERGENCY top-right') }}</span><strong>ALERT</strong></div>
       </template>
 

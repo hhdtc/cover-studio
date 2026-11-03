@@ -67,6 +67,22 @@ cp .env.example .env      # 填 GITHUB_TOKEN（Contents: read）
 docker compose -f docker-compose.remote.yml up -d
 ```
 
+## 部署到 GitHub Pages
+
+仓库推送到 `main` 会自动构建并发布到 **https://hhdtc.github.io/cover-studio/**（`.github/workflows/pages.yml`）。
+
+- 构建时 `PAGES=1` 把 Vite `base` 切到 `/cover-studio/`，静态资源与 `public/` 下的文件都跟着走子路径
+- 手动触发：Actions → *Deploy to GitHub Pages* → Run workflow
+
+**静态托管跑不了的**：`rhine` 与 `persona3` 两个 compose 服务。页面会自动降级——
+
+| 项目 | GitHub Pages 上的行为 |
+| --- | --- |
+| Rhine Music | 自动切到「界面截图」（上游截图，远程加载） |
+| Persona3 | 显示「这个演示需要本地容器」提示，保留项目截图 |
+
+要完整 Demo，仍用本地或服务器上的 `docker compose up -d`。
+
 ## 页面路由
 
 | 页面 | 路由 |

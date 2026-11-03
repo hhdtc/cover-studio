@@ -7445,3 +7445,27 @@ a.lib-card {
 .lib-live--compact .lib-live-frame {
   height: 360px;
 }
+
+.lib-live-unavailable {
+  display: grid;
+  gap: 8px;
+  padding: 18px 20px;
+  border-top: 1px solid var(--border);
+  background: #0e0f12;
+}
+
+.lib-live-unavailable strong {
+  font-size: 13px;
+}
+
+.lib-live-unavailable p {
+  margin: 0;
+  max-width: 60ch;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--muted-2);
+}
+
+.lib-live-unavailable .soft-btn {
+  justify-self: start;
+}
