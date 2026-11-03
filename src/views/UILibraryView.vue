@@ -1779,7 +1779,8 @@ const PROJECTS: Project[] = [
 ]
 
 const activeProject = ref(PROJECTS[0])
-const activeModule = ref<ModuleDoc | null>(PROJECTS[0].modules[0])
+// Start on the project overview; a module is only opened by an explicit route.
+const activeModule = ref<ModuleDoc | null>(null)
 const shotIndex = ref(0)
 const demoOpen = ref(false)
 const demoVariant = ref<'main' | 'alt'>('main')

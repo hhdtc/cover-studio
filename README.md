@@ -1,24 +1,17 @@
-# 封面工坊 · Cover Studio
+# UI 组件库 · UI Library
 
-纯前端的多工具视觉工作台：封面、一图流、通行证、幻灯片、动态立绘、素材生成，以及收录第三方项目的 UI 组件库。
+一个只做一件事的站点：收录 UI 项目，拆成模块，配可交互演示。
 
-所有处理都在浏览器里完成，图片不上传服务器。
+每个项目有总览（按分组列出全部模块）、逐模块的职责说明与关键文件、可运行 Demo，以及一份给 agent 读的 AI CONTEXT。纯前端，无后端、无上传。
 
-![工具一览](docs/overview.png)
+## 收录范围
 
-## 工具
-
-| 工具 | 说明 |
+| 类别 | 项目 |
 | --- | --- |
-| **UI 组件库** | 7 个项目的 demo、模块拆分、双语说明与 AI 上下文 |
-| **素材生成** | 19 种程序化图样，PNG / SVG，9 套调色板 |
-| **封面** | 模板、文字排版、背景、图层、拖拽，导出 2× PNG |
-| **一图流** | 六类区块、自动高度、3 套主题，导出长图 |
-| **通行证** | 头像、编号、条形码、签名，3 套配色 |
-| **幻灯片** | 4 种版式、多页管理、全屏放映、批量导出 |
-| **动态立绘** | 呼吸、视差、粒子、光晕，导出 PNG / WebM |
+| 第三方仓库 | Rhine Music · Windows、Endfield UI、NASA-Punk UI Skill、NERV UI、AUREOLE、p5-ui、Persona3-like-web、shadcn/ui |
+| 本站逆向 | Endfield Kit（10 个组件）、Apple 排版与动效（12 个组件） |
 
-顶部导航为 **UI 组件库 / 素材生成 / 其他**；其余工具收在「其他」菜单。
+导航只有一项：**UI 组件库**。两套本站逆向的组件库有自己的展示页（`#/endfield-kit`、`#/apple-kit`），从对应项目里进入，不占导航位。
 
 ## 快速开始
 
@@ -61,17 +54,15 @@ docker compose -f docker-compose.remote.yml up -d
 
 ## 页面路由
 
-| 工具 | 路由 |
+| 页面 | 路由 |
 | --- | --- |
-| UI 组件库 | `#/ui` |
-| 素材生成 | `#/assets` |
-| 封面 | `#/cover` |
-| 一图流 | `#/flow` |
-| 通行证 | `#/pass` |
-| 幻灯片 | `#/slides` |
-| 动态立绘 | `#/portrait` |
+| 组件库（首页） | `#/ui` |
+| 项目总览 | `#/ui/<project>` |
+| 模块 | `#/ui/<project>/<module>` |
+| Endfield Kit 展示页 | `#/endfield-kit` |
+| Apple Kit 展示页 | `#/apple-kit` |
 
-UI 组件库支持项目/模块深链，例如：
+项目与模块深链示例：
 
 - `#/ui/rhine-music/shelf`
 - `#/ui/endfield-ui/ef-controls`
@@ -80,6 +71,8 @@ UI 组件库支持项目/模块深链，例如：
 - `#/ui/p5-ui/p5-controls`
 - `#/ui/persona3/p3-home`
 - `#/ui/shadcn-ui/shadcn-forms`
+- `#/ui/nerv-ui/nrv-magi`
+- `#/ui/apple-kit/ap-glass`
 
 ## UI 组件库
 

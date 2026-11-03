@@ -7207,3 +7207,23 @@ a.lib-card {
   border-radius: 12px;
   background: #000;
 }
+
+/* ---------------- library-only shell ---------------- */
+
+.tool-nav-back {
+  appearance: none;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.tool-nav-back:hover {
+  border-color: var(--border-soft);
+  background: var(--panel-3);
+}

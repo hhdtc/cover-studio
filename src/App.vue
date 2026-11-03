@@ -1,12 +1,5 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import Icon from './components/Icon.vue'
-import CoverView from './views/CoverView.vue'
-import InfographicView from './views/InfographicView.vue'
-import PassView from './views/PassView.vue'
-import SlidesView from './views/SlidesView.vue'
-import PortraitView from './views/PortraitView.vue'
-import AssetsView from './views/AssetsView.vue'
 import UILibraryView from './views/UILibraryView.vue'
 import EndfieldKitView from './views/EndfieldKitView.vue'
 import AppleKitView from './views/AppleKitView.vue'
@@ -14,17 +7,17 @@ import ToastHost from './components/ToastHost.vue'
 import { toast } from './lib/toast'
 import { lang, setLang } from './i18n'
 
+/**
+ * One visible tool: the UI library. The two kit showcases stay routable
+ * because project entries link to them, but they are not part of the shell.
+ */
 const TOOLS = [
-  { id: 'cover', label: '封面', labelEn: 'Cover', icon: 'template', desc: '封面编辑器', component: CoverView },
-  { id: 'flow', label: '一图流', labelEn: 'Infographic', icon: 'flow', desc: '长图信息流', component: InfographicView },
-  { id: 'pass', label: '通行证', labelEn: 'Pass', icon: 'badge', desc: '通行证 / 工牌', component: PassView },
-  { id: 'slides', label: '幻灯片', labelEn: 'Slides', icon: 'slides', desc: '演示幻灯片', component: SlidesView },
-  { id: 'portrait', label: '动态立绘', labelEn: 'Portrait', icon: 'portrait', desc: '动态立绘', component: PortraitView },
-  { id: 'assets', label: '素材生成', labelEn: 'Assets', icon: 'sparkles', desc: '素材生成器', component: AssetsView },
-  { id: 'ui', label: 'UI 组件库', labelEn: 'UI Library', icon: 'library', desc: 'UI 组件库', component: UILibraryView },
-  { id: 'endfield-kit', label: '终末地组件库', labelEn: 'Endfield Kit', icon: 'library', desc: '逆向组件库', component: EndfieldKitView },
-  { id: 'apple-kit', label: 'Apple 排版动效', labelEn: 'Apple Kit', icon: 'library', desc: '排版与动效组件库', component: AppleKitView },
+  { id: 'ui', label: 'UI 组件库', labelEn: 'UI Library', desc: '组件库目录', component: UILibraryView },
+  { id: 'endfield-kit', label: '终末地组件库', labelEn: 'Endfield Kit', desc: '逆向组件库', component: EndfieldKitView },
+  { id: 'apple-kit', label: 'Apple 排版动效', labelEn: 'Apple Kit', desc: '排版与动效组件库', component: AppleKitView },
 ] as const
+
+const HIDDEN_IDS = ['endfield-kit', 'apple-kit']
 
 function routeFromHash(): string {
   const raw = window.location.hash.replace(/^#\/?/, '').split('?')[0].split('/')[0]
@@ -33,41 +26,24 @@ function routeFromHash(): string {
 
 const tool = ref<string>(routeFromHash())
 const currentView = computed(
-  () => TOOLS.find((t) => t.id === tool.value)?.component ?? CoverView,
+  () => TOOLS.find((t) => t.id === tool.value)?.component ?? UILibraryView,
 )
 const routePath = ref(window.location.hash || '#/ui')
 const currentRoute = computed(() => routePath.value)
+const inLibrary = computed(() => !HIDDEN_IDS.includes(tool.value))
 
 function syncFromHash() {
+  // Unknown segment (an old tool route, a typo) falls back to the library
+  // entry instead of leaving a stale project in the URL.
+  const segment = window.location.hash.replace(/^#\/?/, '').split('?')[0].split('/')[0]
+  if (segment && !TOOLS.some((t) => t.id === segment)) {
+    window.history.replaceState(null, '', '#/ui')
+  }
   routePath.value = window.location.hash || '#/ui'
   const id = routeFromHash()
   if (id !== tool.value) tool.value = id
-  othersOpen.value = false
-  const item = TOOLS.find((t) => t.id === id)
-  const label = lang.value === 'zh' ? (item?.label ?? 'UI 组件库') : (item?.labelEn ?? 'UI Library')
-  document.title = `${label} · Cover Studio`
-}
-
-const PRIMARY_IDS = ['ui', 'assets']
-/** Routable but not shown in the shell nav: the kit lives inside UI 组件库. */
-const HIDDEN_IDS = ['endfield-kit', 'apple-kit']
-const primaryTools = PRIMARY_IDS.map((id) => TOOLS.find((t) => t.id === id)!)
-const secondaryTools = TOOLS.filter((t) => !PRIMARY_IDS.includes(t.id) && !HIDDEN_IDS.includes(t.id))
-const othersOpen = ref(false)
-const othersRef = ref<HTMLElement | null>(null)
-const secondaryActive = computed(() => secondaryTools.some((t) => t.id === tool.value))
-
-function chooseSecondary(id: string) {
-  othersOpen.value = false
-  go(id)
-}
-
-function onDocPointer(e: PointerEvent) {
-  if (othersOpen.value && !othersRef.value?.contains(e.target as Node)) othersOpen.value = false
-}
-
-function onDocKey(e: KeyboardEvent) {
-  if (e.key === 'Escape') othersOpen.value = false
+  const zh = lang.value === 'zh'
+  document.title = inLibrary.value ? (zh ? 'UI 组件库' : 'UI Library') : zh ? 'UI 组件库 · 组件展示' : 'UI Library · Kit'
 }
 
 function go(id: string) {
@@ -88,20 +64,11 @@ async function copyLink() {
 
 onMounted(() => {
   window.addEventListener('hashchange', syncFromHash)
-  document.addEventListener('pointerdown', onDocPointer)
-  document.addEventListener('keydown', onDocKey)
-  if (!window.location.hash) {
-    window.history.replaceState(null, '', '#/ui')
-  }
+  if (!window.location.hash) window.history.replaceState(null, '', '#/ui')
   syncFromHash()
 })
 
-onBeforeUnmount(() => {
-  window.removeEventListener('hashchange', syncFromHash)
-  document.removeEventListener('pointerdown', onDocPointer)
-  document.removeEventListener('keydown', onDocKey)
-})
-
+onBeforeUnmount(() => window.removeEventListener('hashchange', syncFromHash))
 watch(lang, () => syncFromHash())
 </script>
 
@@ -109,55 +76,27 @@ watch(lang, () => syncFromHash())
   <div class="studio">
     <header class="shellbar">
       <div class="brand">
-        <div class="logo">C</div>
+        <div class="logo">U</div>
         <div class="brand-text">
-          <strong>封面工坊</strong>
-          <small>CREATIVE STUDIO</small>
+          <strong>{{ lang === 'zh' ? 'UI 组件库' : 'UI Library' }}</strong>
+          <small>{{ lang === 'zh' ? '组件目录' : 'COMPONENT CATALOG' }}</small>
         </div>
       </div>
 
-      <nav class="tool-nav">
-        <button
-          v-for="t in primaryTools"
-          :key="t.id"
-          :class="{ active: tool === t.id }"
-          :title="t.desc"
-          @click="go(t.id)"
-        >
-          <Icon :name="t.icon" :size="16" />
-          <span>{{ lang === 'zh' ? t.label : t.labelEn }}</span>
+      <nav v-if="inLibrary" class="tool-nav">
+        <button class="active" :title="TOOLS[0].desc" @click="go('ui')">
+          {{ lang === 'zh' ? TOOLS[0].label : TOOLS[0].labelEn }}
         </button>
-
-        <div ref="othersRef" class="nav-more">
-          <button
-            class="nav-more-trigger"
-            :class="{ active: secondaryActive }"
-            :aria-expanded="othersOpen"
-            aria-haspopup="menu"
-            :title="lang === 'zh' ? '其他工具' : 'More tools'"
-            @click="othersOpen = !othersOpen"
-          >
-            <Icon name="more" :size="16" />
-            <span>{{ lang === 'zh' ? '其他' : 'More' }}</span>
-            <Icon name="chevron-down" :size="12" class="nav-more-chev" />
-          </button>
-          <div v-if="othersOpen" class="nav-more-menu" role="menu">
-            <button
-              v-for="t in secondaryTools"
-              :key="t.id"
-              role="menuitem"
-              :class="{ active: tool === t.id }"
-              @click="chooseSecondary(t.id)"
-            >
-              <Icon :name="t.icon" :size="15" />
-              <span>{{ lang === 'zh' ? t.label : t.labelEn }}</span>
-              <small v-if="tool === t.id">●</small>
-            </button>
-          </div>
-        </div>
       </nav>
+      <button v-else class="tool-nav-back" type="button" @click="go('ui')">
+        ← {{ lang === 'zh' ? '返回组件库' : 'Back to library' }}
+      </button>
 
-      <button class="lang-chip" :title="lang === 'zh' ? 'Switch to English' : '切换到中文'" @click="setLang(lang === 'zh' ? 'en' : 'zh')">
+      <button
+        class="lang-chip"
+        :title="lang === 'zh' ? 'Switch to English' : '切换到中文'"
+        @click="setLang(lang === 'zh' ? 'en' : 'zh')"
+      >
         {{ lang === 'zh' ? 'EN' : '中' }}
       </button>
       <button class="route-chip" :title="'复制当前页面链接：' + currentRoute" @click="copyLink">
@@ -165,7 +104,7 @@ watch(lang, () => syncFromHash())
       </button>
       <div class="shell-note">
         <span class="pulse" />
-        {{ lang === 'zh' ? '本地处理 · 不上传' : 'Local · never uploaded' }}
+        {{ lang === 'zh' ? '本地渲染 · 不上传' : 'Rendered locally · never uploaded' }}
       </div>
     </header>
 
