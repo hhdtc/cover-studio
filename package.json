@@ -12,7 +12,8 @@
     "demo:p5": "python3 -m http.server 5177 --bind 127.0.0.1 --directory demos/p5-ui/examples/document-web/build",
     "demo:persona3": "npm --prefix demos/persona3-like-web run start -- -p 5179",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "demo:rhine": "npm --prefix demos/rhine-music-demo run music -- --port 5175"
   },
   "dependencies": {
     "vue": "^3.5.13"

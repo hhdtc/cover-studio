@@ -1,0 +1,154 @@
+0 verbose cli /home/hhdtc/.local/share/fnm/node-versions/v24.18.1/installation/bin/node /run/user/1000/fnm_multishells/9612_1793716485429/bin/npm
+1 info using npm@12.2.1
+2 info using node@v24.18.1
+3 silly config load:file:/home/hhdtc/.local/share/fnm/node-versions/v24.18.1/installation/lib/node_modules/npm/npmrc
+4 silly config load:file:/home/hhdtc/文档/GitHub/websnake/demos/rhine-music-demo/.npmrc
+5 silly config load:file:/home/hhdtc/.npmrc
+6 silly config load:file:/home/hhdtc/.local/share/fnm/node-versions/v24.18.1/installation/etc/npmrc
+7 verbose title npm ci
+8 verbose argv "ci" "--cache" "../../.npm-cache-rhine" "--registry" "https://registry.npmjs.org" "--no-audit" "--no-fund"
+9 verbose logfile logs-max:10 dir:/home/hhdtc/文档/GitHub/websnake/.npm-cache-rhine/_logs/2026-11-03T16_48_20_382Z-
+10 verbose logfile /home/hhdtc/文档/GitHub/websnake/.npm-cache-rhine/_logs/2026-11-03T16_48_20_382Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+13 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+14 silly idealTree buildDeps
+15 silly reify moves {}
+16 http cache uint8array-extras@https://registry.npmjs.org/uint8array-extras/-/uint8array-extras-1.5.0.tgz 0ms (cache hit)
+17 http cache vite@https://registry.npmjs.org/vite/-/vite-7.3.7.tgz 0ms (cache hit)
+18 http cache token-types@https://registry.npmjs.org/token-types/-/token-types-6.1.2.tgz 0ms (cache hit)
+19 http cache tinyglobby@https://registry.npmjs.org/tinyglobby/-/tinyglobby-0.2.17.tgz 1ms (cache hit)
+20 http cache win-guid@https://registry.npmjs.org/win-guid/-/win-guid-0.2.1.tgz 0ms (cache hit)
+21 http cache three@https://registry.npmjs.org/three/-/three-0.183.2.tgz 0ms (cache hit)
+22 http cache source-map-js@https://registry.npmjs.org/source-map-js/-/source-map-js-1.2.2.tgz 0ms (cache hit)
+23 http cache strtok3@https://registry.npmjs.org/strtok3/-/strtok3-10.3.5.tgz 0ms (cache hit)
+24 http cache typescript@https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz 0ms (cache hit)
+25 http cache rollup@https://registry.npmjs.org/rollup/-/rollup-4.63.1.tgz 0ms (cache hit)
+26 http cache prettier@https://registry.npmjs.org/prettier/-/prettier-3.9.6.tgz 0ms (cache hit)
+27 http cache postcss@https://registry.npmjs.org/postcss/-/postcss-8.5.28.tgz 0ms (cache hit)
+28 http cache picomatch@https://registry.npmjs.org/picomatch/-/picomatch-4.0.7.tgz 0ms (cache hit)
+29 http cache picocolors@https://registry.npmjs.org/picocolors/-/picocolors-1.1.1.tgz 0ms (cache hit)
+30 http cache opencc-js@https://registry.npmjs.org/opencc-js/-/opencc-js-1.4.2.tgz 0ms (cache hit)
+31 http cache nanoid@https://registry.npmjs.org/nanoid/-/nanoid-3.3.18.tgz 0ms (cache hit)
+32 http cache music-metadata@https://registry.npmjs.org/music-metadata/-/music-metadata-11.16.0.tgz 0ms (cache hit)
+33 http cache meshoptimizer@https://registry.npmjs.org/meshoptimizer/-/meshoptimizer-1.0.1.tgz 0ms (cache hit)
+34 http cache media-typer@https://registry.npmjs.org/media-typer/-/media-typer-2.0.0.tgz 0ms (cache hit)
+35 http cache ieee754@https://registry.npmjs.org/ieee754/-/ieee754-1.2.1.tgz 0ms (cache hit)
+36 http cache file-type@https://registry.npmjs.org/file-type/-/file-type-21.3.4.tgz 0ms (cache hit)
+37 http cache fflate@https://registry.npmjs.org/fflate/-/fflate-0.8.3.tgz 0ms (cache hit)
+38 http cache ms@https://registry.npmjs.org/ms/-/ms-2.1.3.tgz 0ms (cache hit)
+39 http cache fdir@https://registry.npmjs.org/fdir/-/fdir-6.5.0.tgz 0ms (cache hit)
+40 http cache esbuild@https://registry.npmjs.org/esbuild/-/esbuild-0.28.2.tgz 0ms (cache hit)
+41 http cache debug@https://registry.npmjs.org/debug/-/debug-4.4.3.tgz 0ms (cache hit)
+42 http cache content-type@https://registry.npmjs.org/content-type/-/content-type-2.1.0.tgz 0ms (cache hit)
+43 http cache @webgpu/types@https://registry.npmjs.org/@webgpu/types/-/types-0.1.72.tgz 0ms (cache hit)
+44 http cache @types/webxr@https://registry.npmjs.org/@types/webxr/-/webxr-0.5.24.tgz 0ms (cache hit)
+45 http cache @types/three@https://registry.npmjs.org/@types/three/-/three-0.183.1.tgz 0ms (cache hit)
+46 http cache @types/stats.js@https://registry.npmjs.org/@types/stats.js/-/stats.js-0.17.4.tgz 0ms (cache hit)
+47 http cache @types/estree@https://registry.npmjs.org/@types/estree/-/estree-1.0.9.tgz 0ms (cache hit)
+48 http cache @tweenjs/tween.js@https://registry.npmjs.org/@tweenjs/tween.js/-/tween.js-23.1.3.tgz 0ms (cache hit)
+49 http cache @tokenizer/token@https://registry.npmjs.org/@tokenizer/token/-/token-0.3.0.tgz 0ms (cache hit)
+50 http cache @tokenizer/inflate@https://registry.npmjs.org/@tokenizer/inflate/-/inflate-0.4.1.tgz 0ms (cache hit)
+51 http cache @rollup/rollup-linux-x64-gnu@https://registry.npmjs.org/@rollup/rollup-linux-x64-gnu/-/rollup-linux-x64-gnu-4.63.1.tgz 0ms (cache hit)
+52 http cache @napi-rs/lzma-linux-x64-gnu@https://registry.npmjs.org/@napi-rs/lzma-linux-x64-gnu/-/lzma-linux-x64-gnu-1.5.1.tgz 0ms (cache hit)
+53 http cache @kitlangton/rolling-number@https://registry.npmjs.org/@kitlangton/rolling-number/-/rolling-number-0.4.1.tgz 0ms (cache hit)
+54 http cache @esbuild/linux-x64@https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-0.28.2.tgz 0ms (cache hit)
+55 http cache @borewit/text-codec@https://registry.npmjs.org/@borewit/text-codec/-/text-codec-0.2.2.tgz 0ms (cache hit)
+56 http cache @dimforge/rapier3d-compat@https://registry.npmjs.org/@dimforge/rapier3d-compat/-/rapier3d-compat-0.12.0.tgz 0ms (cache hit)
+57 silly tarball no local data for tinyglobby@https://registry.npmjs.org/tinyglobby/-/tinyglobby-0.2.17.tgz. Extracting by manifest.
+58 silly tarball no local data for three@https://registry.npmjs.org/three/-/three-0.183.2.tgz. Extracting by manifest.
+59 silly tarball no local data for typescript@https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz. Extracting by manifest.
+60 silly tarball no local data for rollup@https://registry.npmjs.org/rollup/-/rollup-4.63.1.tgz. Extracting by manifest.
+61 silly tarball no local data for prettier@https://registry.npmjs.org/prettier/-/prettier-3.9.6.tgz. Extracting by manifest.
+62 silly tarball no local data for postcss@https://registry.npmjs.org/postcss/-/postcss-8.5.28.tgz. Extracting by manifest.
+63 silly tarball no local data for picomatch@https://registry.npmjs.org/picomatch/-/picomatch-4.0.7.tgz. Extracting by manifest.
+64 silly tarball no local data for picocolors@https://registry.npmjs.org/picocolors/-/picocolors-1.1.1.tgz. Extracting by manifest.
+65 silly tarball no local data for nanoid@https://registry.npmjs.org/nanoid/-/nanoid-3.3.18.tgz. Extracting by manifest.
+66 silly tarball no local data for meshoptimizer@https://registry.npmjs.org/meshoptimizer/-/meshoptimizer-1.0.1.tgz. Extracting by manifest.
+67 silly tarball no local data for fflate@https://registry.npmjs.org/fflate/-/fflate-0.8.3.tgz. Extracting by manifest.
+68 silly tarball no local data for fdir@https://registry.npmjs.org/fdir/-/fdir-6.5.0.tgz. Extracting by manifest.
+69 silly tarball no local data for esbuild@https://registry.npmjs.org/esbuild/-/esbuild-0.28.2.tgz. Extracting by manifest.
+70 silly tarball no local data for @webgpu/types@https://registry.npmjs.org/@webgpu/types/-/types-0.1.72.tgz. Extracting by manifest.
+71 silly tarball no local data for @types/webxr@https://registry.npmjs.org/@types/webxr/-/webxr-0.5.24.tgz. Extracting by manifest.
+72 silly tarball no local data for @types/three@https://registry.npmjs.org/@types/three/-/three-0.183.1.tgz. Extracting by manifest.
+73 silly tarball no local data for @types/stats.js@https://registry.npmjs.org/@types/stats.js/-/stats.js-0.17.4.tgz. Extracting by manifest.
+74 silly tarball no local data for @types/estree@https://registry.npmjs.org/@types/estree/-/estree-1.0.9.tgz. Extracting by manifest.
+75 silly tarball no local data for @tweenjs/tween.js@https://registry.npmjs.org/@tweenjs/tween.js/-/tween.js-23.1.3.tgz. Extracting by manifest.
+76 silly tarball no local data for @rollup/rollup-linux-x64-gnu@https://registry.npmjs.org/@rollup/rollup-linux-x64-gnu/-/rollup-linux-x64-gnu-4.63.1.tgz. Extracting by manifest.
+77 silly tarball no local data for @napi-rs/lzma-linux-x64-gnu@https://registry.npmjs.org/@napi-rs/lzma-linux-x64-gnu/-/lzma-linux-x64-gnu-1.5.1.tgz. Extracting by manifest.
+78 silly tarball no local data for @esbuild/linux-x64@https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-0.28.2.tgz. Extracting by manifest.
+79 silly tarball no local data for @dimforge/rapier3d-compat@https://registry.npmjs.org/@dimforge/rapier3d-compat/-/rapier3d-compat-0.12.0.tgz. Extracting by manifest.
+80 http fetch GET 200 https://registry.npmjs.org/picocolors/-/picocolors-1.1.1.tgz 198ms (cache miss)
+81 http fetch GET 200 https://registry.npmjs.org/tinyglobby/-/tinyglobby-0.2.17.tgz 217ms (cache miss)
+82 http fetch GET 200 https://registry.npmjs.org/@types/webxr/-/webxr-0.5.24.tgz 218ms (cache miss)
+83 http fetch GET 200 https://registry.npmjs.org/esbuild/-/esbuild-0.28.2.tgz 230ms (cache miss)
+84 http fetch GET 200 https://registry.npmjs.org/@webgpu/types/-/types-0.1.72.tgz 232ms (cache miss)
+85 http fetch GET 200 https://registry.npmjs.org/picomatch/-/picomatch-4.0.7.tgz 237ms (cache miss)
+86 http fetch GET 200 https://registry.npmjs.org/nanoid/-/nanoid-3.3.18.tgz 241ms (cache miss)
+87 http fetch GET 200 https://registry.npmjs.org/@types/estree/-/estree-1.0.9.tgz 246ms (cache miss)
+88 http fetch GET 200 https://registry.npmjs.org/@types/stats.js/-/stats.js-0.17.4.tgz 255ms (cache miss)
+89 http fetch GET 200 https://registry.npmjs.org/meshoptimizer/-/meshoptimizer-1.0.1.tgz 261ms (cache miss)
+90 http fetch GET 200 https://registry.npmjs.org/fdir/-/fdir-6.5.0.tgz 263ms (cache miss)
+91 http fetch GET 200 https://registry.npmjs.org/@tweenjs/tween.js/-/tween.js-23.1.3.tgz 289ms (cache miss)
+92 http fetch GET 200 https://registry.npmjs.org/fflate/-/fflate-0.8.3.tgz 301ms (cache miss)
+93 http fetch GET 200 https://registry.npmjs.org/postcss/-/postcss-8.5.28.tgz 338ms (cache miss)
+94 http fetch GET 200 https://registry.npmjs.org/rollup/-/rollup-4.63.1.tgz 366ms (cache miss)
+95 http fetch GET 200 https://registry.npmjs.org/prettier/-/prettier-3.9.6.tgz 476ms (cache miss)
+96 http fetch GET 200 https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz 598ms (cache miss)
+97 http fetch GET 200 https://registry.npmjs.org/@types/three/-/three-0.183.1.tgz 737ms (cache miss)
+98 http fetch GET 200 https://registry.npmjs.org/@napi-rs/lzma-linux-x64-gnu/-/lzma-linux-x64-gnu-1.5.1.tgz 783ms (cache miss)
+99 http fetch GET 200 https://registry.npmjs.org/@rollup/rollup-linux-x64-gnu/-/rollup-linux-x64-gnu-4.63.1.tgz 1031ms (cache miss)
+100 http fetch GET 200 https://registry.npmjs.org/@dimforge/rapier3d-compat/-/rapier3d-compat-0.12.0.tgz 1159ms (cache miss)
+101 http fetch GET 200 https://registry.npmjs.org/three/-/three-0.183.2.tgz 1415ms (cache miss)
+102 http fetch GET 200 https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-0.28.2.tgz 1609ms (cache miss)
+103 silly ADD node_modules/win-guid
+104 silly ADD node_modules/vite
+105 silly ADD node_modules/uint8array-extras
+106 silly ADD node_modules/typescript
+107 silly ADD node_modules/token-types
+108 silly ADD node_modules/tinyglobby
+109 silly ADD node_modules/three
+110 silly ADD node_modules/strtok3
+111 silly ADD node_modules/source-map-js
+112 silly ADD node_modules/rollup
+113 silly ADD node_modules/prettier
+114 silly ADD node_modules/postcss
+115 silly ADD node_modules/picomatch
+116 silly ADD node_modules/picocolors
+117 silly ADD node_modules/opencc-js
+118 silly ADD node_modules/nanoid
+119 silly ADD node_modules/music-metadata
+120 silly ADD node_modules/ms
+121 silly ADD node_modules/meshoptimizer
+122 silly ADD node_modules/media-typer
+123 silly ADD node_modules/ieee754
+124 silly ADD node_modules/file-type
+125 silly ADD node_modules/fflate
+126 silly ADD node_modules/fdir
+127 silly ADD node_modules/esbuild
+128 silly ADD node_modules/debug
+129 silly ADD node_modules/content-type
+130 silly ADD node_modules/@webgpu/types
+131 silly ADD node_modules/@types/webxr
+132 silly ADD node_modules/@types/three
+133 silly ADD node_modules/@types/stats.js
+134 silly ADD node_modules/@types/estree
+135 silly ADD node_modules/@tweenjs/tween.js
+136 silly ADD node_modules/@tokenizer/token
+137 silly ADD node_modules/@tokenizer/inflate
+138 silly ADD node_modules/@rollup/rollup-linux-x64-gnu
+139 silly ADD node_modules/@napi-rs/lzma-linux-x64-gnu
+140 silly ADD node_modules/@kitlangton/rolling-number
+141 silly ADD node_modules/@esbuild/linux-x64
+142 silly ADD node_modules/@dimforge/rapier3d-compat
+143 silly ADD node_modules/@borewit/text-codec
+144 warn install-scripts 1 package had install scripts blocked because they are not covered by allowScripts:
+144 warn install-scripts   esbuild@0.28.2 (postinstall: node install.js)
+144 warn install-scripts
+144 warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+145 verbose cwd /home/hhdtc/文档/GitHub/websnake/demos/rhine-music-demo
+146 verbose os Linux 7.3.1-1-cachyos
+147 verbose node v24.18.1
+148 verbose npm  v12.2.1
+149 verbose exit 0
+150 info ok

@@ -78,7 +78,7 @@ docker compose -f docker-compose.remote.yml up -d
 
 | 项目 | 演示 | 许可 |
 | --- | --- | --- |
-| **Rhine Music · Demo** | 自研 CSS 3D 复现 `/rhine-mock.html`（该仓库无在线 Demo） | MIT |
+| **Rhine Music · Demo** | 真实前端 `127.0.0.1:5175/?demo=1`（`npm run demo:rhine`）；备用截图 `/rhine-gallery.html` | MIT |
 | **Endfield UI** | [在线 Storybook](https://icaruszezen.github.io/endfield-ui/) | MIT |
 | **NASA-Punk UI Skill** | `/nasa-punk-reference.html` | MIT；NASA 徽记除外 |
 | **AUREOLE · Sixth UI** | `npm run demo:aureole` → `5176` | MIT |
@@ -86,7 +86,7 @@ docker compose -f docker-compose.remote.yml up -d
 | **Persona3-like-web** | `npm run demo:persona3` → `5179` | MIT |
 | **shadcn/ui** | [在线文档](https://ui.shadcn.com/) | MIT |
 
-- Rhine 只有站内 CSS 3D 复现，5 张本地 mock 封面，不依赖 WebGL；上游仓库没有在线 Demo
+- Rhine 的真实构建已 clone 到 `demos/rhine-music-demo`，`npm run demo:rhine` 在 5175 起服务；上游无在线 Demo，无服务时用截图页
 - 每个模块都有可交互视觉 Demo 和「打开真实 Demo」入口
 - 中英双语，默认跟随系统语言，右上角可切换
 - 每个模块有 **AI CONTEXT**，可一键复制；机器可读目录：[/ui-catalog.json](/ui-catalog.json)

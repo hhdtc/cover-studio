@@ -76,14 +76,17 @@
 | 代码许可 | MIT |
 | 版权声明 | Copyright (c) 2026 LBEILC；Copyright (c) 2026 RonaldDeng |
 | 收录版本 | v0.6.1 |
-| 在线 Demo | 无（仓库未提供 Pages 站点） |
+| 在线 Demo | 无（仓库未提供 Pages 站点）；本站用本地 5175 端口 |
 
 ### 2.2 收录方式
 
-- **不本地 clone**，也不把源码打进主站构建；只做项目索引与模块拆记。
+- 源码 clone 到 `demos/rhine-music-demo`（整个 `demos/` 已在 `.gitignore` 中，不进仓库、不进主站构建）。
+- 依赖用 `npm ci` 安装；lockfile 里的 `registry.npmmirror.com` 已改写成 `registry.npmjs.org`（沙箱禁止拉 remote 包）。
+- `npm run build` 产出 `dist/`，由上游自带的 `scripts/music-server.mjs` 在本机 5175 提供服务。
 - 10 个模块的「相关文件」路径全部对 `main` 分支的文件树逐个核对过（336 个文件）。
 - 界面截图通过 `raw.githubusercontent.com` 远程加载，不复制进仓库；离线时可能无法显示。
-- 站内 Demo 是**自研的纯 CSS 复现** `/rhine-mock.html`，不是上游构建产物。
+- 站内默认 Demo 指向**真实构建**：`http://127.0.0.1:5175/?demo=1`，用内置演示封面。
+- 没有本地服务时用 `/rhine-gallery.html`（上游截图页）；`/rhine-mock.html` 是早期的纯 CSS 近似版，仅作静态回退。
 
 ### 2.3 设计要点
 

@@ -59,12 +59,12 @@ const PROJECTS: Project[] = [
     release: 'https://github.com/RonaldDeng/Rhine-Music-Demo/releases/tag/v0.6.1',
     design: 'https://github.com/RonaldDeng/Rhine-Music-Demo/blob/main/DESIGN.md',
     demo: {
-      label: '上游界面截图',
-      url: '/rhine-gallery.html',
-      note: '直接取自上游 docs/media 的真实截图（远程加载）：亮暗主题、专辑详情、沉浸式歌词与显示设置。想点着玩可以切到「近似复刻」。',
-      altLabel: '近似复刻（CSS 3D）',
-      altUrl: '/rhine-mock.html',
-      altNote: '按三列专辑架与 HUD 手写的纯 CSS 版本，只保留版式与交互，不代表上游的视觉精度。',
+      label: '真实前端（本地 5175）',
+      url: 'http://127.0.0.1:5175/?demo=1',
+      note: '上游构建的真实应用，靠内置演示封面运行。先执行 npm run demo:rhine 在本机 5175 起服务；没有服务时可切到「界面截图」。',
+      altLabel: '界面截图',
+      altUrl: '/rhine-gallery.html',
+      altNote: '上游 docs/media 的真实截图（远程加载）：亮暗主题、专辑详情、沉浸式歌词与显示设置，不需要本地服务。',
     },
     stack: ['Vue 3', 'TypeScript', 'Three.js', 'Vite', 'MIT'],
     theme: 'Morning Mist / Moon Shadow',
@@ -2187,22 +2187,23 @@ async function copyAiContext() {
 
         <section v-if="project.id === 'rhine-music'" class="lib-run">
           <div>
-            <h2>{{ t('站内 Demo 与上游仓库', 'Demo and upstream') }}</h2>
+            <h2>{{ t('运行真实前端', 'Run the real app') }}</h2>
             <p>
-              {{ t('上游仓库没有提供在线 Demo，本站也没有把它 clone 到本地；站内展示的是按同一版式重写的纯 CSS 复现，只保留三列专辑架、HUD、详情、亮暗主题与开场。', 'The upstream repo ships no online demo and is not cloned locally; what you see here is a pure-CSS recreation of the same layout — three-column shelf, HUD, detail view, themes and opening.') }}
+              {{ t('上游构建已经 clone 到 demos/rhine-music-demo 并完成 npm ci 与 build；用一条命令在本机 5175 起服务，页面默认带 ?demo=1，用内置封面直接看到专辑架。', 'The upstream build is cloned into demos/rhine-music-demo and already installed and built; one command serves it on port 5175, and the demo URL carries ?demo=1 so the shelf shows built-in covers immediately.') }}
             </p>
             <ol>
-              <li>{{ t('直接打开 /rhine-mock.html，或在本页点「在页面内打开」。', 'Open /rhine-mock.html directly, or use “open in page” above.') }}</li>
-              <li>{{ t('想看源码：仓库是 MIT，按模块索引里的路径去 GitHub 对应文件。', 'For the source: the repo is MIT; use the paths in each module to open the file on GitHub.') }}</li>
+              <li><code>npm run demo:rhine</code></li>
+              <li>{{ t('打开 http://127.0.0.1:5175/?demo=1；首次进入有进场动画，点「跳过进场」可直接看架。', 'Open http://127.0.0.1:5175/?demo=1; the first visit plays an intro, and 「跳过进场」 skips straight to the shelf.') }}</li>
+              <li>{{ t('需要支持 WebGL 2 的浏览器；没有本地服务时用「界面截图」看静态结果。', 'A WebGL 2 browser is required; without the local server use the screenshot gallery.') }}</li>
             </ol>
             <p class="lib-note">
-              {{ t('复现只借鉴版式与交互，不含上游的模型、字体、音频或截图；这些素材不因代码 MIT 而获得授权。', 'The recreation borrows layout and interaction only — no upstream models, fonts, audio or screenshots, none of which the MIT licence covers.') }}
+              {{ t('模型、MiSans 字体、音频与官方美术不在 MIT 范围内，只在本地运行，不随本站仓库分发。', 'Models, MiSans, audio and official artwork are outside the MIT licence; they run locally and are never distributed with this site.') }}
             </p>
           </div>
           <div class="lib-run-side">
             <span class="lib-eyebrow">DEMO NOTES</span>
-            <strong>{{ t('纯视觉复现，不含音频', 'Visual recreation, no audio') }}</strong>
-            <p>{{ t('5 张本地 mock 封面；不扫描音乐库、不需要 FFmpeg。', 'Five local mock covers; no library scan and no FFmpeg.') }}</p>
+            <strong>{{ t('真实构建，本地端口', 'Real build, local port') }}</strong>
+            <p>{{ t('内置演示封面不读取你的音乐目录；要播放自己的曲库需在应用里选择文件夹。', 'Built-in demo covers never read your music folder; playing your own library requires picking a folder in the app.') }}</p>
           </div>
         </section>
 

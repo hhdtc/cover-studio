@@ -1,0 +1,126 @@
+0 verbose cli /home/hhdtc/.local/share/fnm/node-versions/v24.18.1/installation/bin/node /run/user/1000/fnm_multishells/9612_1793716485429/bin/npm
+1 info using npm@12.2.1
+2 info using node@v24.18.1
+3 silly config load:file:/home/hhdtc/.local/share/fnm/node-versions/v24.18.1/installation/lib/node_modules/npm/npmrc
+4 silly config load:file:/home/hhdtc/文档/GitHub/websnake/demos/rhine-music-demo/.npmrc
+5 silly config load:file:/home/hhdtc/.npmrc
+6 silly config load:file:/home/hhdtc/.local/share/fnm/node-versions/v24.18.1/installation/etc/npmrc
+7 verbose title npm ci
+8 verbose argv "ci" "--cache" "../../.npm-cache-rhine" "--no-audit" "--no-fund"
+9 verbose logfile logs-max:10 dir:/home/hhdtc/文档/GitHub/websnake/.npm-cache-rhine/_logs/2026-11-03T16_48_09_709Z-
+10 verbose logfile /home/hhdtc/文档/GitHub/websnake/.npm-cache-rhine/_logs/2026-11-03T16_48_09_709Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+13 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+14 silly idealTree buildDeps
+15 silly reify moves {}
+16 verbose reify failed optional dependency /home/hhdtc/文档/GitHub/websnake/demos/rhine-music-demo/node_modules/@rollup/rollup-linux-x64-gnu
+17 silly reify mark deleted [
+17 silly reify   '/home/hhdtc/文档/GitHub/websnake/demos/rhine-music-demo/node_modules/@rollup/rollup-linux-x64-gnu'
+17 silly reify ]
+18 verbose reify failed optional dependency /home/hhdtc/文档/GitHub/websnake/demos/rhine-music-demo/node_modules/@napi-rs/lzma-linux-x64-gnu
+19 silly reify mark deleted [
+19 silly reify   '/home/hhdtc/文档/GitHub/websnake/demos/rhine-music-demo/node_modules/@napi-rs/lzma-linux-x64-gnu'
+19 silly reify ]
+20 verbose reify failed optional dependency /home/hhdtc/文档/GitHub/websnake/demos/rhine-music-demo/node_modules/@esbuild/linux-x64
+21 silly reify mark deleted [
+21 silly reify   '/home/hhdtc/文档/GitHub/websnake/demos/rhine-music-demo/node_modules/@esbuild/linux-x64'
+21 silly reify ]
+22 http cache win-guid@https://registry.npmjs.org/win-guid/-/win-guid-0.2.1.tgz 0ms (cache hit)
+23 http cache vite@https://registry.npmjs.org/vite/-/vite-7.3.7.tgz 0ms (cache hit)
+24 http cache token-types@https://registry.npmjs.org/token-types/-/token-types-6.1.2.tgz 0ms (cache hit)
+25 http cache opencc-js@https://registry.npmjs.org/opencc-js/-/opencc-js-1.4.2.tgz 0ms (cache hit)
+26 http cache source-map-js@https://registry.npmjs.org/source-map-js/-/source-map-js-1.2.2.tgz 0ms (cache hit)
+27 http cache uint8array-extras@https://registry.npmjs.org/uint8array-extras/-/uint8array-extras-1.5.0.tgz 0ms (cache hit)
+28 http cache strtok3@https://registry.npmjs.org/strtok3/-/strtok3-10.3.5.tgz 0ms (cache hit)
+29 http cache music-metadata@https://registry.npmjs.org/music-metadata/-/music-metadata-11.16.0.tgz 0ms (cache hit)
+30 http cache ms@https://registry.npmjs.org/ms/-/ms-2.1.3.tgz 0ms (cache hit)
+31 http cache media-typer@https://registry.npmjs.org/media-typer/-/media-typer-2.0.0.tgz 0ms (cache hit)
+32 http cache ieee754@https://registry.npmjs.org/ieee754/-/ieee754-1.2.1.tgz 0ms (cache hit)
+33 http cache file-type@https://registry.npmjs.org/file-type/-/file-type-21.3.4.tgz 0ms (cache hit)
+34 http cache content-type@https://registry.npmjs.org/content-type/-/content-type-2.1.0.tgz 0ms (cache hit)
+35 http cache debug@https://registry.npmjs.org/debug/-/debug-4.4.3.tgz 0ms (cache hit)
+36 http cache @tokenizer/token@https://registry.npmjs.org/@tokenizer/token/-/token-0.3.0.tgz 0ms (cache hit)
+37 http cache @tokenizer/inflate@https://registry.npmjs.org/@tokenizer/inflate/-/inflate-0.4.1.tgz 0ms (cache hit)
+38 http cache @kitlangton/rolling-number@https://registry.npmjs.org/@kitlangton/rolling-number/-/rolling-number-0.4.1.tgz 0ms (cache hit)
+39 http cache @borewit/text-codec@https://registry.npmjs.org/@borewit/text-codec/-/text-codec-0.2.2.tgz 0ms (cache hit)
+40 silly tarball no local data for win-guid@https://registry.npmjs.org/win-guid/-/win-guid-0.2.1.tgz. Extracting by manifest.
+41 silly tarball no local data for vite@https://registry.npmjs.org/vite/-/vite-7.3.7.tgz. Extracting by manifest.
+42 silly tarball no local data for token-types@https://registry.npmjs.org/token-types/-/token-types-6.1.2.tgz. Extracting by manifest.
+43 silly tarball no local data for opencc-js@https://registry.npmjs.org/opencc-js/-/opencc-js-1.4.2.tgz. Extracting by manifest.
+44 silly tarball no local data for source-map-js@https://registry.npmjs.org/source-map-js/-/source-map-js-1.2.2.tgz. Extracting by manifest.
+45 silly tarball no local data for uint8array-extras@https://registry.npmjs.org/uint8array-extras/-/uint8array-extras-1.5.0.tgz. Extracting by manifest.
+46 silly tarball no local data for strtok3@https://registry.npmjs.org/strtok3/-/strtok3-10.3.5.tgz. Extracting by manifest.
+47 silly tarball no local data for music-metadata@https://registry.npmjs.org/music-metadata/-/music-metadata-11.16.0.tgz. Extracting by manifest.
+48 silly tarball no local data for ms@https://registry.npmjs.org/ms/-/ms-2.1.3.tgz. Extracting by manifest.
+49 silly tarball no local data for media-typer@https://registry.npmjs.org/media-typer/-/media-typer-2.0.0.tgz. Extracting by manifest.
+50 silly tarball no local data for ieee754@https://registry.npmjs.org/ieee754/-/ieee754-1.2.1.tgz. Extracting by manifest.
+51 silly tarball no local data for file-type@https://registry.npmjs.org/file-type/-/file-type-21.3.4.tgz. Extracting by manifest.
+52 silly tarball no local data for content-type@https://registry.npmjs.org/content-type/-/content-type-2.1.0.tgz. Extracting by manifest.
+53 silly tarball no local data for debug@https://registry.npmjs.org/debug/-/debug-4.4.3.tgz. Extracting by manifest.
+54 silly tarball no local data for @tokenizer/token@https://registry.npmjs.org/@tokenizer/token/-/token-0.3.0.tgz. Extracting by manifest.
+55 silly tarball no local data for @tokenizer/inflate@https://registry.npmjs.org/@tokenizer/inflate/-/inflate-0.4.1.tgz. Extracting by manifest.
+56 silly tarball no local data for @kitlangton/rolling-number@https://registry.npmjs.org/@kitlangton/rolling-number/-/rolling-number-0.4.1.tgz. Extracting by manifest.
+57 silly tarball no local data for @borewit/text-codec@https://registry.npmjs.org/@borewit/text-codec/-/text-codec-0.2.2.tgz. Extracting by manifest.
+58 http fetch GET 200 https://registry.npmjs.org/win-guid/-/win-guid-0.2.1.tgz 109ms (cache miss)
+59 http fetch GET 200 https://registry.npmjs.org/token-types/-/token-types-6.1.2.tgz 107ms (cache miss)
+60 http fetch GET 200 https://registry.npmjs.org/source-map-js/-/source-map-js-1.2.2.tgz 116ms (cache miss)
+61 http fetch GET 200 https://registry.npmjs.org/npm 208ms
+62 http fetch GET 200 https://registry.npmjs.org/@tokenizer/token/-/token-0.3.0.tgz 172ms (cache miss)
+63 http fetch GET 200 https://registry.npmjs.org/@kitlangton/rolling-number/-/rolling-number-0.4.1.tgz 180ms (cache miss)
+64 http fetch GET 200 https://registry.npmjs.org/@tokenizer/inflate/-/inflate-0.4.1.tgz 187ms (cache miss)
+65 http fetch GET 200 https://registry.npmjs.org/vite/-/vite-7.3.7.tgz 205ms (cache miss)
+66 http fetch GET 200 https://registry.npmjs.org/@borewit/text-codec/-/text-codec-0.2.2.tgz 222ms (cache miss)
+67 http fetch GET 200 https://registry.npmjs.org/opencc-js/-/opencc-js-1.4.2.tgz 286ms (cache miss)
+68 http fetch GET 200 https://registry.npmjs.org/uint8array-extras/-/uint8array-extras-1.5.0.tgz 361ms (cache miss)
+69 http fetch GET 200 https://registry.npmjs.org/media-typer/-/media-typer-2.0.0.tgz 368ms (cache miss)
+70 http fetch GET 200 https://registry.npmjs.org/ms/-/ms-2.1.3.tgz 373ms (cache miss)
+71 http fetch GET 200 https://registry.npmjs.org/strtok3/-/strtok3-10.3.5.tgz 380ms (cache miss)
+72 http fetch GET 200 https://registry.npmjs.org/music-metadata/-/music-metadata-11.16.0.tgz 428ms (cache miss)
+73 http fetch GET 200 https://registry.npmjs.org/ieee754/-/ieee754-1.2.1.tgz 611ms (cache miss)
+74 http fetch GET 200 https://registry.npmjs.org/debug/-/debug-4.4.3.tgz 613ms (cache miss)
+75 http fetch GET 200 https://registry.npmjs.org/file-type/-/file-type-21.3.4.tgz 620ms (cache miss)
+76 http fetch GET 200 https://registry.npmjs.org/content-type/-/content-type-2.1.0.tgz 625ms (cache miss)
+77 verbose stack Error: Fetching packages of type "remote" have been disabled
+77 verbose stack     at canUse (/home/hhdtc/.local/share/fnm/node-versions/v24.18.1/installation/lib/node_modules/npm/node_modules/pacote/lib/fetcher.js:485:5)
+77 verbose stack     at FetcherBase.get (/home/hhdtc/.local/share/fnm/node-versions/v24.18.1/installation/lib/node_modules/npm/node_modules/pacote/lib/fetcher.js:502:7)
+77 verbose stack     at Object.extract (/home/hhdtc/.local/share/fnm/node-versions/v24.18.1/installation/lib/node_modules/npm/node_modules/pacote/lib/index.js:19:34)
+77 verbose stack     at #extractOrLink (/home/hhdtc/.local/share/fnm/node-versions/v24.18.1/installation/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/reify.js:740:20)
+77 verbose stack     at async /home/hhdtc/.local/share/fnm/node-versions/v24.18.1/installation/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/reify.js:664:7
+77 verbose stack     at async Promise.allSettled (index 3)
+77 verbose stack     at async #reifyPackages (/home/hhdtc/.local/share/fnm/node-versions/v24.18.1/installation/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/reify.js:352:11)
+77 verbose stack     at async Arborist.reify (/home/hhdtc/.local/share/fnm/node-versions/v24.18.1/installation/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/reify.js:139:7)
+77 verbose stack     at async CI.exec (/home/hhdtc/.local/share/fnm/node-versions/v24.18.1/installation/lib/node_modules/npm/lib/commands/ci.js:149:5)
+77 verbose stack     at async Npm.exec (/home/hhdtc/.local/share/fnm/node-versions/v24.18.1/installation/lib/node_modules/npm/lib/npm.js:194:9)
+78 error code EALLOWREMOTE
+79 error Fetching packages of type "remote" have been disabled
+80 error Refusing to fetch "typescript@https://registry.npmmirror.com/typescript/-/typescript-5.9.3.tgz"
+81 silly unfinished npm timer reify 1793724489991
+82 silly unfinished npm timer reify:unpack 1793724489996
+83 silly unfinished npm timer reifyNode:node_modules/typescript 1793724489996
+84 silly unfinished npm timer reifyNode:node_modules/tinyglobby 1793724489996
+85 silly unfinished npm timer reifyNode:node_modules/three 1793724489996
+86 silly unfinished npm timer reifyNode:node_modules/rollup 1793724489996
+87 silly unfinished npm timer reifyNode:node_modules/prettier 1793724489996
+88 silly unfinished npm timer reifyNode:node_modules/postcss 1793724489996
+89 silly unfinished npm timer reifyNode:node_modules/picomatch 1793724489996
+90 silly unfinished npm timer reifyNode:node_modules/picocolors 1793724489996
+91 silly unfinished npm timer reifyNode:node_modules/nanoid 1793724489996
+92 silly unfinished npm timer reifyNode:node_modules/meshoptimizer 1793724489996
+93 silly unfinished npm timer reifyNode:node_modules/fflate 1793724489996
+94 silly unfinished npm timer reifyNode:node_modules/fdir 1793724489996
+95 silly unfinished npm timer reifyNode:node_modules/esbuild 1793724489996
+96 silly unfinished npm timer reifyNode:node_modules/@webgpu/types 1793724489996
+97 silly unfinished npm timer reifyNode:node_modules/@types/webxr 1793724489996
+98 silly unfinished npm timer reifyNode:node_modules/@types/three 1793724489997
+99 silly unfinished npm timer reifyNode:node_modules/@types/stats.js 1793724489997
+100 silly unfinished npm timer reifyNode:node_modules/@types/estree 1793724489997
+101 silly unfinished npm timer reifyNode:node_modules/@tweenjs/tween.js 1793724489997
+102 silly unfinished npm timer reifyNode:node_modules/@dimforge/rapier3d-compat 1793724489997
+103 verbose cwd /home/hhdtc/文档/GitHub/websnake/demos/rhine-music-demo
+104 verbose os Linux 7.3.1-1-cachyos
+105 verbose node v24.18.1
+106 verbose npm  v12.2.1
+107 verbose exit 1
+108 verbose code 1
+109 error A complete log of this run can be found in: /home/hhdtc/文档/GitHub/websnake/.npm-cache-rhine/_logs/2026-11-03T16_48_09_709Z-debug-0.log
