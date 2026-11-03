@@ -9,73 +9,64 @@
   "projects": [
     {
       "id": "rhine-music",
-      "name": "Rhine Music · Windows",
-      "repo": "https://github.com/Bong712/Rhine-Music-Windows",
-      "demo": "http://127.0.0.1:5175/?demo=1",
-      "license": "MIT",
+      "name": "Rhine Music · Demo",
+      "repo": "https://github.com/RonaldDeng/Rhine-Music-Demo",
+      "demo": "/rhine-mock.html",
+      "docs": "https://github.com/RonaldDeng/Rhine-Music-Demo/blob/main/DESIGN.md",
+      "license": "MIT (interface base: LBEILC / RhineLabUI)",
+      "route": "/#/ui/rhine-music",
       "modules": [
         {
-          "id": "shelf",
-          "name": "3D album shelf",
-          "route": "/#/ui/rhine-music/shelf"
+          "id": "rhine-overview",
+          "name": "Overview & artist grid",
+          "route": "/#/ui/rhine-music/rhine-overview"
         },
         {
-          "id": "cd-case",
-          "name": "Glass album case",
-          "route": "/#/ui/rhine-music/cd-case"
+          "id": "rhine-columns",
+          "name": "Three-column shelf",
+          "route": "/#/ui/rhine-music/rhine-columns"
         },
         {
-          "id": "overview",
-          "name": "Thumbnail overview & artist grid",
-          "route": "/#/ui/rhine-music/overview"
+          "id": "rhine-cd",
+          "name": "CD & case",
+          "route": "/#/ui/rhine-music/rhine-cd"
         },
         {
-          "id": "settings",
-          "name": "Two-page settings",
-          "route": "/#/ui/rhine-music/settings"
+          "id": "rhine-player",
+          "name": "Playback & gapless",
+          "route": "/#/ui/rhine-music/rhine-player"
         },
         {
-          "id": "player",
-          "name": "Local playback & transitions",
-          "route": "/#/ui/rhine-music/player"
-        },
-        {
-          "id": "navigation",
-          "name": "Ruler & wheel navigation",
-          "route": "/#/ui/rhine-music/navigation"
-        },
-        {
-          "id": "theme",
-          "name": "Themes & opening",
-          "route": "/#/ui/rhine-music/theme"
-        },
-        {
-          "id": "search",
-          "name": "Library & search",
-          "route": "/#/ui/rhine-music/search"
-        },
-        {
-          "id": "lyrics",
+          "id": "rhine-lyrics",
           "name": "Synced lyrics",
-          "route": "/#/ui/rhine-music/lyrics"
+          "route": "/#/ui/rhine-music/rhine-lyrics"
         },
         {
-          "id": "queue",
-          "name": "Playlists & queue",
-          "route": "/#/ui/rhine-music/queue"
+          "id": "rhine-navigation",
+          "name": "Wheel & ruler",
+          "route": "/#/ui/rhine-music/rhine-navigation"
         },
         {
-          "id": "performance",
-          "name": "Cover atlas & instancing",
-          "route": "/#/ui/rhine-music/performance"
+          "id": "rhine-transitions",
+          "name": "Track & view transitions",
+          "route": "/#/ui/rhine-music/rhine-transitions"
         },
         {
-          "id": "navhud",
-          "name": "Bottom navigation & status",
-          "route": "/#/ui/rhine-music/navhud"
+          "id": "rhine-theme",
+          "name": "Themes",
+          "route": "/#/ui/rhine-music/rhine-theme"
+        },
+        {
+          "id": "rhine-boot",
+          "name": "Boot sequence",
+          "route": "/#/ui/rhine-music/rhine-boot"
+        },
+        {
+          "id": "rhine-platform",
+          "name": "PWA, quality & settings",
+          "route": "/#/ui/rhine-music/rhine-platform"
         }
-      ],
-      "route": "/#/ui/rhine-music"
+      ]
     },
     {
       "id": "endfield-ui",

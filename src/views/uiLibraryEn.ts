@@ -17,152 +17,127 @@ export interface EnProject {
 
 export const UI_EN: Record<string, EnProject> = {
   'rhine-music': {
-    tagline: 'A Windows port of Rhine Music with synced lyrics, playlists and a queue.',
+    tagline: 'A 3D album shelf for a local music player: three columns, gapless switching and synced lyrics.',
     description:
-      'Maintained by Bong712, built on the RhineLabUI interface from RonaldDeng and LBEILC. It adds synchronized LRC lyrics, playlists and an editable queue on top of the 3D album shelf, and optimizes cover atlases and instanced rendering. This catalog shows its visual-only demo.',
-    theme: 'Windows 0.6.0 · Morning Mist / Moon Shadow',
-    demoLabel: 'Local visual demo',
+      'An MIT-licensed browser music player demo whose interface base comes from LBEILC / RhineLabUI. It turns a local library into a rotatable three-dimensional shelf: real column layout, CD and case models with their own lighting, wheel-and-ruler navigation, gapless track switching, synced lyrics and light/dark themes. Beyond playback it covers PWA offline use, render-quality tiers and a staged boot sequence, split across roughly a hundred files under src/. This site also ships a pure-CSS visual recreation of the same layout, linked below.',
+    theme: 'Morning Mist / Moon Shadow',
+    demoLabel: 'Visual recreation (CSS 3D)',
     demoNote:
-      'Uses only the three bundled covers, with no music library or audio; requires WebGL 2.',
+      'A pure-CSS rewrite of the three-column shelf and HUD: 3D glass cards, detail view, light/dark themes and an opening sequence, using five local mock covers and no WebGL.',
     shots: [
-      'Moon Shadow: the 3D album shelf (interface base from upstream V0.5.0, kept by the Windows port).',
-      'Morning Mist: glass album cases and browsing position (upstream interface base).',
+      'Moon Shadow: three-column album cards with a case preview.',
+      'Immersive lyrics: timeline highlighting with per-line motion.',
+      'Display settings: theme, quality and motion switches.',
     ],
     modules: {
-      shelf: {
-        name: '3D album shelf',
-        group: 'Scene',
+      'rhine-overview': {
+        name: 'Overview & artist grid',
+        group: 'Display',
         summary:
-          'Albums are laid out in 3D columns with a moving camera, sorted by genre, artist or title, with an optional real-column mode.',
+          'The overview lays the library out as an artist grid and a projected view; clipped edge cards hint at more content, and both layouts share one data layer.',
         points: [
-          'Column centers sit 4.746 apart with 0.75 clearance; real-column mode shows each album once.',
-          'Browsing moves only the current column and recenters smoothly; arrows disable at either end.',
-          'Camera and layout are separate, so the arrangement or data source can be replaced.',
+          'Artist grid and projected view share the data layer, so switching never refetches.',
+          'Edge clipping is deliberate: a half-visible card tells you there is more.',
+          'Grid density follows the viewport while card proportions stay fixed.',
         ],
       },
-      'cd-case': {
-        name: 'Glass album case',
-        group: 'Scene',
+      'rhine-columns': {
+        name: 'Three-column shelf',
+        group: 'Layout',
         summary:
-          'A glass CD case with spine, cover texture, inner reflections and a reveal animation; cover geometry is shared by both themes.',
+          'Real columns place albums in three lanes that scroll independently; the geometry lives in music-real-columns and music-array-layout, with responsive rules kept separate.',
         points: [
-          'The case is 3.996 × 3.35 with a ~0.269 spine; the glass body is ~11.25% wider than square.',
-          'Covers are 2.98 × 2.98 and share the same geometry in day and night themes.',
-          'Reveal and optics are isolated modules, so their timing can be replaced independently.',
+          'Column position is state, not pure CSS: leaving and returning restores the lane.',
+          'Layout uses viewport ratios rather than hardcoded pixel widths.',
+          'Narrow screens drop lanes but keep card proportions, so covers never stretch.',
         ],
       },
-      overview: {
-        name: 'Thumbnail overview & artist grid',
-        group: 'Browse',
+      'rhine-cd': {
+        name: 'CD & case',
+        group: '3D',
         summary:
-          'Press V to pull the camera back; landscape uses projected plaques, portrait shows the full artist grid, and selecting returns to the shelf without playing.',
+          'Case and disc are separate models with their own lighting and anchors; hovering draws the disc out of the case, and lighting shifts warm to cool with the theme.',
         points: [
-          'Selecting in the overview never starts playback; Esc or V returns to the close view.',
-          'Below a 1.05 aspect ratio the full artist grid is enabled automatically.',
-          'Projected plaques locate a column first, then an arrow returns to the close view.',
+          'Case and disc are modelled separately so the drawer motion is its own timeline.',
+          'Theme changes also shift lighting temperature, not just the background.',
+          'A failed model load falls back to the cover image instead of an empty slot.',
         ],
       },
-      settings: {
-        name: 'Two-page settings',
-        group: 'Panel',
-        summary:
-          'Library settings and display/audio are separate tabs; common options stay visible while advanced ones collapse, and tab state is preserved.',
-        points: [
-          'Switching tabs keeps entered values, import previews and each page’s scroll position.',
-          'AI workflow, online metadata and advanced debugging are collapsed by default.',
-          'The light theme uses an opaque warm base with themed sliders, hints and scrollbars.',
-        ],
-      },
-      player: {
-        name: 'Local playback & transitions',
+      'rhine-player': {
+        name: 'Playback & gapless',
         group: 'Playback',
         summary:
-          'Reads local tags and covers, outputs through the browser or macOS CoreAudio, and animates track changes and the transport title.',
+          'The playback layer wraps Web Audio and local files; gapless switching preloads the next track in a second buffer, and volume/quality settings live in audio-settings.',
         points: [
-          'Browser output and native CoreAudio can be switched; native output can pick a device.',
-          'The browser path supports gapless playback; playback state is separate from the UI title.',
-          'Clicking the now-playing title locates the track without changing playback.',
+          'The next track buffers while the current one plays, so switching leaves no gap.',
+          'Unsupported browsers fall back to a normal switch without blocking playback.',
+          'Files are read locally and never uploaded.',
         ],
       },
-      navigation: {
-        name: 'Ruler & wheel navigation',
-        group: 'Browse',
+      'rhine-lyrics': {
+        name: 'Synced lyrics',
+        group: 'Lyrics',
         summary:
-          'The bottom ruler, wheel, arrow keys and touch share one navigation target; ticks and motion are separate modules.',
+          'A same-name lyrics file is parsed and the current line highlighted on the timeline; immersive mode fills the screen, moving lines with text motion rather than per-character animation.',
         points: [
-          'Arrow keys, the ruler and the wheel all drive the same target.',
-          'Within-column and cross-column moves use different easing.',
-          'Ruler ticks are generated from separate CSS and logic, so themes can restyle them.',
-          'The visual demo supports clicking ticks, dragging, the wheel and ← → / Home / End; the pointer, album name and counter stay in sync.',
+          'Timeline and rendering are separate, so seeking does not rebuild the whole list.',
+          'Lines other than the current one drop in opacity, and the active line sits mid-screen rather than pinned to the top.',
+          'Immersive type scales with the viewport while leading keeps its ratio.',
         ],
       },
-      theme: {
-        name: 'Themes & opening',
+      'rhine-navigation': {
+        name: 'Wheel & ruler',
+        group: 'Interaction',
+        summary:
+          'The wheel drives column switching with a ruler for position feedback; scrolling carries inertia but snaps to a column, and trackpad vs wheel use different strength curves.',
+        points: [
+          'Wheel and trackpad get separate coefficients so a trackpad flick cannot overshoot.',
+          'The snap threshold is a ratio of column width, not a fixed pixel value.',
+          'The ruler appears while scrolling and fades once motion settles.',
+        ],
+      },
+      'rhine-transitions': {
+        name: 'Track & view transitions',
         group: 'Motion',
         summary:
-          'Morning Mist (light) and Moon Shadow (dark), with an opening slogan, brand reels and a reduced-motion setting.',
+          'Opening an album is a view transition: the card grows from its list position into the detail view, with background and copy entering on separate layers; cover and title transition independently when tracks change.',
         points: [
-          'The opening fades “ONE ALBUM AT A TIME” in and out, then reveals the 3D shelf; it can be skipped or replayed.',
-          'Manual theme changes play a transition; reduced motion shortens or skips it.',
-          'Theme preference is stored in the browser, independent of browsing position.',
+          'The detail transition runs on three layers — cover, background, copy — at slightly different speeds.',
+          'Reduced motion jumps to the end state instead of merely shortening the animation.',
+          'Wheel navigation is disabled during the transition to avoid double movement.',
         ],
       },
-      search: {
-        name: 'Library & search',
-        group: 'Browse',
+      'rhine-theme': {
+        name: 'Themes',
+        group: 'Theme',
         summary:
-          'Browse and search albums, tracks and genres; selecting a result moves to it and opens details without changing playback.',
+          'Morning Mist and Moon Shadow: switching interpolates background, glass cards and lighting together, and the preference persists so the next launch starts in the right theme.',
         points: [
-          'Search covers albums and tracks, with genre filtering.',
-          'Locating uses eased motion and does not trigger playback.',
-          'Per-column browsing positions are kept by default; toggling does not move the view.',
+          'Switching interpolates colour and lighting rather than flashing a new stylesheet.',
+          'Glass cards change blur and tint with the theme instead of sharing one alpha.',
+          'The preference is applied before the first frame, avoiding a white flash.',
         ],
       },
-      lyrics: {
-        name: 'Synced lyrics',
-        group: 'Playback',
+      'rhine-boot': {
+        name: 'Boot sequence',
+        group: 'Boot',
         summary:
-          'Reads an LRC file next to the audio, highlights the current line during playback, parses offsets and seeks on lyric click.',
+          'Boot is a choreographed sequence — logo tracks, camera push, shelf settling — with independent timings and callbacks, and it can be skipped.',
         points: [
-          'A same-name LRC file is detected automatically; audio is never copied or uploaded.',
-          'The current line follows playback, and clicking a line seeks to it.',
-          'Offset tags are parsed to handle timing differences between sources.',
+          'Each segment has its own duration and callback, so it can be tuned alone.',
+          'Any user interaction skips the remaining sequence immediately.',
+          'Nothing interactive renders during boot, preventing stray clicks.',
         ],
       },
-      queue: {
-        name: 'Playlists & queue',
-        group: 'Playback',
+      'rhine-platform': {
+        name: 'PWA, quality & settings',
+        group: 'Platform',
         summary:
-          'Windows-only local playlists and an editable playback queue, with previous/next controls.',
+          'Offline caching, quality tiers and motion preference share one layer: PWA registration, render quality and the settings panel read the same state instead of each keeping a copy.',
         points: [
-          'Playlists and the queue are stored locally; audio still plays from its original path.',
-          'The queue can be reordered and supports previous/next.',
-          'Queue editing is hidden in demo-cover mode to avoid accidental changes.',
-        ],
-      },
-      performance: {
-        name: 'Cover atlas & instancing',
-        group: 'Performance',
-        summary:
-          'The Windows port packs covers into a 2D atlas with per-album UV regions and instanced shelf drawing to cut uploads and draw calls.',
-        points: [
-          'Updating a cover uploads only the changed tile, not the whole atlas.',
-          'The shelf uses instanced drawing to reduce draw calls.',
-          'Cold switches use a CanvasTexture path for selected and leaving covers, avoiding GPU readback.',
-        ],
-      },
-      navhud: {
-        name: 'Bottom navigation & status',
-        group: 'Browse',
-        summary:
-          'The persistent bottom layer: album counter, up/down album stepper, left/right genre switch, key hints, collection status and rAF diagnostics.',
-        points: [
-          'The ALBUM / SELECT number rolls when switching albums; the total follows the current category.',
-          'The center steps albums and ticks; the right side switches genres and fades the genre name.',
-          'The bottom line shows LOCAL COLLECTION and demo state on the left, and rAF FPS, buffer size, theme and WebGL 2 acceleration on the right.',
-          'Keys stay visible: ← → genre, ↑ ↓ album, ENTER open; the whole group fades in on boot.',
-          'Switching albums shifts the background shelf and rolls the number; switching genres fades the name and tints the background.',
-          'ENTER or “open album” scales the cover into a detail view; ESC or Back returns.',
+          'Quality tiers drive render parameters, not just a blur toggle.',
+          'Motion preference affects both CSS transitions and 3D animation.',
+          'The offline cache keeps the app and covers only, never audio.',
         ],
       },
     },

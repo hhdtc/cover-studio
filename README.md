@@ -8,7 +8,7 @@
 
 | 类别 | 项目 |
 | --- | --- |
-| 第三方仓库 | Rhine Music · Windows、Endfield UI、NASA-Punk UI Skill、NERV UI、AUREOLE、p5-ui、Persona3-like-web、shadcn/ui |
+| 第三方仓库 | Rhine Music · Demo、Endfield UI、NASA-Punk UI Skill、NERV UI、AUREOLE、p5-ui、Persona3-like-web、shadcn/ui |
 | 本站逆向 | Endfield Kit（10 个组件）、Apple 排版与动效（12 个组件） |
 
 导航只有一项：**UI 组件库**。两套本站逆向的组件库有自己的展示页（`#/endfield-kit`、`#/apple-kit`），从对应项目里进入，不占导航位。
@@ -64,7 +64,7 @@ docker compose -f docker-compose.remote.yml up -d
 
 项目与模块深链示例：
 
-- `#/ui/rhine-music/shelf`
+- `#/ui/rhine-music/rhine-columns`
 - `#/ui/endfield-ui/ef-controls`
 - `#/ui/nasa-punk/nasa-console`
 - `#/ui/aureole/aureole-blueprint`
@@ -78,7 +78,7 @@ docker compose -f docker-compose.remote.yml up -d
 
 | 项目 | 演示 | 许可 |
 | --- | --- | --- |
-| **Rhine Music · Windows** | 默认自研 CSS 3D `/rhine-mock.html`；可切换真实前端 `5178` | MIT |
+| **Rhine Music · Demo** | 自研 CSS 3D 复现 `/rhine-mock.html`（该仓库无在线 Demo） | MIT |
 | **Endfield UI** | [在线 Storybook](https://icaruszezen.github.io/endfield-ui/) | MIT |
 | **NASA-Punk UI Skill** | `/nasa-punk-reference.html` | MIT；NASA 徽记除外 |
 | **AUREOLE · Sixth UI** | `npm run demo:aureole` → `5176` | MIT |
@@ -86,7 +86,7 @@ docker compose -f docker-compose.remote.yml up -d
 | **Persona3-like-web** | `npm run demo:persona3` → `5179` | MIT |
 | **shadcn/ui** | [在线文档](https://ui.shadcn.com/) | MIT |
 
-- Rhine 默认使用自研实现，5 张本地 mock 封面，不依赖 WebGL；需要原版时用 `npm run demo:rhine:fresh` 打开 `5178`
+- Rhine 只有站内 CSS 3D 复现，5 张本地 mock 封面，不依赖 WebGL；上游仓库没有在线 Demo
 - 每个模块都有可交互视觉 Demo 和「打开真实 Demo」入口
 - 中英双语，默认跟随系统语言，右上角可切换
 - 每个模块有 **AI CONTEXT**，可一键复制；机器可读目录：[/ui-catalog.json](/ui-catalog.json)

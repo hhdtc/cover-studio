@@ -64,51 +64,47 @@
 
 ---
 
-## 2. Rhine Music · Windows
+## 2. Rhine Music · Demo
 
 ### 2.1 基本信息
 
 | 项目 | 内容 |
 | --- | --- |
-| 仓库 | https://github.com/Bong712/Rhine-Music-Windows |
-| 维护者 | Bong712 |
-| 上游 | RonaldDeng/Rhine-Music-Demo、LBEILC/RhineLabUI |
+| 仓库 | https://github.com/RonaldDeng/Rhine-Music-Demo |
+| 维护者 | RonaldDeng |
+| 界面基础 | LBEILC / RhineLabUI |
 | 代码许可 | MIT |
-| 版权声明 | Copyright (c) 2026 LBEILC；Copyright (c) 2026 RonaldDeng（音乐适配及后续修改）；Windows 移植由 Bong712 维护 |
-| 本地目录 | `demos/rhine-music-windows` |
-| 收录版本 | 0.6.0-dev.57 |
+| 版权声明 | Copyright (c) 2026 LBEILC；Copyright (c) 2026 RonaldDeng |
+| 收录版本 | v0.6.1 |
+| 在线 Demo | 无（仓库未提供 Pages 站点） |
 
-### 2.2 代码与本地改动
+### 2.2 收录方式
 
-- 源码通过 `git clone --depth 1` 放在 `demos/rhine-music-windows`，**不打包进主站构建**。
-- 保留原仓库的 `LICENSE`、`NOTICE.md`、`THIRD-PARTY-NOTICES.md`。
-- 为纯视觉展示，在 `src/music-app.ts` 增加了 `?demo=1` 强制演示入口：
-  - 读取 URL 参数 `demo=1`，设置 `demo = forcedDemo`；
-  - 有真实曲库时也不覆盖强制演示状态；
-  - 不修改播放、歌词、队列等业务逻辑。
-- 该修改仍受 MIT 约束；分发时需保留原始版权与许可声明。
+- **不本地 clone**，也不把源码打进主站构建；只做项目索引与模块拆记。
+- 10 个模块的「相关文件」路径全部对 `main` 分支的文件树逐个核对过（336 个文件）。
+- 界面截图通过 `raw.githubusercontent.com` 远程加载，不复制进仓库；离线时可能无法显示。
+- 站内 Demo 是**自研的纯 CSS 复现** `/rhine-mock.html`，不是上游构建产物。
 
-### 2.3 素材边界
+### 2.3 设计要点
 
-以下内容**不因代码采用 MIT 而自动获得授权**：
+| 维度 | 观察 |
+| --- | --- |
+| 布局 | 三列「真实列」，列内独立滚动，列位置是状态而非纯 CSS |
+| 三维 | 唱片盒与 CD 分开建模，主题切换同时改光照色温 |
+| 播放 | 双缓冲预载实现无缝切歌，不支持时退化为普通切换 |
+| 歌词 | 时间轴与渲染分离，沉浸模式逐行位移而非逐字 |
+| 交互 | 滚轮与触控板两套系数，吸附阈值按列宽比例 |
+| 动效 | 详情转场分封面/背景/文案三层，减少动效时直停终态 |
+
+### 2.4 素材边界
+
+以下内容**不因代码采用 MIT 而自动获得授权**，本站不复制、不转存：
 
 - `art/*.blend`、`public/assets/*.glb` 等模型与建模产物；
-- 界面图标、截图、动图与演示文本中涉及的《明日方舟》相关视觉元素；
-- MiSans 字体（按 MiSans 字体协议随应用嵌入，不是 MIT，不能作为独立字体包再分发）；
-- 继承自上游的程序编配音频（按其音频说明使用）；
+- 界面图标、截图、动图，以及演示文本中涉及的《明日方舟》相关视觉元素；
+- MiSans 字体（按 MiSans 字体协议随应用嵌入，不是 MIT）；
+- 继承自上游的程序编配音频；
 - 原 PV、官方图片、商标、角色与设定。
-
-本项目页面中的两张界面截图通过 `raw.githubusercontent.com` 远程加载，不复制进仓库；离线时可能无法显示。
-
-### 2.4 Demo 运行
-
-- 站内演示：默认 `/rhine-mock.html`（本项目按原布局逆向实现：3D 玻璃专辑架、HUD、详情、亮暗主题、开场；5 张本地封面，无 WebGL、无后端）；可切换到真实前端
-- 真实前端（可选）：http://127.0.0.1:5178/?demo=1
-- 启动真实前端：`cd demos/rhine-music-windows && npm install && npm run build && npm run music -- --port 5178`
-- 需要 Node.js ≥ 22.12 与支持 WebGL 2 的浏览器。
-- 静态 mock 使用 5 张本地示例专辑，不读取音乐库、不需要 FFmpeg、不上传任何文件。
-- 真实前端的 3D 封面纹理在部分 GPU/驱动上显示为空白；站内可切换到静态 mock，避免依赖 WebGL 贴图。
-- 真实的 Windows 桌面版还需要 Windows、.NET 编译工具与 WebView2；本站只运行其 Web 前端与本地服务。
 
 ### 2.5 禁止事项
 

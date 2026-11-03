@@ -48,287 +48,229 @@ interface Project {
 const PROJECTS: Project[] = [
   {
     id: 'rhine-music',
-    name: 'Rhine Music · Windows',
-    author: 'Bong712',
-    authorUrl: 'https://github.com/Bong712',
+    name: 'Rhine Music · Demo',
+    author: 'RonaldDeng',
+    authorUrl: 'https://github.com/RonaldDeng',
     kind: 'third-party',
-    tagline: 'Rhine Music 的 Windows 桌面移植版：同步歌词、歌单与播放队列。',
+    tagline: '本地音乐播放器的 3D 专辑架：三列卡片、无缝切歌与同步歌词。',
     description:
-      '由 Bong712 维护的 Windows 移植版，界面基础来自 RonaldDeng / LBEILC 的 RhineLabUI。它在三维专辑架与本机播放之上加入同步 LRC 歌词、歌单和可编辑播放队列，并优化了封面图集与实例化绘制。这里展示的是纯视觉演示模式。',
-    repo: 'https://github.com/Bong712/Rhine-Music-Windows',
-    release: 'https://github.com/Bong712/Rhine-Music-Windows/releases',
-    design: 'https://github.com/Bong712/Rhine-Music-Windows/blob/main/README.md',
+      'MIT 许可的浏览器端音乐播放器 demo，界面基础来自 LBEILC / RhineLabUI。核心是把本地曲库做成可旋转的三维专辑架：真实列布局、CD 与唱片盒的模型与光照、滚轮标尺导航、无缝切歌、同步歌词与亮暗主题。除播放外还做了 PWA 离线、画质档位与启动序列，源码按功能拆在 src/ 下的近百个文件里。本站另有一份按同一版式重写的纯 CSS 视觉复现，见下方 Demo。',
+    repo: 'https://github.com/RonaldDeng/Rhine-Music-Demo',
+    release: 'https://github.com/RonaldDeng/Rhine-Music-Demo/releases/tag/v0.6.1',
+    design: 'https://github.com/RonaldDeng/Rhine-Music-Demo/blob/main/DESIGN.md',
     demo: {
-      label: '自研实现（CSS 3D）',
+      label: '自研视觉复现（CSS 3D）',
       url: '/rhine-mock.html',
-      note: '按原产品的布局与交互逆向重写：3D 玻璃专辑架、HUD、详情、亮暗主题、开场；使用 5 张本地 mock 封面，不依赖 WebGL。',
-      altLabel: '真实前端（WebGL）',
-      altUrl: 'http://127.0.0.1:5178/?demo=1',
-      altNote: '原项目 Windows 前端；在部分 GPU/驱动上 3D 封面纹理可能显示为空白。',
+      note: '按该项目的三列专辑架与 HUD 重写的纯 CSS 版本：3D 玻璃卡、详情、亮暗主题与开场，5 张本地 mock 封面，不依赖 WebGL。',
     },
-    stack: ['TypeScript', 'WebGL 2', 'WebView2', 'Three.js', 'LRC 歌词'],
-    theme: 'Windows 0.6.0 · 晨雾 / 月影',
+    stack: ['Vue 3', 'TypeScript', 'Three.js', 'Vite', 'MIT'],
+    theme: 'Morning Mist / Moon Shadow',
     screenshots: [
       {
-        src: 'https://raw.githubusercontent.com/RonaldDeng/Rhine-Music-Demo/main/docs/media/v0.5.0/album-preview-night.jpg',
-        caption: '月影主题：三维专辑架（界面基础来自上游 V0.5.0，Windows 版沿用）',
+        src: 'https://raw.githubusercontent.com/RonaldDeng/Rhine-Music-Demo/main/docs/media/v0.6.1/album-preview-night.jpg',
+        caption: 'Moon Shadow：三列专辑卡与唱片盒预览。',
       },
       {
-        src: 'https://raw.githubusercontent.com/RonaldDeng/Rhine-Music-Demo/main/docs/media/v0.5.0/album-preview-morning.jpg',
-        caption: '晨雾主题：玻璃专辑盒与浏览位置（上游界面基础）',
+        src: 'https://raw.githubusercontent.com/RonaldDeng/Rhine-Music-Demo/main/docs/media/v0.6.1/lyrics-night.jpg',
+        caption: '沉浸式歌词：时间轴高亮与逐行位移。',
+      },
+      {
+        src: 'https://raw.githubusercontent.com/RonaldDeng/Rhine-Music-Demo/main/docs/media/v0.6.1/settings-display.jpg',
+        caption: '显示设置：亮暗主题、画质与动效开关。',
       },
     ],
     modules: [
       {
-        id: 'shelf',
-        name: '三维专辑架',
-        group: '场景',
+        id: 'rhine-overview',
+        name: '总览与艺术家网格',
+        group: '展示',
         summary:
-          '把专辑按列铺进三维空间，相机在列之间移动；支持按流派、歌手、专辑名排列，以及真实专辑列模式。',
+          '总览把曲库摊成艺术家网格与投影视图，边缘卡片会被裁切提示可继续滚动；网格与投影两套布局共用同一份数据。',
         files: [
-          { label: 'viewport-layout.ts', path: 'src/viewport-layout.ts' },
-          { label: 'music-model.ts', path: 'src/music-model.ts' },
-          { label: 'music-camera.ts', path: 'src/music-camera.ts' },
-          { label: 'music.css', path: 'src/music.css' },
+          { label: 'music-overview.ts', path: 'src/music-overview.ts' },
+          { label: 'music-overview.css', path: 'src/music-overview.css' },
+          { label: 'music-overview-artist-grid.ts', path: 'src/music-overview-artist-grid.ts' },
+          { label: 'music-overview-artists.ts', path: 'src/music-overview-artists.ts' },
+          { label: 'music-overview-edge.ts', path: 'src/music-overview-edge.ts' },
+          { label: 'music-overview-ui.ts', path: 'src/music-overview-ui.ts' },
           { label: 'package.json', path: 'package.json' },
-          { label: 'index.html', path: 'index.html' },
-          { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
         ],
         points: [
-          '列中心距 4.746，盒体之间保留 0.75 净空；真实专辑列模式下每张专辑只出现一次。',
-          '浏览只移动当前列，离开某列后会平滑归中；列内首尾会禁用箭头。',
-          '相机与布局拆开，便于替换成其他排列方式或接入不同的专辑数据源。',
+          '艺术家网格与投影视图共享数据层，切换视图不重新取数。',
+          '边缘裁切是刻意的：露出一半的卡片告诉用户后面还有内容。',
+          '网格密度随视口变化，但卡片比例保持固定。',
         ],
       },
       {
-        id: 'cd-case',
-        name: '玻璃专辑盒',
-        group: '场景',
+        id: 'rhine-columns',
+        name: '三列专辑架',
+        group: '布局',
         summary:
-          '玻璃质感的 CD 盒，包含侧条、封面贴图、内页反光与揭幕动画；封面区与昼夜几何共用。',
+          '「真实列」把专辑按三列排布，列内允许纵向滚动、列间保持独立位置；布局计算在 music-real-columns 与 music-array-layout 里，响应式规则单独一份。',
+        files: [
+          { label: 'music-real-columns.ts', path: 'src/music-real-columns.ts' },
+          { label: 'music-array-layout.ts', path: 'src/music-array-layout.ts' },
+          { label: 'viewport-layout.ts', path: 'src/viewport-layout.ts' },
+          { label: 'responsive.css', path: 'src/responsive.css' },
+          { label: 'music.css', path: 'src/music.css' },
+        ],
+        points: [
+          '列位置是状态而不是纯 CSS：切走再回来会回到原来的列。',
+          '布局用视口比例计算，不写死像素宽度。',
+          '窄屏时列数减少但卡片比例不变，避免封面被拉伸。',
+        ],
+      },
+      {
+        id: 'rhine-cd',
+        name: 'CD 与唱片盒',
+        group: '三维',
+        summary:
+          '唱片盒与 CD 是独立模型，带各自的光照与锚点；悬停时碟片从盒中抽出，光照随主题在暖冷之间切换。',
         files: [
           { label: 'music-cd-asset.ts', path: 'src/music-cd-asset.ts' },
-          { label: 'glass-reveal.ts', path: 'src/glass-reveal.ts' },
           { label: 'music-model.ts', path: 'src/music-model.ts' },
-          { label: 'package.json', path: 'package.json' },
-          { label: 'index.html', path: 'index.html' },
-          { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
+          { label: 'model-viewer.ts', path: 'src/model-viewer.ts' },
+          { label: 'archive-lighting.ts', path: 'src/archive-lighting.ts' },
+          { label: 'music-lighting.ts', path: 'src/music-lighting.ts' },
         ],
         points: [
-          '盒体总宽 3.996、高 3.35，侧条约 0.269；玻璃主体比正方形宽约 11.25%。',
-          '封面为 2.98 × 2.98，昼夜共用同一几何；材质与灯光随主题切换。',
-          '揭幕与内页光学效果独立成模块，可以单独替换动画节奏。',
+          '盒与碟分开建模，抽屉动作是一个独立的时间线。',
+          '主题切换同时改光照色温，而不是只换背景色。',
+          '模型加载失败时退回封面图，不会留下空槽。',
         ],
       },
       {
-        id: 'overview',
-        name: '缩略图总览与歌手网格',
-        group: '浏览',
-        summary:
-          '按 V 拉远镜头进入总览；横屏使用投影名牌，竖屏显示完整歌手网格，点击歌手返回近景。',
-        files: [
-          { label: 'music-app.ts', path: 'src/music-app.ts' },
-          { label: 'music-presentation.ts', path: 'src/music-presentation.ts' },
-          { label: 'music-title.ts', path: 'src/music-title.ts' },
-          { label: 'music-title-reels.ts', path: 'src/music-title-reels.ts' },
-          { label: 'package.json', path: 'package.json' },
-          { label: 'index.html', path: 'index.html' },
-          { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
-        ],
-        points: [
-          '总览里选择不会自动播放；Esc 或 V 返回近景。',
-          '宽高比 < 1.05 时自动启用完整歌手网格；也可在设置中让所有比例使用网格。',
-          '投影名牌先定位列，再点箭头返回，适合大屏横屏。',
-        ],
-      },
-      {
-        id: 'settings',
-        name: '双页设置面板',
-        group: '面板',
-        summary:
-          '音乐库设置与画面声音两个页签，常用项外露、高级项折叠；页签固定在顶部，内容独立滚动。',
-        files: [
-          { label: 'audio-settings.ts', path: 'src/audio-settings.ts' },
-          { label: 'quality-settings.ts', path: 'src/quality-settings.ts' },
-          { label: 'quality-settings.css', path: 'src/quality-settings.css' },
-          { label: 'music-theme-switch.css', path: 'src/music-theme-switch.css' },
-          { label: 'package.json', path: 'package.json' },
-          { label: 'index.html', path: 'index.html' },
-          { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
-        ],
-        points: [
-          '切换页签会保留已输入内容、导入预览和各页滚动位置。',
-          '常用项直接展示，AI 工作流、在线资料与高级调试默认收起。',
-          '浅色晨雾主题下使用不透底暖色基底，滑块、提示与滚动条统一取主题色。',
-        ],
-      },
-      {
-        id: 'player',
-        name: '本地播放与切歌',
+        id: 'rhine-player',
+        name: '播放与无缝切歌',
         group: '播放',
         summary:
-          '读取本地音频标签与封面，通过浏览器音频或 macOS CoreAudio 输出；切歌与传输标题有独立动画。',
+          '播放层封装 Web Audio 与本地文件，无缝切歌用双缓冲预载下一首；音量与音质设置独立成 audio-settings。',
         files: [
           { label: 'music-player.ts', path: 'src/music-player.ts' },
+          { label: 'music-browser-gapless.ts', path: 'src/music-browser-gapless.ts' },
           { label: 'audio.ts', path: 'src/audio.ts' },
+          { label: 'audio-settings.ts', path: 'src/audio-settings.ts' },
           { label: 'music-transport-title.ts', path: 'src/music-transport-title.ts' },
-          { label: 'music-track-focus.ts', path: 'src/music-track-focus.ts' },
-          { label: 'package.json', path: 'package.json' },
-          { label: 'index.html', path: 'index.html' },
-          { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
         ],
         points: [
-          '浏览器输出与 CoreAudio 原生输出可切换；原生输出可选择设备。',
-          '浏览器端支持无缝衔接；播放状态与界面标题分离。',
-          '点击右上播放歌名可定位当前曲目，但不会改变播放状态。',
+          '下一首在播放当前曲目时就开始缓冲，切换时听不到空隙。',
+          '浏览器不支持时退化为普通切换，不阻塞播放。',
+          '文件只在本地读取，不上传服务器。',
         ],
       },
       {
-        id: 'navigation',
-        name: '滑尺与滚轮导航',
-        group: '浏览',
+        id: 'rhine-lyrics',
+        name: '同步歌词',
+        group: '歌词',
         summary:
-          '底部滑尺、滚轮、方向键与触摸共同驱动浏览；滑尺刻度与导航动画独立成模块。',
+          '解析同名歌词文件，按时间轴高亮当前行；沉浸模式把歌词铺满画面，逐行位移用文本动效而不是逐字动画。',
         files: [
+          { label: 'music-lyrics.ts', path: 'src/music-lyrics.ts' },
+          { label: 'music-lyrics-timeline.ts', path: 'src/music-lyrics-timeline.ts' },
+          { label: 'music-lyrics.css', path: 'src/music-lyrics.css' },
+          { label: 'music-lyrics-immersive.css', path: 'src/music-lyrics-immersive.css' },
+          { label: 'music-text-motion.ts', path: 'src/music-text-motion.ts' },
+        ],
+        points: [
+          '时间轴与渲染分离，跳转播放位置不会重建整个歌词列表。',
+          '当前行以外整体降透明度，滚动到中间而不是固定在顶部。',
+          '沉浸模式的字号随视口缩放，行距保持固定比例。',
+        ],
+      },
+      {
+        id: 'rhine-navigation',
+        name: '滚轮与标尺',
+        group: '交互',
+        summary:
+          '滚轮驱动列切换，顶部标尺给出位置反馈；滚动带惯性但会吸附到列，触控板与滚轮使用不同的力度曲线。',
+        files: [
+          { label: 'music-wheel-navigation.ts', path: 'src/music-wheel-navigation.ts' },
           { label: 'music-ruler.ts', path: 'src/music-ruler.ts' },
           { label: 'music-navigation-motion.css', path: 'src/music-navigation-motion.css' },
           { label: 'music-navigation-ruler.css', path: 'src/music-navigation-ruler.css' },
           { label: 'music-order.ts', path: 'src/music-order.ts' },
-          { label: 'package.json', path: 'package.json' },
-          { label: 'index.html', path: 'index.html' },
-          { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
         ],
         points: [
-          '方向键、底部滑尺与滚轮共享同一套目标定位。',
-          '列内移动与跨列移动使用不同的缓动节奏。',
-          '滑尺刻度由独立 CSS 与逻辑生成，便于换主题。',
-          '视觉 Demo 支持点击刻度、按住拖动、滚轮与 ← → / Home / End，指针、专辑名和计数同步更新。',
+          '滚轮与触控板分两套系数，避免触控板上一次滚过头。',
+          '吸附阈值按列宽比例给，不按固定像素。',
+          '标尺只在滚动时出现，停稳后淡出。',
         ],
       },
       {
-        id: 'theme',
-        name: '主题与开场',
+        id: 'rhine-transitions',
+        name: '切歌与转场',
         group: '动效',
         summary:
-          '晨雾浅色与月影深色两套主题，配合开场标语、品牌字轮与减少动态效果设置。',
+          '点开专辑是一次视图转场：卡片从列表位置放大到详情，背景与文案分两层进入；切歌时标题与封面各自独立过渡。',
+        files: [
+          { label: 'music-detail-view-transition.ts', path: 'src/music-detail-view-transition.ts' },
+          { label: 'music-song-transition.ts', path: 'src/music-song-transition.ts' },
+          { label: 'music-transition-control.css', path: 'src/music-transition-control.css' },
+          { label: 'ui-transitions.ts', path: 'src/ui-transitions.ts' },
+          { label: 'motion.ts', path: 'src/motion.ts' },
+        ],
+        points: [
+          '详情转场分封面、背景、文案三层，速度略有差异。',
+          '减少动态效果时，转场直接停在终态而不是缩短时长。',
+          '转场期间禁用滚轮导航，避免双重位移。',
+        ],
+      },
+      {
+        id: 'rhine-theme',
+        name: '主题与外观',
+        group: '主题',
+        summary:
+          'Morning Mist 与 Moon Shadow 两套主题，切换时背景、玻璃卡与光照一起过渡；主题偏好持久化，下次启动直接命中。',
         files: [
           { label: 'music-theme.css', path: 'src/music-theme.css' },
           { label: 'music-theme-switch.css', path: 'src/music-theme-switch.css' },
-          { label: 'viewer-theme.ts', path: 'src/viewer-theme.ts' },
           { label: 'theme-transition.ts', path: 'src/theme-transition.ts' },
-          { label: 'package.json', path: 'package.json' },
-          { label: 'index.html', path: 'index.html' },
-          { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
+          { label: 'viewer-theme.ts', path: 'src/viewer-theme.ts' },
+          { label: 'appearance.ts', path: 'src/appearance.ts' },
         ],
         points: [
-          '开场由「ONE ALBUM AT A TIME」淡入淡出后接三维专辑阵列，可跳过、重播。',
-          '手动切换主题会播放过渡动画；系统“减少动态效果”会关闭或缩短动效。',
-          '主题偏好保存在浏览器，与专辑浏览位置互不影响。',
+          '主题切换是过渡不是闪烁：颜色与光照同时插值。',
+          '玻璃卡的模糊与底色跟着主题变，不是同一套透明度。',
+          '偏好写入本地存储，启动时在首帧前应用，避免闪白。',
         ],
       },
       {
-        id: 'lyrics',
-        name: '同步歌词',
-        group: '播放',
+        id: 'rhine-boot',
+        name: '启动序列',
+        group: '启动',
         summary:
-          '读取音频文件同名的 LRC 歌词，随播放进度高亮当前行，支持偏移解析与点击歌词定位。',
+          '启动是一段编排好的序列：Logo 轨迹、镜头推进、专辑架就位，各段有独立时间与回调，可被跳过。',
         files: [
-          { label: 'lyrics.ts', path: 'src/lyrics.ts' },
-          { label: 'music-text-motion.ts', path: 'src/music-text-motion.ts' },
-          { label: 'typing-rhythm.ts', path: 'src/typing-rhythm.ts' },
-          { label: 'package.json', path: 'package.json' },
-          { label: 'index.html', path: 'index.html' },
-          { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
+          { label: 'boot.ts', path: 'src/boot.ts' },
+          { label: 'music-boot.ts', path: 'src/music-boot.ts' },
+          { label: 'music-boot.css', path: 'src/music-boot.css' },
+          { label: 'music-boot-timing.ts', path: 'src/music-boot-timing.ts' },
+          { label: 'boot-motion.ts', path: 'src/boot-motion.ts' },
         ],
         points: [
-          '歌词文件与音频同名放置即可被识别，不复制、不上传音频。',
-          '当前行随播放进度同步高亮，点击歌词可定位播放位置。',
-          '支持解析偏移标签，处理不同来源 LRC 的时间偏差。',
+          '每段动画有自己的时长与回调，序列可单独调试。',
+          '用户交互会立即跳过剩余启动段。',
+          '启动期间不渲染可交互内容，避免误触。',
         ],
       },
       {
-        id: 'queue',
-        name: '歌单与播放队列',
-        group: '播放',
+        id: 'rhine-platform',
+        name: 'PWA、画质与设置',
+        group: '平台',
         summary:
-          'Windows 版新增的本机歌单管理和可编辑播放队列，支持上一首／下一首。',
+          '离线缓存、画质档位与动效偏好放在同一层：PWA 注册、渲染质量与设置面板互相读取，而不是各自维护一份状态。',
         files: [
-          { label: 'music-order.ts', path: 'src/music-order.ts' },
-          { label: 'music-playlists.css', path: 'src/music-playlists.css' },
-          { label: 'data.ts', path: 'src/data.ts' },
-          { label: 'package.json', path: 'package.json' },
-          { label: 'index.html', path: 'index.html' },
-          { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
-        ],
-        points: [
-          '歌单与队列保存在本机，播放仍读取原音频路径。',
-          '队列可手动调整顺序，支持上一首／下一首。',
-          '演示封面模式下隐藏队列编辑入口，避免误操作。',
-        ],
-      },
-      {
-        id: 'performance',
-        name: '封面图集与实例化',
-        group: '性能',
-        summary:
-          'Windows 版把封面打包为普通 2D 图集，以独立 UV 区域和实例化绘制降低三维专辑架的传输与绘制开销。',
-        files: [
-          { label: 'frame-profiler.ts', path: 'src/frame-profiler.ts' },
+          { label: 'pwa.ts', path: 'src/pwa.ts' },
+          { label: 'quality-settings.ts', path: 'src/quality-settings.ts' },
+          { label: 'quality-settings.css', path: 'src/quality-settings.css' },
           { label: 'render-quality.ts', path: 'src/render-quality.ts' },
-          { label: 'quality-renderer.ts', path: 'src/quality-renderer.ts' },
-          { label: 'gpu-capability.ts', path: 'src/gpu-capability.ts' },
+          { label: 'music-motion-settings.ts', path: 'src/music-motion-settings.ts' },
           { label: 'package.json', path: 'package.json' },
-          { label: 'index.html', path: 'index.html' },
-          { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
         ],
         points: [
-          '封面更新只上传变化的图块，而不是整套图集。',
-          '专辑架使用实例化绘制，减少 draw call。',
-          '冷切换时选中封面与离场封面改用 CanvasTexture 路径，避免 GPU 纹理读回复制。',
-        ],
-      },
-      {
-        id: 'navhud',
-        name: '底部导航与状态层',
-        group: '浏览',
-        summary:
-          '专辑计数、上下切专辑、左右切流派、键盘提示、收藏状态与 rAF 诊断信息，是专辑架最底部的常驻界面层。',
-        files: [
-          { label: 'music-ticks.ts', path: 'src/music-ticks.ts' },
-          { label: 'music-navigation-motion.css', path: 'src/music-navigation-motion.css' },
-          { label: 'music-title.ts', path: 'src/music-title.ts' },
-          { label: 'music.css', path: 'src/music.css' },
-          { label: 'package.json', path: 'package.json' },
-          { label: 'index.html', path: 'index.html' },
-          { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
-        ],
-        points: [
-          'ALBUM / SELECT 的序号会随切专辑滚动切换，总数来自当前分类。',
-          '中间是专辑上下步进与刻度；右侧是流派左右切换，GENRE 计数与名称同步淡入。',
-          '底部左侧显示 LOCAL COLLECTION 与演示状态，右侧是 rAF 帧率、缓冲分辨率、主题与 WebGL 2 加速状态。',
-          '键盘提示常驻：← → 切流派、↑ ↓ 切专辑、ENTER 打开；开场时整组元素按序淡入。',
-          '切专辑时背景专辑列整体横移、序号上滚；切流派时名称淡入、背景轻微偏色。',
-          'ENTER 或点击「打开专辑」时封面放大进入详情，ESC / 返回按钮退出。',
-        ],
-      },
-      {
-        id: 'search',
-        name: '音乐库与搜索',
-        group: '浏览',
-        summary:
-          '按专辑、歌曲、流派浏览与搜索；选中结果后移动到目标位置并打开详情，不改变播放。',
-        files: [
-          { label: 'music-app.ts', path: 'src/music-app.ts' },
-          { label: 'data.ts', path: 'src/data.ts' },
-          { label: 'music-playlists.css', path: 'src/music-playlists.css' },
-          { label: 'package.json', path: 'package.json' },
-          { label: 'index.html', path: 'index.html' },
-          { label: 'BUILD-WINDOWS.md', path: 'BUILD-WINDOWS.md' },
-        ],
-        points: [
-          '搜索覆盖专辑与歌曲，可按流派过滤。',
-          '定位采用缓起缓停的移动，不触发播放。',
-          '每列浏览位置默认保留，切换开关不会移动当前画面。',
+          '画质档位直接控制渲染参数，不只是开关模糊。',
+          '动效偏好同时影响 CSS 过渡与三维动画。',
+          '离线缓存只保留应用与封面，不缓存音频。',
         ],
       },
     ],
@@ -1925,6 +1867,11 @@ function parseRoute() {
   activeProject.value = p
   // No module segment means the project overview, not "first module".
   activeModule.value = parts[2] ? (p.modules.find((item) => item.id === parts[2]) ?? null) : null
+  // A module id that no longer exists falls back to the project overview and
+  // the stale segment is dropped from the URL.
+  if (parts[2] && !activeModule.value) {
+    window.history.replaceState(null, '', `#/ui/${p.id}`)
+  }
 }
 
 function syncRoute() {
@@ -2218,10 +2165,7 @@ async function copyAiContext() {
             />
             <p class="lib-note">
               <template v-if="project.id === 'rhine-music'">
-                {{ demoVariant === 'alt'
-                  ? t('静态 Mock，无需 WebGL；可直接切专辑、流派和亮暗主题。', 'Static mock, no WebGL; switch albums, genres and themes directly.')
-                  : t('真实前端需要本地 5175 服务；如果封面空白，可切到「静态 Mock」。', 'The real app needs the local 5175 service; if covers are blank, switch to Static mock.') }}
-                <code>npm run demo:rhine</code>
+                {{ t('站内是自研的纯 CSS 复现，不需要 WebGL，也不会读取你的音乐目录。', 'This is a pure-CSS recreation: no WebGL, and it never reads your music folder.') }}
               </template>
               <template v-else>
                 {{ t('如果内嵌页面空白，请用「新窗口打开」；在线项目首次加载可能较慢。', 'If the embedded page is blank, open it in a new tab; online projects may take a while on first load.') }}
@@ -2240,23 +2184,22 @@ async function copyAiContext() {
 
         <section v-if="project.id === 'rhine-music'" class="lib-run">
           <div>
-            <h2>{{ t('本地 Demo', 'Local demo') }}</h2>
+            <h2>{{ t('站内 Demo 与上游仓库', 'Demo and upstream') }}</h2>
             <p>
-              {{ t('这里只展示视觉部分：用 ?demo=1 启动内置封面演示，不读取音乐库、不需要音频解码。运行仍需要 Node.js 与支持 WebGL 2 的浏览器；仓库没有提供在线 Demo 地址。', 'Visual only: ?demo=1 opens the bundled covers, with no library or audio decoding. It still needs Node.js and a WebGL 2 browser; the repo has no online demo.') }}
+              {{ t('上游仓库没有提供在线 Demo，本站也没有把它 clone 到本地；站内展示的是按同一版式重写的纯 CSS 复现，只保留三列专辑架、HUD、详情、亮暗主题与开场。', 'The upstream repo ships no online demo and is not cloned locally; what you see here is a pure-CSS recreation of the same layout — three-column shelf, HUD, detail view, themes and opening.') }}
             </p>
             <ol>
-              <li>{{ t('源码已在 demos/rhine-music：执行 npm install 与 npm run build。', 'Source is in demos/rhine-music: run npm install and npm run build.') }}</li>
-              <li><code>npm run music -- --port 5175</code></li>
-              <li>{{ t('打开 http://127.0.0.1:5175/?demo=1，进入只含三张封面的视觉演示。', 'Open http://127.0.0.1:5175/?demo=1 for the three-cover visual demo.') }}</li>
+              <li>{{ t('直接打开 /rhine-mock.html，或在本页点「在页面内打开」。', 'Open /rhine-mock.html directly, or use “open in page” above.') }}</li>
+              <li>{{ t('想看源码：仓库是 MIT，按模块索引里的路径去 GitHub 对应文件。', 'For the source: the repo is MIT; use the paths in each module to open the file on GitHub.') }}</li>
             </ol>
             <p class="lib-note">
-              {{ t('视觉演示不需要 FFmpeg；只有真实曲库播放与完整格式解码才需要它。', 'The visual demo does not need FFmpeg; only real library playback and full format decoding do.') }}
+              {{ t('复现只借鉴版式与交互，不含上游的模型、字体、音频或截图；这些素材不因代码 MIT 而获得授权。', 'The recreation borrows layout and interaction only — no upstream models, fonts, audio or screenshots, none of which the MIT licence covers.') }}
             </p>
           </div>
           <div class="lib-run-side">
             <span class="lib-eyebrow">DEMO NOTES</span>
-            <strong>{{ t('纯视觉演示，不含音频', 'Visual demo, no audio') }}</strong>
-            <p>{{ t('默认进入三张内置封面的演示架；不会扫描你的音乐目录。', 'Opens the three-cover demo shelf by default and never scans your music folder.') }}</p>
+            <strong>{{ t('纯视觉复现，不含音频', 'Visual recreation, no audio') }}</strong>
+            <p>{{ t('5 张本地 mock 封面；不扫描音乐库、不需要 FFmpeg。', 'Five local mock covers; no library scan and no FFmpeg.') }}</p>
           </div>
         </section>
 
