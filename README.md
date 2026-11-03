@@ -116,3 +116,9 @@ cp -r skills/catalog-ui-site ~/.claude/skills/    # 或 ~/.codex/skills/
 - 收录项目只做索引、说明与原创视觉示意；不复制第三方代码或素材（上游以 MIT 原样托管或容器运行的情况除外，均保留 LICENSE）
 - p5-ui 无许可证，仅链接与本地评估，不构建镜像、不对外托管
 - 本项目为个人作品，不宣称与任何游戏、机构或原作者存在官方关系
+
+## License
+
+[MIT](LICENSE) © 2026 hhdtc
+
+以上许可只覆盖本仓库自己的代码（站点、组件与文档）。收录的第三方项目各自保留原许可，见各项目页与 [docs/COLLECTED-PROJECTS.md](docs/COLLECTED-PROJECTS.md)；p5-ui 无许可证，不随本仓库分发。
